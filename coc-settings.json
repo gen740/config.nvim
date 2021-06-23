@@ -1,0 +1,30 @@
+{
+  "languageserver": {
+    "clangd": {
+      "command": "clangd",
+      "rootPatterns": [
+        "compile_flags.txt",
+        "compile_commands.json"
+      ],
+      "filetypes": [
+        "c",
+        "cc",
+        "cpp",
+        "c++",
+        "objc",
+        "objcpp"
+      ]
+    },
+    "digestif": {
+      "command": "digestif",
+      "filetypes": [
+        "tex",
+        "plaintex",
+        "context"
+      ]
+    }
+  },
+  "python.pythonPath": "/Users/fujimotogen/.pyenv/versions/3.9.4/bin/python3",
+  "diagnostic.errorSign": "",
+  "diagnostic.warningSign": ""
+}

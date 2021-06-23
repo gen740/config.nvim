@@ -1,0 +1,66 @@
+#===================================================================================================
+# Lazy_plugin
+#===================================================================================================
+
+[[plugins]]
+repo = 'majutsushi/tagbar'
+
+[[plugins]]
+repo = 'mbbill/undotree'
+
+[[plugins]] # 表組みをしてくれる。
+repo ='godlygeek/tabular' # << https://devhints.io/tabular
+
+[[plugins]]
+repo = 'puremourning/vimspector'
+marged = 0
+hook_add = '''
+let g:vimspector_enable_mappings = 'HUMAN'
+'''
+
+[[plugins]]
+repo = 'lilydjwg/colorizer'
+merged = 0
+hook_add = '''
+let g:colorizer_nomap=1
+'''
+
+#===================================================================================================
+# FileType
+#===================================================================================================
+[[plugins]]
+repo = "chrisbra/csv.vim"
+on_ft = 'csv'
+
+[[plugins]]
+repo = 'junegunn/goyo.vim'
+on_ft = ['txt', 'md']
+
+[[plugins]] # toml syntax
+repo = 'cespare/vim-toml'
+on_ft = 'toml'
+
+[[plugins]]
+repo = 'plasticboy/vim-markdown'
+on_ft = ['markdown', 'md']
+hook_add = '''
+let g:vim_markdown_fenced_languages = ['c++=cpp', 'viml=vim', 'bash=sh', 'ini=dosini']
+set conceallevel=1
+'''
+
+[[plugins]]
+repo = 'mattn/emmet-vim'
+on_ft = 'html'
+
+[[plugins]]
+repo = 'vim-latex/vim-latex'
+merged = 0
+on_ft = 'tex'
+hook_add = '''
+let g:Tex_SmartKeyBS = 0
+let g:Tex_SmartKeyQuote = 0
+let g:Tex_SmartKeyDot = 0
+let g:Imap_UsePlaceHolders = 0
+let g:Tex_CompileRule_pdf = 'lualatex $* > /dev/null'
+let g:Tex_CompileRule_dvi = 'lualatex $* > /dev/null'
+'''
