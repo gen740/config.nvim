@@ -14,8 +14,9 @@
 | L-L           | Search the word under the cursor      |
 | L-aa          | Git add --all                         |
 | L-ac          | Coc Codeaction                        |
-| L-ac          | Git Commit                            |
+| L-am          | Git Commit                            |
 | L-ap          | Git Push origin HEAD                  |
+| L-adc         | Git add -all and Commit               |
 | L-ar          | EasyAlign                             |
 | L-at          | Coc Codeaction Selected               |
 | L-bl          | BLines                                |

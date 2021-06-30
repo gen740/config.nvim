@@ -28,7 +28,8 @@ endif
 " │ {{{                         « Python Configurations »                                 │
 " ┼───────────────────────────────────────────────────────────────────────────────────────┼
 let g:python_host_prog='~/.pyenv/versions/neovim-2/bin/python'
-let g:python3_host_prog='~/.pyenv/versions/neovim/bin/python' 
+let g:python3_host_prog='~/.pyenv/versions/neovim-3/bin/python' 
+
 " }}}
 " ┼───────────────────────────────────────────────────────────────────────────────────────┼
 " │ {{{                              « Vim Options »                                      │
@@ -61,7 +62,7 @@ set mouse+=a                                    " マウスでカーソルの位
 set modelines=10                                " modeline
 set nobackup
 set foldenable                                " 自動的に折り畳みをしない
-set foldlevel=0
+set foldlevel=999
 set nohlsearch                                  " 検索した文字がハイライトされます。
 set noswapfile                                  " swapファイルは使いません
 set nowritebackup  
@@ -304,16 +305,16 @@ xmap ga <Plug>(EasyAlign)
 nmap ga <Plug>(EasyAlign)
 nmap <silent> <C-n> <Plug>AirlineSelectNextTab
 nmap <silent> <C-p> <Plug>AirlineSelectPrevTab
-nmap <silent> <C-q> :Fern %:h -drawer -toggle<CR>
-nmap <silent> <Leader>aa :Git ada<CR>
-nmap <silent> <Leader>ac :silent Git commit<CR>
+nmap <silent> <C-q> :Fern . -reveal=%<CR>
+nmap <silent> <Leader>aa :Git add --all<CR>
+nmap <silent> <Leader>am :silent Git commit<CR>
 nmap <silent> <Leader>ap :Git push origin HEAD<CR>
 nmap <silent> <Leader>bl :BLines!<CR>
 nmap <silent> <Leader>cN :cp<CR>
 nmap <silent> <Leader>ccc :resize 50<CR>
 nmap <silent> <Leader>cn :cn<CR>
 nmap <silent> <Leader>co :e ~/.config/nvim/init.vim<CR>
-nmap <silent> <Leader>df :FzfPreviewDirectoryFiles
+nmap <silent> <Leader>df :FzfPreviewDirectoryFiles<CR>
 nmap <silent> <Leader>gb :FzfPreviewGitBranches<CR>
 nmap <silent> <Leader>gf :FzfPreviewGitFiles<CR>
 nmap <silent> <Leader>gs :FzfPreviewGitStatus<CR>
