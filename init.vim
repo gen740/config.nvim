@@ -47,7 +47,6 @@ set completeopt-=preview                        " プレビューウインドウ
 set cursorline                                  " 今いる行をハイライト
 set display=lastline                            " 最後の行をできるだけ表示する
 set exrc
-set guicursor=
 set foldexpr=nvim_treesitter#foldexpr()
 set foldmethod=expr
 set hidden                                      " 保存しなくてもバッファの切り替えができる
@@ -61,9 +60,9 @@ set matchtime=5                                 " showmatchまでの時間
 set mouse+=a                                    " マウスでカーソルの位置を指定できる
 set modelines=10                                " modeline
 set nobackup
-set foldenable                                " 自動的に折り畳みをしない
+set foldenable                                  " 自動的に折り畳みをしない
 set foldlevel=999
-set nohlsearch                                  " 検索した文字がハイライトされます。
+set hlsearch                                  " 検索した文字がハイライトされます。
 set noswapfile                                  " swapファイルは使いません
 set nowritebackup  
 set nu relativenumber                           " 番号を相対表示にする
@@ -80,7 +79,7 @@ set splitright                                  " splitすると右に分かれ�
 set tags=.tags;~                                " ctagsを遡って検索
 set termguicolors                               " 色をバグらないようにする
 set updatetime=300
-set shada='1000,f1,<500,:500,@500,/500        " viminfoに蓄える内容とその量を決める
+set shada='1000,f1,<500,:500,@500,/500          " viminfoに蓄える内容とその量を決める
 set whichwrap=b,s,<,>,[,]                       " 行末、行頭で行を跨ぐことができるようになります。
 set wildmenu wildmode=longest,full              " 補完の形を決める（vim互換性）
 if has('persistent_undo')                       " undoファイルをずっと残す
@@ -297,18 +296,37 @@ let g:coc_snippet_prev = '<c-l>'
 " ┼───────────────────────────────────────────────────────────────────────────────────────┼
 " │ {{{                              « Key mappings »                                     │
 " ┼───────────────────────────────────────────────────────────────────────────────────────┼
-inoremap <silent> <C-[> <C-[>:silent ChangeIME<CR>
-inoremap <silent> <esc> <esc>:silent ChangeIME<CR>
+inoremap <silent> <C-[> <C-[>:silent call custom#change_ime('eisu')<CR>
+inoremap <silent> <esc> <esc>:silent call custom#change_ime('eisu')<CR>
 vnoremap <down> :m '>+1<CR>gv=gv
 vnoremap <up> :m '<-2<CR>gv=gv
 xmap ga <Plug>(EasyAlign)
 nmap ga <Plug>(EasyAlign)
+nmap ƒ :call custom#japanese('f')<CR>
+nmap Ï :call custom#japanese('F')<CR>
+nmap † :call custom#japanese('t')<CR>
+nmap ˇ :call custom#japanese('T')<CR>
+nmap <silent> g/ :silent call custom#japanese_search('/')<CR>
+nmap <silent> g? :silent call custom#japanese_search('?')<CR>
 nmap <silent> <C-n> <Plug>AirlineSelectNextTab
 nmap <silent> <C-p> <Plug>AirlineSelectPrevTab
 nmap <silent> <C-q> :Fern . -reveal=%<CR>
 nmap <silent> <Leader>aa :Git add --all<CR>
 nmap <silent> <Leader>am :silent Git commit<CR>
 nmap <silent> <Leader>ap :Git push origin HEAD<CR>
+
+" <Leader>f{char} to move to {char}
+map  <Leader>z <Plug>(easymotion-bd-f)
+nmap <Leader>z <Plug>(easymotion-overwin-f)
+
+" s{char}{char} to move to {char}{char}
+nmap s <Plug>(easymotion-overwin-f2)
+
+
+" Move to word
+map  <Leader>w <Plug>(easymotion-bd-w)
+nmap <Leader>w <Plug>(easymotion-overwin-w)
+
 nmap <silent> <Leader>bl :BLines!<CR>
 nmap <silent> <Leader>cN :cp<CR>
 nmap <silent> <Leader>ccc :resize 50<CR>
@@ -323,12 +341,13 @@ nmap <silent> <Leader>qf :copen<CR>
 nmap <silent> <Leader>rf :set foldmethod=expr<CR>
 nmap <silent> <Leader>sw :SetWin<CR>
 nmap <silent> <Leader>ta :TagbarToggle<CR>
-nmap <silent> <Leader>tt :ToggleTerminalTop<CR>
-nmap <silent> <Leader>tb :ToggleTerminalBottom<CR>
+nmap <silent> <Leader>tt :ToggleTerminalTop<CR>i
+nmap <silent> <Leader>tb :ToggleTerminalBottom<CR>i
 nmap <silent> <Leader>tp :!open /Applications/Typora.app %<CR><CR>
 nmap <silent> <Leader>ut :UndotreeToggle<CR>
 nmap <silent> <Leader>vq :vertical copen<CR>:vertical resize 80<CR>:wincmd h<CR>
-nmap <silent> <Leader>? :vertical split<CR>:view ~/.config/nvim/keymap.md<CR>:setlocal nomodifiable<CR>
+nmap <silent> <Leader>? :vertical split<CR>:view ~/.config/nvim/keymap.md<CR>
+            \:setlocal nomodifiable nobuflisted<CR>
 nnoremap <Leader>lsy :hi Conceal guifg=#dddddd<CR>
 nnoremap <Leader>lsn :hi Conceal guifg=#555555<CR> 
 nnoremap <silent> <Left> :vertical resize -2<CR>
@@ -338,6 +357,8 @@ nnoremap <silent> <Up> :resize -2<CR>
 noremap <Leader>r :w<CR><C-w>ji<C-p><C-m><C-\><C-n><C-w>k
 nmap <silent> <Leader><Leader> :let @/ = '\<' . expand('<cword>') . '\>'<CR>
 tmap <C-M-N> <C-\><C-N>
+tmap <silent> <Leader>tt <C-\><C-N>:ToggleTerminalTop<CR>
+tmap <silent> <Leader>tb <C-\><C-N>:ToggleTerminalBottom<CR>
 vmap <Leader>s :sort
 
 " }}}
@@ -352,8 +373,9 @@ vmap <Leader>s :sort
 " inoremap <silent><expr> <c-space> coc#refresh()
 " inoremap <silent><expr> <cr> pumvisible() ? coc#_select_confirm()
                               " \: "\<C-g>u\<CR>\<c-r>=coc#on_enter()\<CR>"
-imap <C-k> <Plug>(coc-snippets-expand)
-vmap <C-j> <Plug>(coc-snippets-select)
+imap <C-j> <Plug>(coc-snippets-expand)
+imap <C-k> <Plug>(coc-snippets-expand-jump)
+vmap <C-k> <Plug>(coc-snippets-select)
 xmap <leader>x  <Plug>(coc-convert-snippet)
 nmap <silent> gd <Plug>(coc-definition)
 nmap <silent> gy <Plug>(coc-type-definition)
@@ -395,6 +417,7 @@ endif " }}}
 nmap <Leader>bo :!source ~/.config/zsh/custom_func.zsh && blackout<CR><CR><C-l>
 nmap <Leader>cbin :!source ~/.config/zsh/custom_func.zsh && change<CR><CR><C-l>
 nmap <Leader>cbif :!source ~/.config/zsh/custom_func.zsh && change_f<CR><CR><C-l>
+
 " inoremap \| \|<C-o>:call custom#AlignTable()<CR><C-o>$
 " }}}
 " ┼───────────────────────────────────────────────────────────────────────────────────────┼

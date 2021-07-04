@@ -43,7 +43,7 @@ on_ft = 'toml'
 [[plugins]] # markdown
 repo = 'plasticboy/vim-markdown'
 on_ft = ['markdown', 'md']
-depends = 'tagbar-markdown'
+depends = ['tagbar-markdown', 'tabular']
 hook_add = '''
 let g:vim_markdown_fenced_languages = ['c++=cpp', 'viml=vim', 'bash=sh', 'ini=dosini']
 set conceallevel=1

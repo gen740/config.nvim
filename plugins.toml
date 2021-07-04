@@ -2,9 +2,32 @@
 # │                                      « Plugins »                                      │
 # ┼───────────────────────────────────────────────────────────────────────────────────────┼
 
+[[plugins]] # Vim easy Motion
+repo = 'easymotion/vim-easymotion'
+hook_add = '''
+let g:EasyMotion_keys               = get(g:,
+    \ 'EasyMotion_keys', 'aoeidtnpyfgcrl;qjkxbmwvzuhs')
+   "\ 'EasyMotion_keys', 'asdghklqwertyuiopzxcvbnmfj;')
+
+'''
+
+[[plugins]] # helpの日本語化
+merged = 0
+repo = 'vim-jp/vimdoc-ja'
+
 [[plugins]] # vim-textobjects 
 merged = 0
 repo = 'kana/vim-textobj-user'
+
+[[plugins]] # vim-presentation
+merged = 0
+repo = 'sotte/presenting.vim'
+
+[[plugins]] # Previm
+repo = 'previm/previm'
+hook_add = '''
+let g:previm_open_cmd = "open -a Safari"
+'''
 
 [[plugins]] # vim textobjects latex
 merged = 0
@@ -23,9 +46,6 @@ let g:gitgutter_map_keys=0
 let g:gitgutter_realtime = 1
 "let g:gitgutter_eager = 0
 '''
-
-[[plugins]] # vim Sneak
-repo = 'justinmk/vim-sneak'
 
 [[plugins]] # vim repeat
 repo = 'tpope/vim-repeat'

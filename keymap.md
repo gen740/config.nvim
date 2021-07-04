@@ -16,7 +16,6 @@
 | L-ac          | Coc Codeaction                        |
 | L-am          | Git Commit                            |
 | L-ap          | Git Push origin HEAD                  |
-| L-adc         | Git add -all and Commit               |
 | L-ar          | EasyAlign                             |
 | L-at          | Coc Codeaction Selected               |
 | L-bl          | BLines                                |
@@ -61,5 +60,5 @@
 | C-c  | Coc Select Range           |
 
 ## Insert
-| C-k | Coc Snippet Expand      |
-| C-j | Coc Snippet Select Next |
+| C-j | Coc Snippet Expand      |
+| C-k | Coc Snippet Select Next |
