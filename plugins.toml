@@ -2,13 +2,23 @@
 # │                                      « Plugins »                                      │
 # ┼───────────────────────────────────────────────────────────────────────────────────────┼
 
+[[plugins]] # vim Bookmark
+repo = 'MattesGroeger/vim-bookmarks'
+hook_add = '''
+let g:bookmark_no_default_key_mappings = 0
+'''
+
+[[plugins]] # Asyncrun
+merged = 0
+repo = 'skywind3000/asyncrun.vim'
+
 [[plugins]] # Vim easy Motion
 repo = 'easymotion/vim-easymotion'
 hook_add = '''
 let g:EasyMotion_keys               = get(g:,
     \ 'EasyMotion_keys', 'aoeidtnpyfgcrl;qjkxbmwvzuhs')
    "\ 'EasyMotion_keys', 'asdghklqwertyuiopzxcvbnmfj;')
-
+let g:EasyMotion_use_migemo = 1
 '''
 
 [[plugins]] # helpの日本語化
@@ -248,8 +258,22 @@ repo = 'nvim-lua/popup.nvim'
 [[plugins]] # Plenary [Telescope Dependancies]
 repo = 'nvim-lua/plenary.nvim'
 
+[[plugins]] # Telescope Devicon
+repo = 'kyazdani42/nvim-web-devicons'
+
+[[plugins]] # Telescope vim bookmarks
+repo = 'tom-anders/telescope-vim-bookmarks.nvim'
+
 [[plugins]] # Telescope
-repo ='nvim-telescope/telescope.nvim'
+repo = 'nvim-telescope/telescope.nvim'
+
+[[plugins]] # Telescope fzf native
+repo = 'nvim-telescope/telescope-fzf-native.nvim'
+merged = 0
+build = 'make'
+
+[[plugins]] # Telescope coc extention  :Telescope coc x
+repo = 'fannheyward/telescope-coc.nvim'
 
 [[plugins]] # Coc
 repo = 'neoclide/coc.nvim'

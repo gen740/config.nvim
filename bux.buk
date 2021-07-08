@@ -1,4 +1,3 @@
-
 " ┼───────────────────────────────────────────────────────────────────────────────────────┼
 " │ {{{                            « Dein Settings »                                      │
 " ┼───────────────────────────────────────────────────────────────────────────────────────┼
@@ -25,7 +24,6 @@ endif
 " call dein#recache_runtimepath()
 
 " }}}
-lua require('config')
 " ┼───────────────────────────────────────────────────────────────────────────────────────┼
 " │ {{{                         « Python Configurations »                                 │
 " ┼───────────────────────────────────────────────────────────────────────────────────────┼
@@ -36,59 +34,60 @@ let g:python3_host_prog='~/.pyenv/versions/neovim-3/bin/python'
 " ┼───────────────────────────────────────────────────────────────────────────────────────┼
 " │ {{{                              « Vim Options »                                      │
 " ┼───────────────────────────────────────────────────────────────────────────────────────┼
-" packadd! matchit                                " if endifみたいなのも括弧ジャンプができるようになる
-" let &colorcolumn="100" " .join(range(120,121),",") " 101列目に線を入れる
-" let g:vimsyn_embed = 'l'
-" set conceallevel=1
-" set runtimepath+=~/.vim/custom_runtime
-" set autoread                                    " 編集中に別のところで編集されたら自動で読み込みます。
+colo gruvbox
+packadd! matchit                                " if endifみたいなのも括弧ジャンプができるようになる
+let &colorcolumn="100" " .join(range(120,121),",") " 101列目に線を入れる
+let g:vimsyn_embed = 'l'
+set conceallevel=1
+set runtimepath+=~/.vim/custom_runtime
+set autoread                                    " 編集中に別のところで編集されたら自動で読み込みます。
 " set autowrite                                   " normalモードに行くと勝手に保存してくれる
-" set backupext=.bak                              " バックアップファイルの拡張子
-" set clipboard=unnamed
-" set completeopt-=preview                        " プレビューウインドウを表示しない
-" set cursorline                                  " 今いる行をハイライト
-" set display=lastline                            " 最後の行をできるだけ表示する
-" set exrc
-" set foldexpr=nvim_treesitter#foldexpr()
-" set foldmethod=expr
-" set fillchars+=vert:\ 
-" set hidden                                      " 保存しなくてもバッファの切り替えができる
-" set ignorecase                                  " 大文字小文字を区別せずに検索してくれます。
-" set incsearch                                   " 文字検索時にリアルタイムで検索してくれます。
-" set iskeyword+=:                                " :をキーワードにする
-" set lazyredraw                                  " 出来るだけ再描画をしない
-" set list                                        " 不可視文字の表示
-" set listchars=tab:»-,trail:-,eol:↲,extends:»,precedes:«,nbsp:%
-" set matchtime=5                                 " showmatchまでの時間
-" set modelines=10                                " modeline
-" set nobackup
-" set foldenable                                  " 自動的に折り畳みをしない
-" set foldlevel=999
-" set hlsearch                                  " 検索した文字がハイライトされます。
-" set noswapfile                                  " swapファイルは使いません
-" set nowritebackup  
-" set path+=**                                    " Vimのパスに親のパスを追加
-" set pumheight=12                                " 補完ウインドウの行数を決める
-" set scrolloff=8                                 " 余白を取るようになる
-" set shortmess+=c
-" set showcmd                                     " 入力中のコマンドを表示します。右下に表示されます。
-" set showmatch                                   " 対応する括弧を強調表示する
-" set signcolumn=yes                              " サイドにマーカー用の行を作成
-" set smartcase                                   " 大文字を入力したときにだけ大文字小文字を区別します
-" set splitbelow                                  " splitすると下に分かれる
-" set splitright                                  " splitすると右に分かれる
-" set tags=.tags;~                                " ctagsを遡って検索
-" set termguicolors                               " 色をバグらないようにする
-" set updatetime=300
-" set shada='1000,f1,<500,:500,@500,/500          " viminfoに蓄える内容とその量を決める
-" set whichwrap=b,s,<,>,[,]                       " 行末、行頭で行を跨ぐことができるようになります。
-" set wildmenu wildmode=longest,full              " 補完の形を決める（vim互換性）
-" if has('persistent_undo')                       " undoファイルをずっと残す
-"     set undodir=~/.vim/undo
-"     set undofile
-"     set undolevels=1000         " How many undos
-"     set undoreload=10000        " number of lines to save for undo
-" endif
+set backupext=.bak                              " バックアップファイルの拡張子
+set clipboard=unnamed
+set completeopt-=preview                        " プレビューウインドウを表示しない
+set cursorline                                  " 今いる行をハイライト
+set display=lastline                            " 最後の行をできるだけ表示する
+set exrc
+set foldexpr=nvim_treesitter#foldexpr()
+set foldmethod=expr
+set hidden                                      " 保存しなくてもバッファの切り替えができる
+set ignorecase                                  " 大文字小文字を区別せずに検索してくれます。
+set incsearch                                   " 文字検索時にリアルタイムで検索してくれます。
+set iskeyword+=:                                " :をキーワードにする
+set lazyredraw                                  " 出来るだけ再描画をしない
+set list                                        " 不可視文字の表示
+set listchars=tab:»-,trail:-,eol:↲,extends:»,precedes:«,nbsp:%
+set matchtime=5                                 " showmatchまでの時間
+set modelines=10                                " modeline
+set nobackup
+set foldenable                                  " 自動的に折り畳みをしない
+set foldlevel=999
+set hlsearch                                  " 検索した文字がハイライトされます。
+set noswapfile                                  " swapファイルは使いません
+set nowritebackup  
+" set nu relativenumber                           " 番号を相対表示にする
+set path+=**                                    " Vimのパスに親のパスを追加
+set pumheight=12                                " 補完ウインドウの行数を決める
+set scrolloff=8                                 " 余白を取るようになる
+set shortmess+=c
+set showcmd                                     " 入力中のコマンドを表示します。右下に表示されます。
+set showmatch                                   " 対応する括弧を強調表示する
+set signcolumn=yes                              " サイドにマーカー用の行を作成
+set smartcase                                   " 大文字を入力したときにだけ大文字小文字を区別します
+set splitbelow                                  " splitすると下に分かれる
+set splitright                                  " splitすると右に分かれる
+set tags=.tags;~                                " ctagsを遡って検索
+set termguicolors                               " 色をバグらないようにする
+set updatetime=300
+set shada='1000,f1,<500,:500,@500,/500          " viminfoに蓄える内容とその量を決める
+set whichwrap=b,s,<,>,[,]                       " 行末、行頭で行を跨ぐことができるようになります。
+set wildmenu wildmode=longest,full              " 補完の形を決める（vim互換性）
+if has('persistent_undo')                       " undoファイルをずっと残す
+    set undodir=~/.vim/undo
+    set undofile
+    set undolevels=1000         " How many undos
+    set undoreload=10000        " number of lines to save for undo
+endif
 
 " }}}
 " ┼───────────────────────────────────────────────────────────────────────────────────────┼
@@ -319,23 +318,30 @@ nmap <silent> <Leader>aa :Git add --all<CR>
 nmap <silent> <Leader>am :silent Git commit<CR>
 nmap <silent> <Leader>ap :Git push origin HEAD<CR>
 nmap <silent> <Leader>ss :silent !open https://google.com -a /Applications/Safari.app<CR>
+
+" <Leader>f{char} to move to {char}
+map  <Leader>z <Plug>(easymotion-bd-f)
+nmap <Leader>z <Plug>(easymotion-overwin-f)
+
+" s{char}{char} to move to {char}{char}
 nmap s <Plug>(easymotion-overwin-f2)
-map S <Plug>(easymotion-bd-jk)
-nmap S <Plug>(easymotion-overwin-line)
+nmap S <Plug>(easymotion-overwin-f)
+
+
+" Move to word
+map  <Leader>w <Plug>(easymotion-bd-w)
+nmap <Leader>w <Plug>(easymotion-overwin-w)
+
 nmap <silent> <Leader>bl :BLines!<CR>
 nmap <silent> <Leader>cN :cp<CR>
 nmap <silent> <Leader>ccc :resize 50<CR>
 nmap <silent> <Leader>cn :cn<CR>
 nmap <silent> <Leader>co :e ~/.config/nvim/init.vim<CR>
-" nmap <silent> <Leader>df :FzfPreviewDirectoryFiles<CR>
-" nmap <silent> <Leader>gb :FzfPreviewGitBranches<CR>
-" nmap <silent> <Leader>gf :FzfPreviewGitFiles<CR>
-" nmap <silent> <Leader>gs :FzfPreviewGitStatus<CR>
-" nmap <silent> <Leader>gaf :FzfPreviewAllBuffers<CR>
-nnoremap <silent> <leader>ts :Telescope 
-nnoremap <silent> <leader>tf :Telescope find_files<cr>
-nnoremap <silent> <leader>gf :Telescope git_files<cr>
-nnoremap <silent> <leader>gb :Telescope git_branches<cr>
+nmap <silent> <Leader>df :FzfPreviewDirectoryFiles<CR>
+nmap <silent> <Leader>gb :FzfPreviewGitBranches<CR>
+nmap <silent> <Leader>gf :FzfPreviewGitFiles<CR>
+nmap <silent> <Leader>gs :FzfPreviewGitStatus<CR>
+nmap <silent> <Leader>gaf :FzfPreviewAllBuffers<CR>
 nmap <silent> <Leader>qf :copen<CR>
 nmap <silent> <Leader>rf :set foldmethod=expr<CR>
 nmap <silent> <Leader>sw :SetWin<CR>
@@ -416,42 +422,50 @@ endif " }}}
 " ┼───────────────────────────────────────────────────────────────────────────────────────┼
 lua << EOF
 require('telescope').setup{
-    defaults = {
-        vimgrep_arguments = {
-            'rg',
-            '--color=never',
-            '--no-heading',
-            '--with-filename',
-            '--line-number',
-            '--column',
-            '--smart-case'
-            },
-        prompt_prefix = '  ',
-        layout_config = {
-            prompt_position = 'top',
-            width = 0.8,
-            },
-        selection_caret = " ▶ ",
-        entry_prefix = "   ",
-        initial_mode = "insert",
-        selection_strategy = "reset",
-        sorting_strategy = "ascending",
-        layout_strategy = "horizontal",
-        border = {},
-        -- borderchars = { '─', '│', '─', '│', '╭', '╮', '╯', '╰' },
-        borderchars = { '─', '│', '─', '│', '┌', '┐', '┘', '└' },
-        -- borderchars = {
-        --     prompt = {"─", "│", " ", "│", '┌', '┬', "│", "│"},
-        --     results = {"─", "│", "─", "│", "├", "┤", "┴", "└"},
-        --     preview = { '─', '│', '─', ' ', '─', '┐', '┘', '─'},
-        -- },
-        color_devicons = true,
-        use_less = true,
+defaults = {
+    vimgrep_arguments = {
+      'rg',
+      '--color=never',
+      '--no-heading',
+      '--with-filename',
+      '--line-number',
+      '--column',
+      '--smart-case'
+    },
+    prompt_prefix = '  ',
+    selection_caret = " ▶ ",
+    entry_prefix = "  ",
+    initial_mode = "insert",
+    selection_strategy = "reset",
+    sorting_strategy = "descending",
+    layout_strategy = "horizontal",
+    layout_config = {
+      horizontal = {
+        mirror = false,
+      },
+      vertical = {
+        mirror = false,
+      },
+    },
+    file_sorter =  require'telescope.sorters'.get_fuzzy_file,
+    file_ignore_patterns = {},
+    generic_sorter =  require'telescope.sorters'.get_generic_fuzzy_sorter,
+    shorten_path = true,
+    winblend = 0,
+    border = {},
+    -- borderchars = { '─', '│', '─', '│', '╭', '╮', '╯', '╰' },
+    borderchars = { '─', '│', '─', '│', '┌', '┐', '┘', '└' },
+    color_devicons = true,
+    use_less = true,
+    set_env = { ['COLORTERM'] = 'truecolor' }, -- default = nil,
+    file_previewer = require'telescope.previewers'.vim_buffer_cat.new,
+    grep_previewer = require'telescope.previewers'.vim_buffer_vimgrep.new,
+    qflist_previewer = require'telescope.previewers'.vim_buffer_qflist.new
     }
 }
 require('telescope').load_extension('fzf')
 require('telescope').load_extension('coc')
-require('telescope').load_extension('vim_bookmarks')
+
 EOF
 
 " }}}
@@ -466,3 +480,4 @@ nmap <Leader>cbif :!source ~/.config/zsh/custom_func.zsh && change_f<CR><CR><C-l
 " }}}
 " ┼───────────────────────────────────────────────────────────────────────────────────────┼
 "
+lua require('config')
