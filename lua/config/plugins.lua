@@ -1,6 +1,34 @@
-return require('packer').startup(function()
-  -- Packer can manage itself
-  use 'wbthomason/packer.nvim'
+-- file type plugin
+vim.opt.runtimepath:append('~/.vim/JpFormat.vim')
+vim.opt.formatexpr=[[jpfmt#formatexpr()]]
+vim.opt.formatexpr=[[jpvim#formatexpr()]]
+vim.g.jpvim_remove_youon = 1
+
+-- On ly required if you have packer in your `opt` pack
+--
+local packer_exists = pcall(vim.cmd, [[packadd packer.nvim]])
+if not packer_exists then
+  if vim.fn.input("Download Packer? (y for yes)") ~= "y" then
+    return
+  end
+  local directory = string.format(
+    '%s/site/pack/packer/opt/',
+    vim.fn.stdpath('data')
+  )
+  vim.fn.mkdir(directory, 'p')
+  local out = vim.fn.system(string.format(
+    'git clone %s %s',
+    'https://github.com/wbthomason/packer.nvim',
+    directory .. '/packer.nvim'
+  ))
+  print(out)
+  print("Downloading packer.nvim...")
+  return
+end
+
+require('packer').startup{ function(use)
+  -- Packer
+  use {'wbthomason/packer.nvim', opt = true}
 
   -- Utilities
   use 'skywind3000/asyncrun.vim'
@@ -8,12 +36,7 @@ return require('packer').startup(function()
   use 'vim-jp/vimdoc-ja'
   use 'junegunn/vim-easy-align'
   use 'tpope/vim-commentary'
-  -- use 'airblade/vim-gitgutter'
-  use {'lewis6991/gitsigns.nvim',
-      requires = {
-          'nvim-lua/plenary.nvim'
-      },
-  }
+  use {'lewis6991/gitsigns.nvim', requires = { 'nvim-lua/plenary.nvim' }}
   use 'tpope/vim-repeat'
   use 'tpope/vim-surround'
   use '9mm/vim-closer'
@@ -23,7 +46,6 @@ return require('packer').startup(function()
   use 'yggdroot/indentline'
   use 'akinsho/nvim-toggleterm.lua'
   -- use 'sotte/presenting.vim'
-
   -- use 'kana/vim-textobj-user'
   -- use 'rbonvall/vim-textobj-latex'
 
@@ -40,33 +62,20 @@ return require('packer').startup(function()
   use 'honza/vim-snippets'
   use 'SirVer/ultisnips'
 
-  -- Fern
-  -- use {'lambdalisue/fern.vim', as = 'Fern'}
-  -- use {'lambdalisue/nerdfont.vim', as = 'FernNodeFont', disable = false} -- Fern Nerd Font
-  -- use {'lambdalisue/fern-renderer-nerdfont.vim', disable = false}
-  -- use {'LumaKernel/fern-mapping-fzf.vim', disable = true}
-  -- use {'lambdalisue/fern-git-status.vim', disable = false}
-  -- use {'lambdalisue/fern-mapping-git.vim', disable = false}
-  -- use 'lambdalisue/fern-bookmark.vim'
-  -- use {'lambdalisue/fern-hijack.vim', disable = false}
+  -- File Operations
   use 'kyazdani42/nvim-tree.lua'
-
-  -- use 'ryanoasis/vim-devicons'
-  -- use 'yuki-yano/fzf-preview.vim'
   use 'junegunn/fzf.vim'
-  -- use {'junegunn/fzf', run = './install --all', disable = false} -- Installed Via HomeBrew
   use 'kyazdani42/nvim-web-devicons'
   use 'tom-anders/telescope-vim-bookmarks.nvim'
   use {'nvim-telescope/telescope.nvim',
-      requires = {{'nvim-lua/popup.nvim'}, {'nvim-lua/plenary.nvim'}},
+      requires = {{'nvim-lua/popup.nvim'},{'nvim-lua/plenary.nvim'}},
       disable = false}
   use {'nvim-telescope/telescope-fzf-native.nvim', run = 'make', disable = false}
-  -- use {'fannheyward/telescope-coc.nvim', disable = false}
   use {'majutsushi/tagbar', disable = false}
-  use {'mbbill/undotree', opt = true}
   use {'godlygeek/tabular', opt = true}
   use {'puremourning/vimspector', opt = true}
   use {'lilydjwg/colorizer', opt = true, disable = true}
+  use {'mbbill/undotree', opt = true}
 
   -- FileType Plugins
   use {'chrisbra/csv.vim', ft = {'csv', 'tsv'}}
@@ -74,14 +83,18 @@ return require('packer').startup(function()
   use {'previm/previm', ft = {'markdown', 'md'}}
   use {'cespare/vim-toml', ft = 'toml'}
   use 'plasticboy/vim-markdown'
-  use {'lvht/tagbar-markdown', ft = {'markdown', 'md'}}
   use {'mattn/emmet-vim', ft = {'html', 'markdown', 'md'}}
   use {'vim-latex/vim-latex', ft = {'tex', 'markdown'}}
   use {'lervag/vimtex', ft = {'markdown', 'md', 'tex'}}
+  use {'lvht/tagbar-markdown', ft = {'markdown', 'md'}}
 
   -- LSP
   use {'neovim/nvim-lspconfig'}
   use {'hrsh7th/nvim-compe'}
-  -- use 'neoclide/coc.nvim'
-end)
-
+  end,
+  config = {
+    display = {
+      open_fn = require'packer.util'.float,
+    },
+  }
+}

@@ -1,7 +1,9 @@
 -- ┼─────────────────────────────────────────────────────────────────────────────────────┼
 -- │ {{{                           « Plugin settings »                                   │
 -- ┼─────────────────────────────────────────────────────────────────────────────────────┼
+
 -- Vim Bookmark
+--
 vim.g.bookmark_no_default_key_mappings = 0
 
 -- Easy Motion
@@ -43,7 +45,6 @@ vim.g['airline#extensions#tabline#right_alt_sep'] = ''
 vim.g['airline#extensions#tabline#right_sep'] = ' '
 vim.g['airline#extensions#tabline#show_close_button'] = 1
 vim.g['airline#extensions#wordcount#enabled'] = 0
-vim.g.airline_detect_modified=1
 -- vim.g.airline_left_alt_sep = ''
 -- vim.g.airline_left_sep = ''
 -- vim.g.airline_right_alt_sep = ''
@@ -52,23 +53,13 @@ vim.g.airline_left_alt_sep = ''
 vim.g.airline_left_sep = ''
 vim.g.airline_right_alt_sep = ''
 vim.g.airline_right_sep = ''
+vim.g.airline_detect_modified=1
 vim.g.airline_stl_path_style = 'short'
 vim.g.airline_theme = 'minimalist' -- 'gruvbox'  ubaryd, understated violet solalized
 
 -- Fern
-vim.g['fern#renderer'] = 'nerdfont'
 vim.cmd [[autocmd Filetype fern setlocal nonu norelativenumber]]
 vim.cmd [[let g:fzf_layout = {'up':'~90%', 'window' : { 'width': 0.8, 'height': 0.8, 'yoffset':0.5,'xoffset': 0.5, 'highlight': 'Todo', 'border': 'sharp' }}]]
-vim.cmd [[
-function! Init_fern() abort
-  nmap <buffer> n <Plug>(fern-action-new-path)
-  nmap <buffer> d <Plug>(fern-action-remove)
-  nmap <buffer> m <Plug>(fern-action-move)
-endfunction
-augroup my-fern
-  autocmd! *
-  autocmd FileType fern call Init_fern()
-augroup END ]]
 
 -- vimspector
 vim.g.vimspector_enable_mappings = 'HUMAN'
@@ -86,31 +77,6 @@ vim.g.Tex_SmartKeyQuote = 0
 vim.g.Tex_SmartKeyDot = 0
 vim.g.Tex_CompileRule_pdf = 'lualatex $* > /dev/null'
 vim.g.Tex_CompileRule_dvi = 'lualatex $* > /dev/null'
-
--- -- Coc
--- vim.cmd [[
--- function! Show_documentation()
---   if (index(['vim','help'], &filetype) >= 0)
---     execute 'h '.expand('<cword>')
---   elseif (coc#rpc#ready())
---     call CocActionAsync('doHover')
---   else
---     execute '!' . &keywordprg . " " . expand('<cword>')
---   endif
--- endfunction ]]
-
--- vim.cmd [[
--- autocmd CursorHold * silent call CocActionAsync('highlight')
--- augroup mygroup
---   autocmd!
---   " Setup formatexpr specified filetype(s).
---   autocmd FileType typescript,json setl formatexpr=CocAction('formatSelected')
---   " Update signature help on jump placeholder.
--- augroup end
--- command! -nargs=0 Format :call CocAction('format')
--- command! -nargs=? Fold :call     CocAction('fold', <f-args>)
--- command! -nargs=0 OR   :call     CocAction('runCommand', 'editor.action.organizeImport')
--- ]]
 
 -- Ultisnips
 vim.g.UltiSnipsExpandTrigger="<c-j>"
@@ -388,12 +354,7 @@ require('gitsigns').setup {
 -- │ {{{                           « LSP Configurations »                                │
 -- ┼─────────────────────────────────────────────────────────────────────────────────────┼
 
-require'lspconfig'.pyright.setup{}
-require'lspconfig'.clangd.setup{}
-
 local nvim_lsp = require('lspconfig')
--- Use an on_attach function to only map the following keys
--- after the language server attaches to the current buffer
 local on_attach = function(client, bufnr)
     local function buf_set_keymap(...) vim.api.nvim_buf_set_keymap(bufnr, ...) end
     local function buf_set_option(...) vim.api.nvim_buf_set_option(bufnr, ...) end
@@ -419,12 +380,61 @@ local on_attach = function(client, bufnr)
     buf_set_keymap('n', ']d', '<cmd>lua vim.lsp.diagnostic.goto_next()<CR>', opts)
     buf_set_keymap('n', '<space>q', '<cmd>lua vim.lsp.diagnostic.set_loclist()<CR>', opts)
     buf_set_keymap("n", "<space>f", "<cmd>lua vim.lsp.buf.formatting()<CR>", opts)
-
 end
 
--- Use a loop to conveniently call 'setup' on multiple servers and
--- map buffer local keybindings when the language server attaches
-local servers = { "pyright", "rust_analyzer", "tsserver" }
+require'lspconfig'.zeta_note.setup{
+  cmd = {'/Users/fujimotogen/.local/bin/zeta-note-macos'},
+  on_attach = on_attach
+
+}
+
+local system_name
+if vim.fn.has("mac") == 1 then
+  system_name = "macOS"
+elseif vim.fn.has("unix") == 1 then
+  system_name = "Linux"
+elseif vim.fn.has('win32') == 1 then
+  system_name = "Windows"
+else
+  print("Unsupported system for sumneko")
+end
+
+-- set the path to the sumneko installation; if you previously installed via the now deprecated :LspInstall, use
+local sumneko_root_path = '/Users/fujimotogen/home/Shelf/Tools/lua-language-server'
+local sumneko_binary = sumneko_root_path.."/bin/"..system_name.."/lua-language-server"
+
+local runtime_path = vim.split(package.path, ';')
+table.insert(runtime_path, "lua/?.lua")
+table.insert(runtime_path, "lua/?/init.lua")
+
+require'lspconfig'.sumneko_lua.setup {
+  cmd = {sumneko_binary, "-E", sumneko_root_path .. "/main.lua"};
+  on_attach = on_attach,
+  settings = {
+    Lua = {
+      runtime = {
+        -- Tell the language server which version of Lua you're using (most likely LuaJIT in the case of Neovim)
+        version = 'LuaJIT',
+        -- Setup your lua path
+        path = '/usr/local/bin/lua',
+      },
+      diagnostics = {
+        -- Get the language server to recognize the `vim` global
+        globals = {'vim'},
+      },
+      workspace = {
+        -- Make the server aware of Neovim runtime files
+        library = vim.api.nvim_get_runtime_file("", true),
+      },
+      -- Do not send telemetry data containing a randomized but unique identifier
+      telemetry = {
+        enable = false,
+      },
+    },
+  },
+}
+
+local servers = {"dockerls", "html", "denols", "pyright", "rust_analyzer", "tsserver", "clangd", "texlab"}
 for _, lsp in ipairs(servers) do
     nvim_lsp[lsp].setup {
         on_attach = on_attach,
@@ -432,8 +442,14 @@ for _, lsp in ipairs(servers) do
             debounce_text_changes = 150,
         }
     }
-
 end
+
+-- require'lspconfig'.dockerls.setup{}
+-- require'lspconfig'.tsserver.setup{}
+-- require'lspconfig'.html.setup{}
+-- require'lspconfig'.rust_analyzer.setup{}
+-- require'lspconfig'.denols.setup{}
+
 vim.cmd([[ autocmd ColorScheme * :lua require('vim.lsp.diagnostic')._define_default_signs_and_highlights() ]]) 
 
 --}}}

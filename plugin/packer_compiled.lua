@@ -69,79 +69,78 @@ end
 time([[try_loadstring definition]], false)
 time([[Defining packer_plugins]], true)
 _G.packer_plugins = {
-  Async = {
-    commands = { "Make" },
+  ["asyncrun.vim"] = {
+    loaded = true,
+    path = "/Users/fujimotogen/.local/share/nvim/site/pack/packer/start/asyncrun.vim"
+  },
+  ["csv.vim"] = {
+    loaded = false,
+    needs_bufread = true,
+    path = "/Users/fujimotogen/.local/share/nvim/site/pack/packer/opt/csv.vim"
+  },
+  ["emmet-vim"] = {
     loaded = false,
     needs_bufread = false,
-    path = "/Users/fujimotogen/.local/share/nvim/site/pack/packer/opt/Async"
-  },
-  Closer = {
-    loaded = true,
-    path = "/Users/fujimotogen/.local/share/nvim/site/pack/packer/start/Closer"
-  },
-  EasyMotion = {
-    loaded = true,
-    path = "/Users/fujimotogen/.local/share/nvim/site/pack/packer/start/EasyMotion"
-  },
-  Jpdoc = {
-    loaded = true,
-    path = "/Users/fujimotogen/.local/share/nvim/site/pack/packer/start/Jpdoc"
-  },
-  ["coc.nvim"] = {
-    loaded = true,
-    path = "/Users/fujimotogen/.local/share/nvim/site/pack/packer/start/coc.nvim"
-  },
-  ["fern-git-status.vim"] = {
-    loaded = true,
-    path = "/Users/fujimotogen/.local/share/nvim/site/pack/packer/start/fern-git-status.vim"
-  },
-  ["fern-hijack.vim"] = {
-    loaded = true,
-    path = "/Users/fujimotogen/.local/share/nvim/site/pack/packer/start/fern-hijack.vim"
-  },
-  ["fern-mapping-git.vim"] = {
-    loaded = true,
-    path = "/Users/fujimotogen/.local/share/nvim/site/pack/packer/start/fern-mapping-git.vim"
-  },
-  ["fern-renderer-nerdfont.vim"] = {
-    loaded = true,
-    path = "/Users/fujimotogen/.local/share/nvim/site/pack/packer/start/fern-renderer-nerdfont.vim"
-  },
-  ["fern.vim"] = {
-    loaded = true,
-    path = "/Users/fujimotogen/.local/share/nvim/site/pack/packer/start/fern.vim"
-  },
-  fzf = {
-    loaded = true,
-    path = "/Users/fujimotogen/.local/share/nvim/site/pack/packer/start/fzf"
+    path = "/Users/fujimotogen/.local/share/nvim/site/pack/packer/opt/emmet-vim"
   },
   ["fzf.vim"] = {
     loaded = true,
     path = "/Users/fujimotogen/.local/share/nvim/site/pack/packer/start/fzf.vim"
   },
+  ["gitsigns.nvim"] = {
+    loaded = true,
+    path = "/Users/fujimotogen/.local/share/nvim/site/pack/packer/start/gitsigns.nvim"
+  },
+  ["goyo.vim"] = {
+    loaded = false,
+    needs_bufread = false,
+    path = "/Users/fujimotogen/.local/share/nvim/site/pack/packer/opt/goyo.vim"
+  },
   gruvbox = {
     loaded = true,
-    path = "/Users/fujimotogen/.local/share/nvim/site/pack/packer/start/gruvbox"
+    needs_bufread = false,
+    path = "/Users/fujimotogen/.local/share/nvim/site/pack/packer/opt/gruvbox"
   },
   indentline = {
     loaded = true,
     path = "/Users/fujimotogen/.local/share/nvim/site/pack/packer/start/indentline"
   },
-  ["nerdfont.vim"] = {
+  ["nvim-compe"] = {
     loaded = true,
-    path = "/Users/fujimotogen/.local/share/nvim/site/pack/packer/start/nerdfont.vim"
+    path = "/Users/fujimotogen/.local/share/nvim/site/pack/packer/start/nvim-compe"
+  },
+  ["nvim-lspconfig"] = {
+    loaded = true,
+    path = "/Users/fujimotogen/.local/share/nvim/site/pack/packer/start/nvim-lspconfig"
+  },
+  ["nvim-toggleterm.lua"] = {
+    loaded = true,
+    path = "/Users/fujimotogen/.local/share/nvim/site/pack/packer/start/nvim-toggleterm.lua"
+  },
+  ["nvim-tree.lua"] = {
+    loaded = true,
+    path = "/Users/fujimotogen/.local/share/nvim/site/pack/packer/start/nvim-tree.lua"
   },
   ["nvim-treesitter"] = {
     loaded = true,
     path = "/Users/fujimotogen/.local/share/nvim/site/pack/packer/start/nvim-treesitter"
+  },
+  ["nvim-treesitter-refactor"] = {
+    loaded = true,
+    path = "/Users/fujimotogen/.local/share/nvim/site/pack/packer/start/nvim-treesitter-refactor"
+  },
+  ["nvim-treesitter-textobjects"] = {
+    loaded = true,
+    path = "/Users/fujimotogen/.local/share/nvim/site/pack/packer/start/nvim-treesitter-textobjects"
   },
   ["nvim-web-devicons"] = {
     loaded = true,
     path = "/Users/fujimotogen/.local/share/nvim/site/pack/packer/start/nvim-web-devicons"
   },
   ["packer.nvim"] = {
-    loaded = true,
-    path = "/Users/fujimotogen/.local/share/nvim/site/pack/packer/start/packer.nvim"
+    loaded = false,
+    needs_bufread = false,
+    path = "/Users/fujimotogen/.local/share/nvim/site/pack/packer/opt/packer.nvim"
   },
   ["plenary.nvim"] = {
     loaded = true,
@@ -151,6 +150,17 @@ _G.packer_plugins = {
     loaded = true,
     path = "/Users/fujimotogen/.local/share/nvim/site/pack/packer/start/popup.nvim"
   },
+  previm = {
+    loaded = false,
+    needs_bufread = false,
+    path = "/Users/fujimotogen/.local/share/nvim/site/pack/packer/opt/previm"
+  },
+  tabular = {
+    after_files = { "/Users/fujimotogen/.local/share/nvim/site/pack/packer/opt/tabular/after/plugin/TabularMaps.vim" },
+    loaded = false,
+    needs_bufread = false,
+    path = "/Users/fujimotogen/.local/share/nvim/site/pack/packer/opt/tabular"
+  },
   tagbar = {
     loaded = true,
     path = "/Users/fujimotogen/.local/share/nvim/site/pack/packer/start/tagbar"
@@ -159,10 +169,6 @@ _G.packer_plugins = {
     loaded = false,
     needs_bufread = false,
     path = "/Users/fujimotogen/.local/share/nvim/site/pack/packer/opt/tagbar-markdown"
-  },
-  ["telescope-coc.nvim"] = {
-    loaded = true,
-    path = "/Users/fujimotogen/.local/share/nvim/site/pack/packer/start/telescope-coc.nvim"
   },
   ["telescope-fzf-native.nvim"] = {
     loaded = true,
@@ -175,6 +181,10 @@ _G.packer_plugins = {
   ["telescope.nvim"] = {
     loaded = true,
     path = "/Users/fujimotogen/.local/share/nvim/site/pack/packer/start/telescope.nvim"
+  },
+  ultisnips = {
+    loaded = true,
+    path = "/Users/fujimotogen/.local/share/nvim/site/pack/packer/start/ultisnips"
   },
   undotree = {
     loaded = false,
@@ -189,6 +199,14 @@ _G.packer_plugins = {
     loaded = true,
     path = "/Users/fujimotogen/.local/share/nvim/site/pack/packer/start/vim-airline-themes"
   },
+  ["vim-bookmarks"] = {
+    loaded = true,
+    path = "/Users/fujimotogen/.local/share/nvim/site/pack/packer/start/vim-bookmarks"
+  },
+  ["vim-closer"] = {
+    loaded = true,
+    path = "/Users/fujimotogen/.local/share/nvim/site/pack/packer/start/vim-closer"
+  },
   ["vim-commentary"] = {
     loaded = true,
     path = "/Users/fujimotogen/.local/share/nvim/site/pack/packer/start/vim-commentary"
@@ -197,13 +215,17 @@ _G.packer_plugins = {
     loaded = true,
     path = "/Users/fujimotogen/.local/share/nvim/site/pack/packer/start/vim-easy-align"
   },
+  ["vim-easymotion"] = {
+    loaded = true,
+    path = "/Users/fujimotogen/.local/share/nvim/site/pack/packer/start/vim-easymotion"
+  },
   ["vim-fugitive"] = {
     loaded = true,
     path = "/Users/fujimotogen/.local/share/nvim/site/pack/packer/start/vim-fugitive"
   },
-  ["vim-gitgutter"] = {
+  ["vim-gruvbox8"] = {
     loaded = true,
-    path = "/Users/fujimotogen/.local/share/nvim/site/pack/packer/start/vim-gitgutter"
+    path = "/Users/fujimotogen/.local/share/nvim/site/pack/packer/start/vim-gruvbox8"
   },
   ["vim-latex"] = {
     loaded = false,
@@ -229,24 +251,60 @@ _G.packer_plugins = {
   ["vim-surround"] = {
     loaded = true,
     path = "/Users/fujimotogen/.local/share/nvim/site/pack/packer/start/vim-surround"
+  },
+  ["vim-toml"] = {
+    loaded = false,
+    needs_bufread = true,
+    path = "/Users/fujimotogen/.local/share/nvim/site/pack/packer/opt/vim-toml"
+  },
+  ["vimdoc-ja"] = {
+    loaded = true,
+    path = "/Users/fujimotogen/.local/share/nvim/site/pack/packer/start/vimdoc-ja"
+  },
+  vimspector = {
+    loaded = false,
+    needs_bufread = false,
+    path = "/Users/fujimotogen/.local/share/nvim/site/pack/packer/opt/vimspector"
+  },
+  vimtex = {
+    loaded = false,
+    needs_bufread = true,
+    path = "/Users/fujimotogen/.local/share/nvim/site/pack/packer/opt/vimtex"
   }
 }
 
 time([[Defining packer_plugins]], false)
-
--- Command lazy-loads
-time([[Defining lazy-load commands]], true)
-vim.cmd [[command! -nargs=* -range -bang -complete=file Make lua require("packer.load")({'Async'}, { cmd = "Make", l1 = <line1>, l2 = <line2>, bang = <q-bang>, args = <q-args> }, _G.packer_plugins)]]
-time([[Defining lazy-load commands]], false)
-
+-- Setup for: gruvbox
+time([[Setup for gruvbox]], true)
+try_loadstring("\27LJ\2\n0\0\0\3\0\3\0\0056\0\0\0009\0\1\0'\2\2\0B\0\2\1K\0\1\0\17colo gruvbox\bcmd\bvim\0", "setup", "gruvbox")
+time([[Setup for gruvbox]], false)
+time([[packadd for gruvbox]], true)
+vim.cmd [[packadd gruvbox]]
+time([[packadd for gruvbox]], false)
 vim.cmd [[augroup packer_load_aucmds]]
 vim.cmd [[au!]]
   -- Filetype lazy-loads
 time([[Defining lazy-load filetype autocommands]], true)
-vim.cmd [[au FileType md ++once lua require("packer.load")({'tagbar-markdown'}, { ft = "md" }, _G.packer_plugins)]]
-vim.cmd [[au FileType markdown ++once lua require("packer.load")({'tagbar-markdown'}, { ft = "markdown" }, _G.packer_plugins)]]
-vim.cmd [[au FileType tex ++once lua require("packer.load")({'vim-latex'}, { ft = "tex" }, _G.packer_plugins)]]
+vim.cmd [[au FileType md ++once lua require("packer.load")({'vimtex', 'emmet-vim', 'previm', 'tagbar-markdown', 'goyo.vim'}, { ft = "md" }, _G.packer_plugins)]]
+vim.cmd [[au FileType toml ++once lua require("packer.load")({'vim-toml'}, { ft = "toml" }, _G.packer_plugins)]]
+vim.cmd [[au FileType csv ++once lua require("packer.load")({'csv.vim'}, { ft = "csv" }, _G.packer_plugins)]]
+vim.cmd [[au FileType html ++once lua require("packer.load")({'emmet-vim'}, { ft = "html" }, _G.packer_plugins)]]
+vim.cmd [[au FileType tsv ++once lua require("packer.load")({'csv.vim'}, { ft = "tsv" }, _G.packer_plugins)]]
+vim.cmd [[au FileType tex ++once lua require("packer.load")({'vimtex', 'vim-latex'}, { ft = "tex" }, _G.packer_plugins)]]
+vim.cmd [[au FileType txt ++once lua require("packer.load")({'goyo.vim'}, { ft = "txt" }, _G.packer_plugins)]]
+vim.cmd [[au FileType markdown ++once lua require("packer.load")({'vimtex', 'vim-latex', 'emmet-vim', 'previm', 'tagbar-markdown', 'goyo.vim'}, { ft = "markdown" }, _G.packer_plugins)]]
 time([[Defining lazy-load filetype autocommands]], false)
+vim.cmd("augroup END")
+vim.cmd [[augroup filetypedetect]]
+time([[Sourcing ftdetect script at: /Users/fujimotogen/.local/share/nvim/site/pack/packer/opt/vimtex/ftdetect/tex.vim]], true)
+vim.cmd [[source /Users/fujimotogen/.local/share/nvim/site/pack/packer/opt/vimtex/ftdetect/tex.vim]]
+time([[Sourcing ftdetect script at: /Users/fujimotogen/.local/share/nvim/site/pack/packer/opt/vimtex/ftdetect/tex.vim]], false)
+time([[Sourcing ftdetect script at: /Users/fujimotogen/.local/share/nvim/site/pack/packer/opt/vim-toml/ftdetect/toml.vim]], true)
+vim.cmd [[source /Users/fujimotogen/.local/share/nvim/site/pack/packer/opt/vim-toml/ftdetect/toml.vim]]
+time([[Sourcing ftdetect script at: /Users/fujimotogen/.local/share/nvim/site/pack/packer/opt/vim-toml/ftdetect/toml.vim]], false)
+time([[Sourcing ftdetect script at: /Users/fujimotogen/.local/share/nvim/site/pack/packer/opt/csv.vim/ftdetect/csv.vim]], true)
+vim.cmd [[source /Users/fujimotogen/.local/share/nvim/site/pack/packer/opt/csv.vim/ftdetect/csv.vim]]
+time([[Sourcing ftdetect script at: /Users/fujimotogen/.local/share/nvim/site/pack/packer/opt/csv.vim/ftdetect/csv.vim]], false)
 vim.cmd("augroup END")
 if should_profile then save_profiles() end
 
