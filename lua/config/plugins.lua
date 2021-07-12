@@ -34,7 +34,7 @@ return require('packer').startup(function()
 
   -- Appearance
   use {'morhetz/gruvbox', setup = function() vim.cmd 'colo gruvbox' end}
-  use {'lifepillar/vim-gruvbox8', as = 'GruvBox8', disable = true} -- GruvBox 8
+  use {'lifepillar/vim-gruvbox8'} -- GruvBox 8
   use 'vim-airline/vim-airline'
   use 'vim-airline/vim-airline-themes'
   use 'honza/vim-snippets'
@@ -80,8 +80,8 @@ return require('packer').startup(function()
   use {'lervag/vimtex', ft = {'markdown', 'md', 'tex'}}
 
   -- LSP
-  -- use {'neovim/nvim-lspconfig'}
-  -- use {'hrsh7th/nvim-compe'}
-  use 'neoclide/coc.nvim'
+  use {'neovim/nvim-lspconfig'}
+  use {'hrsh7th/nvim-compe'}
+  -- use 'neoclide/coc.nvim'
 end)
 
