@@ -1,29 +1,33 @@
 {
-  "languageserver": {
-    "clangd": {
-      "command": "clangd",
-      "rootPatterns": [
-        "compile_flags.txt",
-        "compile_commands.json"
-      ],
-      "filetypes": [
-        "c",
-        "cc",
-        "cpp",
-        "c++",
-        "objc",
-        "objcpp"
-      ]
+    "languageserver": {
+        "clangd": {
+            "command": "clangd",
+            "rootPatterns": [
+                "compile_flags.txt",
+                "compile_commands.json"
+            ],
+            "filetypes": [
+                "c",
+                "cc",
+                "cpp",
+                "c++",
+                "objc",
+                "objcpp"
+            ]
+        },
+        "digestif": {
+            "command": "digestif",
+            "filetypes": [
+                "tex",
+                "plaintex",
+                "context"
+            ]
+        },
+        "lua": {
+            "command": "lua-lsp",
+            "filetypes": ["lua"]
+        }
     },
-    "digestif": {
-      "command": "digestif",
-      "filetypes": [
-        "tex",
-        "plaintex",
-        "context"
-      ]
-    }
-  },
-  "diagnostic.errorSign": "",
-  "diagnostic.warningSign": ""
+    "diagnostic.errorSign": "",
+    "diagnostic.warningSign": ""
 }
