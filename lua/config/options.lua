@@ -187,6 +187,9 @@ require('telescope').setup{
         sorting_strategy = "ascending",
         layout_strategy = "horizontal",
         border = {},
+        file_ignore_patterns = {"node_modules",
+                                "legacy",
+                                "overrides"},
         -- borderchars = { '─', '│', '─', '│', '╭', '╮', '╯', '╰' },
         borderchars = { '─', '│', '─', '│', '┌', '┐', '┘', '└' },
         -- borderchars = {

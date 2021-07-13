@@ -1,11 +1,11 @@
 -- file type plugin
+vim.cmd 'packadd! matchit'
 vim.opt.runtimepath:append('~/.vim/JpFormat.vim')
 vim.opt.formatexpr=[[jpfmt#formatexpr()]]
 vim.opt.formatexpr=[[jpvim#formatexpr()]]
 vim.g.jpvim_remove_youon = 1
 
 -- On ly required if you have packer in your `opt` pack
---
 local packer_exists = pcall(vim.cmd, [[packadd packer.nvim]])
 if not packer_exists then
   if vim.fn.input("Download Packer? (y for yes)") ~= "y" then

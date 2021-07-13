@@ -1,16 +1,17 @@
 -- ┼─────────────────────────────────────────────────────────────────────────────────────┼
 -- │ {{{                             « Vim Options »                                     │
 -- ┼─────────────────────────────────────────────────────────────────────────────────────┼
--- vim.cmd [[colo gruvbox]]
-vim.cmd [[set fillchars+=vert:│]]
-vim.cmd 'packadd! matchit'
--- vim.builtin.colorscheme = 'gruvbox'
+vim.g.python3_host_prog='~/.pyenv/versions/neovim-3/bin/python'
+vim.g.python_host_prog='~/.pyenv/versions/neovim-2/bin/python'
+vim.opt.foldcolumn = '0'
+vim.opt.autoindent = true
 vim.opt.autoread = true
 vim.opt.clipboard = 'unnamed'
 vim.opt.colorcolumn = '100'
-vim.opt.conceallevel = 1
 vim.opt.concealcursor= 'c'
+vim.opt.conceallevel = 1
 vim.opt.cursorline = true
+vim.opt.expandtab = true
 vim.opt.exrc = true
 vim.opt.foldenable = true
 vim.opt.foldexpr = 'nvim_treesitter#foldexpr()'
@@ -31,16 +32,19 @@ vim.opt.relativenumber = true
 vim.opt.runtimepath:append('~/.vim/custom_runtime')
 vim.opt.scrolloff = 8
 vim.opt.shada = [['1000,f1,<500,:500,@500,/500]]
+vim.opt.shiftwidth = 4
 vim.opt.shortmess = 'acostTWI'
 vim.opt.showcmd = true
 vim.opt.showmode = false
 vim.opt.showtabline = 2
 vim.opt.signcolumn = 'yes'
 vim.opt.smartcase = true
+vim.opt.softtabstop = 4
 vim.opt.splitbelow = true
 vim.opt.splitright = true
 vim.opt.statusline = '2'
 vim.opt.swapfile = false
+vim.opt.tabstop = 4
 vim.opt.termguicolors = true
 vim.opt.undodir=[[/Users/fujimotogen/.vim/undo]]
 vim.opt.undofile = true
@@ -48,8 +52,7 @@ vim.opt.undolevels = 1000
 vim.opt.undoreload = 10000
 vim.opt.updatetime = 300
 vim.opt.whichwrap = 'b,s,<,>,[,]'
-vim.g.python_host_prog='~/.pyenv/versions/neovim-2/bin/python'
-vim.g.python3_host_prog='~/.pyenv/versions/neovim-3/bin/python'
+vim.opt.wrap = false
 -- vim.opt.backup = false
 -- vim.opt.backupext = '.bak'
 -- vim.opt.completeopt = "menuone,noselect"
@@ -133,6 +136,7 @@ vim.api.nvim_set_keymap('n', '<Leader>cbif', [[:!source ~/.config/zsh/custom_fun
 -- ┼─────────────────────────────────────────────────────────────────────────────────────┼
 -- │ {{{                             « AutoCommands »                                    │
 -- ┼─────────────────────────────────────────────────────────────────────────────────────┼
+
 vim.cmd [[autocmd BufEnter,FocusGained,InsertLeave * set cursorline]]
 vim.cmd [[autocmd BufLeave,FocusLost,InsertEnter   * set nocursorline]]
 vim.cmd [[autocmd ColorScheme * highlight Normal guibg=none]]
@@ -140,26 +144,11 @@ vim.cmd [[autocmd ColorScheme * highlight SignColumn guibg=none]]
 vim.cmd [[autocmd ColorScheme * highlight EndOfBuffer guifg=#222222]]
 vim.cmd [[autocmd ColorScheme * highlight VertSplit guibg=none]]
 vim.cmd [[autocmd ColorScheme * highlight GitSignsAdd guifg=lightblue]] -- 9999ff
-vim.cmd [[autocmd BufRead,BufNewFile *.[ch] nmap <silent><buffer> <Leader>f :silent CFamilyFMT<CR>]]
-vim.cmd [[autocmd BufRead,BufNewFile *.[chi]pp nmap <buffer> <Leader>f :silent CFamilyFMT<CR>]]
-vim.cmd [[autocmd FileType python nmap <buffer> <Leader>f :silen PEPFMT<CR>]]
-vim.cmd [[autocmd FileType python compiler python]]
-vim.cmd [[autocmd FileType qf setlocal nocursorline nonu norelativenumber]]
-vim.cmd [[autocmd BufRead,BufNewFile *.rlib nmap <buffer> <Leader>f :silent RustFMT<CR>]]
-vim.cmd [[autocmd BufRead,BufNewFile *.rs nmap <buffer> <Leader>f :silent RustFMT<CR>]]
-vim.cmd [[autocmd BufRead,BufNewFile *.tex nmap <Leader>r <Leader>ll<Leader>lv]]
-vim.cmd [[autocmd BufRead,BufNewFile *.tex setlocal filetype=tex]]
-vim.cmd [[autocmd BufRead,BufNewFile *.wiki setlocal filetype=tex]]
-vim.cmd [[autocmd BufRead,BufNewFile *.tex nnoremap <C-q> <Plug>Tex_FastEnvironmentInsert]]
-vim.cmd [[autocmd BufRead,BufNewFile *.tex vnoremap <C-q> <Plug>Tex_FastEnvironmentInsert]]
-vim.cmd [[autocmd FileType markdown let g:indentLine_enabled = 0]]
 vim.cmd [[autocmd TermOpen * setlocal nonumber norelativenumber]]
-vim.cmd [[
-augroup remember_folds
-  autocmd!
-  autocmd BufWinLeave * silent! mkview
-  autocmd BufRead,BufNewFile * silent! loadview
-augroup END]]
+
+-- Rememder Foldings
+vim.cmd [[autocmd BufWinLeave * silent! mkview]]
+vim.cmd [[autocmd BufRead,BufNewFile * silent! loadview]]
 
 -- autocmd BufRead,BufNewFile *.cpp syntax match Entity "main" conceal cchar=
 
@@ -168,12 +157,6 @@ augroup END]]
 -- │ {{{                    « FileType Specified Configurations »                        │
 -- ┼─────────────────────────────────────────────────────────────────────────────────────┼
 
-vim.opt.autoindent = true
-vim.opt.expandtab = true
-vim.opt.wrap = false
-vim.opt.shiftwidth = 4
-vim.opt.softtabstop = 4
-vim.opt.tabstop = 4
 -- Markdown
 vim.cmd [[autocmd FileType markdown setlocal tabstop=2 softtabstop=2 shiftwidth=2 wrap]]
 vim.cmd [[autocmd FileType markdown nnoremap o A<CR>]]
@@ -186,6 +169,8 @@ vim.cmd [[autocmd FileType markdown iabbrev {. \left\{ \right. <++><esc>BBhi]]
 vim.cmd [[autocmd FileType markdown inoreabbrev $$$$ $$$$<++><esc>5hi<cr><c-o>k]]
 
 vim.cmd [[autocmd FileType python setlocal tabstop=4 softtabstop=4 shiftwidth=4]]
+vim.cmd [[autocmd FileType python nmap <buffer> <Leader>f :silen PEPFMT<CR>]]
+vim.cmd [[autocmd FileType python compiler python]]
 vim.cmd [[autocmd FileType cpp setlocal tabstop=4 softtabstop=4 shiftwidth=4]]
 vim.cmd [[autocmd FileType lua setlocal tabstop=2 softtabstop=2 shiftwidth=2]]
 vim.cmd [[autocmd FileType qf setlocal wrap]]
@@ -193,11 +178,39 @@ vim.cmd [[autocmd FileType text setlocal tabstop=4 softtabstop=4 shiftwidth=4 wr
 vim.cmd [[autocmd FileType rust let g:rust_recommended_style = 1]]
 vim.cmd [[autocmd FileType rust let g:rustfmt_autosave = 1]]
 vim.cmd [[autocmd FileType rust setlocal tabstop=4 softtabstop=4 shiftwidth=4]]
+vim.cmd [[autocmd FileType qf setlocal nocursorline nonu norelativenumber]]
+vim.cmd [[autocmd FileType markdown let g:indentLine_enabled = 0]]
 
+vim.cmd [[autocmd BufRead,BufNewFile *.[ch] nmap <silent><buffer> <Leader>f :silent CFamilyFMT<CR>]]
+vim.cmd [[autocmd BufRead,BufNewFile *.[chi]pp nmap <buffer> <Leader>f :silent CFamilyFMT<CR>]]
+vim.cmd [[autocmd BufRead,BufNewFile *.rlib nmap <buffer> <Leader>f :silent RustFMT<CR>]]
+vim.cmd [[autocmd BufRead,BufNewFile *.rs nmap <buffer> <Leader>f :silent RustFMT<CR>]]
+vim.cmd [[autocmd BufRead,BufNewFile *.tex nmap <Leader>r <Leader>ll<Leader>lv]]
+vim.cmd [[autocmd BufRead,BufNewFile *.tex setlocal filetype=tex]]
+vim.cmd [[autocmd BufRead,BufNewFile *.wiki setlocal filetype=tex]]
+vim.cmd [[autocmd BufRead,BufNewFile *.tex nnoremap <C-q> <Plug>Tex_FastEnvironmentInsert]]
+vim.cmd [[autocmd BufRead,BufNewFile *.tex vnoremap <C-q> <Plug>Tex_FastEnvironmentInsert]]
 --- }}}
 -- ┼─────────────────────────────────────────────────────────────────────────────────────┼
 -- │ {{{                       « Folding Configurations »                                │
 -- ┼─────────────────────────────────────────────────────────────────────────────────────┼
+
+-- local api = vim.api
+-- local fn = vim.fn
+-- if vim.fn.has('folding') == 1 then
+--   print(vim.api.nvim_get_option('fillchars'))
+--   function _G.MyFoldText()
+--     local numwidth = api.nvim_win_get_option(0, 'numberwidth')
+
+--     if api.nvim_win_get_option(0, 'foldmethod') == 'diff' then
+--       local linetext = ''
+--       local foldtext = '----------' .. (api.nvim_get_vvar('foldend') -
+--       api.nvim_get_vvar('foldstart') + 1) .. 'lines the same ----------'
+--       local align = fn.winwidth(0) - api.nvim_win_get_option(0, 'foldcolumn') -  0
+--     end
+--   end
+-- end
+
 vim.cmd [[
 if has("folding")
     set foldtext=MyFoldText()
