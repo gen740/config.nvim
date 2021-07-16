@@ -3,7 +3,9 @@
 -- ┼─────────────────────────────────────────────────────────────────────────────────────┼
 vim.g.python3_host_prog='~/.pyenv/versions/neovim-3/bin/python'
 vim.g.python_host_prog='~/.pyenv/versions/neovim-2/bin/python'
-vim.opt.foldcolumn = '0'
+
+vim.g.enc = 'utf-8'
+vim.g.fileencoding = 'utf-8'
 vim.opt.autoindent = true
 vim.opt.autoread = true
 vim.opt.clipboard = 'unnamed'
@@ -13,6 +15,7 @@ vim.opt.conceallevel = 1
 vim.opt.cursorline = true
 vim.opt.expandtab = true
 vim.opt.exrc = true
+vim.opt.foldcolumn = '0'
 vim.opt.foldenable = true
 vim.opt.foldexpr = 'nvim_treesitter#foldexpr()'
 vim.opt.foldlevel = 999
@@ -42,7 +45,6 @@ vim.opt.smartcase = true
 vim.opt.softtabstop = 4
 vim.opt.splitbelow = true
 vim.opt.splitright = true
-vim.opt.statusline = '2'
 vim.opt.swapfile = false
 vim.opt.tabstop = 4
 vim.opt.termguicolors = true
@@ -68,7 +70,7 @@ vim.opt.wrap = false
 -- vim.opt.writebackup = false
 
 -- forNeovide
-vim.o.guifont = 'MesloLGS NF:h13'
+vim.o.guifont = 'HackGenNerd Console:h13'
 vim.g.neovide_cursor_vfx_mode = 'pixiedust'
 vim.g.neovide_fullscreen = 1
 vim.g.neovide_cursor_vfx_particle_density = 50
@@ -91,8 +93,8 @@ vim.api.nvim_set_keymap('x', 'ga', '<plug>(EasyAlign)', {noremap = false})
 vim.api.nvim_set_keymap('n', 'ga', '<plug>(EasyAlign)', {noremap = false})
 vim.api.nvim_set_keymap('n', '<c-y>', '5<c-y>', {noremap = true})
 vim.api.nvim_set_keymap('n', '<c-e>', '5<c-e>', {noremap = true})
-vim.api.nvim_set_keymap('n', '<c-n>', '<plug>AirlineSelectNextTab', {noremap = false, silent = true})
-vim.api.nvim_set_keymap('n', '<c-p>', '<plug>AirlineSelectPrevTab', {noremap = false, silent = true})
+vim.api.nvim_set_keymap('n', '<c-n>', ':bn<cr>', {noremap = false, silent = true})
+vim.api.nvim_set_keymap('n', '<c-p>', ':bp<cr>', {noremap = false, silent = true})
 vim.api.nvim_set_keymap('n', '<c-q>', ':NvimTreeToggle<cr>', {noremap = true, silent = true})
 vim.api.nvim_set_keymap('n', '<leader>aa', ':Git add --all<cr>', {noremap = true, silent = true})
 vim.api.nvim_set_keymap('n', '<leader>am', ':silent Git commit<cr>', {noremap = true, silent = true})
@@ -131,26 +133,29 @@ vim.api.nvim_set_keymap('v', '<Leader>s', ':sort<cr>', {noremap = true, silent =
 vim.api.nvim_set_keymap('n', '<Leader>bo',   [[:!source ~/.config/zsh/custom_func.zsh && blackout<cr><cr><C-l>]], {noremap = true, silent = true})
 vim.api.nvim_set_keymap('n', '<Leader>cbin', [[:!source ~/.config/zsh/custom_func.zsh && change<cr><cr><C-l>]], {noremap = true, silent = true})
 vim.api.nvim_set_keymap('n', '<Leader>cbif', [[:!source ~/.config/zsh/custom_func.zsh && change_f<cr><cr><C-l>]], {noremap = true, silent = true})
+-- vim.api.nvim_set_keymap('n', 'q:', [[<nop>]], {noremap = true, silent = true})
+vim.api.nvim_set_keymap('n', 'Q', [[<nop>]], {noremap = true, silent = true})
 
 -- }}}
 -- ┼─────────────────────────────────────────────────────────────────────────────────────┼
 -- │ {{{                             « AutoCommands »                                    │
 -- ┼─────────────────────────────────────────────────────────────────────────────────────┼
 
-vim.cmd [[autocmd BufEnter,FocusGained,InsertLeave * set cursorline]]
-vim.cmd [[autocmd BufLeave,FocusLost,InsertEnter   * set nocursorline]]
+vim.cmd [[autocmd WinEnter, BufEnter,FocusGained,InsertLeave * set cursorline]]
+vim.cmd [[autocmd BufLeave,FocusLost,InsertEnter * set nocursorline]]
 vim.cmd [[autocmd ColorScheme * highlight Normal guibg=none]]
 vim.cmd [[autocmd ColorScheme * highlight SignColumn guibg=none]]
 vim.cmd [[autocmd ColorScheme * highlight EndOfBuffer guifg=#222222]]
 vim.cmd [[autocmd ColorScheme * highlight VertSplit guibg=none]]
 vim.cmd [[autocmd ColorScheme * highlight GitSignsAdd guifg=lightblue]] -- 9999ff
+vim.cmd [[autocmd ColorScheme * highlight CompeDocumentation guibg=none]]
+vim.cmd [[autocmd ColorScheme * highlight CompeDocumentationBorder guibg=none]]
+vim.cmd [[autocmd ColorScheme * highlight BufferLineSeparator guifg=#333333]]
+vim.cmd [[autocmd ColorScheme * highlight BufferLineSeparatorSelected guifg=#333333]]
 vim.cmd [[autocmd TermOpen * setlocal nonumber norelativenumber]]
 
--- Rememder Foldings
-vim.cmd [[autocmd BufWinLeave * silent! mkview]]
-vim.cmd [[autocmd BufRead,BufNewFile * silent! loadview]]
-
--- autocmd BufRead,BufNewFile *.cpp syntax match Entity "main" conceal cchar=
+-- vim.cmd [[au BufWinLeave *.* silent! mkview]]
+-- vim.cmd [[au BufWinEnter *.* silent loadview]]
 
 -- }}}
 -- ┼─────────────────────────────────────────────────────────────────────────────────────┼
@@ -179,7 +184,6 @@ vim.cmd [[autocmd FileType rust let g:rust_recommended_style = 1]]
 vim.cmd [[autocmd FileType rust let g:rustfmt_autosave = 1]]
 vim.cmd [[autocmd FileType rust setlocal tabstop=4 softtabstop=4 shiftwidth=4]]
 vim.cmd [[autocmd FileType qf setlocal nocursorline nonu norelativenumber]]
-vim.cmd [[autocmd FileType markdown let g:indentLine_enabled = 0]]
 
 vim.cmd [[autocmd BufRead,BufNewFile *.[ch] nmap <silent><buffer> <Leader>f :silent CFamilyFMT<CR>]]
 vim.cmd [[autocmd BufRead,BufNewFile *.[chi]pp nmap <buffer> <Leader>f :silent CFamilyFMT<CR>]]
@@ -228,7 +232,7 @@ if has("folding")
             let l:align = winwidth(0)-&foldcolumn-(&nu ? Max(strwidth(line('$'))+1, l:numwidth) : 0)
             let l:align = (l:align / 2) + (strwidth(l:foldtext)/2)
             " note trailing space on next line
-            setlocal fillchars+=fold:\ 
+            setlocal fillchars+=fold:\
         elseif !exists('b:foldpat') || b:foldpat==0
             let l:foldtext = '┈ '.(v:foldend-v:foldstart).' ﲐ'.' ┠'
             let l:endofline = 106 " (&textwidth>0 ? &textwidth : 100 + 6)
@@ -251,12 +255,12 @@ endif
 
 set foldmethod=expr
 set foldexpr=nvim_treesitter#foldexpr()
-autocmd FileType vim setlocal foldmethod=marker 
+autocmd FileType vim setlocal foldmethod=marker
 " autocmd FileType zsh setlocal foldmethod=marker
 autocmd BufRead,BufNewFile *.zprofile setlocal foldmethod=marker
 set viewoptions-=options
-autocmd BufRead,BufNewFile * hi Folded guifg=#928374 guibg=none gui=undercurl 
+autocmd BufRead,BufNewFile * hi Folded guifg=#928374 guibg=none gui=undercurl
 ]]
-
+-- vim:set foldmethod=marker:
 -- }}}
 -- ┼─────────────────────────────────────────────────────────────────────────────────────┼
