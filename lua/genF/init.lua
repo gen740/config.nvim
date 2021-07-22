@@ -32,7 +32,7 @@ vim.opt.modeline = true
 vim.opt.number = true
 vim.opt.pumheight = 12
 vim.opt.relativenumber = true
-vim.opt.runtimepath:append('~/.vim/custom_runtime')
+vim.opt.runtimepath:append('~/.config/nvim/custom_runtime')
 vim.opt.scrolloff = 8
 vim.opt.shada = [['1000,f1,<500,:500,@500,/500]]
 vim.opt.shiftwidth = 4
@@ -143,15 +143,27 @@ vim.api.nvim_set_keymap('n', 'Q', [[<nop>]], {noremap = true, silent = true})
 
 vim.cmd [[autocmd WinEnter, BufEnter,FocusGained,InsertLeave * set cursorline]]
 vim.cmd [[autocmd BufLeave,FocusLost,InsertEnter * set nocursorline]]
-vim.cmd [[autocmd ColorScheme * highlight Normal guibg=none]]
-vim.cmd [[autocmd ColorScheme * highlight SignColumn guibg=none]]
-vim.cmd [[autocmd ColorScheme * highlight EndOfBuffer guifg=#222222]]
-vim.cmd [[autocmd ColorScheme * highlight VertSplit guibg=none]]
-vim.cmd [[autocmd ColorScheme * highlight GitSignsAdd guifg=lightblue]] -- 9999ff
-vim.cmd [[autocmd ColorScheme * highlight CompeDocumentation guibg=none]]
-vim.cmd [[autocmd ColorScheme * highlight CompeDocumentationBorder guibg=none]]
-vim.cmd [[autocmd ColorScheme * highlight BufferLineSeparator guifg=#333333]]
-vim.cmd [[autocmd ColorScheme * highlight BufferLineSeparatorSelected guifg=#333333]]
+vim.cmd [[autocmd ColorScheme * hi Normal guibg=none]]
+vim.cmd [[autocmd ColorScheme * hi SignColumn guibg=none]]
+vim.cmd [[autocmd ColorScheme * hi EndOfBuffer guifg=#222222]]
+vim.cmd [[autocmd ColorScheme * hi VertSplit guibg=none]]
+vim.cmd [[autocmd ColorScheme * hi GitSignsAdd guifg=lightblue]] -- 9999ff
+vim.cmd [[autocmd ColorScheme * hi CompeDocumentation guibg=none]]
+vim.cmd [[autocmd ColorScheme * hi CompeDocumentationBorder guibg=none]]
+vim.cmd [[autocmd ColorScheme * hi BufferLineSeparator guifg=#333333]]
+vim.cmd [[autocmd ColorScheme * hi BufferLineSeparatorSelected guifg=#333333]]
+vim.cmd [[autocmd ColorScheme * hi EasyMotionTarget  guifg=yellow]]
+
+vim.cmd [[autocmd ColorScheme * hi GitSignsAdd      guibg=none  guifg=lightblue]]
+vim.cmd [[autocmd ColorScheme * hi GitSignsAddNr    guibg=none  guifg=lightblue]]
+vim.cmd [[autocmd ColorScheme * hi GitSignsAddLn    guibg=none  guifg=lightblue]]
+vim.cmd [[autocmd ColorScheme * hi GitSignsChange   guibg=none  guifg=lightgreen]]
+vim.cmd [[autocmd ColorScheme * hi GitSignsChangeNr guibg=none  guifg=lightgreen]]
+vim.cmd [[autocmd ColorScheme * hi GitSignsChangeLn guibg=none  guifg=lightgreen]]
+vim.cmd [[autocmd ColorScheme * hi GitSignsDelete   guibg=none  guifg=red]]
+vim.cmd [[autocmd ColorScheme * hi GitSignsDeleteNr guibg=none  guifg=red]]
+vim.cmd [[autocmd ColorScheme * hi GitSignsDeleteLn guibg=none  guifg=red]]
+
 vim.cmd [[autocmd TermOpen * setlocal nonumber norelativenumber]]
 
 -- vim.cmd [[au BufWinLeave *.* silent! mkview]]
@@ -199,7 +211,7 @@ vim.cmd [[autocmd BufRead,BufNewFile *.tex vnoremap <C-q> <Plug>Tex_FastEnvironm
 -- │ {{{                       « Folding Configurations »                                │
 -- ┼─────────────────────────────────────────────────────────────────────────────────────┼
 
--- local api = vim.api
+-- local api = vim.api # TODO
 -- local fn = vim.fn
 -- if vim.fn.has('folding') == 1 then
 --   print(vim.api.nvim_get_option('fillchars'))

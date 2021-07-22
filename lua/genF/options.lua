@@ -7,24 +7,17 @@ local others = function ()
   vim.g.EasyMotion_keys = 'aoeidtnpyfgcrl;qjkxbmwvzuhs'  -- This Option is For Dvorak User
   vim.g.EasyMotion_do_mapping = 0
   vim.g.EasyMotion_use_migemo = 1
-  -- Previm
-  vim.g.previm_open_cmd = 'open -a Safari'
   -- Indentline
   vim.g.indentLine_color_gui = '#555555'
   vim.cmd [[autocmd FileType tex let g:indentLine_color_gui = "#dddddd"]]
   vim.cmd [[autocmd BufNewFile,BufRead *.tex hi Statement guifg=#dddddd]]
   vim.g.indentLine_fileTypeExclude = {'dashboard', 'markdown'}
-  vim.g.indentLine_char = '┊'
+  -- vim.g.indentLine_char = '┊'
   -- vim.g.indentLine_char = '│'
+  -- vim.g.indentLine_char = '⎸'
+  vim.g.indentLine_char = '▏'
   vim.g.indentLine_conceallevel = 1
   vim.g.indentLine_concealcursor=""
-  -- Fern
-  vim.cmd [[autocmd Filetype fern setlocal nonu norelativenumber]]
-  vim.cmd [[let g:fzf_layout = {'up':'~90%', 'window' : { 'width': 0.8, 'height': 0.8, 'yoffset':0.5,'xoffset': 0.5, 'highlight': 'Todo', 'border': 'sharp' }}]]
-  -- vimspector
-  vim.g.vimspector_enable_mappings = 'HUMAN'
-  -- colorizer
-  vim.g.colorizer_nomap=1
   -- markdown
   vim.g.vim_markdown_fenced_languages = {'c++=cpp', 'viml=vim', 'bash=sh', 'ini=dosini'}
   vim.g.vim_markdown_math = 1
@@ -177,7 +170,6 @@ local telescope_init = function()
       }
     }
   require('telescope').load_extension('fzf')
-  require('telescope').load_extension('vim_bookmarks')
 end
 
 -- }}}
@@ -450,6 +442,10 @@ local lsp_status_init = function()
   lsp_status.register_progress()
 end
 
+function Word_count()
+  return [[ : ]] .. vim.fn.wordcount()['chars']
+end
+
 local lualine_init = function()
   require('lualine').setup{
     options = {theme = 'onedark',
@@ -466,10 +462,10 @@ local lualine_init = function()
     sections = {
       lualine_a = {{'mode', lower = true}},
       lualine_b = {'branch'},
-      lualine_c = {require'lsp-status'.status},
+      lualine_c = {require'lsp-status'.status, Word_count},
       lualine_x = {'filetype', 'encoding'},
       lualine_y = {'progress'},
-      lualine_z = {'location',}
+      lualine_z = {'location'}
     },
     extensions = {'quickfix', 'nvim-tree'}
   }
@@ -478,7 +474,7 @@ end
 local bufferline_init = function()
   require('bufferline').setup {
     options = {
-      numbers = 'ordinal', -- "none" | "ordinal" | "buffer_id" | "both",
+      numbers = 'none', -- "none" | "ordinal" | "buffer_id" | "both",
       number_style = '', -- "superscript" | "" | { "none", "subscript" }, -- buffer_id at index 1, ordinal at index 2
       mappings = false, -- true | false,
       close_command = "bdelete! %d",       -- can be a string | function, see "Mouse actions"
@@ -747,7 +743,7 @@ end
 
 --}}}
 -- ┼─────────────────────────────────────────────────────────────────────────────────────┼
---
+
 -- Export
 return {
   others = others,

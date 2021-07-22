@@ -1,2 +1,2 @@
-require('config.init')
-require('config.plugins')
+require('genF.init')
+require('genF.plugins')
