@@ -77,7 +77,7 @@ require('packer').startup{
     use {'hoob3rt/lualine.nvim',
       requires = {'kyazdani42/nvim-web-devicons', opt = true},
       config = myConf.lualine}
-    use {'honza/vim-snippets', opt = true}
+    use {'honza/vim-snippets'}
     use {'SirVer/ultisnips', event = 'InsertEnter'}
     -- File Operations ----------------------------------------------------------------------------
     use {'kyazdani42/nvim-tree.lua', config = myConf.nvim_tree}
