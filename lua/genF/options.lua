@@ -157,7 +157,8 @@ local telescope_init = function()
       border = {},
       file_ignore_patterns = {"node_modules",
       "legacy",
-      "overrides"},
+      "overrides",
+      "__pycache__"},
       -- borderchars = { '─', '│', '─', '│', '╭', '╮', '╯', '╰' },
       borderchars = { '─', '│', '─', '│', '┌', '┐', '┘', '└' },
       -- borderchars = {
@@ -337,6 +338,7 @@ local nvim_lsp_init = function()
                    'denols',
                    'clangd',
                    'texlab',
+                   'bashls',
                    'cmake',}
   for _, lsp in ipairs(servers) do
     nvim_lsp[lsp].setup {

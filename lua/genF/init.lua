@@ -114,7 +114,7 @@ vim.api.nvim_set_keymap('n', '<Leader>qf', ':copen<cr>', {noremap = true, silent
 vim.api.nvim_set_keymap('n', '<Leader>rf', ':set foldmethod=expr<cr>', {noremap = true, silent = true})
 vim.api.nvim_set_keymap('n', '<Leader>sw', ':SetWin<cr>', {noremap = true, silent = true})
 vim.api.nvim_set_keymap('n', '<Leader>ta', ':TagbarToggle<cr>', {noremap = true, silent = true})
-vim.api.nvim_set_keymap('n', '<C-t>',      ':ToggleTerm<cr>', {noremap = true, silent = true})
+vim.api.nvim_set_keymap('n', '<leader>tb',      ':ToggleTerm<cr>', {noremap = true, silent = true})
 vim.api.nvim_set_keymap('n', '<Leader>bb', ':ToggleTerminalBottom<cr>i', {noremap = true, silent = true})
 vim.api.nvim_set_keymap('n', '<Leader>tp', ':!open /Applications/Typora.app %<cr><cr>', {noremap = true, silent = true})
 vim.api.nvim_set_keymap('n', '<Leader>ut', ':UndotreeToggle<cr>', {noremap = true, silent = true})
