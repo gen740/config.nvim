@@ -47,7 +47,7 @@ local treesitter_init = function()
     },
     indent = {
       enable = true,              -- false will disable the whole extension
-    -- disable = { "c", "cpp", "python"},
+      disable = { "c", "cpp", "python"},
     },
     incremental_selection = {
       enable = true              -- false will disable the whole extension
@@ -158,7 +158,10 @@ local telescope_init = function()
       file_ignore_patterns = {"node_modules",
       "legacy",
       "overrides",
-      "__pycache__"},
+      "__pycache__",
+      ".github",
+      ".DS_Store",
+      ".gitignore",},
       -- borderchars = { '─', '│', '─', '│', '╭', '╮', '╯', '╰' },
       borderchars = { '─', '│', '─', '│', '┌', '┐', '┘', '└' },
       -- borderchars = {
