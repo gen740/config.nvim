@@ -46,7 +46,7 @@ local treesitter_init = function()
       enable = true              -- false will disable the whole extension
     },
     indent = {
-      enable = true,              -- false will disable the whole extension
+      enable = false,              -- false will disable the whole extension
       disable = { "c", "cpp", "python"},
     },
     incremental_selection = {
@@ -192,8 +192,8 @@ local nvim_tree_init = function ()
   vim.g.nvim_tree_root_folder_modifier = ':~'
   vim.g.nvim_tree_auto_resize = 1
   vim.g.nvim_tree_auto_open = 0
-  vim.g.nvim_tree_disable_netrw = 1
-  vim.g.nvim_tree_hijack_netrw = 1
+  vim.g.nvim_tree_disable_netrw = 0
+  vim.g.nvim_tree_hijack_netrw = 0
   vim.g.nvim_tree_add_trailing = 1
   vim.g.nvim_tree_group_empty = 1
   vim.g.nvim_tree_lsp_diagnostics = 1
@@ -286,14 +286,14 @@ local gitsigns_init = function()
           interval = 1000,
           follow_files = true
       },
-      current_line_blame = false,
-      current_line_blame_delay = 1000,
-      current_line_blame_position = 'eol',
+      -- current_line_blame = false,
+      -- current_line_blame_opts.delay = 1000,
+      -- current_line_blame_opts.position = 'eol',
       sign_priority = 6,
       update_debounce = 100,
       status_formatter = nil, -- Use default
       word_diff = false,
-      use_decoration_api = true,
+      -- use_decoration_api = true,
       use_internal_diff = true,  -- If luajit is present
   }
 end
@@ -337,9 +337,12 @@ local nvim_lsp_init = function()
                    'dockerls',
                    'tsserver',
                    'html',
+                   -- 'flow',
                    'rust_analyzer',
-                   'denols',
+                   -- 'denols',
+                   'sourcekit',
                    'clangd',
+                   'jsonls',
                    'texlab',
                    'bashls',
                    'cmake',}
@@ -365,7 +368,7 @@ local nvim_lsp_init = function()
   else
     print("Unsupported system for sumneko")
   end
-  local sumneko_root_path = '/Users/fujimotogen/home/Shelf/Tools/lua-language-server'
+  local sumneko_root_path = '/Users/fujimotogen/.local/tools/lua-language-server'
   local sumneko_binary = sumneko_root_path.."/bin/"..system_name.."/lua-language-server"
   require'lspconfig'.sumneko_lua.setup {
     cmd = {sumneko_binary, "-E", sumneko_root_path .. "/main.lua"};

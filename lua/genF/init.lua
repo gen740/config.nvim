@@ -8,6 +8,7 @@ vim.g.enc = 'utf-8'
 vim.g.fileencoding = 'utf-8'
 vim.opt.autoindent = true
 vim.opt.autoread = true
+vim.opt.autowrite = true
 vim.opt.clipboard = 'unnamed'
 vim.opt.colorcolumn = '100'
 vim.opt.concealcursor= 'c'
@@ -128,6 +129,7 @@ vim.api.nvim_set_keymap('n', '<Leader>rr', ':silent AsyncRun make run<cr>', {nor
 vim.api.nvim_set_keymap('n', '<Leader>rb', ':silent AsyncRun make build<cr>', {noremap = true, silent = true})
 vim.api.nvim_set_keymap('n', '<Leader>rt', ':silent AsyncRun make test<cr>', {noremap = true, silent = true})
 vim.api.nvim_set_keymap('t', '<C-M-n>', [[<c-\><c-n>]], {noremap = true, silent = true})
+vim.api.nvim_set_keymap('t', '<esc>', [[<c-\><c-n>]], {noremap = true, silent = true})
 vim.api.nvim_set_keymap('t', '<c-t>', [[<c-\><c-n>:ToggleTerm<cr>]], {noremap = true, silent = true})
 vim.api.nvim_set_keymap('v', '<Leader>s', ':sort<cr>', {noremap = true, silent = true})
 vim.api.nvim_set_keymap('n', '<Leader>bo',   [[:!source ~/.config/zsh/custom_func.zsh && blackout<cr><cr><C-l>]], {noremap = true, silent = true})
@@ -183,8 +185,7 @@ vim.cmd [[autocmd FileType markdown iabbrev (( \left( \right) <++><esc>BBhi]]
 vim.cmd [[autocmd FileType markdown iabbrev (. \left( \right. <++><esc>BBhi]]
 vim.cmd [[autocmd FileType markdown iabbrev {{ \lbrace \rbrace <++><esc>BBhi]]
 vim.cmd [[autocmd FileType markdown iabbrev {. \left\{ \right. <++><esc>BBhi]]
-vim.cmd [[autocmd FileType markdown inoreabbrev $$$$ $$$$<++><esc>5hi<cr><c-o>k]]
-
+vim.cmd [[autocmd FileType markdown inoreabbrev $$$$ $$$$<++><esc>5hi<cr><esc>k$a]]
 vim.cmd [[autocmd FileType python setlocal tabstop=4 softtabstop=4 shiftwidth=4]]
 vim.cmd [[autocmd FileType python nmap <buffer> <Leader>f :silen PEPFMT<CR>]]
 vim.cmd [[autocmd FileType python compiler python]]

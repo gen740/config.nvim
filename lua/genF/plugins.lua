@@ -55,7 +55,7 @@ require('packer').startup{
     use {'vim-jp/vimdoc-ja', opt = true}
     use {'junegunn/vim-easy-align', event = 'VimEnter'}
     use {'tpope/vim-commentary', event = 'VimEnter'}
-    use {'lewis6991/gitsigns.nvim', config = myConf.gitsigns}
+    use {'lewis6991/gitsigns.nvim', requires = {'nvim-lua/plenary.nvim'}, config = myConf.gitsigns}
     use 'tpope/vim-repeat'
     use 'tpope/vim-surround'
     use 'kshenoy/vim-signature'
