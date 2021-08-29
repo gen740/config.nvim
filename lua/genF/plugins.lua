@@ -40,7 +40,8 @@ require('packer').startup{
     -- Packer -------------------------------------------------------------------------------------
     use {'wbthomason/packer.nvim', opt = true}
     -- None Regular -------------------------------------------------------------------------------
-    -- use '9mm/vim-closer'
+    use '9mm/vim-closer'
+    -- use 'jiangmiao/auto-pairs'
     -- use {'sotte/presenting.vim', opt=true}
     -- use {'kana/vim-textobj-user', opt=true}
     -- use {'rbonvall/vim-textobj-latex', opt=true}
@@ -61,7 +62,7 @@ require('packer').startup{
     use 'kshenoy/vim-signature'
     use 'tpope/vim-fugitive'
     use 'lukas-reineke/indent-blankline.nvim'
-    use 'akinsho/nvim-toggleterm.lua'
+    use {'akinsho/nvim-toggleterm.lua', config = myConf.toggle_term}
     -- DashBoard ----------------------------------------------------------------------------------
     use {'glepnir/dashboard-nvim', config = myConf.dashboard}
     -- Treesitter ---------------------------------------------------------------------------------
@@ -74,6 +75,7 @@ require('packer').startup{
     use {'akinsho/nvim-bufferline.lua',
       requires = 'kyazdani42/nvim-web-devicons',
       config = myConf.bufferline}
+
     use {'hoob3rt/lualine.nvim',
       requires = {'kyazdani42/nvim-web-devicons', opt = true},
       config = myConf.lualine}

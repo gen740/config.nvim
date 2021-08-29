@@ -202,20 +202,20 @@ local nvim_tree_init = function ()
   vim.g.nvim_tree_icon_padding = ' '
   vim.g.nvim_tree_update_cwd = 1
   vim.g.nvim_tree_window_picker_exclude = {
-        ['filetype'] = {
-          'packer',
-          'qf'
-      },
-        ['buftype'] = {
-          'terminal'
-      }
+          ['filetype'] = {
+            'packer',
+            'qf'
+        },
+          ['buftype'] = {
+            'terminal'
+        }
       }
   vim.g.nvim_tree_special_files = { ['README.md'] = 1, ['Makefile'] = 1, ['MAKEFILE'] = 1 }
   vim.g.nvim_tree_show_icons = {
-      ['git'] = 1,
-      ['folders'] = 1,
-      ['files'] = 1,
-      ['folder_arrows'] = 1,
+        ['git'] = 1,
+        ['folders'] = 1,
+        ['files'] = 1,
+        ['folder_arrows'] = 1,
       }
   vim.g.nvim_tree_icons = {
       default = '',
@@ -337,10 +337,11 @@ local nvim_lsp_init = function()
                    'dockerls',
                    'tsserver',
                    'html',
+                   'cssls',
                    -- 'flow',
                    'rust_analyzer',
                    -- 'denols',
-                   'sourcekit',
+                   -- 'sourcekit',
                    'clangd',
                    'jsonls',
                    'texlab',
@@ -421,20 +422,20 @@ local nvim_compe_init = function()
       documentation = {
           -- border = { '╭', '─' ,'╮', '│', '╯', '─', '╰', '│' },
           border = { '┌', '─' ,'┐', '│', '┘', '─', '└', '│' },
-          winhighlight = "NormalFloat:CompeDocumentation,FloatBorder:CompeDocumentationBorder",
+          winhighlight = "NormalFloat:CompeDocumentation, FloatBorder:CompeDocumentationBorder",
           max_width = 120,
           min_width = 60,
           max_height = math.floor(vim.o.lines * 0.3),
           min_height = 1,
       };
       source = {
+          ultisnips = true;
           path = true;
           buffer = true;
           calc = true;
           nvim_lsp = true;
           nvim_lua = true;
           vsnip = true;
-          ultisnips = true;
           luasnip = true;
       };
   }
@@ -456,7 +457,8 @@ end
 
 local lualine_init = function()
   require('lualine').setup{
-    options = {theme = 'onedark',
+    options = {
+      theme = 'onedark',
       icons_enabled = 1,
       padding = 1,
       left_padding = 1,
@@ -470,12 +472,12 @@ local lualine_init = function()
     sections = {
       lualine_a = {{'mode', lower = true}},
       lualine_b = {'branch'},
-      lualine_c = {require'lsp-status'.status, Word_count},
+      lualine_c = {{require'lsp-status'.status}, {Word_count}},
       lualine_x = {'filetype', 'encoding'},
       lualine_y = {'progress'},
       lualine_z = {'location'}
     },
-    extensions = {'quickfix', 'nvim-tree'}
+    extensions = {'quickfix', 'nvim-tree'},
   }
 end
 
@@ -483,8 +485,8 @@ local bufferline_init = function()
   require('bufferline').setup {
     options = {
       numbers = 'none', -- "none" | "ordinal" | "buffer_id" | "both",
-      number_style = '', -- "superscript" | "" | { "none", "subscript" }, -- buffer_id at index 1, ordinal at index 2
-      mappings = false, -- true | false,
+      -- number_style = '', -- "superscript" | "" | { "none", "subscript" }, -- buffer_id at index 1, ordinal at index 2
+      -- mappings = false, -- true | false,
       close_command = "bdelete! %d",       -- can be a string | function, see "Mouse actions"
       right_mouse_command = "bdelete! %d", -- can be a string | function, see "Mouse actions"
       left_mouse_command = "buffer %d",    -- can be a string | function, see "Mouse actions"
@@ -555,6 +557,50 @@ end
 
 --}}}
 -- ┼─────────────────────────────────────────────────────────────────────────────────────┼
+-- │ {{{                              « Toggle Term »                                    │
+-- ┼─────────────────────────────────────────────────────────────────────────────────────┼
+
+local toggle_term_init = function()
+  require("toggleterm").setup{
+    -- size can be a number or function which is passed the current terminal
+    size  = function(term)
+              if term.direction == "horizontal" then
+                return 15
+              elseif term.direction == "vertical" then
+                return vim.o.columns * 0.3
+              end
+            end,
+    open_mapping = [[<c-\>]],
+    hide_numbers = true, -- hide the number column in toggleterm buffers
+    shade_filetypes = {},
+    shade_terminals = true,
+    shading_factor = '<number>', -- the degree by which to darken to terminal colour, default: 1 for dark backgrounds, 3 for light
+    start_in_insert = true,
+    insert_mappings = true, -- whether or not the open mapping applies in insert mode
+    persist_size = true,
+    direction = 'horizontal', -- 'vertical' | 'horizontal' | 'window' | 'float',
+    close_on_exit = true, -- close the terminal window when the process exits
+    shell = vim.o.shell, -- change the default shell
+    -- This field is only relevant if direction is set to 'float'
+    float_opts = {
+      -- The border key is *almost* the same as 'nvim_open_win'
+      -- see :h nvim_open_win for details on borders however
+      -- the 'curved' border is a custom border type
+      -- not natively supported but implemented in this plugin.
+      border = 'single', -- | 'double' | 'shadow' | 'curved' | ... other options supported by win open
+      -- width = <value>,
+      -- height = <value>,
+      winblend = 3,
+      highlights = {
+        border = "Normal",
+        background = "Normal",
+      }
+    }
+  }
+end
+
+--}}}
+-- ┼─────────────────────────────────────────────────────────────────────────────────────┼
 -- │ {{{                        « DashBoard Configurations »                             │
 -- ┼─────────────────────────────────────────────────────────────────────────────────────┼
 
@@ -602,92 +648,6 @@ local dashboard_init = function()
       command          = [[:DashboardJumpMark]]
     },
   }
-
-  -- vim.g.dashboard_custom_header = {
-  --     '',
-  --     '',
-  --     '        ⢀⣴⡾⠃⠄⠄⠄⠄⠄⠈⠺⠟⠛⠛⠛⠛⠻⢿⣿⣿⣿⣿⣶⣤⡀  ',
-  --     '      ⢀⣴⣿⡿⠁⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⣸⣿⣿⣿⣿⣿⣿⣿⣷ ',
-  --     '     ⣴⣿⡿⡟⡼⢹⣷⢲⡶⣖⣾⣶⢄⠄⠄⠄⠄⠄⢀⣼⣿⢿⣿⣿⣿⣿⣿⣿⣿ ',
-  --     '    ⣾⣿⡟⣾⡸⢠⡿⢳⡿⠍⣼⣿⢏⣿⣷⢄⡀⠄⢠⣾⢻⣿⣸⣿⣿⣿⣿⣿⣿⣿ ',
-  --     '  ⣡⣿⣿⡟⡼⡁⠁⣰⠂⡾⠉⢨⣿⠃⣿⡿⠍⣾⣟⢤⣿⢇⣿⢇⣿⣿⢿⣿⣿⣿⣿⣿ ',
-  --     ' ⣱⣿⣿⡟⡐⣰⣧⡷⣿⣴⣧⣤⣼⣯⢸⡿⠁⣰⠟⢀⣼⠏⣲⠏⢸⣿⡟⣿⣿⣿⣿⣿⣿ ',
-  --     ' ⣿⣿⡟⠁⠄⠟⣁⠄⢡⣿⣿⣿⣿⣿⣿⣦⣼⢟⢀⡼⠃⡹⠃⡀⢸⡿⢸⣿⣿⣿⣿⣿⡟ ',
-  --     ' ⣿⣿⠃⠄⢀⣾⠋⠓⢰⣿⣿⣿⣿⣿⣿⠿⣿⣿⣾⣅⢔⣕⡇⡇⡼⢁⣿⣿⣿⣿⣿⣿⢣ ',
-  --     ' ⣿⡟⠄⠄⣾⣇⠷⣢⣿⣿⣿⣿⣿⣿⣿⣭⣀⡈⠙⢿⣿⣿⡇⡧⢁⣾⣿⣿⣿⣿⣿⢏⣾ ',
-  --     ' ⣿⡇⠄⣼⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⠟⢻⠇⠄⠄⢿⣿⡇⢡⣾⣿⣿⣿⣿⣿⣏⣼⣿ ',
-  --     ' ⣿⣷⢰⣿⣿⣾⣿⣿⣿⣿⣿⣿⣿⣿⣿⢰⣧⣀⡄⢀⠘⡿⣰⣿⣿⣿⣿⣿⣿⠟⣼⣿⣿ ',
-  --     ' ⢹⣿⢸⣿⣿⠟⠻⢿⣿⣿⣿⣿⣿⣿⣿⣶⣭⣉⣤⣿⢈⣼⣿⣿⣿⣿⣿⣿⠏⣾⣹⣿⣿ ',
-  --     ' ⢸⠇⡜⣿⡟⠄⠄⠄⠈⠙⣿⣿⣿⣿⣿⣿⣿⣿⠟⣱⣻⣿⣿⣿⣿⣿⠟⠁⢳⠃⣿⣿⣿ ',
-  --     '  ⣰⡗⠹⣿⣄⠄⠄⠄⢀⣿⣿⣿⣿⣿⣿⠟⣅⣥⣿⣿⣿⣿⠿⠋  ⣾⡌⢠⣿⡿⠃ ',
-  --     ' ⠜⠋⢠⣷⢻⣿⣿⣶⣾⣿⣿⣿⣿⠿⣛⣥⣾⣿⠿⠟⠛⠉            ',
-  --     }
-
-  -- vim.g.dashboard_custom_header = {
-  -- [[            /:::]],
-  -- [[            ;  ':/. _]],
-  -- [[            `     -√]],
-  -- [[            .       :-]],
-  -- [[            |        :']],
-  -- [[           ,,         ;                     __',,,,,"-------++++++"]],
-  -- [[           -          -                ',,'-,,'''                '',---+--''__-__          '--//                 '--//]],
-  -- [[          ,'          -            ".-+-''                    `__''     '''  _'.'.       `__`  :'              '__`  :`]],
-  -- [[           .          -       -'-·:.·               ...---::--.+++,---,+-- ''     --.   _:`   :'              .:'   :']],
-  -- [[         `-           ;,     ___--            `__-/.--------.:        '/...:',_,   .:--`--   `.              :.    '.]],
-  -- [[         ;             _ ,_,`             `.:/:::.''''       --      '-::--.       -/::-`    :              __     :]],
-  -- [[         '.            '/:'            _-+-:.''         ·     _:- `·-·'      '---'  /-::::   /              /      /]],
-  -- [[         `.             '_,'        `.::-`             ·-       ' ''            ''-.:. `-::` /             :'      /]],
-  -- [[         _                ·-;.'   ,::.'               __        ·              '        '-:-:·           _-       :`]],
-  -- [[         |-                  ·,-+-,                  '-        '-              :.         '_/.          _-        _-]],
-  -- [[         '/       ,           ·_·                    :         ·                /           ':-       '-.          /]],
-  -- [[          :      ;  ,        __                     -'         :                --            ./.   `,.`           /]],
-  -- [[          .-      '' '     ·.·                     '-''''     ':                 .             ./-.-.·             /]],
-  -- [[           `:`      ,,-'. ·-              __   ''../...'''____-.                 ''              +·                /]],
-  -- [[            ':-       '·''·               /   __' .:         '/                  ·_              :'/              -.]],
-  -- [[             /.;;'       -               '-       :           /                ''_/''            -.':            '/]],
-  -- [[            ;;-·'·--''  ,               :        __          .:               _''':''''___`       : :' '' _''   '/]],
-  -- [[           '√'      ·--+♪              ':       `:           /.                   :       _-_     :  / -.-...  -:]],
-  -- [[          ';            ♪              :'       ::          .:               -    ::              :' :' :.`  ,:.]],
-  -- [[          :            ';              /       .-:          .:    -          -    :/              __  / ` _-:.]],
-  -- [[         --            :`             ':      ':.`         -.:    /          `    ::`         /   `:  :---`..]],
-  -- [[        ';             ';             /`      -./          : :    :          ''   /.:        -`    /  `:    -]],
-  -- [[       '♪            ,;'              /       : /         .: :   `:          ''   /':        '     /   :    '']],
-  -- [[''   .--          _.'-                /      :-'/         /'':   -;               / :              :   -'   '-]],
-  -- [[ ♪·--'           '_;  _              .-      /`-:     '   :'':   //          _`   :'-        -`    :    _   -.]],
-  -- [[ ,·'           '..'. '.              .'     -.':.    .:  --'-:   /\          :-   / _'       ''    :    :   :    ]],
-  -- [[   ._..'            ·,·              ;      /'':',,,,:/''/.'/-   /\`         ::   /  _       _     /    _  .-]],
-  -- [[     '''·-···-·----- ♪               ;     ··`.:.'''-:-.-:-:--   /\`         /-   / '_      -:     /    _  /]],
-  -- [[         :  '''''   :/-             '-::___:.-::/-/-::-.:-.:.-   //`       '.:/___:'':      ::    _-    _` /]],
-  -- [[        :'          //-.            .':/-__/-'../..':/'':''::-  `::`       '.:/''_:-':      :/    :`    __ .:`]],
-  -- [[       .:          ::/-:            - -::-.-/'''---+-+::/--+--' '-.'      :-//:-'-:-,:     :`:    /     __  '---]],
-  -- [[       /'         ':::-/            --//....   -:      /  .' '.--· _--++·`/./`:-'-/--/..''':':    /     .:'''.-/]],
-  -- [[      :.          :::-./            .` :'-...  -:  '_.'/  .          ''.'.h:-.u/::-''/''+++::·   `:     .:....·]],
-  -- [[     '-          -/.'.'/            -  __  '/''''  :_.': ''              ';----';''''-.:-.-::·   :'     _·]],
-  -- [[    '·   ;      ·/:'/.·/            '  .'   -://::-' ':'''               :'__' _:   '  ': :.`:··:/:  :  :`]],
-  -- [[   ';   .      '/:- -  /           ''   ___.-  ''-.'-:'''                :-.:. -:  -::''/ - .:--:'   /  /]],
-  -- [[  _<    .      :-·'   :·           ·      ·_,,,,,:-:-''                  :` .:''''./ ./:..` /-''/    /  /]],
-  -- [[ .,    ·      `" .-   ·/           ·                                     ':'--:::/:  '+-.`  .-.'':   :::-]],
-  -- [['·/    /      /·  .'  '_           ·   .·. .                              '-4 ''''/.:_,,'   : ''--  `;/ `]],
-  -- [[:^:^   ;/;.   "'   |'  ':          -   ·____;                                ...--:--'     _· · -   -/]],
-  -- [[·:·;.  .2'-- '^    ·__··/     ·    :     .,,..                                '            _ '' :   ::]],
-  -- [[  __·   ;♪ --.'     ''..:                                                       ,,,       :` ''':   ♪]],
-  -- [[   ·__· ·,_'//      '' '--    -    -                                          _-   -      /  '' /  ·]],
-  -- [[      _,_';/':,  '  ''' _/                                                     ... .-     :.''  /  ..]],
-  -- [[         _:;;:/' '  '   ':.   :    ''                                                     :''  '/  :]],
-  -- [[            .:.:''--_____'/         :                                                    ./ '  -'  :]],
-  -- [[                '____...../.  .     ..:.                                                -: ''''-  ♪]],
-  -- [[                  __.      /        :  `--.                                          `-._  '''__  :]],
-  -- [[                    '..."  _.   ·   .'    '...'                                  `--;-'  _  _♪   `:]],
-  -- [[                         .../   :   ./.        ___'_       ~.               `-.--.''     `/'-/   ♪]],
-  -- [[                        ·...:'  :.   /'''''''.',,,/:;..:'''''''''''_'..-/`---'''''       -:''"   :]],
-  -- [[                            ':  :.   :-----"                              --::---------:-/`'':  _]],
-  -- [[                             /  :.'  -''''                                    ''''''''   /`'.:  :]],
-  -- [[                             ·- :-"  `-                                                 `- '   .-]],
-  -- [[                              :':.:.  "                                                 :''    :]],
-  -- [[                              '.:  -.'"                                                 /''.- .-]],
-  -- [[                                    ···                                                 --.♪  /]],
-  -- [[                                                                                          .:  ♪]]}
-
 
   vim.g.dashboard_custom_header = {
   [[                               ommmmms                    +mmdmd`                                   ]],
@@ -765,6 +725,7 @@ return {
   gitsigns = gitsigns_init,
   nvim_lsp = nvim_lsp_init,
   lsp_status = lsp_status_init,
+  toggle_term = toggle_term_init,
 }
 
 -- vim:set foldmethod=marker:
