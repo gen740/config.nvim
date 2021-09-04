@@ -28,7 +28,7 @@ vim.opt.incsearch = true
 vim.opt.laststatus = 2
 vim.opt.lazyredraw = true
 vim.opt.list = true
-vim.opt.listchars = [[tab:»-,conceal:│,trail:▒,extends:»,precedes:«,nbsp:%,eol:↲]] -- ,eol:↲
+vim.opt.listchars = [[tab:»-,conceal:│,trail:▒,extends:»,precedes:«,nbsp:%]] -- ,eol:↲
 vim.opt.modeline = true
 vim.opt.number = true
 vim.opt.pumheight = 12
@@ -71,7 +71,7 @@ vim.opt.wrap = false
 -- vim.opt.writebackup = false
 
 -- forNeovide
-vim.o.guifont = 'HackGenNerd Console:h13'
+vim.o.guifont = 'HackGen35Nerd Console:h13'
 vim.g.neovide_cursor_vfx_mode = 'pixiedust'
 vim.g.neovide_fullscreen = 1
 vim.g.neovide_cursor_vfx_particle_density = 50
@@ -94,8 +94,12 @@ vim.api.nvim_set_keymap('x', 'ga', '<plug>(EasyAlign)', {noremap = false})
 vim.api.nvim_set_keymap('n', 'ga', '<plug>(EasyAlign)', {noremap = false})
 vim.api.nvim_set_keymap('n', '<c-y>', '5<c-y>', {noremap = true})
 vim.api.nvim_set_keymap('n', '<c-e>', '5<c-e>', {noremap = true})
-vim.api.nvim_set_keymap('n', '<c-n>', ':bn<cr>', {noremap = false, silent = true})
-vim.api.nvim_set_keymap('n', '<c-p>', ':bp<cr>', {noremap = false, silent = true})
+vim.api.nvim_set_keymap('n', '<c-n>', ':BufferLineCycleNext<cr>', {noremap = false, silent = true})
+vim.api.nvim_set_keymap('n', '<c-p>', ':BufferLineCyclePrev<cr>', {noremap = false, silent = true})
+vim.api.nvim_set_keymap('n', '<leader>mn', ':BufferLineMoveNext<cr>', {noremap = false, silent = true})
+vim.api.nvim_set_keymap('n', '<leader>mp', ':BufferLineMovePrev<cr>', {noremap = false, silent = true})
+vim.api.nvim_set_keymap('n', '<leader>mm', ':BufferLinePick<cr>', {noremap = false, silent = true})
+vim.api.nvim_set_keymap('n', '<leader>mc', ':BufferLinePickClose<cr>', {noremap = false, silent = true})
 vim.api.nvim_set_keymap('n', '<c-q>', ':NvimTreeToggle<cr>', {noremap = true, silent = true})
 vim.api.nvim_set_keymap('n', '<leader>aa', ':Git add --all<cr>', {noremap = true, silent = true})
 vim.api.nvim_set_keymap('n', '<leader>am', ':silent Git commit<cr>', {noremap = true, silent = true})
@@ -166,18 +170,10 @@ vim.cmd [[autocmd ColorScheme * hi GitSignsDelete   guibg=none  guifg=red]]
 vim.cmd [[autocmd ColorScheme * hi GitSignsDeleteNr guibg=none  guifg=red]]
 vim.cmd [[autocmd ColorScheme * hi GitSignsDeleteLn guibg=none  guifg=red]]
 
-vim.cmd [[autocmd InsertEnter * hi lualine_c_normal guibg=none]]
-vim.cmd [[autocmd InsertEnter * hi lualine_c_normal_to_lualine_b_normal guibg=none]]
-vim.cmd [[autocmd InsertEnter * hi lualine_b_normal_to_lualine_c_normal guibg=none]]
-vim.cmd [[autocmd InsertEnter * hi lualine_x_normal_to_lualine_y_normal guibg=none]]
-vim.cmd [[autocmd InsertEnter * hi lualine_x_normal guibg=none]]
-vim.cmd [[autocmd InsertEnter * hi lualine_y_normal guibg=none]]
-vim.cmd [[autocmd InsertEnter * hi lualine_x_DevIconLua_normal guibg=none]]
-
 vim.cmd [[autocmd TermOpen * setlocal nonumber norelativenumber]]
 
--- vim.cmd [[au BufWinLeave *.* silent! mkview]]
--- vim.cmd [[au BufWinEnter *.* silent loadview]]
+vim.cmd [[au BufWinLeave *.* silent! mkview]]
+vim.cmd [[au BufWinEnter *.* silent! loadview]]
 
 -- }}}
 -- ┼─────────────────────────────────────────────────────────────────────────────────────┼
@@ -216,26 +212,11 @@ vim.cmd [[autocmd BufRead,BufNewFile *.tex setlocal filetype=tex]]
 vim.cmd [[autocmd BufRead,BufNewFile *.wiki setlocal filetype=tex]]
 vim.cmd [[autocmd BufRead,BufNewFile *.tex nnoremap <C-q> <Plug>Tex_FastEnvironmentInsert]]
 vim.cmd [[autocmd BufRead,BufNewFile *.tex vnoremap <C-q> <Plug>Tex_FastEnvironmentInsert]]
+
 --- }}}
 -- ┼─────────────────────────────────────────────────────────────────────────────────────┼
 -- │ {{{                       « Folding Configurations »                                │
 -- ┼─────────────────────────────────────────────────────────────────────────────────────┼
-
--- local api = vim.api # TODO
--- local fn = vim.fn
--- if vim.fn.has('folding') == 1 then
---   print(vim.api.nvim_get_option('fillchars'))
---   function _G.MyFoldText()
---     local numwidth = api.nvim_win_get_option(0, 'numberwidth')
-
---     if api.nvim_win_get_option(0, 'foldmethod') == 'diff' then
---       local linetext = ''
---       local foldtext = '----------' .. (api.nvim_get_vvar('foldend') -
---       api.nvim_get_vvar('foldstart') + 1) .. 'lines the same ----------'
---       local align = fn.winwidth(0) - api.nvim_win_get_option(0, 'foldcolumn') -  0
---     end
---   end
--- end
 
 vim.cmd [[
 if has("folding")
@@ -283,6 +264,7 @@ autocmd BufRead,BufNewFile *.zprofile setlocal foldmethod=marker
 set viewoptions-=options
 autocmd BufRead,BufNewFile * hi Folded guifg=#928374 guibg=none gui=undercurl
 ]]
+
 -- vim:set foldmethod=marker:
 -- }}}
 -- ┼─────────────────────────────────────────────────────────────────────────────────────┼

@@ -40,8 +40,8 @@ require('packer').startup{
     -- Packer -------------------------------------------------------------------------------------
     use {'wbthomason/packer.nvim', opt = true}
     -- None Regular -------------------------------------------------------------------------------
-    use '9mm/vim-closer'
-    -- use 'jiangmiao/auto-pairs'
+    -- use 'rstacruz/vim-closer'
+    use {'jiangmiao/auto-pairs', ft = {'cpp', 'c', 'python', 'lua', 'javascript', 'tex'}}
     -- use {'sotte/presenting.vim', opt=true}
     -- use {'kana/vim-textobj-user', opt=true}
     -- use {'rbonvall/vim-textobj-latex', opt=true}
@@ -80,7 +80,7 @@ require('packer').startup{
       requires = {'kyazdani42/nvim-web-devicons', opt = true},
       config = myConf.lualine}
     use {'honza/vim-snippets'}
-    use {'SirVer/ultisnips', event = 'InsertEnter'}
+    use {'SirVer/ultisnips'}
     -- File Operations ----------------------------------------------------------------------------
     use {'kyazdani42/nvim-tree.lua', config = myConf.nvim_tree}
     use 'kyazdani42/nvim-web-devicons'
@@ -97,7 +97,7 @@ require('packer').startup{
     use {'cespare/vim-toml', ft = 'toml'}
     use 'plasticboy/vim-markdown'
     use {'mattn/emmet-vim', ft = {'html', 'markdown', 'md'}}
-    use {'vim-latex/vim-latex', ft = {'tex', 'markdown'}}
+    use {'vim-latex/vim-latex', ft = {'tex'}}
     use {'lervag/vimtex', ft = {'markdown', 'md', 'tex'}}
     use {'lvht/tagbar-markdown', ft = {'markdown', 'md'}}
     -- LSP ----------------------------------------------------------------------------------------
