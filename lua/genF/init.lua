@@ -172,8 +172,8 @@ vim.cmd [[autocmd ColorScheme * hi GitSignsDeleteLn guibg=none  guifg=red]]
 
 vim.cmd [[autocmd TermOpen * setlocal nonumber norelativenumber]]
 
-vim.cmd [[au BufWinLeave *.* silent! mkview]]
-vim.cmd [[au BufWinEnter *.* silent! loadview]]
+-- vim.cmd [[au BufWinLeave *.* silent! mkview]]
+-- vim.cmd [[au BufWinEnter *.* silent! loadview]]
 
 -- }}}
 -- ┼─────────────────────────────────────────────────────────────────────────────────────┼
