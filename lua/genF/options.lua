@@ -162,17 +162,12 @@ local telescope_init = function()
       ".github",
       ".DS_Store",
       ".gitignore",},
-      -- borderchars = { '─', '│', '─', '│', '╭', '╮', '╯', '╰' },
-      borderchars = { '─', '│', '─', '│', '┌', '┐', '┘', '└' },
-      -- borderchars = {
-        --     prompt = {"─", "│", " ", "│", '┌', '┬', "│", "│"},
-        --     results = {"─", "│", "─", "│", "├", "┤", "┴", "└"},
-        --     preview = { '─', '│', '─', ' ', '─', '┐', '┘', '─'},
-        -- },
-        color_devicons = true,
-        use_less = true,
-      }
+      borderchars = { '─', '│', '─', '│', '╭', '╮', '╯', '╰' },
+      -- borderchars = { '─', '│', '─', '│', '┌', '┐', '┘', '└' },
+      color_devicons = true,
+      use_less = true,
     }
+  }
   require('telescope').load_extension('fzf')
 end
 
@@ -294,7 +289,7 @@ local gitsigns_init = function()
       status_formatter = nil, -- Use default
       word_diff = false,
       -- use_decoration_api = true,
-      use_internal_diff = true,  -- If luajit is present
+      -- diff_opts.internal = true,  -- If luajit is present
   }
 end
 
@@ -322,7 +317,7 @@ local nvim_lsp_init = function()
     buf_set_keymap('n', '<space>wa', '<cmd>lua vim.lsp.buf.add_workspace_folder()<CR>', opts)
     buf_set_keymap('n', '<space>wr', '<cmd>lua vim.lsp.buf.remove_workspace_folder()<CR>', opts)
     buf_set_keymap('n', '<space>wl', '<cmd>lua print(vim.inspect(vim.lsp.buf.list_workspace_folders()))<CR>', opts)
-    buf_set_keymap('n', '<space>D', '<cmd>lua vim.lsp.buf.type_definition()<CR>', opts)
+    buf_set_keymap('n', '<space>d', '<cmd>lua vim.lsp.buf.type_definition()<CR>', opts)
     buf_set_keymap('n', '<space>rn', '<cmd>lua vim.lsp.buf.rename()<CR>', opts)
     buf_set_keymap('n', '<space>ca', '<cmd>lua vim.lsp.buf.code_action()<CR>', opts)
     buf_set_keymap('n', 'gr', '<cmd>lua vim.lsp.buf.references()<CR>', opts)
@@ -436,11 +431,119 @@ local nvim_compe_init = function()
           nvim_lsp = true;
           -- nvim_lua = true;
           -- vsnip = true;
-          -- luasnip = true;
       };
   }
 end
 
+
+local nvim_cmp_init = function()
+  local cmp = require 'cmp'
+  local WIDE_HEIGHT = 40
+  cmp.setup {
+    completion = {
+      autocomplete = true,
+      -- completeopt = 'menu,menuone,noinsert',
+    },
+    snippet = {
+      expand = function(args)
+        vim.fn["UltiSnips#Anon"](args.body)
+      end,
+    },
+    mapping = {
+      ['<C-p>'] = cmp.mapping.select_prev_item(),
+      ['<C-n>'] = cmp.mapping.select_next_item(),
+      ['<C-d>'] = cmp.mapping.scroll_docs(-4),
+      ['<C-f>'] = cmp.mapping.scroll_docs(4),
+      ['<C-Space>'] = cmp.mapping.complete(),
+      ['<C-e>'] = cmp.mapping.close(),
+      ['<CR>'] = cmp.mapping.confirm {
+        behavior = cmp.ConfirmBehavior.Replace,
+        select = true,
+      },
+    },
+    documentation = {
+      border = { '╭', '─' ,'╮', '│', '╯', '─', '╰', '│' },
+      winhighlight = 'NormalFloat:CmpDocumentation,FloatBorder:CmpDocumentationBorder',
+      maxwidth = math.floor((WIDE_HEIGHT * 2) * (vim.o.columns / (WIDE_HEIGHT * 2 * 16 / 9))),
+      maxheight = math.floor(WIDE_HEIGHT * (WIDE_HEIGHT / vim.o.lines)),
+    },
+    sources = {
+      { name = 'nvim_lsp' },
+      { name = 'buffer' },
+      { name = 'path' },
+      { name = 'treesitter' },
+      { name = 'ultisnips' },
+      { name = 'calc' },
+    },
+    formatting = {
+      format = function(entry, vim_item)
+        -- fancy icons and a name of kind
+        vim_item.kind = require("lspkind").presets.default[vim_item.kind] .. " " .. vim_item.kind
+        -- set a name for each source
+        -- vim_item.menu = ({
+        --   buffer = "[Buffer]",
+        --   nvim_lsp = "[LSP]",
+        --   nvim_lua = "[Lua]",
+        --   latex_symbols = "[Latex]",
+        -- })[entry.source.name]
+        return vim_item
+      end,
+    },
+  }
+end
+
+--}}}
+-- ┼─────────────────────────────────────────────────────────────────────────────────────┼
+-- │ {{{                             « Nvim LSP Kind »                                   │
+-- ┼─────────────────────────────────────────────────────────────────────────────────────┼
+
+local nvim_lspkind_init = function()
+  require('lspkind').init({
+    -- enables text annotations
+    --
+    -- default: true
+    with_text = true,
+
+    -- default symbol map
+    -- can be either 'default' (requires nerd-fonts font) or
+    -- 'codicons' for codicon preset (requires vscode-codicons font)
+    --
+    -- default: 'default'
+    preset = 'codicons',
+
+    -- override preset symbols
+    --
+    -- default: {}
+    symbol_map = {
+      Text = "",
+      Method = "",
+      Function = "",
+      Constructor = "",
+      Field = "ﰠ",
+      Variable = "",
+      Class = "ﴯ",
+      Interface = "",
+      Module = "",
+      Property = "ﰠ",
+      Unit = "塞",
+      Value = "",
+      Enum = "",
+      Keyword = "",
+      Snippet = "",
+      Color = "",
+      File = "",
+      Reference = "",
+      Folder = "",
+      EnumMember = "",
+      Constant = "",
+      Struct = "פּ",
+      Event = "",
+      Operator = "",
+      TypeParameter = "",
+      Calc = "aoe"
+    },
+  })
+end
 
 --}}}
 -- ┼─────────────────────────────────────────────────────────────────────────────────────┼
@@ -485,56 +588,43 @@ end
 local bufferline_init = function()
   require('bufferline').setup {
     options = {
-      numbers = 'none', -- "none" | "ordinal" | "buffer_id" | "both",
-      -- number_style = '', -- "superscript" | "" | { "none", "subscript" }, -- buffer_id at index 1, ordinal at index 2
-      -- mappings = false, -- true | false,
-      close_command = "bdelete! %d",       -- can be a string | function, see "Mouse actions"
-      right_mouse_command = "bdelete! %d", -- can be a string | function, see "Mouse actions"
-      left_mouse_command = "buffer %d",    -- can be a string | function, see "Mouse actions"
-      middle_mouse_command = nil,          -- can be a string | function, see "Mouse actions"
+      numbers = 'none',
+      close_command = "bdelete! %d",
+      right_mouse_command = "bdelete! %d",
+      left_mouse_command = "buffer %d",
+      middle_mouse_command = nil,
       indicator_icon = '▎',
       buffer_close_icon = '',
       modified_icon = '●',
       close_icon = '',
       left_trunc_marker = '',
       right_trunc_marker = '',
-      name_formatter = function(buf)  -- buf contains a "name", "path" and "bufnr"
+      name_formatter = function(buf)
         if buf.name:match('%.md') then
           return vim.fn.fnamemodify(buf.name, ':t:r')
         end
       end,
-      max_name_length = 18,
-      max_prefix_length = 15, -- prefix used when a buffer is de-duplicated
-      tab_size = 18,
-      diagnostics = 'nvim_lsp', -- false | "nvim_lsp",
+      max_name_length = 15,
+      max_prefix_length = 10,
+      tab_size = 6,
+      diagnostics = 'nvim_lsp',
       diagnostics_indicator = function(count, level, diagnostics_dict, context)
-        return "("..count..")"
+        local icon = level:match("error") and " " or " "
+        return "" .. icon .. count
       end,
-      -- custom_filter = function(buf_number)
-      --   if vim.bo[buf_number].filetype ~= "<i-dont-want-to-see-this>" then
-      --     return true
-      --   end
-      --   if vim.fn.bufname(buf_number) ~= "<buffer-name-I-dont-want>" then
-      --     return true
-      --   end
-      --   if vim.fn.getcwd() == "<work-repo>" and vim.bo[buf_number].filetype ~= "wiki" then
-      --     return true
-      --   end
+      -- diagnostics_indicator = function(count)
+      --   return ""..count..""
       -- end,
-      offsets = {{filetype = "NvimTree", text = "File Explorer", text_align = 'center',}}, -- "left" | "center" | "right"
-      show_buffer_icons = true, -- true | false, -- disable filetype icons for buffers
-      show_buffer_close_icons = false, -- true | false,
-      show_close_icon = false, -- true | false,
-      show_tab_indicators = false, -- true | false,
-      persist_buffer_sort = false, -- whether or not custom sorted buffers should persist
-      separator_style = 'slant',-- 'slant', -- "slant" | "thick" | "thin" | { 'any', 'any' },
-      enforce_regular_tabs = false, -- false | true,
-      always_show_bufferline = true, -- | false,
+      offsets = {{filetype = "NvimTree", text = " File Explorer", text_align = 'center',}},
+      show_buffer_icons = true,
+      show_buffer_close_icons = true,
+      show_close_icon = true,
+      show_tab_indicators = false,
+      persist_buffer_sort = false,
+      separator_style = 'slant',
+      enforce_regular_tabs = false,
+      always_show_bufferline = false,
       sort_by = 'id',
-      --  | 'extension' | 'relative_directory' | 'directory' | function(buffer_a, buffer_b)
-        -- add custom logic
-        -- return buffer_a.modified > buffer_b.modified
-      -- end
     },
     highlights = {
       fill = {
@@ -571,7 +661,7 @@ local toggle_term_init = function()
                 return vim.o.columns * 0.3
               end
             end,
-    open_mapping = [[<c-\>]],
+    open_mapping = [[<m-w>]],
     hide_numbers = true, -- hide the number column in toggleterm buffers
     shade_filetypes = {},
     shade_terminals = true,
@@ -728,6 +818,9 @@ return {
   nvim_lsp = nvim_lsp_init,
   lsp_status = lsp_status_init,
   toggle_term = toggle_term_init,
+  nvim_cmp = nvim_cmp_init,
+  nvim_lspkind = nvim_lspkind_init,
 }
 
 -- vim:set foldmethod=marker:
+-- vim:set foldlevel=0:

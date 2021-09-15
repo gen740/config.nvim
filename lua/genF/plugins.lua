@@ -40,42 +40,38 @@ require('packer').startup{
     -- Packer -------------------------------------------------------------------------------------
     use {'wbthomason/packer.nvim', opt = true}
     -- None Regular -------------------------------------------------------------------------------
-    -- use 'rstacruz/vim-closer'
-    use {'jiangmiao/auto-pairs', ft = {'cpp', 'c', 'python', 'lua', 'javascript', 'tex'}}
     -- use {'sotte/presenting.vim', opt=true}
     -- use {'kana/vim-textobj-user', opt=true}
     -- use {'rbonvall/vim-textobj-latex', opt=true}
-    -- use 'junegunn/fzf.vim'
     -- use {'godlygeek/tabular', opt = true}
     -- use {'puremourning/vimspector', opt = true}
     -- use {'lilydjwg/colorizer', opt = true, disable = true}
-    -- use 'yggdroot/indentline'
+    -- use {'yggdroot/indentline'}
     -- Utilities ----------------------------------------------------------------------------------
+    -- use {'jiangmiao/auto-pairs', ft = {'cpp', 'c', 'python', 'lua', 'javascript', 'tex'}}
     use {'skywind3000/asyncrun.vim', cmd = 'AsyncRun'}
     use {'easymotion/vim-easymotion', event = 'VimEnter'}
-    use {'vim-jp/vimdoc-ja', opt = true}
     use {'junegunn/vim-easy-align', event = 'VimEnter'}
     use {'tpope/vim-commentary', event = 'VimEnter'}
     use {'lewis6991/gitsigns.nvim', requires = {'nvim-lua/plenary.nvim'}, config = myConf.gitsigns}
-    use 'tpope/vim-repeat'
-    use 'tpope/vim-surround'
-    use 'kshenoy/vim-signature'
-    use 'tpope/vim-fugitive'
-    use 'lukas-reineke/indent-blankline.nvim'
+    use {'tpope/vim-repeat'}
+    use {'tpope/vim-surround'}
+    use {'kshenoy/vim-signature'}
+    use {'tpope/vim-fugitive'}
+    use {'lukas-reineke/indent-blankline.nvim'}
     use {'akinsho/nvim-toggleterm.lua', config = myConf.toggle_term}
     -- DashBoard ----------------------------------------------------------------------------------
     use {'glepnir/dashboard-nvim', config = myConf.dashboard}
     -- Treesitter ---------------------------------------------------------------------------------
     use {'nvim-treesitter/nvim-treesitter', config = myConf.treesitter}
-    use 'nvim-treesitter/nvim-treesitter-textobjects'
-    use 'nvim-treesitter/nvim-treesitter-refactor'
+    use {'nvim-treesitter/nvim-treesitter-textobjects'}
+    use {'nvim-treesitter/nvim-treesitter-refactor'}
     -- Appearance ---------------------------------------------------------------------------------
-    -- use {'morhetz/gruvbox', setup = function() vim.cmd 'colo gruvbox' end}
-    use {'lifepillar/vim-gruvbox8', opt = true, setup = function() vim.cmd 'colo gruvbox8' end}
+    use {'morhetz/gruvbox', setup = function() vim.cmd 'colo gruvbox' end}
+    -- use {'lifepillar/vim-gruvbox8', opt = true, setup = function() vim.cmd 'colo gruvbox8' end}
     use {'akinsho/nvim-bufferline.lua',
       requires = 'kyazdani42/nvim-web-devicons',
       config = myConf.bufferline}
-
     use {'hoob3rt/lualine.nvim',
       requires = {'kyazdani42/nvim-web-devicons', opt = true},
       config = myConf.lualine}
@@ -100,11 +96,30 @@ require('packer').startup{
     use {'vim-latex/vim-latex', ft = {'tex'}}
     use {'lervag/vimtex', ft = {'markdown', 'md', 'tex'}}
     use {'lvht/tagbar-markdown', ft = {'markdown', 'md'}}
+    use {'rhysd/vim-grammarous', ft = {'markdown', 'md', 'text'}}
     -- LSP ----------------------------------------------------------------------------------------
     use {'neovim/nvim-lspconfig', config = myConf.nvim_lsp}
-    use {'hrsh7th/nvim-compe', event = 'InsertEnter', config = myConf.nvim_compe}
+    -- use {'hrsh7th/nvim-compe', event = 'InsertEnter', config = myConf.nvim_compe}
+    use {
+      "hrsh7th/nvim-cmp",
+      requires = {
+        "hrsh7th/vim-vsnip",
+        "hrsh7th/cmp-buffer",
+        'hrsh7th/cmp-nvim-lsp',
+        'hrsh7th/cmp-path',
+        'hrsh7th/cmp-calc',
+        'ray-x/cmp-treesitter',
+        'quangnguyen30192/cmp-nvim-ultisnips',
+        {
+          'andersevenrud/compe-tmux',
+          branch = 'cmp',
+          opt = true,
+        }
+      },
+      config = myConf.nvim_cmp
+    }
+    use {'onsails/lspkind-nvim', config = myConf.nvim_lspkind}
     use {'nvim-lua/lsp-status.nvim', config = myConf.lsp_status}
-
   end,
   config = {
     display = {

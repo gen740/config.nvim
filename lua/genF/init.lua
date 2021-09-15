@@ -28,7 +28,7 @@ vim.opt.incsearch = true
 vim.opt.laststatus = 2
 vim.opt.lazyredraw = true
 vim.opt.list = true
-vim.opt.listchars = [[tab:»-,conceal:│,trail:▒,extends:»,precedes:«,nbsp:%]] -- ,eol:↲
+vim.opt.listchars = [[tab:»-,conceal:◇,trail:▒,extends:»,precedes:«,nbsp:%]] -- ,eol:↲│
 vim.opt.modeline = true
 vim.opt.number = true
 vim.opt.pumheight = 12
@@ -56,6 +56,7 @@ vim.opt.undoreload = 10000
 vim.opt.updatetime = 300
 vim.opt.whichwrap = 'b,s,<,>,[,]'
 vim.opt.wrap = false
+vim.opt.mouse:append('a')
 -- vim.opt.backup = false
 -- vim.opt.backupext = '.bak'
 -- vim.opt.completeopt = "menuone,noselect"
@@ -88,57 +89,51 @@ vim.g.neovide_cursor_trail_length=100
 vim.cmd [[let mapleader = "\<Space>"]]
 vim.api.nvim_set_keymap('i', '<c-[>', [[<c-[>:silent call custom#change_ime('eisu')<cr>]], {noremap = true, silent = true})
 vim.api.nvim_set_keymap('i', '<esc>', [[<esc>:silent call custom#change_ime('eisu')<cr>]], {noremap = true, silent = true})
-vim.api.nvim_set_keymap('v', '<down>', [[:m '>+1<cr>gv=cv]], {noremap = true, silent = true})
-vim.api.nvim_set_keymap('v', '<up>', [[:m '>-2<cr>gv=cv]], {noremap = true, silent = true})
-vim.api.nvim_set_keymap('x', 'ga', '<plug>(EasyAlign)', {noremap = false})
-vim.api.nvim_set_keymap('n', 'ga', '<plug>(EasyAlign)', {noremap = false})
-vim.api.nvim_set_keymap('n', '<c-y>', '5<c-y>', {noremap = true})
+vim.api.nvim_set_keymap('n', '<Leader>rb', ':silent AsyncRun make build<cr>', {noremap = true, silent = true})
 vim.api.nvim_set_keymap('n', '<c-e>', '5<c-e>', {noremap = true})
 vim.api.nvim_set_keymap('n', '<c-n>', ':BufferLineCycleNext<cr>', {noremap = false, silent = true})
 vim.api.nvim_set_keymap('n', '<c-p>', ':BufferLineCyclePrev<cr>', {noremap = false, silent = true})
-vim.api.nvim_set_keymap('n', '<leader>mn', ':BufferLineMoveNext<cr>', {noremap = false, silent = true})
-vim.api.nvim_set_keymap('n', '<leader>mp', ':BufferLineMovePrev<cr>', {noremap = false, silent = true})
-vim.api.nvim_set_keymap('n', '<leader>mm', ':BufferLinePick<cr>', {noremap = false, silent = true})
-vim.api.nvim_set_keymap('n', '<leader>mc', ':BufferLinePickClose<cr>', {noremap = false, silent = true})
 vim.api.nvim_set_keymap('n', '<c-q>', ':NvimTreeToggle<cr>', {noremap = true, silent = true})
+vim.api.nvim_set_keymap('n', '<c-y>', '5<c-y>', {noremap = true})
+vim.api.nvim_set_keymap('n', '<down>',  ':resize +2<cr>', {noremap = true, silent = true})
+vim.api.nvim_set_keymap('n', '<leader><leader>', '/<++><cr>:nohl<cr>c4l', {noremap = true, silent = true})
+vim.api.nvim_set_keymap('n', '<leader>?',  ':vertical split<cr>:view ~/.config/nvim/keymap.md<cr>:setlocal nomodifiable nobuflisted<cr>', {noremap = true, silent = true})
 vim.api.nvim_set_keymap('n', '<leader>aa', ':Git add --all<cr>', {noremap = true, silent = true})
 vim.api.nvim_set_keymap('n', '<leader>am', ':silent Git commit<cr>', {noremap = true, silent = true})
 vim.api.nvim_set_keymap('n', '<leader>ap', ':Git push origin HEAD<cr>', {noremap = true, silent = true})
-vim.api.nvim_set_keymap('n', '<leader>ss', ':silent !open https://google.com -a /Applications/Safari.app<cr>', {noremap = true, silent = true})
-vim.api.nvim_set_keymap('n', '<leader><leader>', '/<++><cr>:nohl<cr>c4l', {noremap = true, silent = true})
-vim.api.nvim_set_keymap('n', 's', '<Plug>(easymotion-overwin-f2)', {noremap = false, silent = true})
-vim.api.nvim_set_keymap('n', 'S', '<Plug>(easymotion-overwin-line)', {noremap = false, silent = true})
 vim.api.nvim_set_keymap('n', '<leader>bl', ':Telescope current_buffer_fuzzy_find<cr>', {noremap = false, silent = true})
-vim.api.nvim_set_keymap('n', '<leader>cn', ':cn<cr>', {noremap = false, silent = true})
 vim.api.nvim_set_keymap('n', '<leader>cN', ':cp<cr>', {noremap = false, silent = true})
-vim.api.nvim_set_keymap('n', '<leader>ts', ':Telescope', {noremap = true, silent = true})
-vim.api.nvim_set_keymap('n', '<leader>tf', ':Telescope find_files<cr>', {noremap = true, silent = true})
-vim.api.nvim_set_keymap('n', '<leader>gf', ':Telescope git_files<cr>', {noremap = true, silent = true})
+vim.api.nvim_set_keymap('n', '<leader>cn', ':cn<cr>', {noremap = false, silent = true})
 vim.api.nvim_set_keymap('n', '<leader>gb', ':Telescope git_branches<cr>', {noremap = true, silent = true})
-vim.api.nvim_set_keymap('n', '<Leader>qf', ':copen<cr>', {noremap = true, silent = true})
-vim.api.nvim_set_keymap('n', '<Leader>rf', ':set foldmethod=expr<cr>', {noremap = true, silent = true})
-vim.api.nvim_set_keymap('n', '<Leader>sw', ':SetWin<cr>', {noremap = true, silent = true})
-vim.api.nvim_set_keymap('n', '<Leader>ta', ':TagbarToggle<cr>', {noremap = true, silent = true})
-vim.api.nvim_set_keymap('n', '<leader>tb',      ':ToggleTerm<cr>', {noremap = true, silent = true})
-vim.api.nvim_set_keymap('n', '<Leader>bb', ':ToggleTerminalBottom<cr>i', {noremap = true, silent = true})
-vim.api.nvim_set_keymap('n', '<Leader>tp', ':!open /Applications/Typora.app %<cr><cr>', {noremap = true, silent = true})
-vim.api.nvim_set_keymap('n', '<Leader>ut', ':UndotreeToggle<cr>', {noremap = true, silent = true})
-vim.api.nvim_set_keymap('n', '<Leader>vq', ':vertical copen<cr>:vertical resize 80<cr>:wincmd h<cr>', {noremap = true, silent = true})
-vim.api.nvim_set_keymap('n', '<Leader>?',  ':vertical split<cr>:view ~/.config/nvim/keymap.md<cr>:setlocal nomodifiable nobuflisted<cr>', {noremap = true, silent = true})
-vim.api.nvim_set_keymap('n', '<Left>',  ':vertical resize -2<cr>', {noremap = true, silent = true})
-vim.api.nvim_set_keymap('n', '<Right>', ':vertical resize +2<cr>', {noremap = true, silent = true})
-vim.api.nvim_set_keymap('n', '<Down>',  ':resize +2<cr>', {noremap = true, silent = true})
-vim.api.nvim_set_keymap('n', '<Up>',    ':resize -2<cr>', {noremap = true, silent = true})
-vim.api.nvim_set_keymap('n', '<Leader>rr', ':silent AsyncRun make run<cr>', {noremap = true, silent = true})
-vim.api.nvim_set_keymap('n', '<Leader>rb', ':silent AsyncRun make build<cr>', {noremap = true, silent = true})
-vim.api.nvim_set_keymap('n', '<Leader>rt', ':silent AsyncRun make test<cr>', {noremap = true, silent = true})
-vim.api.nvim_set_keymap('t', '<C-M-n>', [[<c-\><c-n>]], {noremap = true, silent = true})
-vim.api.nvim_set_keymap('t', '<esc>', [[<c-\><c-n>]], {noremap = true, silent = true})
-vim.api.nvim_set_keymap('t', '<c-t>', [[<c-\><c-n>:ToggleTerm<cr>]], {noremap = true, silent = true})
-vim.api.nvim_set_keymap('v', '<Leader>s', ':sort<cr>', {noremap = true, silent = true})
-vim.api.nvim_set_keymap('n', '<Leader>bo',   [[:!source ~/.config/zsh/custom_func.zsh && blackout<cr><cr><C-l>]], {noremap = true, silent = true})
-vim.api.nvim_set_keymap('n', '<Leader>cbin', [[:!source ~/.config/zsh/custom_func.zsh && change<cr><cr><C-l>]], {noremap = true, silent = true})
-vim.api.nvim_set_keymap('n', '<Leader>cbif', [[:!source ~/.config/zsh/custom_func.zsh && change_f<cr><cr><C-l>]], {noremap = true, silent = true})
+vim.api.nvim_set_keymap('n', '<leader>gf', ':Telescope git_files<cr>', {noremap = true, silent = true})
+vim.api.nvim_set_keymap('n', '<leader>mc', ':BufferLinePickClose<cr>', {noremap = false, silent = true})
+vim.api.nvim_set_keymap('n', '<leader>mm', ':BufferLinePick<cr>', {noremap = false, silent = true})
+vim.api.nvim_set_keymap('n', '<leader>mn', ':BufferLineMoveNext<cr>', {noremap = false, silent = true})
+vim.api.nvim_set_keymap('n', '<leader>mp', ':BufferLineMovePrev<cr>', {noremap = false, silent = true})
+vim.api.nvim_set_keymap('n', '<leader>qf', ':copen<cr>', {noremap = true, silent = true})
+vim.api.nvim_set_keymap('n', '<leader>ss', ':silent !open https://google.com -a /Applications/Safari.app<cr>', {noremap = true, silent = true})
+vim.api.nvim_set_keymap('n', '<leader>ta', ':TagbarToggle<cr>', {noremap = true, silent = true})
+vim.api.nvim_set_keymap('n', '<leader>tf', ':Telescope find_files<cr>', {noremap = true, silent = true})
+vim.api.nvim_set_keymap('n', '<leader>tn', ':Telescope file_browser<cr>', {noremap = true, silent = true})
+vim.api.nvim_set_keymap('n', '<leader>ts', ':Telescope', {noremap = true, silent = true})
+vim.api.nvim_set_keymap('n', '<leader>ut', ':UndotreeToggle<cr>', {noremap = true, silent = true})
+vim.api.nvim_set_keymap('n', '<leader>vq', ':vertical copen<cr>:vertical resize 80<cr>:wincmd h<cr>', {noremap = true, silent = true})
+vim.api.nvim_set_keymap('n', '<left>',  ':vertical resize -2<cr>', {noremap = true, silent = true})
+vim.api.nvim_set_keymap('n', '<m-r>', ':vertical copen<cr>:vertical resize 80<cr>:wincmd h<cr>:silent AsyncRun make run<cr>', {noremap = true, silent = true})
+vim.api.nvim_set_keymap('n', '<right>', ':vertical resize +2<cr>', {noremap = true, silent = true})
+vim.api.nvim_set_keymap('n', '<up>',    ':resize -2<cr>', {noremap = true, silent = true})
+vim.api.nvim_set_keymap('n', 'S', '<Plug>(easymotion-overwin-line)', {noremap = false, silent = true})
+vim.api.nvim_set_keymap('n', 'ga', '<plug>(EasyAlign)', {noremap = false})
+vim.api.nvim_set_keymap('n', 's', '<Plug>(easymotion-overwin-f2)', {noremap = false, silent = true})
+vim.api.nvim_set_keymap('t', '<m-b>', [[<c-\><c-n>]], {noremap = true, silent = true})
+vim.api.nvim_set_keymap('v', '<down>', [[:m '>+1<cr>gv=cv]], {noremap = true, silent = true})
+vim.api.nvim_set_keymap('v', '<leader>s', ':sort<cr>', {noremap = true, silent = true})
+vim.api.nvim_set_keymap('v', '<up>', [[:m '>-2<cr>gv=cv]], {noremap = true, silent = true})
+vim.api.nvim_set_keymap('x', 'ga', '<plug>(EasyAlign)', {noremap = false})
+
+vim.api.nvim_set_keymap('n', '<leader>bo',   [[:!source ~/.config/zsh/custom_func.zsh && blackout<cr><cr><C-l>]], {noremap = true, silent = true})
+vim.api.nvim_set_keymap('n', '<leader>cbin', [[:!source ~/.config/zsh/custom_func.zsh && change<cr><cr><C-l>]], {noremap = true, silent = true})
+vim.api.nvim_set_keymap('n', '<leader>cbif', [[:!source ~/.config/zsh/custom_func.zsh && change_f<cr><cr><C-l>]], {noremap = true, silent = true})
 -- vim.api.nvim_set_keymap('n', 'q:', [[<nop>]], {noremap = true, silent = true})
 vim.api.nvim_set_keymap('n', 'Q', [[<nop>]], {noremap = true, silent = true})
 
@@ -154,10 +149,9 @@ vim.cmd [[autocmd ColorScheme * hi SignColumn guibg=none]]
 vim.cmd [[autocmd ColorScheme * hi EndOfBuffer guifg=#222222]]
 vim.cmd [[autocmd ColorScheme * hi VertSplit guibg=none]]
 vim.cmd [[autocmd ColorScheme * hi GitSignsAdd guifg=lightblue]] -- 9999ff
-vim.cmd [[autocmd ColorScheme * hi CompeDocumentation guibg=none]]
-vim.cmd [[autocmd ColorScheme * hi CompeDocumentationBorder guibg=none]]
-vim.cmd [[autocmd ColorScheme * hi BufferLineSeparator guifg=#333333]]
-vim.cmd [[autocmd ColorScheme * hi BufferLineSeparatorSelected guifg=#333333]]
+vim.cmd [[autocmd ColorScheme * hi CmpDocumentation guibg=none]]
+vim.cmd [[autocmd ColorScheme * hi CmpDocumentationBorder guibg=none]]
+
 vim.cmd [[autocmd ColorScheme * hi EasyMotionTarget  guifg=yellow]]
 
 vim.cmd [[autocmd ColorScheme * hi GitSignsAdd      guibg=none  guifg=lightblue]]
@@ -171,7 +165,6 @@ vim.cmd [[autocmd ColorScheme * hi GitSignsDeleteNr guibg=none  guifg=red]]
 vim.cmd [[autocmd ColorScheme * hi GitSignsDeleteLn guibg=none  guifg=red]]
 
 vim.cmd [[autocmd TermOpen * setlocal nonumber norelativenumber]]
-
 -- vim.cmd [[au BufWinLeave *.* silent! mkview]]
 -- vim.cmd [[au BufWinEnter *.* silent! loadview]]
 
@@ -191,22 +184,22 @@ vim.cmd [[autocmd FileType markdown iabbrev {{ \lbrace \rbrace <++><esc>BBhi]]
 vim.cmd [[autocmd FileType markdown iabbrev {. \left\{ \right. <++><esc>BBhi]]
 vim.cmd [[autocmd FileType markdown inoreabbrev $$$$ $$$$<++><esc>5hi<cr><esc>k$a]]
 vim.cmd [[autocmd FileType python setlocal tabstop=4 softtabstop=4 shiftwidth=4]]
-vim.cmd [[autocmd FileType python nmap <buffer> <Leader>f :silen PEPFMT<CR>]]
+-- vim.cmd [[autocmd FileType python nmap <buffer> <Leader>f :silen PEPFMT<CR>]]
 vim.cmd [[autocmd FileType python compiler python]]
 vim.cmd [[autocmd FileType cpp setlocal tabstop=2 softtabstop=2 shiftwidth=2]]
 vim.cmd [[autocmd FileType c setlocal tabstop=2 softtabstop=2 shiftwidth=2]]
 vim.cmd [[autocmd FileType lua setlocal tabstop=2 softtabstop=2 shiftwidth=2]]
-vim.cmd [[autocmd FileType qf setlocal wrap]]
+vim.cmd [[autocmd FileType qf setlocal wrap nobuflisted]]
 vim.cmd [[autocmd FileType text setlocal tabstop=4 softtabstop=4 shiftwidth=4 wrap]]
 vim.cmd [[autocmd FileType rust let g:rust_recommended_style = 1]]
 vim.cmd [[autocmd FileType rust let g:rustfmt_autosave = 1]]
 vim.cmd [[autocmd FileType rust setlocal tabstop=4 softtabstop=4 shiftwidth=4]]
 vim.cmd [[autocmd FileType qf setlocal nocursorline nonu norelativenumber]]
 
-vim.cmd [[autocmd BufRead,BufNewFile *.[ch] nmap <silent><buffer> <Leader>f :silent CFamilyFMT<CR>]]
-vim.cmd [[autocmd BufRead,BufNewFile *.[chi]pp nmap <buffer> <Leader>f :silent CFamilyFMT<CR>]]
-vim.cmd [[autocmd BufRead,BufNewFile *.rlib nmap <buffer> <Leader>f :silent RustFMT<CR>]]
-vim.cmd [[autocmd BufRead,BufNewFile *.rs nmap <buffer> <Leader>f :silent RustFMT<CR>]]
+-- vim.cmd [[autocmd BufRead,BufNewFile *.[ch] nmap <silent><buffer> <Leader>f :silent CFamilyFMT<CR>]]
+-- vim.cmd [[autocmd BufRead,BufNewFile *.[chi]pp nmap <buffer> <Leader>f :silent CFamilyFMT<CR>]]
+-- vim.cmd [[autocmd BufRead,BufNewFile *.rlib nmap <buffer> <Leader>f :silent RustFMT<CR>]]
+-- vim.cmd [[autocmd BufRead,BufNewFile *.rs nmap <buffer> <Leader>f :silent RustFMT<CR>]]
 vim.cmd [[autocmd BufRead,BufNewFile *.tex nmap <Leader>r <Leader>ll<Leader>lv]]
 vim.cmd [[autocmd BufRead,BufNewFile *.tex setlocal filetype=tex]]
 vim.cmd [[autocmd BufRead,BufNewFile *.wiki setlocal filetype=tex]]
@@ -265,6 +258,6 @@ set viewoptions-=options
 autocmd BufRead,BufNewFile * hi Folded guifg=#928374 guibg=none gui=undercurl
 ]]
 
--- vim:set foldmethod=marker:
 -- }}}
 -- ┼─────────────────────────────────────────────────────────────────────────────────────┼
+-- vim:set foldmethod=marker:
