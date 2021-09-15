@@ -70,19 +70,19 @@ require('packer').startup{
     use {'morhetz/gruvbox', setup = function() vim.cmd 'colo gruvbox' end}
     -- use {'lifepillar/vim-gruvbox8', opt = true, setup = function() vim.cmd 'colo gruvbox8' end}
     use {'akinsho/nvim-bufferline.lua',
-      requires = 'kyazdani42/nvim-web-devicons',
-      config = myConf.bufferline}
+    requires = 'kyazdani42/nvim-web-devicons',
+    config = myConf.bufferline}
     use {'hoob3rt/lualine.nvim',
-      requires = {'kyazdani42/nvim-web-devicons', opt = true},
-      config = myConf.lualine}
+    requires = {'kyazdani42/nvim-web-devicons', opt = true},
+    config = myConf.lualine}
     use {'honza/vim-snippets'}
     use {'SirVer/ultisnips'}
     -- File Operations ----------------------------------------------------------------------------
     use {'kyazdani42/nvim-tree.lua', config = myConf.nvim_tree}
     use 'kyazdani42/nvim-web-devicons'
     use {'nvim-telescope/telescope.nvim',
-      requires = {{'nvim-lua/popup.nvim'}, {'nvim-lua/plenary.nvim'}},
-      config = myConf.telescope}
+    requires = {{'nvim-lua/popup.nvim'}, {'nvim-lua/plenary.nvim'}},
+    config = myConf.telescope}
     use {'nvim-telescope/telescope-fzf-native.nvim', run = 'make', disable = false}
     use {'majutsushi/tagbar', disable = false}
     use {'mbbill/undotree'}
@@ -103,17 +103,39 @@ require('packer').startup{
     use {
       "hrsh7th/nvim-cmp",
       requires = {
-        "hrsh7th/vim-vsnip",
-        "hrsh7th/cmp-buffer",
-        'hrsh7th/cmp-nvim-lsp',
-        'hrsh7th/cmp-path',
-        'hrsh7th/cmp-calc',
-        'ray-x/cmp-treesitter',
-        'quangnguyen30192/cmp-nvim-ultisnips',
+        {
+          "hrsh7th/vim-vsnip",
+          event = 'InsertEnter'
+        },
+        {
+          "hrsh7th/cmp-buffer",
+          event = 'InsertEnter'
+        },
+        {
+          'hrsh7th/cmp-nvim-lsp',
+          event = 'InsertEnter'
+        },
+        {
+          'hrsh7th/cmp-path',
+          event = 'InsertEnter'
+        },
+        {
+          'hrsh7th/cmp-calc',
+          event = 'InsertEnter'
+        },
+        {
+          'ray-x/cmp-treesitter',
+          event = 'InsertEnter'
+        },
+        {
+          'quangnguyen30192/cmp-nvim-ultisnips',
+          event = 'InsertEnter'
+        },
         {
           'andersevenrud/compe-tmux',
           branch = 'cmp',
           opt = true,
+          event = 'InsertEnter'
         }
       },
       config = myConf.nvim_cmp

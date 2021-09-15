@@ -155,20 +155,23 @@ local telescope_init = function()
       sorting_strategy = "ascending",
       layout_strategy = "horizontal",
       border = {},
-      file_ignore_patterns = {"node_modules",
-      "legacy",
-      "overrides",
-      "__pycache__",
-      ".github",
-      ".DS_Store",
-      ".gitignore",},
+      file_ignore_patterns = {
+        "node_modules/*",
+        "legacy/*",
+        "third_parties/*",
+        "overrides/*",
+        "__pycache__",
+        ".github",
+        ".DS_Store",
+        ".gitignore"
+      },
       borderchars = { '─', '│', '─', '│', '╭', '╮', '╯', '╰' },
       -- borderchars = { '─', '│', '─', '│', '┌', '┐', '┘', '└' },
       color_devicons = true,
       use_less = true,
     }
   }
-  require('telescope').load_extension('fzf')
+  -- require('telescope').load_extension('fzf')
 end
 
 -- }}}

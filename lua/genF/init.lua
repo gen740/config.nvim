@@ -30,6 +30,7 @@ vim.opt.lazyredraw = true
 vim.opt.list = true
 vim.opt.listchars = [[tab:»-,conceal:◇,trail:▒,extends:»,precedes:«,nbsp:%]] -- ,eol:↲│
 vim.opt.modeline = true
+vim.opt.mouse:append('a')
 vim.opt.number = true
 vim.opt.pumheight = 12
 vim.opt.relativenumber = true
@@ -56,7 +57,6 @@ vim.opt.undoreload = 10000
 vim.opt.updatetime = 300
 vim.opt.whichwrap = 'b,s,<,>,[,]'
 vim.opt.wrap = false
-vim.opt.mouse:append('a')
 -- vim.opt.backup = false
 -- vim.opt.backupext = '.bak'
 -- vim.opt.completeopt = "menuone,noselect"
@@ -119,6 +119,7 @@ vim.api.nvim_set_keymap('n', '<leader>ts', ':Telescope', {noremap = true, silent
 vim.api.nvim_set_keymap('n', '<leader>ut', ':UndotreeToggle<cr>', {noremap = true, silent = true})
 vim.api.nvim_set_keymap('n', '<leader>vq', ':vertical copen<cr>:vertical resize 80<cr>:wincmd h<cr>', {noremap = true, silent = true})
 vim.api.nvim_set_keymap('n', '<left>',  ':vertical resize -2<cr>', {noremap = true, silent = true})
+vim.api.nvim_set_keymap('n', '<m-d>', ':vertical copen<cr>:vertical resize 80<cr>:wincmd h<cr>:silent AsyncRun make debug<cr>', {noremap = true, silent = true})
 vim.api.nvim_set_keymap('n', '<m-r>', ':vertical copen<cr>:vertical resize 80<cr>:wincmd h<cr>:silent AsyncRun make run<cr>', {noremap = true, silent = true})
 vim.api.nvim_set_keymap('n', '<right>', ':vertical resize +2<cr>', {noremap = true, silent = true})
 vim.api.nvim_set_keymap('n', '<up>',    ':resize -2<cr>', {noremap = true, silent = true})
