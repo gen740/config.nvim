@@ -56,4 +56,3 @@ command! ToggleTerminalTop call custom#ChooseTerm("Term-Slider", 1, 0)
 
 let &cpo = s:save_cpo
 unlet s:save_cpo
-

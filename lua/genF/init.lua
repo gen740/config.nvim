@@ -44,11 +44,9 @@ vim.opt.showmode = false
 vim.opt.showtabline = 2
 vim.opt.signcolumn = 'yes'
 vim.opt.smartcase = true
-vim.opt.softtabstop = 4
 vim.opt.splitbelow = true
 vim.opt.splitright = true
 vim.opt.swapfile = false
-vim.opt.tabstop = 4
 vim.opt.termguicolors = true
 vim.opt.undodir=[[/Users/fujimotogen/.vim/undo]]
 vim.opt.undofile = true
@@ -90,11 +88,11 @@ vim.cmd [[let mapleader = "\<Space>"]]
 vim.api.nvim_set_keymap('i', '<c-[>', [[<c-[>:silent call custom#change_ime('eisu')<cr>]], {noremap = true, silent = true})
 vim.api.nvim_set_keymap('i', '<esc>', [[<esc>:silent call custom#change_ime('eisu')<cr>]], {noremap = true, silent = true})
 vim.api.nvim_set_keymap('n', '<Leader>rb', ':silent AsyncRun make build<cr>', {noremap = true, silent = true})
-vim.api.nvim_set_keymap('n', '<c-e>', '5<c-e>', {noremap = true})
+vim.api.nvim_set_keymap('n', '<c-e>', '3<c-e>', {noremap = true})
 vim.api.nvim_set_keymap('n', '<c-n>', ':BufferLineCycleNext<cr>', {noremap = false, silent = true})
 vim.api.nvim_set_keymap('n', '<c-p>', ':BufferLineCyclePrev<cr>', {noremap = false, silent = true})
 vim.api.nvim_set_keymap('n', '<c-q>', ':NvimTreeToggle<cr>', {noremap = true, silent = true})
-vim.api.nvim_set_keymap('n', '<c-y>', '5<c-y>', {noremap = true})
+vim.api.nvim_set_keymap('n', '<c-y>', '3<c-y>', {noremap = true})
 vim.api.nvim_set_keymap('n', '<down>',  ':resize +2<cr>', {noremap = true, silent = true})
 vim.api.nvim_set_keymap('n', '<leader><leader>', '/<++><cr>:nohl<cr>c4l', {noremap = true, silent = true})
 vim.api.nvim_set_keymap('n', '<leader>?',  ':vertical split<cr>:view ~/.config/nvim/keymap.md<cr>:setlocal nomodifiable nobuflisted<cr>', {noremap = true, silent = true})
@@ -102,7 +100,7 @@ vim.api.nvim_set_keymap('n', '<leader>aa', ':Git add --all<cr>', {noremap = true
 vim.api.nvim_set_keymap('n', '<leader>am', ':silent Git commit<cr>', {noremap = true, silent = true})
 vim.api.nvim_set_keymap('n', '<leader>ap', ':Git push origin HEAD<cr>', {noremap = true, silent = true})
 vim.api.nvim_set_keymap('n', '<leader>bl', ':Telescope current_buffer_fuzzy_find<cr>', {noremap = false, silent = true})
-vim.api.nvim_set_keymap('n', '<leader>cN', ':cp<cr>', {noremap = false, silent = true})
+vim.api.nvim_set_keymap('n', '<leader>cp', ':cp<cr>', {noremap = false, silent = true})
 vim.api.nvim_set_keymap('n', '<leader>cn', ':cn<cr>', {noremap = false, silent = true})
 vim.api.nvim_set_keymap('n', '<leader>gb', ':Telescope git_branches<cr>', {noremap = true, silent = true})
 vim.api.nvim_set_keymap('n', '<leader>gf', ':Telescope git_files<cr>', {noremap = true, silent = true})
@@ -119,8 +117,8 @@ vim.api.nvim_set_keymap('n', '<leader>ts', ':Telescope', {noremap = true, silent
 vim.api.nvim_set_keymap('n', '<leader>ut', ':UndotreeToggle<cr>', {noremap = true, silent = true})
 vim.api.nvim_set_keymap('n', '<leader>vq', ':vertical copen<cr>:vertical resize 80<cr>:wincmd h<cr>', {noremap = true, silent = true})
 vim.api.nvim_set_keymap('n', '<left>',  ':vertical resize -2<cr>', {noremap = true, silent = true})
-vim.api.nvim_set_keymap('n', '<m-d>', ':vertical copen<cr>:vertical resize 80<cr>:wincmd h<cr>:silent AsyncRun make debug<cr>', {noremap = true, silent = true})
-vim.api.nvim_set_keymap('n', '<m-r>', ':vertical copen<cr>:vertical resize 80<cr>:wincmd h<cr>:silent AsyncRun make run<cr>', {noremap = true, silent = true})
+vim.api.nvim_set_keymap('n', '<m-c>', ':vertical copen<cr>:vertical resize 80<cr>:wincmd h<cr>:Neomake! build<cr>', {noremap = true, silent = true})
+vim.api.nvim_set_keymap('n', '<m-r>', ':vertical copen<cr>:vertical resize 80<cr>:wincmd h<cr>:Neomake! make<cr>', {noremap = true, silent = true})
 vim.api.nvim_set_keymap('n', '<right>', ':vertical resize +2<cr>', {noremap = true, silent = true})
 vim.api.nvim_set_keymap('n', '<up>',    ':resize -2<cr>', {noremap = true, silent = true})
 vim.api.nvim_set_keymap('n', 'S', '<Plug>(easymotion-overwin-line)', {noremap = false, silent = true})
@@ -137,6 +135,8 @@ vim.api.nvim_set_keymap('n', '<leader>cbin', [[:!source ~/.config/zsh/custom_fun
 vim.api.nvim_set_keymap('n', '<leader>cbif', [[:!source ~/.config/zsh/custom_func.zsh && change_f<cr><cr><C-l>]], {noremap = true, silent = true})
 -- vim.api.nvim_set_keymap('n', 'q:', [[<nop>]], {noremap = true, silent = true})
 vim.api.nvim_set_keymap('n', 'Q', [[<nop>]], {noremap = true, silent = true})
+
+
 
 -- }}}
 -- ┼─────────────────────────────────────────────────────────────────────────────────────┼
@@ -169,85 +169,50 @@ vim.cmd [[autocmd TermOpen * setlocal nonumber norelativenumber]]
 -- vim.cmd [[au BufWinLeave *.* silent! mkview]]
 -- vim.cmd [[au BufWinEnter *.* silent! loadview]]
 
+vim.cmd [[autocmd FileType lua setlocal sw=2]]
+vim.cmd [[autocmd FileType cpp setlocal sw=2]]
+
 -- }}}
--- ┼─────────────────────────────────────────────────────────────────────────────────────┼
--- │ {{{                    « FileType Specified Configurations »                        │
--- ┼─────────────────────────────────────────────────────────────────────────────────────┼
-
--- Markdown
-vim.cmd [[autocmd FileType markdown setlocal tabstop=2 softtabstop=2 shiftwidth=2 wrap]]
-vim.cmd [[autocmd FileType markdown nnoremap o A<CR>]]
-vim.cmd [[autocmd FileType markdown iabbrev [[ \left[ \right] <++><esc>BBhi]]
-vim.cmd [[autocmd FileType markdown iabbrev [. \left[ \right. <++><esc>BBhi]]
-vim.cmd [[autocmd FileType markdown iabbrev (( \left( \right) <++><esc>BBhi]]
-vim.cmd [[autocmd FileType markdown iabbrev (. \left( \right. <++><esc>BBhi]]
-vim.cmd [[autocmd FileType markdown iabbrev {{ \lbrace \rbrace <++><esc>BBhi]]
-vim.cmd [[autocmd FileType markdown iabbrev {. \left\{ \right. <++><esc>BBhi]]
-vim.cmd [[autocmd FileType markdown inoreabbrev $$$$ $$$$<++><esc>5hi<cr><esc>k$a]]
-vim.cmd [[autocmd FileType python setlocal tabstop=4 softtabstop=4 shiftwidth=4]]
--- vim.cmd [[autocmd FileType python nmap <buffer> <Leader>f :silen PEPFMT<CR>]]
-vim.cmd [[autocmd FileType python compiler python]]
-vim.cmd [[autocmd FileType cpp setlocal tabstop=2 softtabstop=2 shiftwidth=2]]
-vim.cmd [[autocmd FileType c setlocal tabstop=2 softtabstop=2 shiftwidth=2]]
-vim.cmd [[autocmd FileType lua setlocal tabstop=2 softtabstop=2 shiftwidth=2]]
-vim.cmd [[autocmd FileType qf setlocal wrap nobuflisted]]
-vim.cmd [[autocmd FileType text setlocal tabstop=4 softtabstop=4 shiftwidth=4 wrap]]
-vim.cmd [[autocmd FileType rust let g:rust_recommended_style = 1]]
-vim.cmd [[autocmd FileType rust let g:rustfmt_autosave = 1]]
-vim.cmd [[autocmd FileType rust setlocal tabstop=4 softtabstop=4 shiftwidth=4]]
-vim.cmd [[autocmd FileType qf setlocal nocursorline nonu norelativenumber]]
-
--- vim.cmd [[autocmd BufRead,BufNewFile *.[ch] nmap <silent><buffer> <Leader>f :silent CFamilyFMT<CR>]]
--- vim.cmd [[autocmd BufRead,BufNewFile *.[chi]pp nmap <buffer> <Leader>f :silent CFamilyFMT<CR>]]
--- vim.cmd [[autocmd BufRead,BufNewFile *.rlib nmap <buffer> <Leader>f :silent RustFMT<CR>]]
--- vim.cmd [[autocmd BufRead,BufNewFile *.rs nmap <buffer> <Leader>f :silent RustFMT<CR>]]
-vim.cmd [[autocmd BufRead,BufNewFile *.tex nmap <Leader>r <Leader>ll<Leader>lv]]
-vim.cmd [[autocmd BufRead,BufNewFile *.tex setlocal filetype=tex]]
-vim.cmd [[autocmd BufRead,BufNewFile *.wiki setlocal filetype=tex]]
-vim.cmd [[autocmd BufRead,BufNewFile *.tex nnoremap <C-q> <Plug>Tex_FastEnvironmentInsert]]
-vim.cmd [[autocmd BufRead,BufNewFile *.tex vnoremap <C-q> <Plug>Tex_FastEnvironmentInsert]]
-
---- }}}
 -- ┼─────────────────────────────────────────────────────────────────────────────────────┼
 -- │ {{{                       « Folding Configurations »                                │
 -- ┼─────────────────────────────────────────────────────────────────────────────────────┼
 
 vim.cmd [[
 if has("folding")
-    set foldtext=MyFoldText()
-    function! MyFoldText()
-        " for now, just don't try if version isn't 7 or higher
-        if v:version < 701
-            return foldtext()
-        endif
-        " clear fold from fillchars to set it up the way we want later
-        let &l:fillchars = substitute(&l:fillchars,',\?fold:.','','gi')
-        let l:numwidth = (v:version < 701 ? 8 : &numberwidth)
-        if &fdm=='diff'
-            let l:linetext=''
-            let l:foldtext='---------- '.(v:foldend-v:foldstart+1).' lines the same ----------'
-            let l:align = winwidth(0)-&foldcolumn-(&nu ? Max(strwidth(line('$'))+1, l:numwidth) : 0)
-            let l:align = (l:align / 2) + (strwidth(l:foldtext)/2)
-            " note trailing space on next line
-            setlocal fillchars+=fold:\
-        elseif !exists('b:foldpat') || b:foldpat==0
-            let l:foldtext = '┈ '.(v:foldend-v:foldstart).' ﲐ'.' ┠'
-            let l:endofline = 106 " (&textwidth>0 ? &textwidth : 100 + 6)
-            let l:linetext = strpart(getline(v:foldstart),0,l:endofline-strwidth(l:foldtext))
-            let l:align = l:endofline-strwidth(l:linetext)
-            setlocal fillchars+=fold:─ " 空白
-        elseif b:foldpat==1
-            let l:align = winwidth(0)-&foldcolumn-(&nu ? Max(strwidth(line('$'))+1, l:numwidth) : 0)
-            let l:foldtext = ' '.v:folddashes
-            let l:linetext = substitute(getline(v:foldstart),'\s\+$','','')
-            let l:linetext .= '▤ × '.(v:foldend-v:foldstart-1).' lines--- '
-            let l:linetext .= substitute(getline(v:foldend),'^\s\+','','')
-            let l:linetext = strpart(l:linetext,0,l:align-strwidth(l:foldtext))
-            let l:align -= strwidth(l:linetext)
-            setlocal fillchars+=fold:-
-        endif
-        return printf('%s%*s', l:linetext, l:align, l:foldtext)
-    endfunction
+  set foldtext=MyFoldText()
+  function! MyFoldText()
+    " for now, just don't try if version isn't 7 or higher
+    if v:version < 701
+      return foldtext()
+    endif
+    " clear fold from fillchars to set it up the way we want later
+    let &l:fillchars = substitute(&l:fillchars,',\?fold:.','','gi')
+    let l:numwidth = (v:version < 701 ? 8 : &numberwidth)
+    if &fdm=='diff'
+      let l:linetext=''
+      let l:foldtext='---------- '.(v:foldend-v:foldstart+1).' lines the same ----------'
+      let l:align = winwidth(0)-&foldcolumn-(&nu ? Max(strwidth(line('$'))+1, l:numwidth) : 0)
+      let l:align = (l:align / 2) + (strwidth(l:foldtext)/2)
+      " note trailing space on next line
+      setlocal fillchars+=fold:\
+    elseif !exists('b:foldpat') || b:foldpat==0
+      let l:foldtext = '┈ '.(v:foldend-v:foldstart).' ﲐ'.' ┠'
+      let l:endofline = 106 " (&textwidth>0 ? &textwidth : 100 + 6)
+      let l:linetext = strpart(getline(v:foldstart),0,l:endofline-strwidth(l:foldtext))
+      let l:align = l:endofline-strwidth(l:linetext)
+      setlocal fillchars+=fold:─ " 空白
+    elseif b:foldpat==1
+      let l:align = winwidth(0)-&foldcolumn-(&nu ? Max(strwidth(line('$'))+1, l:numwidth) : 0)
+      let l:foldtext = ' '.v:folddashes
+      let l:linetext = substitute(getline(v:foldstart),'\s\+$','','')
+      let l:linetext .= '▤ × '.(v:foldend-v:foldstart-1).' lines--- '
+      let l:linetext .= substitute(getline(v:foldend),'^\s\+','','')
+      let l:linetext = strpart(l:linetext,0,l:align-strwidth(l:foldtext))
+      let l:align -= strwidth(l:linetext)
+      setlocal fillchars+=fold:-
+    endif
+    return printf('%s%*s', l:linetext, l:align, l:foldtext)
+  endfunction
 endif
 
 set foldmethod=expr

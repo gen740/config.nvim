@@ -7,19 +7,7 @@ local others = function ()
   vim.g.EasyMotion_keys = 'aoeidtnpyfgcrl;qjkxbmwvzuhs'  -- This Option is For Dvorak User
   vim.g.EasyMotion_do_mapping = 0
   vim.g.EasyMotion_use_migemo = 1
-  -- Indentline
-  vim.g.indentLine_color_gui = '#555555'
-  vim.cmd [[autocmd FileType tex let g:indentLine_color_gui = "#dddddd"]]
-  vim.cmd [[autocmd BufNewFile,BufRead *.tex hi Statement guifg=#dddddd]]
-  vim.g.indentLine_fileTypeExclude = {'dashboard', 'markdown'}
-  -- vim.g.indentLine_char = '┊'
-  -- vim.g.indentLine_char = '│'
-  -- vim.g.indentLine_char = '⎸'
-  vim.g.indentLine_char = '▏'
-  vim.g.indentLine_conceallevel = 1
-  vim.g.indentLine_concealcursor=""
   -- markdown
-  vim.g.vim_markdown_fenced_languages = {'c++=cpp', 'viml=vim', 'bash=sh', 'ini=dosini'}
   vim.g.vim_markdown_math = 1
   -- Tex
   vim.g.Tex_SmartKeyBS = 0
@@ -171,7 +159,6 @@ local telescope_init = function()
       use_less = true,
     }
   }
-  -- require('telescope').load_extension('fzf')
 end
 
 -- }}}
@@ -298,6 +285,36 @@ end
 
 -- }}}
 -- ┼─────────────────────────────────────────────────────────────────────────────────────┼
+-- │ {{{                            « Indent Blank Line »                                │
+-- ┼─────────────────────────────────────────────────────────────────────────────────────┼
+local indent_blankline_init = function ()
+  vim.cmd [[autocmd FileType * highlight IndentBlanklineIndent1 guifg=#666666 blend=nocombine]]
+  vim.cmd [[autocmd FileType * highlight IndentBlanklineIndent2 guifg=#333333 blend=nocombine]]
+  vim.g.indentLine_fileTypeExclude = {'dashboard', 'markdown'}
+  require("indent_blankline").setup {
+    buftype_exclude = {"dashboard", "markdown"},
+    space_char_blankline = " ",
+  -- -- vim.g.indentLine_char = '┊'
+  -- -- vim.g.indentLine_char = '│'
+  -- -- vim.g.indentLine_char = '⎸'
+    char = '▏',
+    char_highlight_list = {
+      "IndentBlanklineIndent1",
+      "IndentBlanklineIndent2",
+      "IndentBlanklineIndent1",
+      "IndentBlanklineIndent2",
+      "IndentBlanklineIndent1",
+      "IndentBlanklineIndent2",
+      "IndentBlanklineIndent1",
+      "IndentBlanklineIndent2",
+      "IndentBlanklineIndent1",
+      "IndentBlanklineIndent2",
+    }
+  }
+end
+
+-- }}}
+-- ┼─────────────────────────────────────────────────────────────────────────────────────┼
 -- │ {{{                           « LSP Configurations »                                │
 -- ┼─────────────────────────────────────────────────────────────────────────────────────┼
 
@@ -308,6 +325,14 @@ local nvim_lsp_init = function()
   table.insert(runtime_path, "lua/?/init.lua")
   -- Keymaps
   local on_attach = function(client, bufnr)
+    local border = { '╭', '─' ,'╮', '│', '╯', '─', '╰', '│' }
+    local signs = { Error = " ", Warning = " ", Hint = " ", Information = " " }
+    for type, icon in pairs(signs) do
+      local hl = "LspDiagnosticsSign" .. type
+      vim.fn.sign_define(hl, { text = icon, texthl = hl, numhl = "" })
+    end
+    vim.lsp.handlers["textDocument/hover"] =  vim.lsp.with(vim.lsp.handlers.hover, {border = border})
+    vim.lsp.handlers["textDocument/signatureHelp"] =  vim.lsp.with(vim.lsp.handlers.signature_help, {border = border})
     local function buf_set_keymap(...) vim.api.nvim_buf_set_keymap(bufnr, ...) end
     local function buf_set_option(...) vim.api.nvim_buf_set_option(bufnr, ...) end
     buf_set_option('omnifunc', 'v:lua.vim.lsp.omnifunc')
@@ -320,7 +345,7 @@ local nvim_lsp_init = function()
     buf_set_keymap('n', '<space>wa', '<cmd>lua vim.lsp.buf.add_workspace_folder()<CR>', opts)
     buf_set_keymap('n', '<space>wr', '<cmd>lua vim.lsp.buf.remove_workspace_folder()<CR>', opts)
     buf_set_keymap('n', '<space>wl', '<cmd>lua print(vim.inspect(vim.lsp.buf.list_workspace_folders()))<CR>', opts)
-    buf_set_keymap('n', '<space>d', '<cmd>lua vim.lsp.buf.type_definition()<CR>', opts)
+    buf_set_keymap('n', '<space>td', '<cmd>lua vim.lsp.buf.type_definition()<CR>', opts)
     buf_set_keymap('n', '<space>rn', '<cmd>lua vim.lsp.buf.rename()<CR>', opts)
     buf_set_keymap('n', '<space>ca', '<cmd>lua vim.lsp.buf.code_action()<CR>', opts)
     buf_set_keymap('n', 'gr', '<cmd>lua vim.lsp.buf.references()<CR>', opts)
@@ -330,6 +355,9 @@ local nvim_lsp_init = function()
     buf_set_keymap('n', '<space>q', '<cmd>lua vim.lsp.diagnostic.set_loclist()<CR>', opts)
     buf_set_keymap("n", "<space>f", "<cmd>lua vim.lsp.buf.formatting()<CR>", opts)
   end
+  local flags = {
+    debounce_text_changes = 100,
+  }
   local servers = {'vimls',
                    'pyright',
                    'dockerls',
@@ -341,6 +369,7 @@ local nvim_lsp_init = function()
                    -- 'denols',
                    -- 'sourcekit',
                    'clangd',
+                   'taplo', -- cargo install taplo-lsp
                    'jsonls',
                    'texlab',
                    'bashls',
@@ -348,9 +377,7 @@ local nvim_lsp_init = function()
   for _, lsp in ipairs(servers) do
     nvim_lsp[lsp].setup {
       on_attach = on_attach,
-      flags = {
-        debounce_text_changes = 150,
-      }
+      flags = flags
     }
   end
   require'lspconfig'.zeta_note.setup{
@@ -395,7 +422,6 @@ local nvim_lsp_init = function()
       },
     },
   }
-  vim.cmd([[ autocmd ColorScheme * :lua require('vim.lsp.diagnostic')._define_default_signs_and_highlights() ]])
 end
 
 --}}}
@@ -418,8 +444,8 @@ local nvim_compe_init = function()
       max_kind_width = 100;
       max_menu_width = 100;
       documentation = {
-          -- border = { '╭', '─' ,'╮', '│', '╯', '─', '╰', '│' },
-          border = { '┌', '─' ,'┐', '│', '┘', '─', '└', '│' },
+          border = { '╭', '─' ,'╮', '│', '╯', '─', '╰', '│' },
+          -- border = { '┌', '─' ,'┐', '│', '┘', '─', '└', '│' },
           -- winhighlight = "NormalFloat:CompeDocumentation, FloatBorder:CompeDocumentationBorder",
           max_width = 120,
           min_width = 60,
@@ -460,8 +486,8 @@ local nvim_cmp_init = function()
       ['<C-Space>'] = cmp.mapping.complete(),
       ['<C-e>'] = cmp.mapping.close(),
       ['<CR>'] = cmp.mapping.confirm {
-        behavior = cmp.ConfirmBehavior.Replace,
-        select = true,
+        -- behavior = cmp.ConfirmBehavior.Replace,
+        -- select = true,
       },
     },
     documentation = {
@@ -648,6 +674,112 @@ local bufferline_init = function()
     },
   }
 end
+--}}}
+-- ┼─────────────────────────────────────────────────────────────────────────────────────┼
+-- │ {{{                          « Nvim Dap (Debugger) »                                │
+-- ┼─────────────────────────────────────────────────────────────────────────────────────┼
+local nvim_dap_init = function ()
+  local dap = require('dap')
+  dap.adapters.lldb = {
+    type = 'executable',
+    command = '/usr/local/opt/llvm/bin/lldb-vscode', -- adjust as needed
+    name = "lldb"
+  }
+  dap.configurations.cpp = {
+    {
+      name = "Launch",
+      type = "lldb",
+      request = "launch",
+      program = function()
+        return vim.fn.input('Path to executable: ', vim.fn.getcwd() .. '/', 'file')
+      end,
+      cwd = '${workspaceFolder}',
+      stopOnEntry = false,
+      args = {},
+      runInTerminal = false,
+    },
+  }
+  dap.configurations.c = dap.configurations.cpp
+  dap.configurations.rust = dap.configurations.cpp
+end
+
+-- KEYMAPS
+vim.api.nvim_set_keymap('n', '<leader>db', [[:lua Dap_Setup()<cr>]], {noremap = true, silent = true})
+vim.api.nvim_set_keymap('n', '<leader>dn', [[:lua require'dap'.continue()<cr>]], {noremap = true, silent = true})
+vim.api.nvim_set_keymap('n', '<leader>ds', [[:lua require'dap'.step_over()<cr>]], {noremap = true, silent = true})
+vim.api.nvim_set_keymap('n', '<leader>di', [[:lua require'dap'.step_into()<cr>]], {noremap = true, silent = true})
+vim.api.nvim_set_keymap('n', '<leader>dd', [[:lua require'dap'.toggle_breakpoint()<cr>]], {noremap = true, silent = true})
+vim.api.nvim_set_keymap('n', '<leader>dD', [[:lua require'dap'.set_breakpoint(vim.fn.input('Breakpoint condition: '))<CR>]], {noremap = true, silent = true})
+vim.api.nvim_set_keymap('n', '<leader>dp', [[:lua require'dap'.set_breakpoint(nil, nil, vim.fn.input('Log point message: '))<CR>]], {noremap = true, silent = true})
+vim.api.nvim_set_keymap('n', '<leader>dr', [[:lua require'dap'.repl.open()<CR>:wincmd h<cr>:set]], {noremap = true, silent = true})
+vim.api.nvim_set_keymap('n', '<leader>dl', [[:lua require'dap'.run_last()<CR>]], {noremap = true, silent = true})
+
+function Dap_Setup()
+  vim.cmd[[autocmd FileType dap-repl setlocal nobuflisted]]
+  require'dap'.continue()
+  vim.fn.feedkeys(':only\n', 'x')
+
+--   local cur_win = vim.api.nvim_get_current_win()
+--   local cur_win_height = vim.api.nvim_win_get_height(cur_win)
+
+--   local widgets = require('dap.ui.widgets')
+--   local my_sidebar = widgets.sidebar(widgets.scopes)
+--   my_sidebar.open()
+--   -- my_sidebar = widgets.sidebar(widgets.frames)
+--   -- my_sidebar.open()
+--   require'dap'.repl.open()
+--   vim.api.nvim_win_set_height(cur_win, math.floor(cur_win_height*3/4))
+end
+
+function Dap_Float()
+  local widgets = require('dap.ui.widgets')
+  widgets.centered_float(widgets.scopes)
+end
+
+local dap_ui_init = function ()
+  require("dapui").setup({
+    icons = { expanded = "▾", collapsed = "▸" },
+    mappings = {
+      -- Use a table to apply multiple mappings
+      expand = { "<CR>", "<2-LeftMouse>" },
+      open = "o",
+      remove = "d",
+      edit = "e",
+      repl = "r",
+    },
+    sidebar = {
+      open_on_start = true,
+      -- You can change the order of elements in the sidebar
+      elements = {
+        -- Provide as ID strings or tables with "id" and "size" keys
+        {
+          id = "scopes",
+          size = 0.33, -- Can be float or integer > 1
+        },
+        { id = "breakpoints", size = 0.33 },
+        { id = "stacks", size = 0.33 },
+        -- { id = "watches", size = 00.25 },
+      },
+      size = 40,
+      position = "right", -- Can be "left", "right", "top", "bottom"
+    },
+    tray = {
+      open_on_start = true,
+      elements = { "repl" },
+      size = 15,
+      position = "bottom", -- Can be "left", "right", "top", "bottom"
+    },
+    floating = {
+      max_height = nil, -- These can be integers or a float between 0 and 1.
+      max_width = nil, -- Floats will be treated as percentage of your screen.
+      mappings = {
+        close = { "q", "<Esc>" },
+      },
+    },
+    windows = { indent = 1 },
+  })
+end
+
 
 --}}}
 -- ┼─────────────────────────────────────────────────────────────────────────────────────┼
@@ -819,11 +951,13 @@ return {
   nvim_tree = nvim_tree_init,
   gitsigns = gitsigns_init,
   nvim_lsp = nvim_lsp_init,
+  indent_blankline = indent_blankline_init,
   lsp_status = lsp_status_init,
   toggle_term = toggle_term_init,
   nvim_cmp = nvim_cmp_init,
   nvim_lspkind = nvim_lspkind_init,
+  nvim_dap = nvim_dap_init,
+  dap_ui = dap_ui_init,
 }
 
 -- vim:set foldmethod=marker:
--- vim:set foldlevel=0:

@@ -50,6 +50,7 @@ require('packer').startup{
     -- Utilities ----------------------------------------------------------------------------------
     -- use {'jiangmiao/auto-pairs', ft = {'cpp', 'c', 'python', 'lua', 'javascript', 'tex'}}
     use {'skywind3000/asyncrun.vim', cmd = 'AsyncRun'}
+    use {'neomake/neomake'}
     use {'easymotion/vim-easymotion', event = 'VimEnter'}
     use {'junegunn/vim-easy-align', event = 'VimEnter'}
     use {'tpope/vim-commentary', event = 'VimEnter'}
@@ -58,7 +59,7 @@ require('packer').startup{
     use {'tpope/vim-surround'}
     use {'kshenoy/vim-signature'}
     use {'tpope/vim-fugitive'}
-    use {'lukas-reineke/indent-blankline.nvim'}
+    use {'lukas-reineke/indent-blankline.nvim', config = myConf.indent_blankline}
     use {'akinsho/nvim-toggleterm.lua', config = myConf.toggle_term}
     -- DashBoard ----------------------------------------------------------------------------------
     use {'glepnir/dashboard-nvim', config = myConf.dashboard}
@@ -67,8 +68,8 @@ require('packer').startup{
     use {'nvim-treesitter/nvim-treesitter-textobjects'}
     use {'nvim-treesitter/nvim-treesitter-refactor'}
     -- Appearance ---------------------------------------------------------------------------------
-    use {'morhetz/gruvbox', setup = function() vim.cmd 'colo gruvbox' end}
-    -- use {'lifepillar/vim-gruvbox8', opt = true, setup = function() vim.cmd 'colo gruvbox8' end}
+    -- use {'morhetz/gruvbox'}
+    use {'lifepillar/vim-gruvbox8'}
     use {'akinsho/nvim-bufferline.lua',
     requires = 'kyazdani42/nvim-web-devicons',
     config = myConf.bufferline}
@@ -97,8 +98,13 @@ require('packer').startup{
     use {'lervag/vimtex', ft = {'markdown', 'md', 'tex'}}
     use {'lvht/tagbar-markdown', ft = {'markdown', 'md'}}
     use {'rhysd/vim-grammarous', ft = {'markdown', 'md', 'text'}}
-    -- LSP ----------------------------------------------------------------------------------------
+    -- use {'rust-lang/rust.vim', ft = {'rust'}}
+    -- LSP and Debugger ----------------------------------------------------------------------------------------
+    --
     use {'neovim/nvim-lspconfig', config = myConf.nvim_lsp}
+    use {'mfussenegger/nvim-dap', config = myConf.nvim_dap}
+    use {'rcarriga/nvim-dap-ui', config = myConf.dap_ui}
+
     -- use {'hrsh7th/nvim-compe', event = 'InsertEnter', config = myConf.nvim_compe}
     use {
       "hrsh7th/nvim-cmp",
@@ -155,3 +161,5 @@ require('packer').startup{
 }
 
 myConf.others()
+-- vim.cmd 'colo gruvbox'
+vim.cmd 'colo gruvbox8'

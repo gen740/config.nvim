@@ -9,8 +9,9 @@
 | C-p           | Select Previous Tab                   |
 | C-q           | Expand File Tree                      |
 | C-y           | Scroll up 5 lines                     |
-| M-r           | Make run  |
-| M-w           | Toggle terminal  |
+| M-c           | NeoMake build                         |
+| M-r           | NeoMake run                           |
+| M-w           | Toggle terminal                       |
 | L-L           | Search the word under the cursor      |
 | L-aa          | Git add --all                         |
 | L-am          | Git Commit                            |
@@ -18,8 +19,10 @@
 | L-ar          | EasyAlign                             |
 | L-at          | Coc Codeaction Selected               |
 | L-bl          | Telescope find line                   |
-| L-cN          | :cPrevious                            |
+| L-cp          | :cPrevious                            |
 | L-cn          | :cNext                                |
+| L-db          | Debug Mode Start                      |
+| L-ds          | Debug Mode Step                       |
 | L-gb          | Telescope git branch                  |
 | L-gf          | Telescope git files                   |
 | L-mn          | Bufferline move next                  |
@@ -46,7 +49,7 @@
 | C-k  | signature help          |
 | K    | Show Documentation      |
 | L-ca | Coc Codeaction          |
-| L-d  | type definition         |
+| L-td  | type definition         |
 | L-e  | show line diagnostic    |
 | L-f  | Code Format             |
 | L-q  | diagnostic set loclist  |
