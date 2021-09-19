@@ -67,3 +67,7 @@ require('packer').startup{
     }
   }
 }
+
+if not packer_exists then
+    vim.cmd[[:PackerSync]]
+end
