@@ -8,7 +8,7 @@ vim.g.enc = 'utf-8'
 vim.g.fileencoding = 'utf-8'
 vim.opt.autoindent = true
 vim.opt.autoread = true
-vim.opt.autowrite = true
+-- vim.opt.autowrite = true
 vim.opt.clipboard = 'unnamed'
 vim.opt.colorcolumn = '100'
 vim.opt.concealcursor= 'c'
@@ -68,6 +68,8 @@ vim.opt.wrap = false
 -- vim.opt.wildmode:append([[full]])
 -- vim.opt.wildmode:append([[longest]])
 -- vim.opt.writebackup = false
+
+vim.g.netrw_silent = true
 
 -- forNeovide
 vim.o.guifont = 'HackGen35Nerd Console:h13'

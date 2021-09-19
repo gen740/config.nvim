@@ -89,7 +89,7 @@ local treesitter_init = function()
       },
     },
     refactor = {
-      highlight_definitions = { enable = false },
+      highlight_definitions = { enable = true },
       highlight_current_scope = { enable = false },
       smart_rename = {
         enable = true,
@@ -682,8 +682,13 @@ local nvim_dap_init = function ()
   local dap = require('dap')
   dap.adapters.lldb = {
     type = 'executable',
-    command = '/usr/local/opt/llvm/bin/lldb-vscode', -- adjust as needed
+    command = '/usr/local/opt/llvm/bin/lldb', -- adjust as needed
     name = "lldb"
+  }
+  dap.adapters.python = {
+    type = 'executable';
+    command = '/Users/fujimotogen/.pyenv/versions/debugpy/bin/python';
+    args = { '-m', 'debugpy.adapter' };
   }
   dap.configurations.cpp = {
     {
@@ -701,10 +706,28 @@ local nvim_dap_init = function ()
   }
   dap.configurations.c = dap.configurations.cpp
   dap.configurations.rust = dap.configurations.cpp
+  dap.configurations.python = {
+    {
+      type = 'python';
+      request = 'launch';
+      name = "Launch file";
+      program = "${file}"; -- This configuration will launch the current file if used.
+      pythonPath = function()
+        local cwd = vim.fn.getcwd()
+        if vim.fn.executable(cwd .. '/venv/bin/python') == 1 then
+          return cwd .. '/venv/bin/python'
+        elseif vim.fn.executable(cwd .. '/.venv/bin/python') == 1 then
+          return cwd .. '/.venv/bin/python'
+        else
+          return '/usr/bin/python'
+        end
+      end;
+    },
+  }
 end
 
 -- KEYMAPS
-vim.api.nvim_set_keymap('n', '<leader>db', [[:lua Dap_Setup()<cr>]], {noremap = true, silent = true})
+vim.api.nvim_set_keymap('n', '<leader>db', [[:lua require'dap'.continue()<cr>]], {noremap = true, silent = true})
 vim.api.nvim_set_keymap('n', '<leader>dn', [[:lua require'dap'.continue()<cr>]], {noremap = true, silent = true})
 vim.api.nvim_set_keymap('n', '<leader>ds', [[:lua require'dap'.step_over()<cr>]], {noremap = true, silent = true})
 vim.api.nvim_set_keymap('n', '<leader>di', [[:lua require'dap'.step_into()<cr>]], {noremap = true, silent = true})
@@ -718,17 +741,15 @@ function Dap_Setup()
   vim.cmd[[autocmd FileType dap-repl setlocal nobuflisted]]
   require'dap'.continue()
   vim.fn.feedkeys(':only\n', 'x')
-
---   local cur_win = vim.api.nvim_get_current_win()
---   local cur_win_height = vim.api.nvim_win_get_height(cur_win)
-
---   local widgets = require('dap.ui.widgets')
---   local my_sidebar = widgets.sidebar(widgets.scopes)
---   my_sidebar.open()
---   -- my_sidebar = widgets.sidebar(widgets.frames)
---   -- my_sidebar.open()
---   require'dap'.repl.open()
---   vim.api.nvim_win_set_height(cur_win, math.floor(cur_win_height*3/4))
+  local cur_win = vim.api.nvim_get_current_win()
+  local cur_win_height = vim.api.nvim_win_get_height(cur_win)
+  local widgets = require('dap.ui.widgets')
+  local my_sidebar = widgets.sidebar(widgets.scopes)
+  my_sidebar.open()
+  -- my_sidebar = widgets.sidebar(widgets.frames)
+  -- my_sidebar.open()
+  require'dap'.repl.open()
+  vim.api.nvim_win_set_height(cur_win, math.floor(cur_win_height*3/4))
 end
 
 function Dap_Float()
@@ -749,13 +770,8 @@ local dap_ui_init = function ()
     },
     sidebar = {
       open_on_start = true,
-      -- You can change the order of elements in the sidebar
       elements = {
-        -- Provide as ID strings or tables with "id" and "size" keys
-        {
-          id = "scopes",
-          size = 0.33, -- Can be float or integer > 1
-        },
+        { id = "scopes", size = 0.33, },
         { id = "breakpoints", size = 0.33 },
         { id = "stacks", size = 0.33 },
         -- { id = "watches", size = 00.25 },
@@ -807,15 +823,8 @@ local toggle_term_init = function()
     direction = 'horizontal', -- 'vertical' | 'horizontal' | 'window' | 'float',
     close_on_exit = true, -- close the terminal window when the process exits
     shell = vim.o.shell, -- change the default shell
-    -- This field is only relevant if direction is set to 'float'
     float_opts = {
-      -- The border key is *almost* the same as 'nvim_open_win'
-      -- see :h nvim_open_win for details on borders however
-      -- the 'curved' border is a custom border type
-      -- not natively supported but implemented in this plugin.
       border = 'single', -- | 'double' | 'shadow' | 'curved' | ... other options supported by win open
-      -- width = <value>,
-      -- height = <value>,
       winblend = 3,
       highlights = {
         border = "Normal",
@@ -875,64 +884,7 @@ local dashboard_init = function()
     },
   }
   vim.g.dashboard_custom_header = {""}
-
-  -- vim.g.dashboard_custom_header = {
-  -- [[                               ommmmms                    +mmdmd`                                   ]],
-  -- [[                               `hNNNNy:+ssso/..../osso+/-.hNNNN+                                    ]],
-  -- [[                             ./oydmNNNhdds+::---::/ohdddNNNNNNo`                                    ]],
-  -- [[                          `/yysydhNNNNmdmmmmmmmmmmmmmmmddmmmmdddho-                                 ]],
-  -- [[            `-.       ```..../hmmddmmdmmmmmmmmmmmmmmmmmmmmmmmmmddyys-`        ``                    ]],
-  -- [[           ommNd:  `/s+...:ohdmmmmmmdmmmmmmmmmmddmmmmmmmmmmmmmmmmds:..`..   :ydydy`                 ]],
-  -- [[           dNNNNN+/hh+++shddddddddddddddddddddddydddddddddddddddddddy+:/oo-oNNNmmy`                 ]],
-  -- [[           /mNNNNNmmddddddddddddddddddddddddddddhydddddddhddddddysdddddhhdmNNNNNN+                  ]],
-  -- [[            `:hNmNNNdddddddddddddhdddddddddddddddyhdddddddhhddhsyhdddddddNNNNNNms::/-               ]],
-  -- [[            .yh/hdmddddddddddddddyddddddddddddddddsdddddddddyysyddddddddddmdhNhso/:/s-              ]],
-  -- [[           .s+.:dddddddddhddddddyhddddddddddddddddhoyyyyyyyyysssssssyyhdddddhhsos:  +/              ]],
-  -- [[          ....:ydddddddddyddddddyddddddddddddddddddo+yyhhhhssyyyhdddddddddddddossh/ /+    `         ]],
-  -- [[        `o-.:shddddddddddydddddhyddddddddddddddddddhyddddhsshddyhdddddddddddydhoshh::+  .+s-        ]],
-  -- [[ ``.`  `so+yhdddddddddddyhdddddhhdddddddddddddddddddyNdhhsyhddddyhdddhdddddhyydhsshs::`/+:s/        ]],
-  -- [[/mhmmh/ohhddddhhddddddddyddddddyhddddddddddddddddhhdymNdsyhdddddhyddhyddmdhssosysosh/:+:``o+        ]],
-  -- [[.dmNNNNNNmydhhyhhhhhdddhyddddddyhdhdddddddddddddhhshhhNNmdhddddddhyhhshddNdsoohys+/o//.  `o+        ]],
-  -- [[ .shhhmmNNhhhshhhyhhhhhhyhhhhhhyhhddhhhhhhhhhhhhhhshhyNNNNmhhhhhhhyhhshhhddooohhhh/+o--` `s/        ]],
-  -- [[   ``.yyhhhhyyhhhshhhhhyshhhhhhyhhmmhhhhhhhhhhhhhhshhsmmmmmmhhhhhhhyhshhhhhss/hhyo/////+//s.        ]],
-  -- [[     .yhhhhhshhhhshhhhhyshhhhhhyhhmNhdhhhhhhhhhhhhshh+hmmNNNNmdhhhhshshhhhhhs+sso+oo+o:.++-         ]],
-  -- [[     /hhhhhhshhhhshhhhhyshhhhhhyhhdNhhhhhhhhhhhhhhshhydNNNNNNNNNdhhhyshhhhhhosssyosh+o+``//`        ]],
-  -- [[     ohhhhhhshhhhyhhhhhhshhhhhhyhhhdhhhhhhhhhhhhhhsyhydNNNNNNNNNNNdhsshhhhhhh+yhoshho/o: `o-        ]],
-  -- [[     shdhhhhshhhhshhhhhhshhhhhhyyhhhhhhhhhhhhhhhhhyyhydmNNNNNNNNNNNNdohhhhhhh/+ssshho+o+`.o-        ]],
-  -- [[     yhNdhhhshhhhshhhhhhshhhhhhhyhhhhhddddddddddddyydodNmdy/oooshmmNNyhhhhyhh::+shhhos+o:+/         ]],
-  -- [[     yhNdhhhshhhhhyhhhhhyhhhhhhhyhhhddddddddddddddyhdos+:`  `.o-:/+mNyhhhyyhy::osyhyoyooo:          ]],
-  -- [[     yhmdhhhshhhhhshhhhhhsddddddyhdyddddddddddddddhhdo/+/ `..-/.`sysdhdddyhhs/osoosooysoo-          ]],
-  -- [[     shhhhhhshhhhhyhhddddyhddddddydydmmmmmmmmmmmmmydmsmm-.:+::/:`:mdhddddyddymmNNyhyyhoo++          ]],
-  -- [[     +hhhhhhyyhhhhhyddddddydddmmmhdhdmmmmmmmmmmmmmymddNN//oo:-oo-/NNhmddhddhddhdNhhhhhoo/o.         ]],
-  -- [[     .yhhhhhhsddddhhhdddddhdmmmmmmhmhmmmmmmmmmmmmmymhNNNd+hhyhy+:dNNdmmdhmmhhhhhNdhhhhoo-s-         ]],
-  -- [[      ohhhhhhyhdddhdhdmmmmmhmmmmmmddddmmmmmmmmmmmdhmhNNNNNmshddymNNdmmmhmmdmyhshNdhhhy+o.o:         ]],
-  -- [[      -yhhhhhhsdmmdhmhmmmmmmhmmmmmmhmhmmmmmmmmmmmymhmNNNNNNNNmmNNNNhmmddmmdmyhhhNyhhh+++`+/         ]],
-  -- [[       +hhhhhhyymmmdhdhmmmmmddmmmmmmhmhmmmmmmmmmddmhNNNNNNNNNNNNNNdmmddmmdmhhhhNd+yhy-o+`++         ]],
-  -- [[       `shhhhhhyymmmdddhmmmmmdmmmmmmmhdhmmNNNNNNmNNNNNNNNNNNNNNNNNdmddmmdmyhhdNh//yy:.s/ /+         ]],
-  -- [[        .yhhhhhhyymmmmddhmmmmmmmmmmNNNmNNNNNNNNNmNNNNNNNNNNNNNNNNmmmmNmmNmmNNmo::/yo`-y: /+         ]],
-  -- [[         :yhhhhhhhyhmmmddhmmmmNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNddmmy/:-:os` /s. ++         ]],
-  -- [[          /yyyhhhhhyyhdddmmNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNd//+/::-:/o. `o+  +/         ]],
-  -- [[           :yysyhhhhhhyodNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNm/:-:::--:/.  -s- `o:         ]],
-  -- [[            -syyssyhhhhyomNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNm/::-:-.--.`   /o` .s-         ]],
-  -- [[             `/yy//+syhhyomNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNh/:::.``..`    `o/  -s.         ]],
-  -- [[               -os+::/+ooo+ymNNNNNNNNNNNNNNNNNNNmNNNNNNNNNNNNNNNNNho:::::` ``      -o.  :o`         ]],
-  -- [[                 -oo/::-::::+sdNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNmy+::-`...          /:  `++          ]],
-  -- [[                   ./+/:--:::::/sdmNNNNNNNNNNNNNNNNNNNNNNNNNmho/:--`              .o.  .o/          ]],
-  -- [[                     `.---...----:/oydmNNNNNNNNNNNNNNNNNNNmhy/-.``                //   -s-          ]],
-  -- [[                              ````-:://++hdmmNNNNNNNNNNmhyhhy:-++/`              .o.   /o`          ]],
-  -- [[                                  :hdNmh/yhhyhhhdddddhhhhhhhhsmmmNd.             //    --           ]],
-  -- [[                                  dNNmmmdyyhhhhhhhhhhhhhhhhymNNNNdN:             -`                 ]],
-  -- [[     `-:-``oy+.                   mNmmNNNNdyyhhyhhhhhhhyyhymNNNNNmd`                   .:/-   ````  ]],
-  -- [[    /dNNNmhNNNNy:`                oNNNNNNNNhmNNNhyhhhhmNNymNNNNNNd-                 `:ymNNh:+yhdmdy-]],
-  -- [[   .NNNNNNNNNNNNNh/`              `hNNNNNNNNNNNNNdyyhNNNNNNNNNNNd:                 -hNNNmmmNNNNNNNN+]],
-  -- [[   -NNNNNNNNNNNNNNNoo+-`         -oymmNNNNNNNNNNNNyhNNNNNNNNNNNmmmy/--.```     `-:+NNNNNNNNNNNNNNNm:]],
-  -- [[   -NNNNNNNNNNNNNNmmNNNh:`  .:/+yNNNNmhNNNNNNNNNNNmNNNNNNNdNNNNNNNNNNNNmdhs:./ymNNhNNNNNNNNNNNNNNNs ]],
-  -- [[   `dNNNNNNNNNNNNNmmNNNNNyosmNNNNNNNNNNNNNNNmNNNNNNNNNNNNdmNNNNNNNNNNNNNNNNhdNNNNNhNNNNNNNNNNNNNNd. ]],
-  -- [[    +NNNNNNNNNNNNNNdmNNNNdddNNNNNNNNNNNNNNNNdhyyy/sydNNNNNNNNNNNNNNNNNNNNNmddNNNNdmNNNNNNNNNNNNNN/  ]],
-  -- [[     hNNNNNNNNNNNNNdhmNNNmmdNNNNNNNNNNNNms/-..-/.```./+oshmNNNNNNNNNNNNNNNddNNNNddNNNNNNNNNNNNNNy`  ]],
-  -- [[     .dNNNNNNNNNNNNhNNNNNNdhNNNNNNNNNNh/.`.+ymNs``-``+yo/..:+hNNNNNNNNNNNddNNNNdmNNNNNNNNNNNNNNh.   ]]}
-
-  -- vim.g.dashboard_custom_footer = {}
+  vim.g.dashboard_custom_footer = {""}
   vim.cmd [[autocmd FileType dashboard highlight DashboardHeader guifg=#9999bb]]
 end
 
