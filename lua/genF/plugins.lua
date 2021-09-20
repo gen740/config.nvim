@@ -70,6 +70,7 @@ require('packer').startup{
     -- Appearance ---------------------------------------------------------------------------------
     -- use {'morhetz/gruvbox'}
     use {'lifepillar/vim-gruvbox8'}
+    -- use {'sainnhe/gruvbox-material'}
     use {'akinsho/nvim-bufferline.lua',
     requires = 'kyazdani42/nvim-web-devicons',
     config = myConf.bufferline}

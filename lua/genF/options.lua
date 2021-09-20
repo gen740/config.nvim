@@ -372,6 +372,7 @@ local nvim_lsp_init = function()
                    'taplo', -- cargo install taplo-lsp
                    'jsonls',
                    'texlab',
+                   'gopls',
                    'bashls',
                    'cmake',}
   for _, lsp in ipairs(servers) do
@@ -682,7 +683,7 @@ local nvim_dap_init = function ()
   local dap = require('dap')
   dap.adapters.lldb = {
     type = 'executable',
-    command = '/usr/local/opt/llvm/bin/lldb', -- adjust as needed
+    command = '/usr/local/opt/llvm/bin/lldb-vscode', -- adjust as needed
     name = "lldb"
   }
   dap.adapters.python = {
