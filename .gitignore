@@ -1,7 +1,7 @@
 # Mac
 .DS_Store
-./Ultisnips
-./plugin
+/Ultisnips
+/plugin
 
 # Executables
 *.a
