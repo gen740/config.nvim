@@ -1,61 +1,29 @@
--- ┼─────────────────────────────────────────────────────────────────────────────────────┼
--- │ {{{                           « Plugin settings »                                   │
--- ┼─────────────────────────────────────────────────────────────────────────────────────┼
+M = {}
 
--- Easy Motion
-local others = function ()
-  vim.g.EasyMotion_keys = 'aoeidtnpyfgcrl;qjkxbmwvzuhs'  -- This Option is For Dvorak User
-  vim.g.EasyMotion_do_mapping = 0
-  vim.g.EasyMotion_use_migemo = 1
-  -- markdown
-  vim.g.vim_markdown_math = 1
-  -- Tex
-  vim.g.Tex_SmartKeyBS = 0
-  vim.g.Tex_SmartKeyQuote = 0
-  vim.g.Tex_SmartKeyDot = 0
-  vim.g.Tex_CompileRule_pdf = 'lualatex $* > /dev/null'
-  vim.g.Tex_CompileRule_dvi = 'lualatex $* > /dev/null'
-  -- Ultisnips
-  vim.g.UltiSnipsExpandTrigger="<tab>"
-  vim.g.UltiSnipsJumpForwardTrigger="<c-j>"
-  vim.g.UltiSnipsJumpBackwardTrigger="<c-k>"
-  vim.g.UltiSnipsEditSplit="vertical"
-end
-
---- }}}
 -- ┼─────────────────────────────────────────────────────────────────────────────────────┼
 -- │ {{{                              « Treesitter »                                     │
 -- ┼─────────────────────────────────────────────────────────────────────────────────────┼
 
-local treesitter_init = function()
+function M.treesitter()
   require'nvim-treesitter.configs'.setup {
     ensure_installed = "maintained", -- one of "all", "maintained" (parsers with maintainers), or a list of languages
     highlight = {
       enable = true              -- false will disable the whole extension
     },
     indent = {
-      enable = false,              -- false will disable the whole extension
-      disable = { "c", "cpp", "python"},
+      enable = true,              -- false will disable the whole extension
     },
     incremental_selection = {
-      enable = true              -- false will disable the whole extension
+      enable = false,              -- false will disable the whole extension
     },
     textobjects = {
       select = {
-      enable = true,
-      keymaps = {
-        -- You can use the capture groups defined in textobjects.scm
-        ["af"] = "@function.outer",
-        ["if"] = "@function.inner",
-        ["ac"] = "@class.outer",
-        ["ic"] = "@class.inner",
-        -- Or you can define your own textobjects like this
-        ["iF"] = {
-          python = "(function_definition) @function",
-          cpp = "(function_definition) @function",
-          c = "(function_definition) @function",
-          java = "(method_declaration) @function",
-          },
+        enable = true,
+        keymaps = {
+          ["af"] = "@function.outer",
+          ["if"] = "@function.inner",
+          ["ac"] = "@class.outer",
+          ["ic"] = "@class.inner",
         },
       },
       swap = {
@@ -106,7 +74,7 @@ end
 -- │ {{{                       « Telescope Configurations »                              │
 -- ┼─────────────────────────────────────────────────────────────────────────────────────┼
 
-local telescope_init = function()
+function M.telescope()
   local actions = require('telescope.actions')
   local custom_action = {
     action = function() vim.cmd [[:loadview]] end
@@ -116,6 +84,7 @@ local telescope_init = function()
       mappings = {
         i = {
           ["<cr>"] = actions.select_default + actions.center + custom_action,
+          ["<esc>"] = actions.close,
         },
         n = {
           ["<esc>"] = actions.close,
@@ -166,7 +135,7 @@ end
 -- │ {{{                       « Nvim Tree Configurations »                              │
 -- ┼─────────────────────────────────────────────────────────────────────────────────────┼
 
-local nvim_tree_init = function ()
+function M.nvim_tree()
   vim.g.nvim_tree_gitignore = 1
   vim.g.nvim_tree_quit_on_open = 1
   vim.g.nvim_tree_follow = 1
@@ -238,7 +207,7 @@ end
 -- │ {{{                       « Git signs Configurations »                              │
 -- ┼─────────────────────────────────────────────────────────────────────────────────────┼
 
-local gitsigns_init = function()
+function M.gitsigns()
   require('gitsigns').setup {
       signs = {
           add          = {hl = 'GitSignsAdd'   , text = '│', numhl='GitSignsAddNr'   , linehl='GitSignsAddLn'},
@@ -261,25 +230,20 @@ local gitsigns_init = function()
           ['n <leader>hr'] = '<cmd>lua require"gitsigns".reset_hunk()<CR>',
           ['v <leader>hr'] = '<cmd>lua require"gitsigns".reset_hunk({vim.fn.line("."), vim.fn.line("v")})<CR>',
           ['n <leader>hR'] = '<cmd>lua require"gitsigns".reset_buffer()<CR>',
-          ['n <leader>hp'] = '<cmd>lua require"gitsigns".preview_hunk()<CR>',
-          ['n <leader>hb'] = '<cmd>lua require"gitsigns".blame_line(true)<CR>',
-          -- Text objects
-          ['o ih'] = ':<C-U>lua require"gitsigns.actions".select_hunk()<CR>',
+          ['n <leader>hp'] = '<cmd>lua require"gitsigns".preview_hunk()<cr>',
+          ['n <leader>hb'] = '<cmd>lua require"gitsigns".blame_line(true)<cr>',
+          -- text objects
+          ['o ih'] = ':<c-u>lua require"gitsigns.actions".select_hunk()<cr>',
           ['x ih'] = ':<C-U>lua require"gitsigns.actions".select_hunk()<CR>'
       },
       watch_index = {
           interval = 1000,
           follow_files = true
       },
-      -- current_line_blame = false,
-      -- current_line_blame_opts.delay = 1000,
-      -- current_line_blame_opts.position = 'eol',
       sign_priority = 6,
       update_debounce = 100,
       status_formatter = nil, -- Use default
-      word_diff = false,
-      -- use_decoration_api = true,
-      -- diff_opts.internal = true,  -- If luajit is present
+      word_diff = true,
   }
 end
 
@@ -287,17 +251,14 @@ end
 -- ┼─────────────────────────────────────────────────────────────────────────────────────┼
 -- │ {{{                            « Indent Blank Line »                                │
 -- ┼─────────────────────────────────────────────────────────────────────────────────────┼
-local indent_blankline_init = function ()
+function M.indent_blankline()
   vim.cmd [[autocmd FileType * highlight IndentBlanklineIndent1 guifg=#666666 blend=nocombine]]
   vim.cmd [[autocmd FileType * highlight IndentBlanklineIndent2 guifg=#333333 blend=nocombine]]
   vim.g.indentLine_fileTypeExclude = {'dashboard', 'markdown'}
   require("indent_blankline").setup {
     buftype_exclude = {"dashboard", "markdown"},
     space_char_blankline = " ",
-  -- -- vim.g.indentLine_char = '┊'
-  -- -- vim.g.indentLine_char = '│'
-  -- -- vim.g.indentLine_char = '⎸'
-    char = '▏',
+    char = '│', -- '▏', '┊', '│', '⎸'
     char_highlight_list = {
       "IndentBlanklineIndent1",
       "IndentBlanklineIndent2",
@@ -318,13 +279,13 @@ end
 -- │ {{{                           « LSP Configurations »                                │
 -- ┼─────────────────────────────────────────────────────────────────────────────────────┼
 
-local nvim_lsp_init = function()
+function M.nvim_lsp()
   local nvim_lsp = require('lspconfig')
   local runtime_path = vim.split(package.path, ';')
   table.insert(runtime_path, "lua/?.lua")
   table.insert(runtime_path, "lua/?/init.lua")
   -- Keymaps
-  local on_attach = function(client, bufnr)
+  local on_attach = function(bufnr)
     local border = { '╭', '─' ,'╮', '│', '╯', '─', '╰', '│' }
     local signs = { Error = " ", Warning = " ", Hint = " ", Information = " " }
     for type, icon in pairs(signs) do
@@ -368,7 +329,7 @@ local nvim_lsp_init = function()
                    'rust_analyzer',
                    -- 'denols',
                    -- 'sourcekit',
-                   'clangd',
+                   'clangd', -- brew install llvm
                    'taplo', -- cargo install taplo-lsp
                    'jsonls',
                    'texlab',
@@ -378,45 +339,30 @@ local nvim_lsp_init = function()
   for _, lsp in ipairs(servers) do
     nvim_lsp[lsp].setup {
       on_attach = on_attach,
-      flags = flags
+      flags = flags,
     }
   end
   require'lspconfig'.zeta_note.setup{
     cmd = {'/Users/fujimotogen/.local/bin/zeta-note-macos'},
     on_attach = on_attach
   }
-  local system_name
-  if vim.fn.has("mac") == 1 then
-    system_name = "macOS"
-  elseif vim.fn.has("unix") == 1 then
-    system_name = "Linux"
-  elseif vim.fn.has('win32') == 1 then
-    system_name = "Windows"
-  else
-    print("Unsupported system for sumneko")
-  end
   local sumneko_root_path = '/Users/fujimotogen/.local/tools/lua-language-server'
-  local sumneko_binary = sumneko_root_path.."/bin/"..system_name.."/lua-language-server"
+  local sumneko_binary = sumneko_root_path.."/bin/macOS/lua-language-server"
   require'lspconfig'.sumneko_lua.setup {
     cmd = {sumneko_binary, "-E", sumneko_root_path .. "/main.lua"};
     on_attach = on_attach,
     settings = {
       Lua = {
         runtime = {
-          -- Tell the language server which version of Lua you're using (most likely LuaJIT in the case of Neovim)
           version = 'LuaJIT',
-          -- Setup your lua path
           path = '/usr/local/bin/lua',
         },
         diagnostics = {
-          -- Get the language server to recognize the `vim` global
           globals = {'vim'},
         },
         workspace = {
-          -- Make the server aware of Neovim runtime files
           library = vim.api.nvim_get_runtime_file("", true),
         },
-        -- Do not send telemetry data containing a randomized but unique identifier
         telemetry = {
           enable = false,
         },
@@ -430,43 +376,7 @@ end
 -- │ {{{                       « nivm compe Configurations »                             │
 -- ┼─────────────────────────────────────────────────────────────────────────────────────┼
 
-local nvim_compe_init = function()
-  require'compe'.setup {
-      enabled = true;
-      autocomplete = true;
-      debug = false;
-      min_length = 1;
-      preselect = 'enable';
-      throttle_time = 80;
-      source_timeout = 200;
-      resolve_timeout = 800;
-      incomplete_delay = 400;
-      max_abbr_width = 100;
-      max_kind_width = 100;
-      max_menu_width = 100;
-      documentation = {
-          border = { '╭', '─' ,'╮', '│', '╯', '─', '╰', '│' },
-          -- border = { '┌', '─' ,'┐', '│', '┘', '─', '└', '│' },
-          -- winhighlight = "NormalFloat:CompeDocumentation, FloatBorder:CompeDocumentationBorder",
-          max_width = 120,
-          min_width = 60,
-          max_height = math.floor(vim.o.lines * 0.3),
-          min_height = 1,
-      };
-      source = {
-          ultisnips = true;
-          path = true;
-          buffer = true;
-          calc = true;
-          nvim_lsp = true;
-          -- nvim_lua = true;
-          -- vsnip = true;
-      };
-  }
-end
-
-
-local nvim_cmp_init = function()
+function M.nvim_cmp()
   local cmp = require 'cmp'
   local WIDE_HEIGHT = 40
   cmp.setup {
@@ -507,15 +417,13 @@ local nvim_cmp_init = function()
     },
     formatting = {
       format = function(entry, vim_item)
-        -- fancy icons and a name of kind
         vim_item.kind = require("lspkind").presets.default[vim_item.kind] .. " " .. vim_item.kind
-        -- set a name for each source
-        -- vim_item.menu = ({
-        --   buffer = "[Buffer]",
-        --   nvim_lsp = "[LSP]",
-        --   nvim_lua = "[Lua]",
-        --   latex_symbols = "[Latex]",
-        -- })[entry.source.name]
+        vim_item.menu = ({
+          buffer = "[Buffer]",
+          nvim_lsp = "[LSP]",
+          nvim_lua = "[Lua]",
+          latex_symbols = "[Latex]",
+        })[entry.source.name]
         return vim_item
       end,
     },
@@ -527,51 +435,10 @@ end
 -- │ {{{                             « Nvim LSP Kind »                                   │
 -- ┼─────────────────────────────────────────────────────────────────────────────────────┼
 
-local nvim_lspkind_init = function()
+function M.nvim_lspkind()
   require('lspkind').init({
-    -- enables text annotations
-    --
-    -- default: true
     with_text = true,
-
-    -- default symbol map
-    -- can be either 'default' (requires nerd-fonts font) or
-    -- 'codicons' for codicon preset (requires vscode-codicons font)
-    --
-    -- default: 'default'
-    preset = 'codicons',
-
-    -- override preset symbols
-    --
-    -- default: {}
-    symbol_map = {
-      Text = "",
-      Method = "",
-      Function = "",
-      Constructor = "",
-      Field = "ﰠ",
-      Variable = "",
-      Class = "ﴯ",
-      Interface = "",
-      Module = "",
-      Property = "ﰠ",
-      Unit = "塞",
-      Value = "",
-      Enum = "",
-      Keyword = "",
-      Snippet = "",
-      Color = "",
-      File = "",
-      Reference = "",
-      Folder = "",
-      EnumMember = "",
-      Constant = "",
-      Struct = "פּ",
-      Event = "",
-      Operator = "",
-      TypeParameter = "",
-      Calc = "aoe"
-    },
+    preset = 'default',
   })
 end
 
@@ -580,16 +447,19 @@ end
 -- │ {{{                          « Status and Tab line »                                │
 -- ┼─────────────────────────────────────────────────────────────────────────────────────┼
 
-local lsp_status_init = function()
-  local lsp_status = require('lsp-status') -- TODO
-  lsp_status.register_progress()
+function M.lsp_status()
+  -- local lsp_status = require('lsp-status') -- TODO
+  -- lsp_status.register_progress()
+  --[[ lsp_status.config {
+    current_function = true,
+  } ]]
 end
 
 function Word_count()
   return [[ : ]] .. vim.fn.wordcount()['chars']
 end
 
-local lualine_init = function()
+function M.lualine()
   require('lualine').setup{
     options = {
       theme = 'onedark',
@@ -606,7 +476,7 @@ local lualine_init = function()
     sections = {
       lualine_a = {{'mode', lower = true}},
       lualine_b = {'branch'},
-      lualine_c = {{require'lsp-status'.status}, {Word_count}},
+      lualine_c = {{require'lsp-status'.status}},
       lualine_x = {'filetype', 'encoding'},
       lualine_y = {'progress'},
       lualine_z = {'location'}
@@ -615,7 +485,7 @@ local lualine_init = function()
   }
 end
 
-local bufferline_init = function()
+function M.bufferline()
   require('bufferline').setup {
     options = {
       numbers = 'none',
@@ -638,13 +508,10 @@ local bufferline_init = function()
       max_prefix_length = 10,
       tab_size = 6,
       diagnostics = 'nvim_lsp',
-      diagnostics_indicator = function(count, level, diagnostics_dict, context)
+      diagnostics_indicator = function(count, level)
         local icon = level:match("error") and " " or " "
         return "" .. icon .. count
       end,
-      -- diagnostics_indicator = function(count)
-      --   return ""..count..""
-      -- end,
       offsets = {{filetype = "NvimTree", text = " File Explorer", text_align = 'center',}},
       show_buffer_icons = true,
       show_buffer_close_icons = true,
@@ -679,7 +546,8 @@ end
 -- ┼─────────────────────────────────────────────────────────────────────────────────────┼
 -- │ {{{                          « Nvim Dap (Debugger) »                                │
 -- ┼─────────────────────────────────────────────────────────────────────────────────────┼
-local nvim_dap_init = function ()
+
+function M.nvim_dap()
   local dap = require('dap')
   dap.adapters.lldb = {
     type = 'executable',
@@ -758,7 +626,7 @@ function Dap_Float()
   widgets.centered_float(widgets.scopes)
 end
 
-local dap_ui_init = function ()
+function M.dap_ui()
   require("dapui").setup({
     icons = { expanded = "▾", collapsed = "▸" },
     mappings = {
@@ -803,7 +671,7 @@ end
 -- │ {{{                              « Toggle Term »                                    │
 -- ┼─────────────────────────────────────────────────────────────────────────────────────┼
 
-local toggle_term_init = function()
+function M.toggle_term()
   require("toggleterm").setup{
     -- size can be a number or function which is passed the current terminal
     size  = function(term)
@@ -840,7 +708,7 @@ end
 -- │ {{{                        « DashBoard Configurations »                             │
 -- ┼─────────────────────────────────────────────────────────────────────────────────────┼
 
-local dashboard_init = function()
+function M.dashboard()
   vim.g.dashboard_default_executive = 'telescope'
   -- let s:dashboard_shortcut_icon['last_session'] = ' '
   -- let s:dashboard_shortcut_icon['find_history'] = ' '
@@ -891,26 +759,34 @@ end
 
 --}}}
 -- ┼─────────────────────────────────────────────────────────────────────────────────────┼
+-- │ {{{                           « Plugin settings »                                   │
+-- ┼─────────────────────────────────────────────────────────────────────────────────────┼
+
+-- Easy Motion
+function M.others()
+  vim.g.EasyMotion_keys = 'aoeidtnpyfgcrl;qjkxbmwvzuhs'  -- This Option is For Dvorak User
+  vim.g.EasyMotion_do_mapping = 0
+  vim.g.EasyMotion_use_migemo = 1
+  -- markdown
+  vim.g.vim_markdown_math = 1
+  -- Tex
+  vim.g.Tex_SmartKeyBS = 0
+  vim.g.Tex_SmartKeyQuote = 0
+  vim.g.Tex_SmartKeyDot = 0
+  vim.g.Tex_CompileRule_pdf = 'lualatex $* > /dev/null'
+  vim.g.Tex_CompileRule_dvi = 'lualatex $* > /dev/null'
+  -- Ultisnips
+  vim.g.UltiSnipsExpandTrigger="<tab>"
+  vim.g.UltiSnipsJumpForwardTrigger="<c-j>"
+  vim.g.UltiSnipsJumpBackwardTrigger="<c-k>"
+  vim.g.UltiSnipsEditSplit="vertical"
+end
+
+--- }}}
+-- ┼─────────────────────────────────────────────────────────────────────────────────────┼
 
 -- Export
-return {
-  others = others,
-  treesitter = treesitter_init,
-  nvim_compe = nvim_compe_init,
-  telescope = telescope_init,
-  dashboard = dashboard_init,
-  lualine = lualine_init,
-  bufferline = bufferline_init,
-  nvim_tree = nvim_tree_init,
-  gitsigns = gitsigns_init,
-  nvim_lsp = nvim_lsp_init,
-  indent_blankline = indent_blankline_init,
-  lsp_status = lsp_status_init,
-  toggle_term = toggle_term_init,
-  nvim_cmp = nvim_cmp_init,
-  nvim_lspkind = nvim_lspkind_init,
-  nvim_dap = nvim_dap_init,
-  dap_ui = dap_ui_init,
-}
+return M
+
 
 -- vim:set foldmethod=marker:

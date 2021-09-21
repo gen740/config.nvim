@@ -8,15 +8,11 @@ vim.g.enc = 'utf-8'
 vim.g.fileencoding = 'utf-8'
 vim.opt.autoindent = true
 vim.opt.autoread = true
--- vim.opt.autowrite = true
 vim.opt.clipboard = 'unnamed'
 vim.opt.colorcolumn = '100'
 vim.opt.concealcursor= 'c'
 vim.opt.conceallevel = 1
-vim.opt.cursorline = true
 vim.opt.expandtab = true
-vim.opt.exrc = true
-vim.opt.foldcolumn = '0'
 vim.opt.foldenable = true
 vim.opt.foldexpr = 'nvim_treesitter#foldexpr()'
 vim.opt.foldlevel = 999
@@ -29,11 +25,10 @@ vim.opt.laststatus = 2
 vim.opt.lazyredraw = true
 vim.opt.list = true
 vim.opt.listchars = [[tab:»-,conceal:◇,trail:▒,extends:»,precedes:«,nbsp:%]] -- ,eol:↲│
-vim.opt.modeline = true
 vim.opt.mouse:append('a')
 vim.opt.number = true
-vim.opt.pumheight = 12
 vim.opt.relativenumber = true
+vim.opt.pumheight = 10
 vim.opt.runtimepath:append('~/.config/nvim/custom_runtime')
 vim.opt.scrolloff = 8
 vim.opt.shada = [['1000,f1,<500,:500,@500,/500]]
@@ -52,34 +47,13 @@ vim.opt.undodir=[[/Users/fujimotogen/.vim/undo]]
 vim.opt.undofile = true
 vim.opt.undolevels = 1000
 vim.opt.undoreload = 10000
-vim.opt.updatetime = 300
+vim.opt.updatetime = 750
 vim.opt.whichwrap = 'b,s,<,>,[,]'
 vim.opt.wrap = false
--- vim.opt.backup = false
--- vim.opt.backupext = '.bak'
--- vim.opt.completeopt = "menuone,noselect"
--- vim.opt.display = 'lastline'
--- vim.opt.iskeyword:remove(':')
--- vim.opt.matchtime = 5
 -- vim.opt.path:append([[**]])
--- vim.opt.showmatch = true
--- vim.opt.tags = '.tags;~'
--- vim.opt.wildmenu = true
--- vim.opt.wildmode:append([[full]])
--- vim.opt.wildmode:append([[longest]])
--- vim.opt.writebackup = false
+vim.opt.showmatch = true
 
 vim.g.netrw_silent = true
-
--- forNeovide
-vim.o.guifont = 'HackGen35Nerd Console:h13'
-vim.g.neovide_cursor_vfx_mode = 'pixiedust'
-vim.g.neovide_fullscreen = 1
-vim.g.neovide_cursor_vfx_particle_density = 50
-vim.g.neovide_transparency=0.8
-vim.g.neovide_cursor_vfx_particle_lifetime=5
-vim.g.neovide_cursor_animation_length=0.02
-vim.g.neovide_cursor_trail_length=100
 
 -- }}}
 -- ┼─────────────────────────────────────────────────────────────────────────────────────┼
@@ -97,10 +71,10 @@ vim.api.nvim_set_keymap('n', '<c-q>', ':NvimTreeToggle<cr>', {noremap = true, si
 vim.api.nvim_set_keymap('n', '<c-y>', '3<c-y>', {noremap = true})
 vim.api.nvim_set_keymap('n', '<down>',  ':resize +2<cr>', {noremap = true, silent = true})
 vim.api.nvim_set_keymap('n', '<leader><leader>', '/<++><cr>:nohl<cr>c4l', {noremap = true, silent = true})
-vim.api.nvim_set_keymap('n', '<leader>?',  ':vertical split<cr>:view ~/.config/nvim/keymap.md<cr>:setlocal nomodifiable nobuflisted<cr>', {noremap = true, silent = true})
-vim.api.nvim_set_keymap('n', '<leader>aa', ':Git add --all<cr>', {noremap = true, silent = true})
-vim.api.nvim_set_keymap('n', '<leader>am', ':silent Git commit<cr>', {noremap = true, silent = true})
-vim.api.nvim_set_keymap('n', '<leader>ap', ':Git push origin HEAD<cr>', {noremap = true, silent = true})
+vim.api.nvim_set_keymap('n',
+                        '<leader>?',
+                        ':vertical split<cr>:view ~/.config/nvim/keymap.md<cr>:setlocal nomodifiable nobuflisted<cr>',
+                        {noremap = true, silent = true})
 vim.api.nvim_set_keymap('n', '<leader>bl', ':Telescope current_buffer_fuzzy_find<cr>', {noremap = false, silent = true})
 vim.api.nvim_set_keymap('n', '<leader>cp', ':cp<cr>', {noremap = false, silent = true})
 vim.api.nvim_set_keymap('n', '<leader>cn', ':cn<cr>', {noremap = false, silent = true})
@@ -110,7 +84,7 @@ vim.api.nvim_set_keymap('n', '<leader>mc', ':BufferLinePickClose<cr>', {noremap 
 vim.api.nvim_set_keymap('n', '<leader>mm', ':BufferLinePick<cr>', {noremap = false, silent = true})
 vim.api.nvim_set_keymap('n', '<leader>mn', ':BufferLineMoveNext<cr>', {noremap = false, silent = true})
 vim.api.nvim_set_keymap('n', '<leader>mp', ':BufferLineMovePrev<cr>', {noremap = false, silent = true})
-vim.api.nvim_set_keymap('n', '<leader>qf', ':copen<cr>', {noremap = true, silent = true})
+vim.api.nvim_set_keymap('n', '<leader>co', ':copen<cr>', {noremap = true, silent = true})
 vim.api.nvim_set_keymap('n', '<leader>ss', ':silent !open https://google.com -a /Applications/Safari.app<cr>', {noremap = true, silent = true})
 vim.api.nvim_set_keymap('n', '<leader>ta', ':TagbarToggle<cr>', {noremap = true, silent = true})
 vim.api.nvim_set_keymap('n', '<leader>tf', ':Telescope find_files<cr>', {noremap = true, silent = true})
@@ -132,21 +106,28 @@ vim.api.nvim_set_keymap('v', '<leader>s', ':sort<cr>', {noremap = true, silent =
 vim.api.nvim_set_keymap('v', '<up>', [[:m '>-2<cr>gv=cv]], {noremap = true, silent = true})
 vim.api.nvim_set_keymap('x', 'ga', '<plug>(EasyAlign)', {noremap = false})
 
-vim.api.nvim_set_keymap('n', '<leader>bo',   [[:!source ~/.config/zsh/custom_func.zsh && blackout<cr><cr><C-l>]], {noremap = true, silent = true})
-vim.api.nvim_set_keymap('n', '<leader>cbin', [[:!source ~/.config/zsh/custom_func.zsh && change<cr><cr><C-l>]], {noremap = true, silent = true})
-vim.api.nvim_set_keymap('n', '<leader>cbif', [[:!source ~/.config/zsh/custom_func.zsh && change_f<cr><cr><C-l>]], {noremap = true, silent = true})
+vim.api.nvim_set_keymap('n',
+                        '<leader>bo',
+                        [[:!source ~/.config/zsh/custom_func.zsh && blackout<cr><cr><C-l>]],
+                        {noremap = true, silent = true})
+vim.api.nvim_set_keymap('n',
+                        '<leader>cbin',
+                        [[:!source ~/.config/zsh/custom_func.zsh && change<cr><cr><C-l>]],
+                        {noremap = true, silent = true})
+vim.api.nvim_set_keymap('n',
+                        '<leader>cbif',
+                        [[:!source ~/.config/zsh/custom_func.zsh && change_f<cr><cr><C-l>]],
+                        {noremap = true, silent = true})
 -- vim.api.nvim_set_keymap('n', 'q:', [[<nop>]], {noremap = true, silent = true})
 vim.api.nvim_set_keymap('n', 'Q', [[<nop>]], {noremap = true, silent = true})
-
-
 
 -- }}}
 -- ┼─────────────────────────────────────────────────────────────────────────────────────┼
 -- │ {{{                             « AutoCommands »                                    │
 -- ┼─────────────────────────────────────────────────────────────────────────────────────┼
 
-vim.cmd [[autocmd WinEnter, BufEnter,FocusGained,InsertLeave * set cursorline]]
-vim.cmd [[autocmd BufLeave,FocusLost,InsertEnter * set nocursorline]]
+vim.cmd [[autocmd WinEnter,BufEnter,FocusGained,InsertLeave,CursorHold * set cursorline]]
+vim.cmd [[autocmd BufLeave,FocusLost,InsertEnter,CursorMoved * set nocursorline]]
 vim.cmd [[autocmd ColorScheme * hi Normal guibg=none]]
 vim.cmd [[autocmd ColorScheme * hi SignColumn guibg=none]]
 vim.cmd [[autocmd ColorScheme * hi EndOfBuffer guifg=#222222]]
@@ -154,9 +135,7 @@ vim.cmd [[autocmd ColorScheme * hi VertSplit guibg=none]]
 vim.cmd [[autocmd ColorScheme * hi GitSignsAdd guifg=lightblue]] -- 9999ff
 vim.cmd [[autocmd ColorScheme * hi CmpDocumentation guibg=none]]
 vim.cmd [[autocmd ColorScheme * hi CmpDocumentationBorder guibg=none]]
-
 vim.cmd [[autocmd ColorScheme * hi EasyMotionTarget  guifg=yellow]]
-
 vim.cmd [[autocmd ColorScheme * hi GitSignsAdd      guibg=none  guifg=lightblue]]
 vim.cmd [[autocmd ColorScheme * hi GitSignsAddNr    guibg=none  guifg=lightblue]]
 vim.cmd [[autocmd ColorScheme * hi GitSignsAddLn    guibg=none  guifg=lightblue]]
@@ -168,11 +147,13 @@ vim.cmd [[autocmd ColorScheme * hi GitSignsDeleteNr guibg=none  guifg=red]]
 vim.cmd [[autocmd ColorScheme * hi GitSignsDeleteLn guibg=none  guifg=red]]
 
 vim.cmd [[autocmd TermOpen * setlocal nonumber norelativenumber]]
--- vim.cmd [[au BufWinLeave *.* silent! mkview]]
--- vim.cmd [[au BufWinEnter *.* silent! loadview]]
 
 vim.cmd [[autocmd FileType lua setlocal sw=2]]
 vim.cmd [[autocmd FileType cpp setlocal sw=2]]
+
+vim.cmd [[autocmd CursorMoved * lua require'lsp-status'.update_current_function()]]
+
+-- cursorline
 
 -- }}}
 -- ┼─────────────────────────────────────────────────────────────────────────────────────┼

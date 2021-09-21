@@ -5,6 +5,7 @@ let g:my_qf_ftplugin = 1
 let s:save_cpo = &cpo
 set cpo&vim
 
+autocmd FileType qf set nobuflisted
 setlocal wrap nobuflisted
 setlocal nocursorline nonu norelativenumber
 
