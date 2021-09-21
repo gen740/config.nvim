@@ -11,7 +11,7 @@ function M.treesitter()
       enable = true              -- false will disable the whole extension
     },
     indent = {
-      enable = true,              -- false will disable the whole extension
+      enable = false,              -- false will disable the whole extension
     },
     incremental_selection = {
       enable = false,              -- false will disable the whole extension
@@ -243,7 +243,7 @@ function M.gitsigns()
       sign_priority = 6,
       update_debounce = 100,
       status_formatter = nil, -- Use default
-      word_diff = true,
+      word_diff = false,
   }
 end
 
