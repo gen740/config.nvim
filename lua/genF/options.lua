@@ -258,7 +258,7 @@ function M.indent_blankline()
   require("indent_blankline").setup {
     buftype_exclude = {"dashboard", "markdown"},
     space_char_blankline = " ",
-    char = '│', -- '▏', '┊', '│', '⎸'
+    char = '▏', -- '▏', '┊', '│', '⎸'
     char_highlight_list = {
       "IndentBlanklineIndent1",
       "IndentBlanklineIndent2",
@@ -323,6 +323,7 @@ function M.nvim_lsp()
                    'pyright',
                    'dockerls',
                    'tsserver',
+                   'solang',
                    'html',
                    'cssls',
                    -- 'flow',
@@ -761,7 +762,24 @@ end
 -- ┼─────────────────────────────────────────────────────────────────────────────────────┼
 -- │ {{{                           « Plugin settings »                                   │
 -- ┼─────────────────────────────────────────────────────────────────────────────────────┼
+function M.todo_comment()
+  require("todo-comments").setup {
+    keywords = {
+      ERR = { icon = ' ', color = "error", alt = { "ERROR", "ERR" }, },
+      FIX = { icon = " ", color = "error", alt = { "FIXME", "BUG", "FIXIT", "ISSUE"}, },
+      TODO = { icon = " ", color = "info" },
+      HACK = { icon = " ", color = "warning" },
+      WARN = { icon = " ", color = "warning", alt = { "WARNING", "XXX" } },
+      PERF = { icon = " ", alt = { "OPTIM", "PERFORMANCE", "OPTIMIZE" } },
+      NOTE = { icon = " ", color = "hint", alt = { "INFO", "REF" } },
+    },
+  }
+end
 
+--}}}
+-- ┼─────────────────────────────────────────────────────────────────────────────────────┼
+-- │ {{{                           « Plugin settings »                                   │
+-- ┼─────────────────────────────────────────────────────────────────────────────────────┼
 -- Easy Motion
 function M.others()
   vim.g.EasyMotion_keys = 'aoeidtnpyfgcrl;qjkxbmwvzuhs'  -- This Option is For Dvorak User
@@ -769,12 +787,6 @@ function M.others()
   vim.g.EasyMotion_use_migemo = 1
   -- markdown
   vim.g.vim_markdown_math = 1
-  -- Tex
-  vim.g.Tex_SmartKeyBS = 0
-  vim.g.Tex_SmartKeyQuote = 0
-  vim.g.Tex_SmartKeyDot = 0
-  vim.g.Tex_CompileRule_pdf = 'lualatex $* > /dev/null'
-  vim.g.Tex_CompileRule_dvi = 'lualatex $* > /dev/null'
   -- Ultisnips
   vim.g.UltiSnipsExpandTrigger="<tab>"
   vim.g.UltiSnipsJumpForwardTrigger="<c-j>"

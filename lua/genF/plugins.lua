@@ -47,7 +47,7 @@ require('packer').startup{
     -- use {'windwp/nvim-autopairs', config = function () require'nvim-autopairs'.setup() end}
     use {
       'jiangmiao/auto-pairs',
-      ft = {'cpp', 'c', 'python', 'lua', 'javascript', 'tex', 'markdown'}
+      ft = {'cpp', 'c', 'python', 'lua', 'javascript', 'typescript', 'json', 'tex', 'markdown'}
     }
     use {
       'skywind3000/asyncrun.vim',
@@ -73,9 +73,7 @@ require('packer').startup{
     use {
       'folke/todo-comments.nvim',
       requires = 'nvim-lua/plenary.nvim',
-      config = function()
-        require("todo-comments").setup {}
-      end
+      config = myConf.todo_comment
     }
     use {
       'lewis6991/gitsigns.nvim',
@@ -148,7 +146,8 @@ require('packer').startup{
     use {'junegunn/goyo.vim', ft = {'text', 'markdown', 'md'}}
     use {'cespare/vim-toml', ft = 'toml'}
     use {'mattn/emmet-vim', ft = {'html', 'markdown', 'md'}}
-    use {'vim-latex/vim-latex', ft = {'tex'}}
+    use {'tomlion/vim-solidity'}
+    -- use {'vim-latex/vim-latex', ft = {'tex'}}
     use {'lervag/vimtex', ft = {'markdown', 'md', 'tex'}}
     use {'lvht/tagbar-markdown', ft = {'markdown', 'md'}}
     use {'plasticboy/vim-markdown', ft = {'markdown', 'md'}}

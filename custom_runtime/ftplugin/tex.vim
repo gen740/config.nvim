@@ -5,10 +5,11 @@ let g:my_tex_ftplugin = 1
 let s:save_cpo = &cpo
 set cpo&vim
 
-nmap <Leader>r <Leader>ll<Leader>lv
-setlocal filetype=tex
-nnoremap <C-q> <Plug>Tex_FastEnvironmentInsert
-vnoremap <C-q> <Plug>Tex_FastEnvironmentInsert
+nnoremap <m-r> :copen<cr>:resize 5<cr>:wincmd k<cr>:silent AsyncRun make run<cr>
+nnoremap <m-c> :copen<cr>:resize 5<cr>:wincmd k<cr>:silent AsyncRun make build<cr>
+
+autocmd BufWritePost *.tex :AsyncRun make build
+
 
 let &cpo = s:save_cpo
 unlet s:save_cpo

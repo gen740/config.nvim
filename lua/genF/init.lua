@@ -4,8 +4,8 @@
 vim.g.python3_host_prog='~/.pyenv/versions/neovim-3/bin/python'
 vim.g.python_host_prog='~/.pyenv/versions/neovim-2/bin/python'
 
-vim.g.enc = 'utf-8'
-vim.g.fileencoding = 'utf-8'
+--[[ vim.g.enc = 'utf-8'
+vim.g.fileencoding = 'utf-8' ]]
 vim.opt.autoindent = true
 vim.opt.autoread = true
 vim.opt.clipboard = 'unnamed'
@@ -43,6 +43,8 @@ vim.opt.splitbelow = true
 vim.opt.splitright = true
 vim.opt.swapfile = false
 vim.opt.termguicolors = true
+vim.opt.tabstop = 4
+vim.opt.softtabstop = 4
 vim.opt.undodir=[[/Users/fujimotogen/.vim/undo]]
 vim.opt.undofile = true
 vim.opt.undolevels = 1000
@@ -126,8 +128,8 @@ vim.api.nvim_set_keymap('n', 'Q', [[<nop>]], {noremap = true, silent = true})
 -- │ {{{                             « AutoCommands »                                    │
 -- ┼─────────────────────────────────────────────────────────────────────────────────────┼
 
-vim.cmd [[autocmd WinEnter,BufEnter,FocusGained,InsertLeave,CursorHold * set cursorline]]
-vim.cmd [[autocmd BufLeave,FocusLost,InsertEnter,CursorMoved * set nocursorline]]
+vim.cmd [[autocmd WinEnter,BufEnter,FocusGained,InsertLeave,CursorHold * set cursorline cursorcolumn]]
+vim.cmd [[autocmd BufLeave,FocusLost,InsertEnter,CursorMoved * set nocursorline nocursorcolumn]]
 vim.cmd [[autocmd ColorScheme * hi Normal guibg=none]]
 vim.cmd [[autocmd ColorScheme * hi SignColumn guibg=none]]
 vim.cmd [[autocmd ColorScheme * hi EndOfBuffer guifg=#222222]]
