@@ -5,10 +5,10 @@ let g:my_tex_ftplugin = 1
 let s:save_cpo = &cpo
 set cpo&vim
 
-nnoremap <m-r> :copen<cr>:resize 5<cr>:wincmd k<cr>:silent AsyncRun make run<cr>
-nnoremap <m-c> :copen<cr>:resize 5<cr>:wincmd k<cr>:silent AsyncRun make build<cr>
+nnoremap <m-r> :vertical copen<cr>:vertical resize 5<cr>:wincmd h<cr>:silent AsyncRun make run<cr>
+nnoremap <m-c> :vertical copen<cr>:vertical resize 5<cr>:wincmd h<cr>:silent AsyncRun make build<cr>
 
-autocmd BufWritePost *.tex :AsyncRun make build
+" autocmd BufWritePost *.tex :AsyncRun make build
 
 
 let &cpo = s:save_cpo

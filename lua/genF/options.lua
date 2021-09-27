@@ -136,70 +136,36 @@ end
 -- ┼─────────────────────────────────────────────────────────────────────────────────────┼
 
 function M.nvim_tree()
-  vim.g.nvim_tree_gitignore = 1
-  vim.g.nvim_tree_quit_on_open = 1
-  vim.g.nvim_tree_follow = 1
-  vim.g.nvim_tree_indent_markers = 0
-  vim.g.nvim_tree_hide_dotfiles = 1
-  vim.g.nvim_tree_git_hl = 1
-  vim.g.nvim_tree_highlight_opened_files = 1
-  vim.g.nvim_tree_root_folder_modifier = ':~'
-  vim.g.nvim_tree_auto_resize = 1
-  vim.g.nvim_tree_auto_open = 0
-  vim.g.nvim_tree_disable_netrw = 0
-  vim.g.nvim_tree_hijack_netrw = 0
-  vim.g.nvim_tree_add_trailing = 1
-  vim.g.nvim_tree_group_empty = 1
-  vim.g.nvim_tree_lsp_diagnostics = 1
-  vim.g.nvim_tree_disable_window_picker = 0
-  vim.g.nvim_tree_hijack_cursor = 1
-  vim.g.nvim_tree_icon_padding = ' '
-  vim.g.nvim_tree_update_cwd = 1
-  vim.g.nvim_tree_window_picker_exclude = {
-          ['filetype'] = {
-            'packer',
-            'qf'
-        },
-          ['buftype'] = {
-            'terminal'
-        }
+  require'nvim-tree'.setup {
+    disable_netrw       = true,
+    hijack_netrw        = true,
+    open_on_setup       = false,
+    ignore_ft_on_setup  = {},
+    auto_close          = false,
+    open_on_tab         = false,
+    hijack_cursor       = false,
+    update_cwd          = false,
+    lsp_diagnostics     = false,
+    update_focused_file = {
+      enable      = false,
+      update_cwd  = false,
+      ignore_list = {}
+    },
+    system_open = {
+      cmd  = nil,
+      args = {}
+    },
+
+    view = {
+      width = 30,
+      side = 'left',
+      auto_resize = false,
+      mappings = {
+        custom_only = false,
+        list = {}
       }
-  vim.g.nvim_tree_special_files = { ['README.md'] = 1, ['Makefile'] = 1, ['MAKEFILE'] = 1 }
-  vim.g.nvim_tree_show_icons = {
-        ['git'] = 1,
-        ['folders'] = 1,
-        ['files'] = 1,
-        ['folder_arrows'] = 1,
-      }
-  vim.g.nvim_tree_icons = {
-      default = '',
-      symlink = '',
-      git = {
-        unstaged = "✗",
-        staged = "✓",
-        unmerged = "",
-        renamed = "➜",
-        untracked = "★",
-        deleted = "",
-        ignored = "◌"
-        },
-      folder = {
-        arrow_open = "",
-        arrow_closed = "",
-        default = "",
-        open = "",
-        empty = "",
-        empty_open = "",
-        symlink = "",
-        symlink_open = "",
-        },
-        lsp = {
-          hint = "",
-          info = "",
-          warning = "",
-          error = "",
-        }
-      }
+    }
+  }
 end
 
 --}}}
@@ -236,7 +202,7 @@ function M.gitsigns()
           ['o ih'] = ':<c-u>lua require"gitsigns.actions".select_hunk()<cr>',
           ['x ih'] = ':<C-U>lua require"gitsigns.actions".select_hunk()<CR>'
       },
-      watch_index = {
+      watch_gitdir = {
           interval = 1000,
           follow_files = true
       },
@@ -344,10 +310,10 @@ function M.nvim_lsp()
     }
   end
   require'lspconfig'.zeta_note.setup{
-    cmd = {'/Users/fujimotogen/.local/bin/zeta-note-macos'},
+    cmd = {'~/.local/bin/zeta-note-macos'},
     on_attach = on_attach
   }
-  local sumneko_root_path = '/Users/fujimotogen/.local/tools/lua-language-server'
+  local sumneko_root_path = '~/.local/tools/lua-language-server'
   local sumneko_binary = sumneko_root_path.."/bin/macOS/lua-language-server"
   require'lspconfig'.sumneko_lua.setup {
     cmd = {sumneko_binary, "-E", sumneko_root_path .. "/main.lua"};
@@ -557,7 +523,7 @@ function M.nvim_dap()
   }
   dap.adapters.python = {
     type = 'executable';
-    command = '/Users/fujimotogen/.pyenv/versions/debugpy/bin/python';
+    command = '~/.pyenv/versions/debugpy/bin/python';
     args = { '-m', 'debugpy.adapter' };
   }
   dap.configurations.cpp = {
@@ -639,7 +605,7 @@ function M.dap_ui()
       repl = "r",
     },
     sidebar = {
-      open_on_start = true,
+      -- open_on_start = true,
       elements = {
         { id = "scopes", size = 0.33, },
         { id = "breakpoints", size = 0.33 },
@@ -650,7 +616,7 @@ function M.dap_ui()
       position = "right", -- Can be "left", "right", "top", "bottom"
     },
     tray = {
-      open_on_start = true,
+      -- open_on_start = true,
       elements = { "repl" },
       size = 15,
       position = "bottom", -- Can be "left", "right", "top", "bottom"
@@ -664,6 +630,11 @@ function M.dap_ui()
     },
     windows = { indent = 1 },
   })
+
+  local dap, dapui = require('dap'), require('dapui')
+  dap.listeners.after.event_initialized['dapui_config'] = function() dapui.open() end
+  dap.listeners.before.event_terminated['dapui_config'] = function() dapui.close() end
+  dap.listeners.before.event_exited['dapui_config'] = function() dapui.close() end
 end
 
 
@@ -774,6 +745,30 @@ function M.todo_comment()
       NOTE = { icon = " ", color = "hint", alt = { "INFO", "REF" } },
     },
   }
+end
+
+function M.bqf()
+  require('bqf').setup({
+    auto_enable = true,
+    preview = {
+      win_height = 12,
+      win_vheight = 12,
+      delay_syntax = 80,
+      border_chars = {'│', '│', '─', '─', '╭', '╮', '╰', '╯', '▌'}
+      -- border = { '╭', '─' ,'╮', '│', '╯', '─', '╰', '│' },
+    },
+    func_map = {
+      vsplit = '',
+      ptogglemode = 'z,',
+      stoggleup = ''
+    },
+    filter = {
+      fzf = {
+        action_for = {['ctrl-s'] = 'split'},
+        extra_opts = {'--bind', 'ctrl-o:toggle-all', '--prompt', '> '}
+      }
+    }
+  })
 end
 
 --}}}

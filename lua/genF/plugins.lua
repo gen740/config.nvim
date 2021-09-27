@@ -30,21 +30,21 @@ require('packer').startup{
     }
 
     -- None Regular -------------------------------------------------------------------------------
-    use {
+    --[[ use {
       'kana/vim-textobj-user',
       opt=true
     }
     use {
       'rbonvall/vim-textobj-latex',
       opt=true
-    }
+    } ]]
 
     -- Utilities ----------------------------------------------------------------------------------
     use {
       'windwp/nvim-ts-autotag',
-      config = function () require'nvim-ts-autotag'.setup() end
+      config = function () require'nvim-ts-autotag'.setup() end,
+      ft = {'html'}
     }
-    -- use {'windwp/nvim-autopairs', config = function () require'nvim-autopairs'.setup() end}
     use {
       'jiangmiao/auto-pairs',
       ft = {'cpp', 'c', 'python', 'lua', 'javascript', 'typescript', 'json', 'tex', 'markdown'}
@@ -55,7 +55,9 @@ require('packer').startup{
     }
     use {
       'kevinhwang91/nvim-bqf',
-      requires = 'junegunn/fzf'
+      requires = 'junegunn/fzf',
+      config = myConf.bqf,
+      cmd = {'copen'}
     }
     use {
       'neomake/neomake',
@@ -84,8 +86,11 @@ require('packer').startup{
       'tpope/vim-surround',
       requires = 'tpope/vim-repeat'
     }
-    use 'tpope/vim-fugitive'
-    -- use 'kshenoy/vim-signature'
+    use {
+      'tpope/vim-fugitive',
+      cmd = 'Git'
+    }
+    use 'kshenoy/vim-signature'
     use {
       'lukas-reineke/indent-blankline.nvim',
       config = myConf.indent_blankline
@@ -94,14 +99,21 @@ require('packer').startup{
       'akinsho/nvim-toggleterm.lua',
       config = myConf.toggle_term
     }
-    use 'majutsushi/tagbar'
-    use 'mbbill/undotree'
+    use {
+      'majutsushi/tagbar',
+      cmd = 'TagbarToggle'
+    }
+    use {
+      'mbbill/undotree',
+      cmd = 'UndotreeToggle'
+    }
 
     -- DashBoard ----------------------------------------------------------------------------------
-    use {
+    --[[ use {
       'glepnir/dashboard-nvim',
       config = myConf.dashboard
-    }
+    } ]]
+
     -- Treesitter ---------------------------------------------------------------------------------
     use {
       'nvim-treesitter/nvim-treesitter',
@@ -113,7 +125,7 @@ require('packer').startup{
     }
     -- Appearance ---------------------------------------------------------------------------------
     -- use {'morhetz/gruvbox'}
-    use {'lifepillar/vim-gruvbox8'}
+    -- use {'lifepillar/vim-gruvbox8'}
     use {
       'ellisonleao/gruvbox.nvim',
       requires = {"rktjmp/lush.nvim"},
@@ -132,12 +144,18 @@ require('packer').startup{
     use {'honza/vim-snippets'}
     use {'SirVer/ultisnips'}
     -- File Operations ----------------------------------------------------------------------------
-    use {'kyazdani42/nvim-tree.lua', config = myConf.nvim_tree}
-    use {'kyazdani42/nvim-web-devicons'}
+    use {
+      'kyazdani42/nvim-tree.lua',
+      requires = {'kyazdani42/nvim-web-devicons'},
+      -- config = function() require'nvim-tree'.setup {} end
+      config = myConf.nvim_tree,
+      cmd = 'NvimTreeToggle'
+    }
     use {
       'nvim-telescope/telescope.nvim',
       requires = {{'nvim-lua/popup.nvim'}, {'nvim-lua/plenary.nvim'}},
-      config = myConf.telescope
+      config = myConf.telescope,
+      cmd = {'Telescope'}
     }
     use {'nvim-telescope/telescope-fzf-native.nvim', run = 'make'}
     -- FileType Plugins ---------------------------------------------------------------------------
@@ -173,10 +191,10 @@ require('packer').startup{
           'onsails/lspkind-nvim',
           config = myConf.nvim_lspkind
         },
-        {
+        --[[ {
           "hrsh7th/vim-vsnip",
           event = 'InsertEnter *'
-        },
+        }, ]]
         {
           "hrsh7th/cmp-buffer",
           event = 'InsertEnter *'
@@ -201,12 +219,12 @@ require('packer').startup{
           'quangnguyen30192/cmp-nvim-ultisnips',
           event = 'InsertEnter'
         },
-        {
+        --[[ {
           'andersevenrud/compe-tmux',
           branch = 'cmp',
           opt = true,
           event = 'InsertEnter *'
-        }
+        } ]]
       },
       config = myConf.nvim_cmp,
     }
@@ -222,7 +240,7 @@ require('packer').startup{
     },
     profile = {
       enable = true,
-      threshold = 1 -- the amount in ms that a plugins load time must be over for it to be included in the profile
+      threshold = 100 -- the amount in ms that a plugins load time must be over for it to be included in the profile
     }
   }
 }

@@ -44,8 +44,9 @@ vim.opt.splitright = true
 vim.opt.swapfile = false
 vim.opt.termguicolors = true
 vim.opt.tabstop = 4
+
 vim.opt.softtabstop = 4
-vim.opt.undodir=[[/Users/fujimotogen/.vim/undo]]
+vim.opt.undodir=os.getenv("HOME")..[[/.vim/undo]]
 vim.opt.undofile = true
 vim.opt.undolevels = 1000
 vim.opt.undoreload = 10000

@@ -6,7 +6,7 @@ let s:save_cpo = &cpo
 set cpo&vim
 
 autocmd FileType qf set nobuflisted
-setlocal wrap nobuflisted
+" setlocal wrap nobuflisted
 setlocal nocursorline nonu norelativenumber
 
 let &cpo = s:save_cpo
