@@ -4,13 +4,14 @@
 vim.g.python3_host_prog='~/.pyenv/versions/neovim-3/bin/python'
 vim.g.python_host_prog='~/.pyenv/versions/neovim-2/bin/python'
 
---[[ vim.g.enc = 'utf-8'
-vim.g.fileencoding = 'utf-8' ]]
+-- vim.cmd[[syntax on]]
+vim.g.enc = 'utf-8'
+vim.g.fileencoding = 'utf-8'
 vim.opt.autoindent = true
 vim.opt.autoread = true
 vim.opt.clipboard = 'unnamed'
 vim.opt.colorcolumn = '100'
-vim.opt.concealcursor= 'c'
+vim.opt.concealcursor= 'vc'
 vim.opt.conceallevel = 1
 vim.opt.expandtab = true
 vim.opt.foldenable = true
@@ -18,13 +19,13 @@ vim.opt.foldexpr = 'nvim_treesitter#foldexpr()'
 vim.opt.foldlevel = 999
 vim.opt.foldmethod = 'expr'
 vim.opt.hidden = true
-vim.opt.hlsearch = true
+vim.opt.hlsearch = false
 vim.opt.ignorecase = true
 vim.opt.incsearch = true
 vim.opt.laststatus = 2
 vim.opt.lazyredraw = true
 vim.opt.list = true
-vim.opt.listchars = [[tab:»-,conceal:◇,trail:▒,extends:»,precedes:«,nbsp:%]] -- ,eol:↲│
+vim.opt.listchars = [[tab:»-,trail:▒,extends:»,precedes:«,nbsp:%]] -- ,eol:↲│,conceal:◇
 vim.opt.mouse:append('a')
 vim.opt.number = true
 vim.opt.relativenumber = true
@@ -129,9 +130,12 @@ vim.api.nvim_set_keymap('n', 'Q', [[<nop>]], {noremap = true, silent = true})
 -- │ {{{                             « AutoCommands »                                    │
 -- ┼─────────────────────────────────────────────────────────────────────────────────────┼
 
-vim.cmd [[autocmd WinEnter,BufEnter,FocusGained,InsertLeave,CursorHold * set cursorline cursorcolumn]]
+vim.cmd [[autocmd WinEnter,BufEnter,FocusGained,InsertLeave,CursorHold * set cursorline nocursorcolumn]]
 vim.cmd [[autocmd BufLeave,FocusLost,InsertEnter,CursorMoved * set nocursorline nocursorcolumn]]
 vim.cmd [[autocmd ColorScheme * hi Normal guibg=none]]
+vim.cmd [[autocmd ColorScheme * hi NormalNC guibg=none]]
+vim.cmd [[autocmd ColorScheme * hi NormalSB guibg=none]]
+vim.cmd [[autocmd ColorScheme * hi NormalFloat guibg=none]]
 vim.cmd [[autocmd ColorScheme * hi SignColumn guibg=none]]
 vim.cmd [[autocmd ColorScheme * hi EndOfBuffer guifg=#222222]]
 vim.cmd [[autocmd ColorScheme * hi VertSplit guibg=none]]
@@ -145,6 +149,7 @@ vim.cmd [[autocmd ColorScheme * hi GitSignsAddLn    guibg=none  guifg=lightblue]
 vim.cmd [[autocmd ColorScheme * hi GitSignsChange   guibg=none  guifg=lightgreen]]
 vim.cmd [[autocmd ColorScheme * hi GitSignsChangeNr guibg=none  guifg=lightgreen]]
 vim.cmd [[autocmd ColorScheme * hi GitSignsChangeLn guibg=none  guifg=lightgreen]]
+vim.cmd [[autocmd ColorScheme * hi LineNr guibg=none  guifg=#5b6282]]
 vim.cmd [[autocmd ColorScheme * hi GitSignsDelete   guibg=none  guifg=red]]
 vim.cmd [[autocmd ColorScheme * hi GitSignsDeleteNr guibg=none  guifg=red]]
 vim.cmd [[autocmd ColorScheme * hi GitSignsDeleteLn guibg=none  guifg=red]]

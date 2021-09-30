@@ -41,13 +41,21 @@ require('packer').startup{
 
     -- Utilities ----------------------------------------------------------------------------------
     use {
+      'RRethy/vim-hexokinase',
+      run = 'make hexokinase',
+      config = function ()
+        vim.g.Hexokinase_highlighters = {'virtual'}
+      end,
+      cmd = {'HexokinaseToggle'}
+    }
+    use {
       'windwp/nvim-ts-autotag',
       config = function () require'nvim-ts-autotag'.setup() end,
       ft = {'html'}
     }
     use {
       'jiangmiao/auto-pairs',
-      ft = {'cpp', 'c', 'python', 'lua', 'javascript', 'typescript', 'json', 'tex', 'markdown'}
+      ft = {'cpp', 'c', 'python', 'lua', 'javascript', 'typescript', 'json', 'tex', 'markdown', 'rust'}
     }
     use {
       'skywind3000/asyncrun.vim',
@@ -57,7 +65,7 @@ require('packer').startup{
       'kevinhwang91/nvim-bqf',
       requires = 'junegunn/fzf',
       config = myConf.bqf,
-      cmd = {'copen'}
+      -- cmd = {'copen'}
     }
     use {
       'neomake/neomake',
@@ -107,12 +115,15 @@ require('packer').startup{
       'mbbill/undotree',
       cmd = 'UndotreeToggle'
     }
+    use {
+      'andymass/vim-matchup'
+    }
 
     -- DashBoard ----------------------------------------------------------------------------------
-    --[[ use {
+    use {
       'glepnir/dashboard-nvim',
       config = myConf.dashboard
-    } ]]
+    }
 
     -- Treesitter ---------------------------------------------------------------------------------
     use {
@@ -123,14 +134,20 @@ require('packer').startup{
       },
       config = myConf.treesitter
     }
+    use {'nvim-treesitter/playground'}
+
     -- Appearance ---------------------------------------------------------------------------------
-    -- use {'morhetz/gruvbox'}
-    -- use {'lifepillar/vim-gruvbox8'}
     use {
       'ellisonleao/gruvbox.nvim',
       requires = {"rktjmp/lush.nvim"},
-      config = function() vim.cmd[[colo gruvbox]] end
+      -- config = function() vim.cmd[[colo gruvbox]] end
     }
+    use {'marko-cerovac/material.nvim'}
+    use {'kyazdani42/blue-moon'}
+    use {'mhartington/oceanic-next'}
+    use {'sainnhe/everforest'}
+    use {'EdenEast/nightfox.nvim'}
+    use 'kvrohit/substrata.nvim'
     use {
       'akinsho/nvim-bufferline.lua',
       requires = 'kyazdani42/nvim-web-devicons',
@@ -141,13 +158,18 @@ require('packer').startup{
       requires = {'kyazdani42/nvim-web-devicons', opt = true},
       config = myConf.lualine
     }
-    use {'honza/vim-snippets'}
-    use {'SirVer/ultisnips'}
+    use {
+      'honza/vim-snippets',
+      event = 'VimEnter *'
+    }
+    use {
+      'SirVer/ultisnips',
+      event = 'VimEnter *'
+    }
     -- File Operations ----------------------------------------------------------------------------
     use {
       'kyazdani42/nvim-tree.lua',
       requires = {'kyazdani42/nvim-web-devicons'},
-      -- config = function() require'nvim-tree'.setup {} end
       config = myConf.nvim_tree,
       cmd = 'NvimTreeToggle'
     }
@@ -157,20 +179,25 @@ require('packer').startup{
       config = myConf.telescope,
       cmd = {'Telescope'}
     }
-    use {'nvim-telescope/telescope-fzf-native.nvim', run = 'make'}
+    use {
+      'nvim-telescope/telescope-fzf-native.nvim',
+      run = 'make'
+    }
     -- FileType Plugins ---------------------------------------------------------------------------
     use {'rhysd/vim-grammarous', ft = {'markdown', 'md', 'text'}}
     use {'chrisbra/csv.vim', ft = {'csv', 'tsv'}}
     use {'junegunn/goyo.vim', ft = {'text', 'markdown', 'md'}}
-    use {'cespare/vim-toml', ft = 'toml'}
+    use {'cespare/vim-toml', ft = {'toml'}}
     use {'mattn/emmet-vim', ft = {'html', 'markdown', 'md'}}
-    use {'tomlion/vim-solidity'}
+    -- use {'tomlion/vim-solidity', ft = {'solidity'}}
     -- use {'vim-latex/vim-latex', ft = {'tex'}}
     use {'lervag/vimtex', ft = {'markdown', 'md', 'tex'}}
     use {'lvht/tagbar-markdown', ft = {'markdown', 'md'}}
     use {'plasticboy/vim-markdown', ft = {'markdown', 'md'}}
     use {'davidgranstrom/nvim-markdown-preview', ft = {'markdown', 'md'}}
     -- use {'rust-lang/rust.vim', ft = {'rust'}}
+    use 'fladson/vim-kitty'
+
 
     -- LSP and Debugger ---------------------------------------------------------------------------
     use {'neovim/nvim-lspconfig', config = myConf.nvim_lsp}
@@ -245,4 +272,5 @@ require('packer').startup{
   }
 }
 
+vim.cmd[[colo nightfox]]
 myConf.others()

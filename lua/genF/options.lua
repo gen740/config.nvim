@@ -8,7 +8,8 @@ function M.treesitter()
   require'nvim-treesitter.configs'.setup {
     ensure_installed = "maintained", -- one of "all", "maintained" (parsers with maintainers), or a list of languages
     highlight = {
-      enable = true              -- false will disable the whole extension
+      enable = true,              -- false will disable the whole extension
+      additional_vim_regex_highlighting = { "latex", "tex"},
     },
     indent = {
       enable = false,              -- false will disable the whole extension
@@ -57,7 +58,7 @@ function M.treesitter()
       },
     },
     refactor = {
-      highlight_definitions = { enable = true },
+      highlight_definitions = { enable = false },
       highlight_current_scope = { enable = false },
       smart_rename = {
         enable = true,
@@ -65,6 +66,9 @@ function M.treesitter()
           smart_rename = "grr",
         },
       },
+    },
+    matchup = {
+      enable = true,
     },
   }
 end
@@ -126,8 +130,17 @@ function M.telescope()
       -- borderchars = { '─', '│', '─', '│', '┌', '┐', '┘', '└' },
       color_devicons = true,
       use_less = true,
+    },
+    extensions = {
+      fzf = {
+        fuzzy = true,                    -- false will only do exact matching
+        override_generic_sorter = true,  -- override the generic sorter
+        override_file_sorter = true,     -- override the file sorter
+        case_mode = "smart_case",        -- or "ignore_case" or "respect_case"
+      }
     }
   }
+  require('telescope').load_extension('fzf')
 end
 
 -- }}}
@@ -175,41 +188,41 @@ end
 
 function M.gitsigns()
   require('gitsigns').setup {
-      signs = {
-          add          = {hl = 'GitSignsAdd'   , text = '│', numhl='GitSignsAddNr'   , linehl='GitSignsAddLn'},
-          change       = {hl = 'GitSignsChange', text = '│', numhl='GitSignsChangeNr', linehl='GitSignsChangeLn'},
-          delete       = {hl = 'GitSignsDelete', text = '_', numhl='GitSignsDeleteNr', linehl='GitSignsDeleteLn'},
-          topdelete    = {hl = 'GitSignsDelete', text = '‾', numhl='GitSignsDeleteNr', linehl='GitSignsDeleteLn'},
-          changedelete = {hl = 'GitSignsChange', text = '~', numhl='GitSignsChangeNr', linehl='GitSignsChangeLn'},
-      },
-      numhl = true,
-      linehl = false,
-      keymaps = {
-          -- Default keymap options
-          noremap = true,
-          buffer = true,
-          ['n ]c'] = { expr = true, "&diff ? ']c' : '<cmd>lua require\"gitsigns.actions\".next_hunk()<CR>'"},
-          ['n [c'] = { expr = true, "&diff ? '[c' : '<cmd>lua require\"gitsigns.actions\".prev_hunk()<CR>'"},
-          ['n <leader>hs'] = '<cmd>lua require"gitsigns".stage_hunk()<CR>',
-          ['v <leader>hs'] = '<cmd>lua require"gitsigns".stage_hunk({vim.fn.line("."), vim.fn.line("v")})<CR>',
-          ['n <leader>hu'] = '<cmd>lua require"gitsigns".undo_stage_hunk()<CR>',
-          ['n <leader>hr'] = '<cmd>lua require"gitsigns".reset_hunk()<CR>',
-          ['v <leader>hr'] = '<cmd>lua require"gitsigns".reset_hunk({vim.fn.line("."), vim.fn.line("v")})<CR>',
-          ['n <leader>hR'] = '<cmd>lua require"gitsigns".reset_buffer()<CR>',
-          ['n <leader>hp'] = '<cmd>lua require"gitsigns".preview_hunk()<cr>',
-          ['n <leader>hb'] = '<cmd>lua require"gitsigns".blame_line(true)<cr>',
-          -- text objects
-          ['o ih'] = ':<c-u>lua require"gitsigns.actions".select_hunk()<cr>',
-          ['x ih'] = ':<C-U>lua require"gitsigns.actions".select_hunk()<CR>'
-      },
-      watch_gitdir = {
-          interval = 1000,
-          follow_files = true
-      },
-      sign_priority = 6,
-      update_debounce = 100,
-      status_formatter = nil, -- Use default
-      word_diff = false,
+    signs = {
+      add          = {hl = 'GitSignsAdd'   , text = '│', numhl='GitSignsAddNr'   , linehl='GitSignsAddLn'},
+      change       = {hl = 'GitSignsChange', text = '│', numhl='GitSignsChangeNr', linehl='GitSignsChangeLn'},
+      delete       = {hl = 'GitSignsDelete', text = '_', numhl='GitSignsDeleteNr', linehl='GitSignsDeleteLn'},
+      topdelete    = {hl = 'GitSignsDelete', text = '‾', numhl='GitSignsDeleteNr', linehl='GitSignsDeleteLn'},
+      changedelete = {hl = 'GitSignsChange', text = '~', numhl='GitSignsChangeNr', linehl='GitSignsChangeLn'},
+    },
+    numhl = true,
+    linehl = false,
+    keymaps = {
+      -- Default keymap options
+      noremap = true,
+      buffer = true,
+      ['n ]c'] = { expr = true, "&diff ? ']c' : '<cmd>lua require\"gitsigns.actions\".next_hunk()<CR>'"},
+      ['n [c'] = { expr = true, "&diff ? '[c' : '<cmd>lua require\"gitsigns.actions\".prev_hunk()<CR>'"},
+      ['n <leader>hs'] = '<cmd>lua require"gitsigns".stage_hunk()<CR>',
+      ['v <leader>hs'] = '<cmd>lua require"gitsigns".stage_hunk({vim.fn.line("."), vim.fn.line("v")})<CR>',
+      ['n <leader>hu'] = '<cmd>lua require"gitsigns".undo_stage_hunk()<CR>',
+      ['n <leader>hr'] = '<cmd>lua require"gitsigns".reset_hunk()<CR>',
+      ['v <leader>hr'] = '<cmd>lua require"gitsigns".reset_hunk({vim.fn.line("."), vim.fn.line("v")})<CR>',
+      ['n <leader>hR'] = '<cmd>lua require"gitsigns".reset_buffer()<CR>',
+      ['n <leader>hp'] = '<cmd>lua require"gitsigns".preview_hunk()<cr>',
+      ['n <leader>hb'] = '<cmd>lua require"gitsigns".blame_line(true)<cr>',
+      -- text objects
+      ['o ih'] = ':<c-u>lua require"gitsigns.actions".select_hunk()<cr>',
+      ['x ih'] = ':<C-U>lua require"gitsigns.actions".select_hunk()<CR>'
+    },
+    watch_gitdir = {
+      interval = 1000,
+      follow_files = true
+    },
+    sign_priority = 6,
+    update_debounce = 100,
+    status_formatter = nil, -- Use default
+    word_diff = false,
   }
 end
 
@@ -218,9 +231,49 @@ end
 -- │ {{{                            « Indent Blank Line »                                │
 -- ┼─────────────────────────────────────────────────────────────────────────────────────┼
 function M.indent_blankline()
-  vim.cmd [[autocmd FileType * highlight IndentBlanklineIndent1 guifg=#666666 blend=nocombine]]
-  vim.cmd [[autocmd FileType * highlight IndentBlanklineIndent2 guifg=#333333 blend=nocombine]]
+  vim.cmd [[autocmd FileType * highlight IndentBlanklineIndent1 guifg=#665c54 blend=nocombine]]
+  vim.cmd [[autocmd FileType * highlight IndentBlanklineIndent2 guifg=#3c3836 blend=nocombine]]
+
+  vim.cmd [[autocmd FileType * highlight IndentBlanklineBlue guifg=#458588 blend=nocombine]]
+  vim.cmd [[autocmd FileType * highlight IndentBlanklinePurple guifg=#b16286 blend=nocombine]]
+  vim.cmd [[autocmd FileType * highlight IndentBlanklineAqua guifg=#a381ff blend=nocombine]]
+  vim.cmd [[autocmd FileType * highlight IndentBlanklineRed guifg=#719cd6 blend=nocombine]]
+  vim.cmd [[autocmd FileType * highlight IndentBlanklineOrange guifg=#fe8019 blend=nocombine]]
+  vim.cmd [[autocmd FileType * highlight IndentBlanklineGreen guifg=#98971a blend=nocombine]]
+  vim.cmd [[autocmd FileType * highlight IndentBlanklineGray guifg=#928374 blend=nocombine]]
+
   vim.g.indentLine_fileTypeExclude = {'dashboard', 'markdown'}
+  vim.g.indent_blankline_use_treesitter = true
+  vim.g.indent_blankline_show_current_context = true
+  vim.g.indent_blankline_context_patterns = {
+    'class',
+    'function',
+    'method',
+    '^if',
+    'while',
+    'for',
+    'with',
+    'func_literal',
+    'block',
+    'try',
+    'except',
+    'argument_list',
+    'object',
+    'dictionary',
+    'element',
+    'array',
+    'arrow_function',
+    'enum_body',
+    'table',
+  }
+  vim.g.indent_blankline_context_highlight_list = {
+    "IndentBlanklineAqua",
+    "IndentBlanklineAqua",
+    "IndentBlanklineAqua",
+    "IndentBlanklineAqua",
+    "IndentBlanklineAqua",
+    "IndentBlanklineAqua",
+  }
   require("indent_blankline").setup {
     buftype_exclude = {"dashboard", "markdown"},
     space_char_blankline = " ",
@@ -310,10 +363,10 @@ function M.nvim_lsp()
     }
   end
   require'lspconfig'.zeta_note.setup{
-    cmd = {'~/.local/bin/zeta-note-macos'},
+    cmd = {'/Users/fujimotogen/.local/bin/zeta-note-macos'},
     on_attach = on_attach
   }
-  local sumneko_root_path = '~/.local/tools/lua-language-server'
+  local sumneko_root_path = '/Users/fujimotogen/.local/tools/lua-language-server'
   local sumneko_binary = sumneko_root_path.."/bin/macOS/lua-language-server"
   require'lspconfig'.sumneko_lua.setup {
     cmd = {sumneko_binary, "-E", sumneko_root_path .. "/main.lua"};
@@ -523,7 +576,7 @@ function M.nvim_dap()
   }
   dap.adapters.python = {
     type = 'executable';
-    command = '~/.pyenv/versions/debugpy/bin/python';
+    command = '/Users/fujimotogen/.pyenv/versions/debugpy/bin/python';
     args = { '-m', 'debugpy.adapter' };
   }
   dap.configurations.cpp = {
@@ -787,6 +840,10 @@ function M.others()
   vim.g.UltiSnipsJumpForwardTrigger="<c-j>"
   vim.g.UltiSnipsJumpBackwardTrigger="<c-k>"
   vim.g.UltiSnipsEditSplit="vertical"
+  vim.g.matchup_matchparen_offscreen = {
+    method = 'popup'
+  }
+  -- vim.cmd[[let g:matchup_matchparen_offscreen = {'method': 'popup'}]]
 end
 
 --- }}}
