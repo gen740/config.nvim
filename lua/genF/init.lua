@@ -1,6 +1,6 @@
--- ┼─────────────────────────────────────────────────────────────────────────────────────┼
--- │ {{{                             « Vim Options »                                     │
--- ┼─────────────────────────────────────────────────────────────────────────────────────┼
+-- ┼─────────────────────────────────────────────────────────────────┼
+-- │ {{{                   « Vim Options »                           │
+-- ┼─────────────────────────────────────────────────────────────────┼
 vim.g.python3_host_prog='~/.pyenv/versions/neovim-3/bin/python'
 vim.g.python_host_prog='~/.pyenv/versions/neovim-2/bin/python'
 
@@ -10,7 +10,7 @@ vim.g.fileencoding = 'utf-8'
 vim.opt.autoindent = true
 vim.opt.autoread = true
 vim.opt.clipboard = 'unnamed'
-vim.opt.colorcolumn = '100'
+vim.opt.colorcolumn = '80'
 vim.opt.concealcursor= 'vc'
 vim.opt.conceallevel = 1
 vim.opt.expandtab = true
@@ -60,9 +60,9 @@ vim.opt.showmatch = true
 vim.g.netrw_silent = true
 
 -- }}}
--- ┼─────────────────────────────────────────────────────────────────────────────────────┼
--- │ {{{                             « Key mappings »                                    │
--- ┼─────────────────────────────────────────────────────────────────────────────────────┼
+-- ┼─────────────────────────────────────────────────────────────────┼
+-- │ {{{                   « Key mappings »                          │
+-- ┼─────────────────────────────────────────────────────────────────┼
 
 vim.cmd [[let mapleader = "\<Space>"]]
 vim.api.nvim_set_keymap('i', '<c-[>', [[<c-[>:silent call custom#change_ime('eisu')<cr>]], {noremap = true, silent = true})
@@ -126,9 +126,9 @@ vim.api.nvim_set_keymap('n',
 vim.api.nvim_set_keymap('n', 'Q', [[<nop>]], {noremap = true, silent = true})
 
 -- }}}
--- ┼─────────────────────────────────────────────────────────────────────────────────────┼
--- │ {{{                             « AutoCommands »                                    │
--- ┼─────────────────────────────────────────────────────────────────────────────────────┼
+-- ┼─────────────────────────────────────────────────────────────────┼
+-- │ {{{                   « AutoCommands »                          │
+-- ┼─────────────────────────────────────────────────────────────────┼
 
 vim.cmd [[autocmd WinEnter,BufEnter,FocusGained,InsertLeave,CursorHold * set cursorline nocursorcolumn]]
 vim.cmd [[autocmd BufLeave,FocusLost,InsertEnter,CursorMoved * set nocursorline nocursorcolumn]]
@@ -164,9 +164,9 @@ vim.cmd [[autocmd CursorMoved * lua require'lsp-status'.update_current_function(
 -- cursorline
 
 -- }}}
--- ┼─────────────────────────────────────────────────────────────────────────────────────┼
--- │ {{{                       « Folding Configurations »                                │
--- ┼─────────────────────────────────────────────────────────────────────────────────────┼
+-- ┼─────────────────────────────────────────────────────────────────┼
+-- │ {{{             « Folding Configurations »                      │
+-- ┼─────────────────────────────────────────────────────────────────┼
 
 vim.cmd [[
 if has("folding")
@@ -188,7 +188,7 @@ if has("folding")
       setlocal fillchars+=fold:\
     elseif !exists('b:foldpat') || b:foldpat==0
       let l:foldtext = '┈ '.(v:foldend-v:foldstart).' ﲐ'.' ┠'
-      let l:endofline = 106 " (&textwidth>0 ? &textwidth : 100 + 6)
+      let l:endofline = 86 " (&textwidth>0 ? &textwidth : 80 + 6)
       let l:linetext = strpart(getline(v:foldstart),0,l:endofline-strwidth(l:foldtext))
       let l:align = l:endofline-strwidth(l:linetext)
       setlocal fillchars+=fold:─ " 空白
@@ -216,5 +216,5 @@ autocmd BufRead,BufNewFile * hi Folded guifg=#928374 guibg=none gui=undercurl
 ]]
 
 -- }}}
--- ┼─────────────────────────────────────────────────────────────────────────────────────┼
+-- ┼─────────────────────────────────────────────────────────────────┼
 -- vim:set foldmethod=marker:

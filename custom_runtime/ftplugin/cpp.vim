@@ -19,6 +19,11 @@ let g:neomake_build_maker = {
     \ }
 
 setlocal tabstop=2 softtabstop=2 shiftwidth=2
+setlocal conceallevel=2 concealcursor=nvic
+
+autocmd Syntax * syn match ArrowFull /->/ conceal cchar=⇒
+autocmd Syntax * highlight Conceal guifg=Normal
+
 
 let &cpo = s:save_cpo
 unlet s:save_cpo

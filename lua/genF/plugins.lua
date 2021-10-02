@@ -55,7 +55,7 @@ require('packer').startup{
     }
     use {
       'jiangmiao/auto-pairs',
-      ft = {'cpp', 'c', 'python', 'lua', 'javascript', 'typescript', 'json', 'tex', 'markdown', 'rust'}
+      ft = {'cpp', 'c', 'python', 'lua', 'javascript', 'typescript', 'json', 'markdown', 'rust'}
     }
     use {
       'skywind3000/asyncrun.vim',

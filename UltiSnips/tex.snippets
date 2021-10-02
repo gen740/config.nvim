@@ -1,0 +1,66 @@
+priority 1
+
+snippet sec "section"
+\section{${1:Section}}
+$0
+endsnippet
+
+snippet sec* "section"
+\section*{${1:Section}}
+$0
+endsnippet
+
+snippet sub "subsection"
+\subsection{${1:Section}}
+$0
+endsnippet
+
+snippet sub* "subsection"
+\subsection*{${1:Section}}
+$0
+endsnippet
+
+snippet ssub "subsubsection"
+\subsubsection{${1:Section}}
+$0
+endsnippet
+
+snippet ssub* "subsubsection"
+\subsubsection*{${1:Section}}
+$0
+endsnippet
+
+snippet [[ "math environment"
+\[ % display math mode
+	$1
+\] % end
+<++>
+endsnippet
+
+snippet (( "inline math environment"
+\( $1 \) <++>
+endsnippet
+
+snippet [] "\left[ \right]"
+\left[ $1 \right] <++>
+endsnippet
+
+snippet () "\left( \right)"
+\left( $1 \right) <++>
+endsnippet
+
+snippet {} "\left{ \right}"
+\left{ $1 \right} <++>
+endsnippet
+
+snippet dfrac "\partial / \partial x"
+\frac{\partial ${1:v}}{\partial ${2:x}} $0
+endsnippet
+
+snippet dmb "dot mathbold"
+\dot{\bm{$1}} $0
+endsnippet
+
+snippet ddmb "ddot mathbold"
+\ddot{\bm{$1}} $0
+endsnippet

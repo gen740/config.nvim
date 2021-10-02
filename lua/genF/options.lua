@@ -1,8 +1,8 @@
 M = {}
 
--- ┼─────────────────────────────────────────────────────────────────────────────────────┼
--- │ {{{                              « Treesitter »                                     │
--- ┼─────────────────────────────────────────────────────────────────────────────────────┼
+-- ┼─────────────────────────────────────────────────────────────────┼
+-- │ {{{                    « Treesitter »                           │
+-- ┼─────────────────────────────────────────────────────────────────┼
 
 function M.treesitter()
   require'nvim-treesitter.configs'.setup {
@@ -74,9 +74,9 @@ function M.treesitter()
 end
 
 -- }}}
--- ┼─────────────────────────────────────────────────────────────────────────────────────┼
--- │ {{{                       « Telescope Configurations »                              │
--- ┼─────────────────────────────────────────────────────────────────────────────────────┼
+-- ┼─────────────────────────────────────────────────────────────────┼
+-- │ {{{             « Telescope Configurations »                    │
+-- ┼─────────────────────────────────────────────────────────────────┼
 
 function M.telescope()
   local actions = require('telescope.actions')
@@ -144,21 +144,21 @@ function M.telescope()
 end
 
 -- }}}
--- ┼─────────────────────────────────────────────────────────────────────────────────────┼
--- │ {{{                       « Nvim Tree Configurations »                              │
--- ┼─────────────────────────────────────────────────────────────────────────────────────┼
+-- ┼─────────────────────────────────────────────────────────────────┼
+-- │ {{{             « Nvim Tree Configurations »                    │
+-- ┼─────────────────────────────────────────────────────────────────┼
 
 function M.nvim_tree()
   require'nvim-tree'.setup {
-    disable_netrw       = true,
-    hijack_netrw        = true,
+    disable_netrw       = false,
+    hijack_netrw        = false,
     open_on_setup       = false,
     ignore_ft_on_setup  = {},
     auto_close          = false,
     open_on_tab         = false,
-    hijack_cursor       = false,
+    hijack_cursor       = true,
     update_cwd          = false,
-    lsp_diagnostics     = false,
+    lsp_diagnostics     = true,
     update_focused_file = {
       enable      = false,
       update_cwd  = false,
@@ -182,9 +182,9 @@ function M.nvim_tree()
 end
 
 --}}}
--- ┼─────────────────────────────────────────────────────────────────────────────────────┼
--- │ {{{                       « Git signs Configurations »                              │
--- ┼─────────────────────────────────────────────────────────────────────────────────────┼
+-- ┼─────────────────────────────────────────────────────────────────┼
+-- │ {{{             « Git signs Configurations »                    │
+-- ┼─────────────────────────────────────────────────────────────────┼
 
 function M.gitsigns()
   require('gitsigns').setup {
@@ -227,9 +227,9 @@ function M.gitsigns()
 end
 
 -- }}}
--- ┼─────────────────────────────────────────────────────────────────────────────────────┼
--- │ {{{                            « Indent Blank Line »                                │
--- ┼─────────────────────────────────────────────────────────────────────────────────────┼
+-- ┼─────────────────────────────────────────────────────────────────┼
+-- │ {{{                  « Indent Blank Line »                      │
+-- ┼─────────────────────────────────────────────────────────────────┼
 function M.indent_blankline()
   vim.cmd [[autocmd FileType * highlight IndentBlanklineIndent1 guifg=#665c54 blend=nocombine]]
   vim.cmd [[autocmd FileType * highlight IndentBlanklineIndent2 guifg=#3c3836 blend=nocombine]]
@@ -264,7 +264,9 @@ function M.indent_blankline()
     'array',
     'arrow_function',
     'enum_body',
+    'enum_item',
     'table',
+    'environment',
   }
   vim.g.indent_blankline_context_highlight_list = {
     "IndentBlanklineAqua",
@@ -294,9 +296,9 @@ function M.indent_blankline()
 end
 
 -- }}}
--- ┼─────────────────────────────────────────────────────────────────────────────────────┼
--- │ {{{                           « LSP Configurations »                                │
--- ┼─────────────────────────────────────────────────────────────────────────────────────┼
+-- ┼─────────────────────────────────────────────────────────────────┼
+-- │ {{{                 « LSP Configurations »                      │
+-- ┼─────────────────────────────────────────────────────────────────┼
 
 function M.nvim_lsp()
   local nvim_lsp = require('lspconfig')
@@ -392,9 +394,9 @@ function M.nvim_lsp()
 end
 
 --}}}
--- ┼─────────────────────────────────────────────────────────────────────────────────────┼
--- │ {{{                       « nivm compe Configurations »                             │
--- ┼─────────────────────────────────────────────────────────────────────────────────────┼
+-- ┼─────────────────────────────────────────────────────────────────┼
+-- │ {{{             « nivm compe Configurations »                   │
+-- ┼─────────────────────────────────────────────────────────────────┼
 
 function M.nvim_cmp()
   local cmp = require 'cmp'
@@ -451,9 +453,9 @@ function M.nvim_cmp()
 end
 
 --}}}
--- ┼─────────────────────────────────────────────────────────────────────────────────────┼
--- │ {{{                             « Nvim LSP Kind »                                   │
--- ┼─────────────────────────────────────────────────────────────────────────────────────┼
+-- ┼─────────────────────────────────────────────────────────────────┼
+-- │ {{{                   « Nvim LSP Kind »                         │
+-- ┼─────────────────────────────────────────────────────────────────┼
 
 function M.nvim_lspkind()
   require('lspkind').init({
@@ -463,16 +465,17 @@ function M.nvim_lspkind()
 end
 
 --}}}
--- ┼─────────────────────────────────────────────────────────────────────────────────────┼
--- │ {{{                          « Status and Tab line »                                │
--- ┼─────────────────────────────────────────────────────────────────────────────────────┼
+-- ┼─────────────────────────────────────────────────────────────────┼
+-- │ {{{                « Status and Tab line »                      │
+-- ┼─────────────────────────────────────────────────────────────────┼
 
 function M.lsp_status()
-  -- local lsp_status = require('lsp-status') -- TODO
+  local lsp_status = require('lsp-status') -- TODO:
   -- lsp_status.register_progress()
-  --[[ lsp_status.config {
+  lsp_status.config {
+    status_symbol = '';
     current_function = true,
-  } ]]
+  }
 end
 
 function Word_count()
@@ -482,7 +485,7 @@ end
 function M.lualine()
   require('lualine').setup{
     options = {
-      theme = 'onedark',
+      theme = 'nightfox',
       icons_enabled = 1,
       padding = 1,
       left_padding = 1,
@@ -490,8 +493,8 @@ function M.lualine()
       upper = false,
       lower = false,
       format = nil,
-      section_separators = {'', ''},
-      component_separators = {'', ''},
+      section_separators = {'', ''},
+      component_separators = {'│', '│'},
     },
     sections = {
       lualine_a = {{'mode', lower = true}},
@@ -538,9 +541,9 @@ function M.bufferline()
       show_close_icon = true,
       show_tab_indicators = false,
       persist_buffer_sort = false,
-      separator_style = 'slant',
+      separator_style = 'thin',
       enforce_regular_tabs = false,
-      always_show_bufferline = false,
+      always_show_bufferline = true,
       sort_by = 'id',
     },
     highlights = {
@@ -562,10 +565,11 @@ function M.bufferline()
     },
   }
 end
+
 --}}}
--- ┼─────────────────────────────────────────────────────────────────────────────────────┼
--- │ {{{                          « Nvim Dap (Debugger) »                                │
--- ┼─────────────────────────────────────────────────────────────────────────────────────┼
+-- ┼─────────────────────────────────────────────────────────────────┼
+-- │ {{{                « Nvim Dap (Debugger) »                      │
+-- ┼─────────────────────────────────────────────────────────────────┼
 
 function M.nvim_dap()
   local dap = require('dap')
@@ -690,11 +694,10 @@ function M.dap_ui()
   dap.listeners.before.event_exited['dapui_config'] = function() dapui.close() end
 end
 
-
 --}}}
--- ┼─────────────────────────────────────────────────────────────────────────────────────┼
--- │ {{{                              « Toggle Term »                                    │
--- ┼─────────────────────────────────────────────────────────────────────────────────────┼
+-- ┼─────────────────────────────────────────────────────────────────┼
+-- │ {{{                    « Toggle Term »                          │
+-- ┼─────────────────────────────────────────────────────────────────┼
 
 function M.toggle_term()
   require("toggleterm").setup{
@@ -729,29 +732,17 @@ function M.toggle_term()
 end
 
 --}}}
--- ┼─────────────────────────────────────────────────────────────────────────────────────┼
--- │ {{{                        « DashBoard Configurations »                             │
--- ┼─────────────────────────────────────────────────────────────────────────────────────┼
+-- ┼─────────────────────────────────────────────────────────────────┼
+-- │ {{{              « DashBoard Configurations »                   │
+-- ┼─────────────────────────────────────────────────────────────────┼
 
 function M.dashboard()
   vim.g.dashboard_default_executive = 'telescope'
-  -- let s:dashboard_shortcut_icon['last_session'] = ' '
-  -- let s:dashboard_shortcut_icon['find_history'] = ' '
-  -- let s:dashboard_shortcut_icon['find_file'] = ' '
-  -- let s:dashboard_shortcut_icon['new_file'] = ' '
-  -- let s:dashboard_shortcut_icon['change_colorscheme'] = ' '
-  -- let s:dashboard_shortcut_icon['find_word'] = ' '
-  -- let s:dashboard_shortcut_icon['book_marks'] = ' '
-
   vim.g.dashboard_custom_section={
     buffer_list        = {
       description      = {[[ Config Files                                              ]]},
       command          = [[:cd ~/.config/nvim | Telescope find_files]]
     },
-    -- last_session       = {
-    --   description      = {[[ Open last session                                         ]]},
-    --   command          = [[:SessionLoad]]
-    -- },
     find_history       = {
       description      = {[[ Recently opened files                                     ]]},
       command          = [[:DashboardFindHistory]]
@@ -777,15 +768,16 @@ function M.dashboard()
       command          = [[:DashboardJumpMark]]
     },
   }
-  vim.g.dashboard_custom_header = {""}
-  vim.g.dashboard_custom_footer = {""}
+  vim.g.dashboard_custom_header = {[[Satellite]]}
+  -- vim.g.dashboard_custom_footer = {""}
   vim.cmd [[autocmd FileType dashboard highlight DashboardHeader guifg=#9999bb]]
 end
 
 --}}}
--- ┼─────────────────────────────────────────────────────────────────────────────────────┼
--- │ {{{                           « Plugin settings »                                   │
--- ┼─────────────────────────────────────────────────────────────────────────────────────┼
+-- ┼─────────────────────────────────────────────────────────────────┼
+-- │ {{{                 « Plugin settings »                         │
+-- ┼─────────────────────────────────────────────────────────────────┼
+
 function M.todo_comment()
   require("todo-comments").setup {
     keywords = {
@@ -793,7 +785,7 @@ function M.todo_comment()
       FIX = { icon = " ", color = "error", alt = { "FIXME", "BUG", "FIXIT", "ISSUE"}, },
       TODO = { icon = " ", color = "info" },
       HACK = { icon = " ", color = "warning" },
-      WARN = { icon = " ", color = "warning", alt = { "WARNING", "XXX" } },
+      WARN = { icon = " ", color = "warning", alt = { "WARNING" } },
       PERF = { icon = " ", alt = { "OPTIM", "PERFORMANCE", "OPTIMIZE" } },
       NOTE = { icon = " ", color = "hint", alt = { "INFO", "REF" } },
     },
@@ -825,9 +817,10 @@ function M.bqf()
 end
 
 --}}}
--- ┼─────────────────────────────────────────────────────────────────────────────────────┼
--- │ {{{                           « Plugin settings »                                   │
--- ┼─────────────────────────────────────────────────────────────────────────────────────┼
+-- ┼─────────────────────────────────────────────────────────────────┼
+-- │ {{{                 « Plugin settings »                         │
+-- ┼─────────────────────────────────────────────────────────────────┼
+
 -- Easy Motion
 function M.others()
   vim.g.EasyMotion_keys = 'aoeidtnpyfgcrl;qjkxbmwvzuhs'  -- This Option is For Dvorak User
@@ -847,10 +840,9 @@ function M.others()
 end
 
 --- }}}
--- ┼─────────────────────────────────────────────────────────────────────────────────────┼
+-- ┼─────────────────────────────────────────────────────────────────┼
 
 -- Export
+
 return M
-
-
 -- vim:set foldmethod=marker:
