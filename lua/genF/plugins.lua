@@ -28,6 +28,7 @@ require('packer').startup{
       'wbthomason/packer.nvim',
       opt = true
     }
+    use 'lewis6991/impatient.nvim'
 
     -- None Regular -------------------------------------------------------------------------------
     --[[ use {
@@ -55,7 +56,10 @@ require('packer').startup{
     }
     use {
       'jiangmiao/auto-pairs',
-      ft = {'cpp', 'c', 'python', 'lua', 'javascript', 'typescript', 'json', 'markdown', 'rust'}
+      ft = {
+        'cpp', 'c', 'python', 'lua', 'javascript', 'typescript', 'json',
+        'markdown', 'rust', 'vim',
+      }
     }
     use {
       'skywind3000/asyncrun.vim',
@@ -117,6 +121,9 @@ require('packer').startup{
     }
     use {
       'andymass/vim-matchup'
+    }
+    use {
+      'rcarriga/nvim-notify'
     }
 
     -- DashBoard ----------------------------------------------------------------------------------
@@ -195,15 +202,17 @@ require('packer').startup{
     use {'lvht/tagbar-markdown', ft = {'markdown', 'md'}}
     use {'plasticboy/vim-markdown', ft = {'markdown', 'md'}}
     use {'davidgranstrom/nvim-markdown-preview', ft = {'markdown', 'md'}}
+    use {'fuenor/JpFormat.vim', ft = {'text'}}
     -- use {'rust-lang/rust.vim', ft = {'rust'}}
     use 'fladson/vim-kitty'
-
+    use {
+      'KeitaNakamura/tex-conceal.vim'
+    }
 
     -- LSP and Debugger ---------------------------------------------------------------------------
     use {'neovim/nvim-lspconfig', config = myConf.nvim_lsp}
     use {'mfussenegger/nvim-dap', config = myConf.nvim_dap}
     use {'rcarriga/nvim-dap-ui', config = myConf.dap_ui}
-
     use {
       "folke/trouble.nvim",
       requires = "kyazdani42/nvim-web-devicons",

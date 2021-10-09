@@ -267,6 +267,7 @@ function M.indent_blankline()
     'enum_item',
     'table',
     'environment',
+    'dictionnary'
   }
   vim.g.indent_blankline_context_highlight_list = {
     "IndentBlanklineAqua",

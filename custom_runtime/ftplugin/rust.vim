@@ -19,7 +19,10 @@ setlocal tabstop=4 softtabstop=4 shiftwidth=4
 setlocal makeprg=cargo
 compiler cargo
 
-autocmd Syntax * syn match ArrowFull /->/ conceal cchar=⇒
+" autocmd Syntax * syn match ArrowFull /->/ conceal cchar=⇒
+syn match ArrowHead contained ">" conceal cchar=▶
+syn match ArrowTail contained "-" conceal cchar=─
+syn match ArrowFull "->" contains=ArrowHead,ArrowTail
 autocmd Syntax * highlight Conceal guifg=Normal
 
 let &cpo = s:save_cpo

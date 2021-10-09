@@ -1,12 +1,13 @@
 
 # TODO Comment
 # test
-<!-- TODO: This is TODO-->
-<!-- FIX: This is FIX-->
-<!-- HACK: This is Hack-->
-<!-- WARN: This is Warn-->
-<!-- PERF: This is Preference-->
-<!-- NOTE: This is Note-->
+
+<!-- TODO: This is TODO -->
+<!-- FIX: This is FIX -->
+<!-- HACK: This is Hack -->
+<!-- WARN: This is Warn -->
+<!-- PERF: This is Preference -->
+<!-- NOTE: This is Note -->
 
 
 -- file type plugin

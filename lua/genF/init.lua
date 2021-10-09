@@ -1,10 +1,9 @@
 -- ┼─────────────────────────────────────────────────────────────────┼
--- │ {{{                   « Vim Options »                           │
+-- │                    « Vim Options »                           │
 -- ┼─────────────────────────────────────────────────────────────────┼
 vim.g.python3_host_prog='~/.pyenv/versions/neovim-3/bin/python'
 vim.g.python_host_prog='~/.pyenv/versions/neovim-2/bin/python'
 
--- vim.cmd[[syntax on]]
 vim.g.enc = 'utf-8'
 vim.g.fileencoding = 'utf-8'
 vim.opt.autoindent = true
@@ -45,6 +44,9 @@ vim.opt.splitright = true
 vim.opt.swapfile = false
 vim.opt.termguicolors = true
 vim.opt.tabstop = 4
+-- vim.opt.inccommand = 'split'
+vim.opt.inccommand = 'nosplit'
+vim.opt.gdefault = true
 
 vim.opt.softtabstop = 4
 vim.opt.undodir=os.getenv("HOME")..[[/.vim/undo]]
@@ -59,7 +61,7 @@ vim.opt.showmatch = true
 
 vim.g.netrw_silent = true
 
--- }}}
+-- 
 -- ┼─────────────────────────────────────────────────────────────────┼
 -- │ {{{                   « Key mappings »                          │
 -- ┼─────────────────────────────────────────────────────────────────┼
@@ -104,6 +106,10 @@ vim.api.nvim_set_keymap('n', '<up>',    ':resize -2<cr>', {noremap = true, silen
 vim.api.nvim_set_keymap('n', 'S', '<Plug>(easymotion-overwin-line)', {noremap = false, silent = true})
 vim.api.nvim_set_keymap('n', 'ga', '<plug>(EasyAlign)', {noremap = false})
 vim.api.nvim_set_keymap('n', 's', '<Plug>(easymotion-overwin-f2)', {noremap = false, silent = true})
+vim.api.nvim_set_keymap('n', 'j', 'gj', {noremap = true, silent = true})
+vim.api.nvim_set_keymap('n', 'gj', 'j', {noremap = true, silent = true})
+vim.api.nvim_set_keymap('n', 'k', 'gk', {noremap = true, silent = true})
+vim.api.nvim_set_keymap('n', 'gk', 'k', {noremap = true, silent = true})
 vim.api.nvim_set_keymap('t', '<m-b>', [[<c-\><c-n>]], {noremap = true, silent = true})
 vim.api.nvim_set_keymap('v', '<down>', [[:m '>+1<cr>gv=cv]], {noremap = true, silent = true})
 vim.api.nvim_set_keymap('v', '<leader>s', ':sort<cr>', {noremap = true, silent = true})
@@ -136,6 +142,7 @@ vim.cmd [[autocmd ColorScheme * hi Normal guibg=none]]
 vim.cmd [[autocmd ColorScheme * hi NormalNC guibg=none]]
 vim.cmd [[autocmd ColorScheme * hi NormalSB guibg=none]]
 vim.cmd [[autocmd ColorScheme * hi NormalFloat guibg=none]]
+
 vim.cmd [[autocmd ColorScheme * hi SignColumn guibg=none]]
 vim.cmd [[autocmd ColorScheme * hi EndOfBuffer guifg=#222222]]
 vim.cmd [[autocmd ColorScheme * hi VertSplit guibg=none]]
@@ -150,17 +157,25 @@ vim.cmd [[autocmd ColorScheme * hi GitSignsChange   guibg=none  guifg=lightgreen
 vim.cmd [[autocmd ColorScheme * hi GitSignsChangeNr guibg=none  guifg=lightgreen]]
 vim.cmd [[autocmd ColorScheme * hi GitSignsChangeLn guibg=none  guifg=lightgreen]]
 vim.cmd [[autocmd ColorScheme * hi LineNr guibg=none  guifg=#5b6282]]
+vim.cmd [[autocmd ColorScheme * hi NvimTreeNormal guibg=none]]
 vim.cmd [[autocmd ColorScheme * hi GitSignsDelete   guibg=none  guifg=red]]
 vim.cmd [[autocmd ColorScheme * hi GitSignsDeleteNr guibg=none  guifg=red]]
 vim.cmd [[autocmd ColorScheme * hi GitSignsDeleteLn guibg=none  guifg=red]]
+vim.cmd [[autocmd ColorScheme * hi Substitute guibg=#ffe37e guifg=#192330]]
+vim.cmd [[autocmd ColorScheme * hi Search guibg=#ffe37e guifg=#192330]]
 
 vim.cmd [[autocmd TermOpen * setlocal nonumber norelativenumber]]
 
 vim.cmd [[autocmd FileType lua setlocal sw=2]]
 vim.cmd [[autocmd FileType cpp setlocal sw=2]]
+vim.cmd [[autocmd FileType vim  setlocal sw=2]]
 
 vim.cmd [[autocmd CursorMoved * lua require'lsp-status'.update_current_function()]]
 
+vim.cmd [[augroup LuaHighLight]]
+vim.cmd [[ au! ]]
+vim.cmd [[ au TextYankPost * silent! lua return (not vim.v.event.visual) and require'vim.highlight'.on_yank()]]
+vim.cmd [[augroup END]]
 -- cursorline
 
 -- }}}

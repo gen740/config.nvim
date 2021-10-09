@@ -49,8 +49,7 @@ command! VimShowHlGroup echo synIDattr(synIDtrans(synID(line('.'), col('.'), 1))
 command! ToggleTerminalBottom call custom#ChooseTerm("Term-Slider", 1, 1)
 command! ToggleTerminalTop call custom#ChooseTerm("Term-Slider", 1, 0)
 
-
-
+command! -nargs=1 Say call custom#say(<f-args>)
 
 let &cpo = s:save_cpo
 unlet s:save_cpo

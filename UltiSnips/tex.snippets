@@ -34,33 +34,45 @@ snippet [[ "math environment"
 \[ % display math mode
 	$1
 \] % end
-<++>
+${2:<++>}
 endsnippet
 
 snippet (( "inline math environment"
-\( $1 \) <++>
+\( $1 \)$0
 endsnippet
 
 snippet [] "\left[ \right]"
-\left[ $1 \right] <++>
+\left[ $1 \right]$0
 endsnippet
 
 snippet () "\left( \right)"
-\left( $1 \right) <++>
+\left( $1 \right)$0
 endsnippet
 
 snippet {} "\left{ \right}"
-\left{ $1 \right} <++>
+\left\{ $1 \right\}$0
+endsnippet
+
+snippet || "\left{ \right}"
+\left| $1 \right|$0
+endsnippet
+
+snippet lr "left right"
+\left$1 $2 \right$1$0
 endsnippet
 
 snippet dfrac "\partial / \partial x"
-\frac{\partial ${1:v}}{\partial ${2:x}} $0
+\frac{\partial ${1:v}}{\partial ${2:x}}$0
+endsnippet
+
+snippet frac "\partial / \partial x"
+\frac{$1}{$2}$0
 endsnippet
 
 snippet dmb "dot mathbold"
-\dot{\bm{$1}} $0
+\dot{\bm{$1}}$0
 endsnippet
 
 snippet ddmb "ddot mathbold"
-\ddot{\bm{$1}} $0
+\ddot{\bm{$1}}$0
 endsnippet
