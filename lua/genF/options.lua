@@ -6,7 +6,7 @@ M = {}
 
 function M.treesitter()
   require'nvim-treesitter.configs'.setup {
-    ensure_installed = "maintained", -- one of "all", "maintained" (parsers with maintainers), or a list of languages
+    ensure_installed = "all", -- one of "all", "maintained" (parsers with maintainers), or a list of languages
     highlight = {
       enable = true,              -- false will disable the whole extension
       additional_vim_regex_highlighting = { "latex", "tex"},
@@ -246,28 +246,30 @@ function M.indent_blankline()
   vim.g.indent_blankline_use_treesitter = true
   vim.g.indent_blankline_show_current_context = true
   vim.g.indent_blankline_context_patterns = {
-    'class',
-    'function',
-    'method',
     '^if',
-    'while',
-    'for',
-    'with',
-    'func_literal',
-    'block',
-    'try',
-    'except',
     'argument_list',
-    'object',
-    'dictionary',
-    'element',
     'array',
     'arrow_function',
+    'block',
+    'switch_statement',
+    'case_statement',
+    'class',
+    'dictionary',
+    'dictionnary',
+    'element',
     'enum_body',
     'enum_item',
-    'table',
     'environment',
-    'dictionnary'
+    'except',
+    'for',
+    'func_literal',
+    'function',
+    'method',
+    'object',
+    'table',
+    'try',
+    'while',
+    'with',
   }
   vim.g.indent_blankline_context_highlight_list = {
     "IndentBlanklineAqua",
@@ -396,17 +398,17 @@ end
 
 --}}}
 -- ┼─────────────────────────────────────────────────────────────────┼
--- │ {{{             « nivm compe Configurations »                   │
+-- │ {{{              « nivm cmp Configurations »                    │
 -- ┼─────────────────────────────────────────────────────────────────┼
 
 function M.nvim_cmp()
-  local cmp = require 'cmp'
+  local cmp = require'cmp'
   local WIDE_HEIGHT = 40
   cmp.setup {
-    completion = {
+    --[[ completion = {
       autocomplete = true,
-      -- completeopt = 'menu,menuone,noinsert',
-    },
+      completeopt = 'menu,menuone,noinsert',
+    }, ]]
     snippet = {
       expand = function(args)
         vim.fn["UltiSnips#Anon"](args.body)
@@ -419,10 +421,10 @@ function M.nvim_cmp()
       ['<C-f>'] = cmp.mapping.scroll_docs(4),
       ['<C-Space>'] = cmp.mapping.complete(),
       ['<C-e>'] = cmp.mapping.close(),
-      ['<CR>'] = cmp.mapping.confirm {
-        -- behavior = cmp.ConfirmBehavior.Replace,
-        -- select = true,
-      },
+      --[[ ['<CR>'] = cmp.mapping.confirm {
+        behavior = cmp.ConfirmBehavior.Replace,
+        select = true,
+      }, ]]
     },
     documentation = {
       border = { '╭', '─' ,'╮', '│', '╯', '─', '╰', '│' },
@@ -455,6 +457,29 @@ end
 
 --}}}
 -- ┼─────────────────────────────────────────────────────────────────┼
+-- │ {{{              « nivm cmp Configurations »                    │
+-- ┼─────────────────────────────────────────────────────────────────┼
+
+function M.auto_pair()
+  require("nvim-autopairs.completion.cmp").setup({
+    map_cr = true,
+    map_complete = true,
+    auto_select = true,
+    insert = false,
+    map_char = {
+      all = '(',
+      tex = '{'
+    }
+  })
+  local Rule = require('nvim-autopairs.rule')
+  local npairs = require('nvim-autopairs')
+  local cond = require('nvim-autopairs.conds')
+  -- print(vim.inspect(cond))
+  -- npairs.add_rule(Rule("$$","$$","tex"))
+end
+
+--}}}
+-- ┼─────────────────────────────────────────────────────────────────┼
 -- │ {{{                   « Nvim LSP Kind »                         │
 -- ┼─────────────────────────────────────────────────────────────────┼
 
@@ -472,6 +497,7 @@ end
 
 function M.lsp_status()
   local lsp_status = require('lsp-status') -- TODO:
+  -- lua require'lsp-status'.update_current_function()
   -- lsp_status.register_progress()
   lsp_status.config {
     status_symbol = '';
@@ -776,7 +802,7 @@ end
 
 --}}}
 -- ┼─────────────────────────────────────────────────────────────────┼
--- │ {{{                 « Plugin settings »                         │
+-- │ {{{               « TODO Comment & BQF »                        │
 -- ┼─────────────────────────────────────────────────────────────────┼
 
 function M.todo_comment()

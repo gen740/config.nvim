@@ -12,6 +12,7 @@ vim.opt.clipboard = 'unnamed'
 vim.opt.colorcolumn = '80'
 vim.opt.concealcursor= 'vc'
 vim.opt.conceallevel = 1
+vim.opt.cursorline = false
 vim.opt.expandtab = true
 vim.opt.foldenable = true
 vim.opt.foldexpr = 'nvim_treesitter#foldexpr()'
@@ -47,6 +48,7 @@ vim.opt.tabstop = 4
 -- vim.opt.inccommand = 'split'
 vim.opt.inccommand = 'nosplit'
 vim.opt.gdefault = true
+vim.opt.modeline = true
 
 vim.opt.softtabstop = 4
 vim.opt.undodir=os.getenv("HOME")..[[/.vim/undo]]
@@ -61,7 +63,9 @@ vim.opt.showmatch = true
 
 vim.g.netrw_silent = true
 
--- 
+vim.g.guifont = "FiraCode Nerd Font:h15"
+-- vim.cmd [[set guifont='FiraCode Nerd Font:18']]
+
 -- ┼─────────────────────────────────────────────────────────────────┼
 -- │ {{{                   « Key mappings »                          │
 -- ┼─────────────────────────────────────────────────────────────────┼
@@ -136,8 +140,8 @@ vim.api.nvim_set_keymap('n', 'Q', [[<nop>]], {noremap = true, silent = true})
 -- │ {{{                   « AutoCommands »                          │
 -- ┼─────────────────────────────────────────────────────────────────┼
 
-vim.cmd [[autocmd WinEnter,BufEnter,FocusGained,InsertLeave,CursorHold * set cursorline nocursorcolumn]]
-vim.cmd [[autocmd BufLeave,FocusLost,InsertEnter,CursorMoved * set nocursorline nocursorcolumn]]
+-- vim.cmd [[autocmd WinEnter,BufEnter,FocusGained,InsertLeave,CursorHold * set cursorline nocursorcolumn]]
+-- vim.cmd [[autocmd BufLeave,FocusLost,InsertEnter,CursorMoved * set nocursorline nocursorcolumn]]
 vim.cmd [[autocmd ColorScheme * hi Normal guibg=none]]
 vim.cmd [[autocmd ColorScheme * hi NormalNC guibg=none]]
 vim.cmd [[autocmd ColorScheme * hi NormalSB guibg=none]]
@@ -170,7 +174,7 @@ vim.cmd [[autocmd FileType lua setlocal sw=2]]
 vim.cmd [[autocmd FileType cpp setlocal sw=2]]
 vim.cmd [[autocmd FileType vim  setlocal sw=2]]
 
-vim.cmd [[autocmd CursorMoved * lua require'lsp-status'.update_current_function()]]
+-- vim.cmd [[autocmd Filetype * lua require'lsp-status'.update_current_function()]]
 
 vim.cmd [[augroup LuaHighLight]]
 vim.cmd [[ au! ]]
@@ -229,6 +233,7 @@ autocmd BufRead,BufNewFile *.zprofile setlocal foldmethod=marker
 set viewoptions-=options
 autocmd BufRead,BufNewFile * hi Folded guifg=#928374 guibg=none gui=undercurl
 ]]
+
 
 -- }}}
 -- ┼─────────────────────────────────────────────────────────────────┼

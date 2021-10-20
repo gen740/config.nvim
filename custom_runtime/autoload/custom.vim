@@ -33,7 +33,6 @@ endfunction
 function! custom#say(text)
   let OSTYPE = system('uname')
   if OSTYPE == "Darwin\n"
-    :AsyncRun
     :call asyncrun#run("", [], 'say -v Kyoko ' . a:text)
   endif
 endfunction

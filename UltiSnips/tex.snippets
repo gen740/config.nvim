@@ -50,7 +50,7 @@ snippet () "\left( \right)"
 endsnippet
 
 snippet {} "\left{ \right}"
-\left\{ $1 \right\}$0
+\left\\{ $1 \right\\}$0
 endsnippet
 
 snippet || "\left{ \right}"
@@ -76,3 +76,18 @@ endsnippet
 snippet ddmb "ddot mathbold"
 \ddot{\bm{$1}}$0
 endsnippet
+
+snippet al* "align+"
+\begin{align*}
+    $1
+\end{align*}
+$0
+endsnippet
+
+snippet pm "pmatrix"
+\begin{pmatrix}
+    $1
+\end{pmatrix}
+$0
+endsnippet
+

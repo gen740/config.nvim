@@ -28,7 +28,6 @@ require('packer').startup{
       'wbthomason/packer.nvim',
       opt = true
     }
-    use 'lewis6991/impatient.nvim'
 
     -- None Regular -------------------------------------------------------------------------------
     --[[ use {
@@ -56,14 +55,15 @@ require('packer').startup{
     }
     use {
       'jiangmiao/auto-pairs',
+      -- config = myConf.auto_pair,
       ft = {
         'cpp', 'c', 'python', 'lua', 'javascript', 'typescript', 'json',
-        'markdown', 'rust', 'vim',
+        'rust', 'vim',
       }
     }
     use {
       'skywind3000/asyncrun.vim',
-      cmd = 'AsyncRun'
+      cmd = {'AsyncRun', 'Say'}
     }
     use {
       'kevinhwang91/nvim-bqf',
@@ -188,13 +188,13 @@ require('packer').startup{
     }
     use {
       'nvim-telescope/telescope-fzf-native.nvim',
+      requires = 'junegunn/fzf',
       run = 'make'
     }
     -- FileType Plugins ---------------------------------------------------------------------------
     use {'rhysd/vim-grammarous', ft = {'markdown', 'md', 'text'}}
     use {'chrisbra/csv.vim', ft = {'csv', 'tsv'}}
     use {'junegunn/goyo.vim', ft = {'text', 'markdown', 'md'}}
-    use {'cespare/vim-toml', ft = {'toml'}}
     use {'mattn/emmet-vim', ft = {'html', 'markdown', 'md'}}
     -- use {'tomlion/vim-solidity', ft = {'solidity'}}
     -- use {'vim-latex/vim-latex', ft = {'tex'}}
@@ -207,6 +207,9 @@ require('packer').startup{
     use 'fladson/vim-kitty'
     use {
       'KeitaNakamura/tex-conceal.vim'
+    }
+    use {
+      'chikamichi/mediawiki.vim'
     }
 
     -- LSP and Debugger ---------------------------------------------------------------------------
@@ -269,7 +272,6 @@ require('packer').startup{
       config = myConf.lsp_status
     }
   end,
-
   config = {
     display = {
       open_fn = require'packer.util'.float,
