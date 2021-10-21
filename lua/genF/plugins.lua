@@ -1,5 +1,3 @@
-local myConf = require'genF.options'
-
 -- Auto Packer Install
 local packer_exists = pcall(vim.cmd, [[packadd packer.nvim]])
 if not packer_exists then
@@ -23,40 +21,27 @@ end
 
 require('packer').startup{
   function(use)
-    -- Packer -------------------------------------------------------------------------------------
     use {'wbthomason/packer.nvim', opt = true}
-    -- Treesitter ---------------------------------------------------------------------------------
-    use {'nvim-treesitter/nvim-treesitter', config = myConf.treesitter}
-    use {'EdenEast/nightfox.nvim'}
-    -- use {'neovim/nvim-lspconfig', config = myConf.nvim_lsp}
-    -- use {
-      -- "hrsh7th/nvim-cmp",
-      -- requires = {
-        -- {
-          -- "hrsh7th/cmp-buffer",
-          -- event = 'InsertEnter'
-        -- },
-        -- {
-          -- 'hrsh7th/cmp-nvim-lsp',
-          -- event = 'InsertEnter'
-        -- },
-        -- {
-          -- 'hrsh7th/cmp-path',
-          -- event = 'InsertEnter'
-        -- },
-        -- {
-          -- 'hrsh7th/cmp-calc',
-          -- event = 'InsertEnter'
-        -- },
-        -- {
-          -- 'ray-x/cmp-treesitter',
-          -- event = 'InsertEnter'
-        -- },
-      -- },
-      -- config = myConf.nvim_cmp
-    -- }
-    -- use {'onsails/lspkind-nvim', config = myConf.nvim_lspkind}
-    -- use {'nvim-lua/lsp-status.nvim', config = myConf.lsp_status}
+    use {
+      'nvim-treesitter/nvim-treesitter',
+      config = function()
+	require'nvim-treesitter.configs'.setup {
+	  ensure_installed = "maintained", -- one of "all", "maintained" (parsers with maintainers), or a list of languages
+	  highlight = {
+	    enable = true              -- false will disable the whole extension
+	  },
+	  indent = {
+	    enable = true,              -- false will disable the whole extension
+	  },
+	}
+      end
+    }
+    use {
+      'EdenEast/nightfox.nvim',
+      config = function()
+	vim.cmd [[colo nightfox]]
+      end,
+    }
   end,
   config = {
     display = {
@@ -68,3 +53,5 @@ require('packer').startup{
     }
   }
 }
+
+-- vim:sw=2:
