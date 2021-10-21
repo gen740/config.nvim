@@ -33,7 +33,7 @@ vim.opt.pumheight = 10
 vim.opt.runtimepath:append('~/.config/nvim/custom_runtime')
 vim.opt.scrolloff = 8
 vim.opt.shada = [['1000,f1,<500,:500,@500,/500]]
-vim.opt.shiftwidth = 4
+vim.opt.shiftwidth = 2
 vim.opt.shortmess = 'acostTWI'
 vim.opt.showcmd = true
 vim.opt.showmode = false
@@ -44,13 +44,13 @@ vim.opt.splitbelow = true
 vim.opt.splitright = true
 vim.opt.swapfile = false
 vim.opt.termguicolors = true
-vim.opt.tabstop = 4
+vim.opt.tabstop = 2
 -- vim.opt.inccommand = 'split'
 vim.opt.inccommand = 'nosplit'
 vim.opt.gdefault = true
 vim.opt.modeline = true
 
-vim.opt.softtabstop = 4
+vim.opt.softtabstop = 2
 vim.opt.undodir=os.getenv("HOME")..[[/.vim/undo]]
 vim.opt.undofile = true
 vim.opt.undolevels = 1000
@@ -140,12 +140,12 @@ vim.api.nvim_set_keymap('n', 'Q', [[<nop>]], {noremap = true, silent = true})
 -- │ {{{                   « AutoCommands »                          │
 -- ┼─────────────────────────────────────────────────────────────────┼
 
--- vim.cmd [[autocmd WinEnter,BufEnter,FocusGained,InsertLeave,CursorHold * set cursorline nocursorcolumn]]
--- vim.cmd [[autocmd BufLeave,FocusLost,InsertEnter,CursorMoved * set nocursorline nocursorcolumn]]
--- vim.cmd [[autocmd ColorScheme * hi Normal guibg=none]]
--- vim.cmd [[autocmd ColorScheme * hi NormalNC guibg=none]]
--- vim.cmd [[autocmd ColorScheme * hi NormalSB guibg=none]]
--- vim.cmd [[autocmd ColorScheme * hi NormalFloat guibg=none]]
+vim.cmd [[autocmd WinEnter,BufEnter,FocusGained,InsertLeave,CursorHold * set cursorline nocursorcolumn]]
+vim.cmd [[autocmd BufLeave,FocusLost,InsertEnter,CursorMoved * set nocursorline nocursorcolumn]]
+vim.cmd [[autocmd ColorScheme * hi Normal guibg=none]]
+vim.cmd [[autocmd ColorScheme * hi NormalNC guibg=none]]
+vim.cmd [[autocmd ColorScheme * hi NormalSB guibg=none]]
+vim.cmd [[autocmd ColorScheme * hi NormalFloat guibg=none]]
 
 vim.cmd [[autocmd ColorScheme * hi SignColumn guibg=none]]
 vim.cmd [[autocmd ColorScheme * hi EndOfBuffer guifg=#222222]]
