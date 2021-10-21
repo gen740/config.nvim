@@ -27,35 +27,36 @@ require('packer').startup{
     use {'wbthomason/packer.nvim', opt = true}
     -- Treesitter ---------------------------------------------------------------------------------
     use {'nvim-treesitter/nvim-treesitter', config = myConf.treesitter}
-    use {'neovim/nvim-lspconfig', config = myConf.nvim_lsp}
-    use {
-      "hrsh7th/nvim-cmp",
-      requires = {
-        {
-          "hrsh7th/cmp-buffer",
-          event = 'InsertEnter'
-        },
-        {
-          'hrsh7th/cmp-nvim-lsp',
-          event = 'InsertEnter'
-        },
-        {
-          'hrsh7th/cmp-path',
-          event = 'InsertEnter'
-        },
-        {
-          'hrsh7th/cmp-calc',
-          event = 'InsertEnter'
-        },
-        {
-          'ray-x/cmp-treesitter',
-          event = 'InsertEnter'
-        },
-      },
-      config = myConf.nvim_cmp
-    }
-    use {'onsails/lspkind-nvim', config = myConf.nvim_lspkind}
-    use {'nvim-lua/lsp-status.nvim', config = myConf.lsp_status}
+    use {'EdenEast/nightfox.nvim'}
+    -- use {'neovim/nvim-lspconfig', config = myConf.nvim_lsp}
+    -- use {
+      -- "hrsh7th/nvim-cmp",
+      -- requires = {
+        -- {
+          -- "hrsh7th/cmp-buffer",
+          -- event = 'InsertEnter'
+        -- },
+        -- {
+          -- 'hrsh7th/cmp-nvim-lsp',
+          -- event = 'InsertEnter'
+        -- },
+        -- {
+          -- 'hrsh7th/cmp-path',
+          -- event = 'InsertEnter'
+        -- },
+        -- {
+          -- 'hrsh7th/cmp-calc',
+          -- event = 'InsertEnter'
+        -- },
+        -- {
+          -- 'ray-x/cmp-treesitter',
+          -- event = 'InsertEnter'
+        -- },
+      -- },
+      -- config = myConf.nvim_cmp
+    -- }
+    -- use {'onsails/lspkind-nvim', config = myConf.nvim_lspkind}
+    -- use {'nvim-lua/lsp-status.nvim', config = myConf.lsp_status}
   end,
   config = {
     display = {
@@ -67,7 +68,3 @@ require('packer').startup{
     }
   }
 }
-
-if not packer_exists then
-    vim.cmd[[:PackerSync]]
-end
