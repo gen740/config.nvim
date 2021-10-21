@@ -154,6 +154,7 @@ require('packer').startup{
     use {'mhartington/oceanic-next'}
     use {'sainnhe/everforest'}
     use {'EdenEast/nightfox.nvim'}
+    use {'morhetz/gruvbox'}
     use 'kvrohit/substrata.nvim'
     use {
       'akinsho/nvim-bufferline.lua',

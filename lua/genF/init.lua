@@ -142,10 +142,10 @@ vim.api.nvim_set_keymap('n', 'Q', [[<nop>]], {noremap = true, silent = true})
 
 -- vim.cmd [[autocmd WinEnter,BufEnter,FocusGained,InsertLeave,CursorHold * set cursorline nocursorcolumn]]
 -- vim.cmd [[autocmd BufLeave,FocusLost,InsertEnter,CursorMoved * set nocursorline nocursorcolumn]]
-vim.cmd [[autocmd ColorScheme * hi Normal guibg=none]]
-vim.cmd [[autocmd ColorScheme * hi NormalNC guibg=none]]
-vim.cmd [[autocmd ColorScheme * hi NormalSB guibg=none]]
-vim.cmd [[autocmd ColorScheme * hi NormalFloat guibg=none]]
+-- vim.cmd [[autocmd ColorScheme * hi Normal guibg=none]]
+-- vim.cmd [[autocmd ColorScheme * hi NormalNC guibg=none]]
+-- vim.cmd [[autocmd ColorScheme * hi NormalSB guibg=none]]
+-- vim.cmd [[autocmd ColorScheme * hi NormalFloat guibg=none]]
 
 vim.cmd [[autocmd ColorScheme * hi SignColumn guibg=none]]
 vim.cmd [[autocmd ColorScheme * hi EndOfBuffer guifg=#222222]]
