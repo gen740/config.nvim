@@ -434,7 +434,7 @@ function M.nvim_cmp()
     },
     sources = {
       { name = 'nvim_lsp' },
-      { name = 'buffer' },
+      { name = 'buffer', keyword_length = 1 },
       { name = 'path' },
       { name = 'treesitter' },
       { name = 'ultisnips' },
@@ -452,6 +452,9 @@ function M.nvim_cmp()
         return vim_item
       end,
     },
+    experimental = {
+      ghost_text = true
+    }
   }
 end
 

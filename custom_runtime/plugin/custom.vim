@@ -8,8 +8,7 @@ set cpo&vim
 function! s:clang_format()
     let l:save = winsaveview()
     call s:trimUseless()
-    " ローカルのclang-formatに設定を合わせる。
-    :silent %! clang-format -style=file 
+    :silent %! clang-format -style=file
     call winrestview(l:save)
     :silent w
 endfunction

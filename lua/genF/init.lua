@@ -18,18 +18,21 @@ vim.opt.foldenable = true
 vim.opt.foldexpr = 'nvim_treesitter#foldexpr()'
 vim.opt.foldlevel = 999
 vim.opt.foldmethod = 'expr'
+vim.opt.gdefault = true
 vim.opt.hidden = true
 vim.opt.hlsearch = false
 vim.opt.ignorecase = true
+vim.opt.inccommand = 'nosplit'
 vim.opt.incsearch = true
 vim.opt.laststatus = 2
 vim.opt.lazyredraw = true
 vim.opt.list = true
 vim.opt.listchars = [[tab:»-,trail:▒,extends:»,precedes:«,nbsp:%]] -- ,eol:↲│,conceal:◇
+vim.opt.modeline = true
 vim.opt.mouse:append('a')
 vim.opt.number = true
-vim.opt.relativenumber = true
 vim.opt.pumheight = 10
+vim.opt.relativenumber = true
 vim.opt.runtimepath:append('~/.config/nvim/custom_runtime')
 vim.opt.scrolloff = 8
 vim.opt.shada = [['1000,f1,<500,:500,@500,/500]]
@@ -43,12 +46,8 @@ vim.opt.smartcase = true
 vim.opt.splitbelow = true
 vim.opt.splitright = true
 vim.opt.swapfile = false
-vim.opt.termguicolors = true
 vim.opt.tabstop = 2
--- vim.opt.inccommand = 'split'
-vim.opt.inccommand = 'nosplit'
-vim.opt.gdefault = true
-vim.opt.modeline = true
+vim.opt.termguicolors = true
 
 vim.opt.softtabstop = 2
 vim.opt.undodir=os.getenv("HOME")..[[/.vim/undo]]
@@ -64,7 +63,6 @@ vim.opt.showmatch = true
 vim.g.netrw_silent = true
 
 vim.g.guifont = "FiraCode Nerd Font:h15"
--- vim.cmd [[set guifont='FiraCode Nerd Font:18']]
 
 -- ┼─────────────────────────────────────────────────────────────────┼
 -- │ {{{                   « Key mappings »                          │
@@ -133,7 +131,7 @@ vim.api.nvim_set_keymap('n',
                         [[:!source ~/.config/zsh/custom_func.zsh && change_f<cr><cr><C-l>]],
                         {noremap = true, silent = true})
 -- vim.api.nvim_set_keymap('n', 'q:', [[<nop>]], {noremap = true, silent = true})
-vim.api.nvim_set_keymap('n', 'Q', [[<nop>]], {noremap = true, silent = true})
+-- vim.api.nvim_set_keymap('n', 'Q', [[<nop>]], {noremap = true, silent = true})
 
 -- }}}
 -- ┼─────────────────────────────────────────────────────────────────┼
