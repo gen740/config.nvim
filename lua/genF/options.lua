@@ -106,37 +106,37 @@ function M.telescope()
       },
       prompt_prefix = '  ',
       layout_config = {
-        prompt_position = 'top',
-        width = 0.8,
-      },
-      selection_caret = " ▶ ",
-      entry_prefix = "   ",
-      initial_mode = "insert",
-      selection_strategy = "reset",
-      sorting_strategy = "ascending",
-      layout_strategy = "horizontal",
-      border = {},
+        prompt_position = 'top';
+        width = 0.8;
+      };
+      selection_caret = " ▶ ";
+      entry_prefix = "   ";
+      initial_mode = "insert";
+      selection_strategy = "reset";
+      sorting_strategy = "ascending";
+      layout_strategy = "horizontal";
+      border = {};
       file_ignore_patterns = {
-        "node_modules/*",
-        "legacy/*",
-        "third_parties/*",
-        "overrides/*",
-        "__pycache__",
-        ".github",
-        ".DS_Store",
-        ".gitignore"
-      },
-      borderchars = { '─', '│', '─', '│', '╭', '╮', '╯', '╰' },
-      -- borderchars = { '─', '│', '─', '│', '┌', '┐', '┘', '└' },
-      color_devicons = true,
-      use_less = true,
-    },
+        "node_modules/*";
+        "legacy/*";
+        "third_parties/*";
+        "overrides/*";
+        "__pycache__";
+        ".github";
+        ".DS_Store";
+        ".gitignore";
+      };
+      borderchars = { '─', '│', '─', '│', '╭', '╮', '╯', '╰' };
+      -- borderchars = { '─', '│', '─', '│', '┌', '┐', '┘', '└' };
+      color_devicons = true;
+      use_less = true;
+    };
     extensions = {
       fzf = {
-        fuzzy = true,                    -- false will only do exact matching
-        override_generic_sorter = true,  -- override the generic sorter
-        override_file_sorter = true,     -- override the file sorter
-        case_mode = "smart_case",        -- or "ignore_case" or "respect_case"
+        fuzzy = true;                    -- false will only do exact matching
+        override_generic_sorter = true;  -- override the generic sorter
+        override_file_sorter = true;     -- override the file sorter
+        case_mode = "smart_case";        -- or "ignore_case" or "respect_case"
       }
     }
   }
@@ -434,7 +434,7 @@ function M.nvim_cmp()
     },
     sources = {
       { name = 'nvim_lsp' },
-      { name = 'buffer', keyword_length = 1 },
+      { name = 'buffer', keyword_length = 5 },
       { name = 'path' },
       { name = 'treesitter' },
       { name = 'ultisnips' },
@@ -451,9 +451,6 @@ function M.nvim_cmp()
         })[entry.source.name]
         return vim_item
       end,
-    },
-    experimental = {
-      ghost_text = true
     }
   }
 end
@@ -499,9 +496,8 @@ end
 -- ┼─────────────────────────────────────────────────────────────────┼
 
 function M.lsp_status()
-  local lsp_status = require('lsp-status') -- TODO:
-  -- lua require'lsp-status'.update_current_function()
-  -- lsp_status.register_progress()
+  local lsp_status = require('lsp-status')
+  lsp_status.register_progress()
   lsp_status.config {
     status_symbol = '';
     current_function = true,
@@ -529,7 +525,8 @@ function M.lualine()
     sections = {
       lualine_a = {{'mode', lower = true}},
       lualine_b = {'branch'},
-      lualine_c = {{require'lsp-status'.status}},
+      -- lualine_c = {{require'lsp-status'.status()}},
+      lualine_c = {"os.date('%a')", 'data', "require'lsp-status'.status()"},
       lualine_x = {'filetype', 'encoding'},
       lualine_y = {'progress'},
       lualine_z = {'location'}
@@ -557,8 +554,8 @@ function M.bufferline()
           return vim.fn.fnamemodify(buf.name, ':t:r')
         end
       end,
-      max_name_length = 15,
-      max_prefix_length = 10,
+      --[[ max_name_length = 15,
+      max_prefix_length = 10, ]]
       tab_size = 6,
       diagnostics = 'nvim_lsp',
       diagnostics_indicator = function(count, level)

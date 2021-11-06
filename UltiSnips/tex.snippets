@@ -38,7 +38,7 @@ ${2:<++>}
 endsnippet
 
 snippet (( "inline math environment"
-\( $1 \)$0
+$$1$ $0
 endsnippet
 
 snippet [] "\left[ \right]"
@@ -79,15 +79,32 @@ endsnippet
 
 snippet al* "align+"
 \begin{align*}
-    $1
+  $1
 \end{align*}
+$0
+endsnippet
+
+snippet flal "align+"
+\begin{flalign}
+  $1
+\end{flalign}
+$0
+endsnippet
+
+snippet flal* "align+"
+\begin{flalign*}
+  $1
+\end{flalign*}
 $0
 endsnippet
 
 snippet pm "pmatrix"
 \begin{pmatrix}
-    $1
+  $1
 \end{pmatrix}
 $0
 endsnippet
 
+snippet nnn "nonumber newline"
+\nonumber \\\\
+endsnippet

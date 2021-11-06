@@ -1,6 +1,7 @@
 if exists("g:my_custom_plugin")
     finish
 endif
+
 let g:my_custom_plugin = 1
 let s:save_cpo = &cpo
 set cpo&vim

@@ -215,6 +215,7 @@ require('packer').startup{
 
     -- LSP and Debugger ---------------------------------------------------------------------------
     use {'neovim/nvim-lspconfig', config = myConf.nvim_lsp}
+    use {'github/copilot.vim'}
     use {'mfussenegger/nvim-dap', config = myConf.nvim_dap}
     use {'rcarriga/nvim-dap-ui', config = myConf.dap_ui}
     use {
@@ -270,7 +271,7 @@ require('packer').startup{
     }
     use {
       'nvim-lua/lsp-status.nvim',
-      config = myConf.lsp_status
+      -- config = myConf.lsp_status
     }
   end,
   config = {
