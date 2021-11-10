@@ -1,8 +1,12 @@
 -- ┼─────────────────────────────────────────────────────────────────┼
 -- │                    « Vim Options »                           │
 -- ┼─────────────────────────────────────────────────────────────────┼
-vim.g.python3_host_prog='~/.pyenv/versions/neovim-3/bin/python'
-vim.g.python_host_prog='~/.pyenv/versions/neovim-2/bin/python'
+
+if os.execute("whence pyenv") then
+  vim.g.python3_host_prog='~/.pyenv/versions/neovim-3/bin/python'
+  vim.g.python_host_prog='~/.pyenv/versions/neovim-2/bin/python'
+  print('pyenv found, using neovim-3')
+end
 
 vim.g.enc = 'utf-8'
 vim.g.fileencoding = 'utf-8'
