@@ -499,7 +499,7 @@ function M.lsp_status()
   local lsp_status = require('lsp-status')
   lsp_status.register_progress()
   lsp_status.config {
-    status_symbol = '';
+    status_symbol = ' ',
     current_function = true,
   }
 end
@@ -526,7 +526,7 @@ function M.lualine()
       lualine_a = {{'mode', lower = true}},
       lualine_b = {'branch'},
       -- lualine_c = {{require'lsp-status'.status()}},
-      lualine_c = {"os.date('%a')", 'data', "require'lsp-status'.status()"},
+      lualine_c = {{"require'lsp-status'.status()"}, {Word_count}},
       lualine_x = {'filetype', 'encoding'},
       lualine_y = {'progress'},
       lualine_z = {'location'}

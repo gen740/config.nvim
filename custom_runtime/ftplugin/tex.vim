@@ -15,7 +15,7 @@ set conceallevel=2
 hi Conceal guifg=#719cd6
 
 autocmd Syntax * syn match TexThereFore /\\therefore/ conceal cchar=∴
-:silent Copilot disable
+" :silent Copilot disable
 
 
 let &cpo = s:save_cpo

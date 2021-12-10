@@ -81,8 +81,14 @@ require('packer').startup{
     use {
       'junegunn/vim-easy-align'
     }
-    use {
+    --[[ use {
       'b3nj5m1n/kommentary',
+    } ]]
+    use {
+      'numToStr/Comment.nvim',
+      config = function()
+        require('Comment').setup()
+      end
     }
     use {
       'folke/todo-comments.nvim',
@@ -215,7 +221,7 @@ require('packer').startup{
 
     -- LSP and Debugger ---------------------------------------------------------------------------
     use {'neovim/nvim-lspconfig', config = myConf.nvim_lsp}
-    use {'github/copilot.vim'}
+    -- use {'github/copilot.vim'}
     use {'mfussenegger/nvim-dap', config = myConf.nvim_dap}
     use {'rcarriga/nvim-dap-ui', config = myConf.dap_ui}
     use {
@@ -271,7 +277,7 @@ require('packer').startup{
     }
     use {
       'nvim-lua/lsp-status.nvim',
-      -- config = myConf.lsp_status
+      config = myConf.lsp_status
     }
   end,
   config = {

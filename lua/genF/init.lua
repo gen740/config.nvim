@@ -1,5 +1,5 @@
 -- ┼─────────────────────────────────────────────────────────────────┼
--- │                    « Vim Options »                           │
+-- │                       « Vim Options »                           │
 -- ┼─────────────────────────────────────────────────────────────────┼
 local handle = io.popen("which pyenv")
 local result = handle:read("*a")
@@ -54,6 +54,7 @@ vim.opt.splitright = true
 vim.opt.swapfile = false
 vim.opt.tabstop = 2
 vim.opt.termguicolors = true
+-- vim.opt.guicursor = 'a:block'
 
 vim.opt.softtabstop = 2
 vim.opt.undodir=os.getenv("HOME")..[[/.vim/undo]]

@@ -5,8 +5,9 @@ let g:my_cpp_ftplugin = 1
 let s:save_cpo = &cpo
 set cpo&vim
 
-nnoremap <m-r> :vertical copen<cr>:vertical resize 80<cr>:wincmd h<cr>:AsyncRun make run<cr>
-nnoremap <m-c> :vertical copen<cr>:vertical resize 80<cr>:wincmd h<cr>:AsyncRun make build<cr>
+nnoremap <m-r> :vertical copen<cr>:vertical resize 40<cr>:wincmd h<cr>:AsyncRun make run<cr>
+nnoremap <m-c> :vertical copen<cr>:vertical resize 40<cr>:wincmd h<cr>:AsyncRun make build<cr>
+nnoremap <m-s> :AsyncStop<cr>
 
 let g:neomake_make_maker = {
     \ 'exe': 'make',
