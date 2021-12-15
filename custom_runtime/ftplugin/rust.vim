@@ -1,7 +1,7 @@
-if exists("g:my_rust_ftplugin")
+if exists("b:my_rust_ftplugin")
     finish
 endif
-let g:my_rust_ftplugin = 1
+let b:my_rust_ftplugin = 1
 let s:save_cpo = &cpo
 set cpo&vim
 

@@ -1,7 +1,7 @@
-if exists("g:my_markdown_ftplugin")
+if exists("b:my_markdown_ftplugin")
     finish
 endif
-let g:my_markdown_ftplugin = 1
+let b:my_markdown_ftplugin = 1
 let s:save_cpo = &cpo
 set cpo&vim
 

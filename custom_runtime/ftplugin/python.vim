@@ -1,7 +1,7 @@
-if exists("g:my_python_ftplugin")
+if exists("b:my_python_ftplugin")
     finish
 endif
-let g:my_python_ftplugin = 1
+let b:my_python_ftplugin = 1
 let s:save_cpo = &cpo
 set cpo&vim
 
