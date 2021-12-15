@@ -224,9 +224,13 @@ require("packer").startup({
         })
 
         -- LSP and Debugger ---------------------------------------------------------------------------
-        use({ "neovim/nvim-lspconfig", config = myConf.nvim_lsp })
+        use({
+            "neovim/nvim-lspconfig",
+            config = myConf.nvim_lsp,
+        })
         use({
             "williamboman/nvim-lsp-installer",
+            config = myConf.LspInstaller,
         })
         use({
             "jose-elias-alvarez/null-ls.nvim",
@@ -298,5 +302,12 @@ require("packer").startup({
     },
 })
 
-vim.cmd([[colo nightfox]])
+vim.cmd([[
+try
+    colo nightfox
+catch
+    echo "there is on colorscheme nightfox"
+endtry
+]])
+
 myConf.others()

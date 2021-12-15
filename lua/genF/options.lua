@@ -312,10 +312,75 @@ end
 
 function M.nvim_lsp()
     local nvim_lsp = require("lspconfig")
-    local runtime_path = vim.split(package.path, ";")
-    table.insert(runtime_path, "lua/?.lua")
-    table.insert(runtime_path, "lua/?/init.lua")
-    -- Keymaps
+    -- nvim_lsp.bashls.setup({
+    --     on_attach = on_attach,
+    --     flags = flags,
+    --     cmd = { "~/.local/share/nvim/lsp_servers/bash" },
+    -- })
+    -- local servers = {
+    --     "vimls",
+    --     "pyright",
+    --     "dockerls",
+    --     "tsserver",
+    --     "solang",
+    --     "html",
+    --     "cssls",
+    --     -- 'flow',
+    --     "rust_analyzer",
+    --     -- 'denols',
+    --     -- 'sourcekit',
+    --     "clangd", -- brew install llvm
+    --     "taplo", -- cargo install taplo-lsp
+    --     "jsonls",
+    --     "texlab",
+    --     "gopls",
+    --     "bashls",
+    --     "cmake",
+    -- }
+    -- for _, lsp in ipairs(servers) do
+    --     nvim_lsp[lsp].setup({
+    --         on_attach = on_attach,
+    --         flags = flags,
+    --     })
+    -- end
+    -- require("lspconfig").zeta_note.setup({
+    --     cmd = { "/Users/fujimotogen/.local/bin/zeta-note-macos" },
+    --     on_attach = on_attach,
+    -- })
+end
+
+function M.LspInstaller()
+    local lsp_installer = require("nvim-lsp-installer")
+    local servers = {
+        "bashls",
+        "clangd",
+        "cmake",
+        "cssls",
+        "cssmodules_ls",
+        "dockerls",
+        "gopls",
+        "html",
+        "ltex",
+        "pyright",
+        "rust_analyzer",
+        "sumneko_lua",
+        "tailwindcss",
+        "texlab",
+        "tsserver",
+        "vimls",
+        "yamlls",
+    }
+
+    for _, name in pairs(servers) do
+        local server_is_found, server = lsp_installer.get_server(name)
+        if server_is_found then
+            if not server:is_installed() then
+                print("Installing " .. name)
+                server:install()
+            end
+        end
+    end
+
     local on_attach = function(bufnr)
         local border = { "╭", "─", "╮", "│", "╯", "─", "╰", "│" }
         local signs = { Error = " ", Warning = " ", Hint = " ", Information = " " }
@@ -354,70 +419,69 @@ function M.nvim_lsp()
         buf_set_keymap("n", "<space>q", "<cmd>lua vim.lsp.diagnostic.set_loclist()<CR>", opts)
         buf_set_keymap("n", "<space>f", "<cmd>lua vim.lsp.buf.formatting()<CR>", opts)
     end
+
     local flags = {
         debounce_text_changes = 100,
     }
-    local servers = {
-        "vimls",
-        "pyright",
-        "dockerls",
-        "tsserver",
-        "solang",
-        "html",
-        "cssls",
-        -- 'flow',
-        "rust_analyzer",
-        -- 'denols',
-        -- 'sourcekit',
-        "clangd", -- brew install llvm
-        "taplo", -- cargo install taplo-lsp
-        "jsonls",
-        "texlab",
-        "gopls",
-        "bashls",
-        "cmake",
-    }
-    for _, lsp in ipairs(servers) do
-        nvim_lsp[lsp].setup({
-            on_attach = on_attach,
-            flags = flags,
-        })
-    end
-    require("lspconfig").zeta_note.setup({
-        cmd = { "/Users/fujimotogen/.local/bin/zeta-note-macos" },
-        on_attach = on_attach,
-    })
-    local sumneko_root_path = "/Users/fujimotogen/.local/tools/lua-language-server"
-    local sumneko_binary = sumneko_root_path .. "/bin/macOS/lua-language-server"
-    require("lspconfig").sumneko_lua.setup({
-        cmd = { sumneko_binary, "-E", sumneko_root_path .. "/main.lua" },
-        on_attach = on_attach,
-        settings = {
-            Lua = {
-                runtime = {
-                    version = "LuaJIT",
-                    path = "/usr/local/bin/lua",
-                },
-                diagnostics = {
-                    globals = { "vim" },
-                },
-                workspace = {
-                    library = vim.api.nvim_get_runtime_file("", true),
-                },
-                telemetry = {
-                    enable = false,
-                },
+
+    lsp_installer.settings({
+        ui = {
+            icons = {
+                server_installed = "✓",
+                server_pending = "➜",
+                server_uninstalled = "✗",
             },
         },
     })
+
+    lsp_installer.on_server_ready(function(server)
+        if server.name == "sumneko_lua" then
+            local runtime_path = vim.split(package.path, ";")
+            table.insert(runtime_path, "lua/?.lua")
+            table.insert(runtime_path, "lua/?/init.lua")
+            server:setup({
+                flags = flags,
+                on_attach = on_attach,
+                settings = {
+                    Lua = {
+                        runtime = {
+                            version = "LuaJIT",
+                            path = runtime_path,
+                        },
+                        diagnostics = {
+                            globals = { "vim" },
+                        },
+                        workspace = {
+                            library = vim.api.nvim_get_runtime_file("", true),
+                        },
+                        telemetry = {
+                            enable = false,
+                        },
+                    },
+                },
+            })
+        else
+            server:setup({
+                flags = flags,
+                on_attach = on_attach,
+            })
+        end
+    end)
 end
 
 function M.null_ls()
+    local nullls_format = require("null-ls").builtins.formatting
+    local nullls_diagnostics = require("null-ls").builtins.diagnostics
     require("null-ls").setup({
         sources = {
-            require("null-ls").builtins.formatting.stylua.with({
+            nullls_format.stylua.with({
                 extra_args = { "--indent-type=Spaces" },
             }),
+            nullls_format.clang_format,
+            -- nullls_format.markdownlint,
+            nullls_format.prettier,
+            nullls_format.autopep8,
+            nullls_diagnostics.vale,
         },
     })
 end

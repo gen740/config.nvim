@@ -10,15 +10,10 @@ if result ~= "" then
     vim.g.python_host_prog = "~/.pyenv/versions/neovim-2/bin/python"
 end
 
-vim.g.enc = "utf-8"
-vim.g.fileencoding = "utf-8"
-vim.opt.autoindent = true
-vim.opt.autoread = true
 vim.opt.clipboard = "unnamed"
 vim.opt.colorcolumn = "80"
 vim.opt.concealcursor = "vc"
 vim.opt.conceallevel = 1
-vim.opt.cursorline = false
 vim.opt.expandtab = true
 vim.opt.foldenable = true
 vim.opt.foldexpr = "nvim_treesitter#foldexpr()"
@@ -30,7 +25,6 @@ vim.opt.hlsearch = false
 vim.opt.ignorecase = true
 vim.opt.inccommand = "split"
 vim.opt.incsearch = true
-vim.opt.laststatus = 2
 vim.opt.lazyredraw = true
 vim.opt.list = true
 vim.opt.listchars = [[tab:»-,trail:▒,extends:»,precedes:«,nbsp:%]] -- ,eol:↲│,conceal:◇
@@ -42,24 +36,23 @@ vim.opt.relativenumber = true
 vim.opt.runtimepath:append("~/.config/nvim/custom_runtime")
 vim.opt.scrolloff = 8
 vim.opt.shada = [['1000,f1,<500,:500,@500,/500]]
--- vim.opt.shiftwidth = 2
 vim.opt.shortmess = "acostTWI"
-vim.opt.showcmd = true
 vim.opt.showmode = false
--- vim.opt.showtabline = 2
 vim.opt.signcolumn = "yes"
 vim.opt.smartcase = true
 vim.opt.splitbelow = true
 vim.opt.splitright = true
 vim.opt.swapfile = false
--- vim.opt.tabstop = 2
+vim.opt.tabstop = 2
 vim.opt.termguicolors = true
--- vim.opt.guicursor = 'a:block'
+vim.opt.guicursor = "a:block"
 
+vim.opt.shiftwidth = 2
+vim.opt.showtabline = 2
 vim.opt.softtabstop = 2
-vim.opt.undodir = os.getenv("HOME") .. [[/.vim/undo]]
+vim.opt.undodir = os.getenv("HOME") .. "/.vim/undo"
 vim.opt.undofile = true
-vim.opt.undolevels = 1000
+vim.opt.undolevels = 10000
 vim.opt.undoreload = 10000
 vim.opt.updatetime = 750
 vim.opt.whichwrap = "b,s,<,>,[,]"
@@ -69,15 +62,11 @@ vim.opt.showmatch = true
 
 vim.g.netrw_silent = true
 
-vim.g.guifont = "FiraCode Nerd Font:h15"
-
 -- ┼─────────────────────────────────────────────────────────────────┼
 -- │ {{{                   « Key mappings »                          │
 -- ┼─────────────────────────────────────────────────────────────────┼
 
 vim.cmd([[let mapleader = "\<Space>"]])
--- vim.api.nvim_set_keymap('i', '<c-[>', [[<c-[>:silent call custom#change_ime('eisu')<cr>]], {noremap = true, silent = true})
--- vim.api.nvim_set_keymap('i', '<esc>', [[<esc>:silent call custom#change_ime('eisu')<cr>]], {noremap = true, silent = true})
 vim.api.nvim_set_keymap("n", "<Leader>rb", ":silent AsyncRun make build<cr>", { noremap = true, silent = true })
 vim.api.nvim_set_keymap("n", "<c-e>", "3<c-e>", { noremap = true })
 vim.api.nvim_set_keymap("n", "<c-n>", ":BufferLineCycleNext<cr>", { noremap = false, silent = true })
@@ -151,7 +140,6 @@ vim.api.nvim_set_keymap("v", "<down>", [[:m '>+1<cr>gv=cv]], { noremap = true, s
 vim.api.nvim_set_keymap("v", "<leader>s", ":sort<cr>", { noremap = true, silent = true })
 vim.api.nvim_set_keymap("v", "<up>", [[:m '>-2<cr>gv=cv]], { noremap = true, silent = true })
 vim.api.nvim_set_keymap("x", "ga", "<plug>(EasyAlign)", { noremap = false })
-
 vim.api.nvim_set_keymap(
     "n",
     "<leader>bo",
@@ -178,8 +166,8 @@ vim.api.nvim_set_keymap(
 -- │ {{{                   « AutoCommands »                          │
 -- ┼─────────────────────────────────────────────────────────────────┼
 
-vim.cmd([[autocmd WinEnter,BufEnter,FocusGained,InsertLeave,CursorHold * set cursorline nocursorcolumn]])
-vim.cmd([[autocmd BufLeave,FocusLost,InsertEnter,CursorMoved * set nocursorline nocursorcolumn]])
+-- vim.cmd([[autocmd WinEnter,BufEnter,FocusGained,InsertLeave,CursorHold * set cursorline nocursorcolumn]])
+-- vim.cmd([[autocmd BufLeave,FocusLost,InsertEnter,CursorMoved * set nocursorline nocursorcolumn]])
 vim.cmd([[autocmd ColorScheme * hi Normal guibg=none]])
 vim.cmd([[autocmd ColorScheme * hi NormalNC guibg=none]])
 vim.cmd([[autocmd ColorScheme * hi NormalSB guibg=none]])
