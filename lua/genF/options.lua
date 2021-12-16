@@ -8,14 +8,14 @@ function M.treesitter()
     require("nvim-treesitter.configs").setup({
         ensure_installed = "maintained", -- one of "all", "maintained" (parsers with maintainers), or a list of languages
         highlight = {
-            enable = true, -- false will disable the whole extension
+            enable = true,
             additional_vim_regex_highlighting = { "latex", "tex" },
         },
         indent = {
-            enable = false, -- false will disable the whole extension
+            enable = false,
         },
         incremental_selection = {
-            enable = false, -- false will disable the whole extension
+            enable = false,
         },
         textobjects = {
             select = {
@@ -58,12 +58,12 @@ function M.treesitter()
             },
         },
         refactor = {
-            highlight_definitions = { enable = false },
+            highlight_definitions = { enable = true },
             highlight_current_scope = { enable = false },
             smart_rename = {
                 enable = true,
                 keymaps = {
-                    smart_rename = "grr",
+                    smart_rename = "gs",
                 },
             },
         },
@@ -82,16 +82,16 @@ function M.telescope()
     local actions = require("telescope.actions")
     require("telescope").setup({
         defaults = {
-            -- mappings = {
-            --     i = {
-            --         ["<cr>"] = actions.select_default,
-            --         ["<esc>"] = actions.close,
-            --     },
-            --     n = {
-            --         ["<esc>"] = actions.close,
-            --         ["<cr>"] = actions.select_default,
-            --     },
-            -- },
+            mappings = {
+                i = {
+                    ["<cr>"] = actions.select_default,
+                    ["<esc>"] = actions.close,
+                },
+                n = {
+                    ["<esc>"] = actions.close,
+                    ["<cr>"] = actions.select_default,
+                },
+            },
             vimgrep_arguments = {
                 "rg",
                 "--color=never",
@@ -311,30 +311,13 @@ end
 -- ┼─────────────────────────────────────────────────────────────────┼
 
 function M.nvim_lsp()
-    local nvim_lsp = require("lspconfig")
+    -- local nvim_lsp = require("lspconfig")
     -- nvim_lsp.bashls.setup({
     --     on_attach = on_attach,
     --     flags = flags,
     --     cmd = { "~/.local/share/nvim/lsp_servers/bash" },
     -- })
     -- local servers = {
-    --     "vimls",
-    --     "pyright",
-    --     "dockerls",
-    --     "tsserver",
-    --     "solang",
-    --     "html",
-    --     "cssls",
-    --     -- 'flow',
-    --     "rust_analyzer",
-    --     -- 'denols',
-    --     -- 'sourcekit',
-    --     "clangd", -- brew install llvm
-    --     "taplo", -- cargo install taplo-lsp
-    --     "jsonls",
-    --     "texlab",
-    --     "gopls",
-    --     "bashls",
     --     "cmake",
     -- }
     -- for _, lsp in ipairs(servers) do
@@ -360,7 +343,6 @@ function M.LspInstaller()
         "dockerls",
         "gopls",
         "html",
-        "ltex",
         "pyright",
         "rust_analyzer",
         "sumneko_lua",
@@ -370,7 +352,6 @@ function M.LspInstaller()
         "vimls",
         "yamlls",
     }
-
     for _, name in pairs(servers) do
         local server_is_found, server = lsp_installer.get_server(name)
         if server_is_found then
@@ -380,7 +361,6 @@ function M.LspInstaller()
             end
         end
     end
-
     local on_attach = function(bufnr)
         local border = { "╭", "─", "╮", "│", "╯", "─", "╰", "│" }
         local signs = { Error = " ", Warning = " ", Hint = " ", Information = " " }
@@ -419,21 +399,9 @@ function M.LspInstaller()
         buf_set_keymap("n", "<space>q", "<cmd>lua vim.lsp.diagnostic.set_loclist()<CR>", opts)
         buf_set_keymap("n", "<space>f", "<cmd>lua vim.lsp.buf.formatting()<CR>", opts)
     end
-
     local flags = {
         debounce_text_changes = 100,
     }
-
-    lsp_installer.settings({
-        ui = {
-            icons = {
-                server_installed = "✓",
-                server_pending = "➜",
-                server_uninstalled = "✗",
-            },
-        },
-    })
-
     lsp_installer.on_server_ready(function(server)
         if server.name == "sumneko_lua" then
             local runtime_path = vim.split(package.path, ";")
@@ -467,6 +435,16 @@ function M.LspInstaller()
             })
         end
     end)
+
+    lsp_installer.settings({
+        ui = {
+            icons = {
+                server_installed = "✓",
+                server_pending = "➜",
+                server_uninstalled = "✗",
+            },
+        },
+    })
 end
 
 function M.null_ls()
@@ -477,8 +455,6 @@ function M.null_ls()
             nullls_format.stylua.with({
                 extra_args = { "--indent-type=Spaces" },
             }),
-            nullls_format.clang_format,
-            -- nullls_format.markdownlint,
             nullls_format.prettier,
             nullls_format.autopep8,
             nullls_diagnostics.vale,
@@ -495,10 +471,6 @@ function M.nvim_cmp()
     local cmp = require("cmp")
     local WIDE_HEIGHT = 40
     cmp.setup({
-        --[[ completion = {
-      autocomplete = true,
-      completeopt = 'menu,menuone,noinsert',
-    }, ]]
         snippet = {
             expand = function(args)
                 vim.fn["UltiSnips#Anon"](args.body)
@@ -511,10 +483,10 @@ function M.nvim_cmp()
             ["<C-f>"] = cmp.mapping.scroll_docs(4),
             ["<C-Space>"] = cmp.mapping.complete(),
             ["<C-e>"] = cmp.mapping.close(),
-            --[[ ['<CR>'] = cmp.mapping.confirm {
-        behavior = cmp.ConfirmBehavior.Replace,
-        select = true,
-      }, ]]
+            ["<CR>"] = cmp.mapping.confirm({
+                behavior = cmp.ConfirmBehavior.Replace,
+                select = true,
+            }),
         },
         documentation = {
             border = { "╭", "─", "╮", "│", "╯", "─", "╰", "│" },
@@ -526,7 +498,7 @@ function M.nvim_cmp()
             { name = "nvim_lsp" },
             { name = "buffer", keyword_length = 5 },
             { name = "path" },
-            { name = "treesitter" },
+            -- { name = "treesitter" },
             { name = "ultisnips" },
             { name = "calc" },
         },
@@ -536,6 +508,8 @@ function M.nvim_cmp()
                 vim_item.menu = ({
                     buffer = "[Buffer]",
                     nvim_lsp = "[LSP]",
+                    -- treesitter = "[TS]",
+                    ultisnips = "[UltiSnips]",
                     nvim_lua = "[Lua]",
                     latex_symbols = "[Latex]",
                 })[entry.source.name]
@@ -543,29 +517,6 @@ function M.nvim_cmp()
             end,
         },
     })
-end
-
---}}}
--- ┼─────────────────────────────────────────────────────────────────┼
--- │ {{{              « nivm cmp Configurations »                    │
--- ┼─────────────────────────────────────────────────────────────────┼
-
-function M.auto_pair()
-    require("nvim-autopairs.completion.cmp").setup({
-        map_cr = true,
-        map_complete = true,
-        auto_select = true,
-        insert = false,
-        map_char = {
-            all = "(",
-            tex = "{",
-        },
-    })
-    local Rule = require("nvim-autopairs.rule")
-    local npairs = require("nvim-autopairs")
-    local cond = require("nvim-autopairs.conds")
-    -- print(vim.inspect(cond))
-    -- npairs.add_rule(Rule("$$","$$","tex"))
 end
 
 --}}}
@@ -736,37 +687,6 @@ function M.nvim_dap()
     }
 end
 
--- KEYMAPS
-vim.api.nvim_set_keymap("n", "<leader>db", [[:lua require'dap'.continue()<cr>]], { noremap = true, silent = true })
-vim.api.nvim_set_keymap("n", "<leader>dn", [[:lua require'dap'.continue()<cr>]], { noremap = true, silent = true })
-vim.api.nvim_set_keymap("n", "<leader>ds", [[:lua require'dap'.step_over()<cr>]], { noremap = true, silent = true })
-vim.api.nvim_set_keymap("n", "<leader>di", [[:lua require'dap'.step_into()<cr>]], { noremap = true, silent = true })
-vim.api.nvim_set_keymap(
-    "n",
-    "<leader>dd",
-    [[:lua require'dap'.toggle_breakpoint()<cr>]],
-    { noremap = true, silent = true }
-)
-vim.api.nvim_set_keymap(
-    "n",
-    "<leader>dD",
-    [[:lua require'dap'.set_breakpoint(vim.fn.input('Breakpoint condition: '))<CR>]],
-    { noremap = true, silent = true }
-)
-vim.api.nvim_set_keymap(
-    "n",
-    "<leader>dp",
-    [[:lua require'dap'.set_breakpoint(nil, nil, vim.fn.input('Log point message: '))<CR>]],
-    { noremap = true, silent = true }
-)
-vim.api.nvim_set_keymap(
-    "n",
-    "<leader>dr",
-    [[:lua require'dap'.repl.open()<CR>:wincmd h<cr>:set]],
-    { noremap = true, silent = true }
-)
-vim.api.nvim_set_keymap("n", "<leader>dl", [[:lua require'dap'.run_last()<CR>]], { noremap = true, silent = true })
-
 function Dap_Setup()
     vim.cmd([[autocmd FileType dap-repl setlocal nobuflisted]])
     require("dap").continue()
@@ -898,17 +818,9 @@ function M.dashboard()
             description = { [[ New file                                                  ]] },
             command = [[:DashboardNewFile]],
         },
-        change_colorscheme = {
-            description = { [[ Change colorscheme                                        ]] },
-            command = [[:DashboardChangeColorscheme]],
-        },
         find_word = {
             description = { [[ Find word                                                 ]] },
             command = [[:DashboardFindWord]],
-        },
-        book_marks = {
-            description = { [[ Jump to bookmarks                                         ]] },
-            command = [[:DashboardJumpMark]],
         },
     }
     vim.g.dashboard_custom_header = { [[Satellite]] }
@@ -961,6 +873,31 @@ end
 
 --}}}
 -- ┼─────────────────────────────────────────────────────────────────┼
+-- │ {{{                      « Lexima »                             │
+-- ┼─────────────────────────────────────────────────────────────────┼
+function M.lexima_init()
+    -- lexima
+    vim.cmd([[
+    try
+        " let g:lexima_no_default_rules = v:true
+        let g:lexima_map_escape = ''
+        call lexima#set_default_rules()
+        call lexima#add_rule({ 'char': '<CR>', 'at': '>\%#<', 'input': '<CR><Up><End><CR>' })
+        call lexima#add_rule({ 'char': '<C-L>', 'at': '\%#\s*)',   'input': '<Left><C-o>:<C-u>normal! f)<CR><Right>' })
+        call lexima#add_rule({ "char": '<C-L>', 'at': '\%#\s*\}',  'input': '<Left><C-o>:<C-u>normal! f}<CR><Right>' })
+        call lexima#add_rule({ "char": '<C-L>', 'at': '\%#\s*\]',  'input': '<Left><C-o>:<C-u>normal! f]<CR><Right>' })
+        call lexima#add_rule({ "char": '<C-L>', 'at': '\%#\s*>',   'input': '<Left><C-o>:<C-u>normal! f><CR><Right>' })
+        call lexima#add_rule({ "char": '<C-L>', 'at': '\%#\s*`',   'input': '<Left><C-o>:<C-u>normal! f`<CR><Right>' })
+        call lexima#add_rule({ "char": '<C-L>', 'at': '\%#\s*"',   'input': '<Left><C-o>:<C-u>normal! f"<CR><Right>' })
+        call lexima#add_rule({ "char": '<C-L>', 'at': '\%#\s*''',  'input': "<Left><C-o>:<C-u>normal! f'<CR><Right>" })
+    catch
+        echo "Please install Lexima Plugin"
+    endtry
+    ]])
+end
+
+--}}}
+-- ┼─────────────────────────────────────────────────────────────────┼
 -- │ {{{                 « Plugin settings »                         │
 -- ┼─────────────────────────────────────────────────────────────────┼
 
@@ -969,6 +906,7 @@ function M.others()
     vim.g.EasyMotion_keys = "aoeidtnpyfgcrl;qjkxbmwvzuhs" -- This Option is For Dvorak User
     vim.g.EasyMotion_do_mapping = 0
     vim.g.EasyMotion_use_migemo = 1
+    vim.g.EasyMotion_startofline = 0
     -- markdown
     vim.g.vim_markdown_math = 1
     -- Ultisnips
@@ -979,6 +917,15 @@ function M.others()
     vim.g.matchup_matchparen_offscreen = {
         method = "popup",
     }
+
+    -- Set ColorScheme
+    vim.cmd([[
+    try
+        colo nightfox
+    catch
+        echo "there is on colorscheme nightfox"
+    endtry
+    ]])
     -- vim.cmd[[let g:matchup_matchparen_offscreen = {'method': 'popup'}]]
 end
 
@@ -988,4 +935,4 @@ end
 -- Export
 
 return M
--- vim:set foldmethod=marker:
+-- vim:set foldmethod=marker foldlevel=3:

@@ -21,20 +21,20 @@ require("packer").startup({
         -- Packer -------------------------------------------------------------------------------------
         use({
             "wbthomason/packer.nvim",
-            opt = true,
         })
 
         -- None Regular -------------------------------------------------------------------------------
-        --[[ use {
-      'kana/vim-textobj-user',
-      opt=true
-    }
-    use {
-      'rbonvall/vim-textobj-latex',
-      opt=true
-    } ]]
+        use({
+            "kana/vim-textobj-user",
+        })
+        use({
+            "rbonvall/vim-textobj-latex",
+        })
 
         -- Utilities ----------------------------------------------------------------------------------
+        use({
+            "vim-denops/denops.vim",
+        })
         use({
             "RRethy/vim-hexokinase",
             run = "make hexokinase",
@@ -46,24 +46,17 @@ require("packer").startup({
         use({
             "windwp/nvim-ts-autotag",
             config = function()
-                require("nvim-ts-autotag").setup()
+                require("nvim-ts-autotag").setup({
+                    filetypes = { "tsx", "jsx", "html", "xml" },
+                })
             end,
-            ft = { "html" },
         })
         use({
-            "jiangmiao/auto-pairs",
-            -- config = myConf.auto_pair,
-            ft = {
-                "cpp",
-                "c",
-                "python",
-                "lua",
-                "javascript",
-                "typescript",
-                "json",
-                "rust",
-                "vim",
-            },
+            "cohama/lexima.vim",
+            config = M.lexima_init,
+        })
+        use({
+            "machakann/vim-sandwich",
         })
         use({
             "skywind3000/asyncrun.vim",
@@ -76,18 +69,11 @@ require("packer").startup({
             -- cmd = {'copen'}
         })
         use({
-            "neomake/neomake",
-            cmd = { "Neomake", "Neomake!" },
-        })
-        use({
             "easymotion/vim-easymotion",
         })
         use({
             "junegunn/vim-easy-align",
         })
-        --[[ use {
-      'b3nj5m1n/kommentary',
-    } ]]
         use({
             "numToStr/Comment.nvim",
             config = function()
@@ -103,10 +89,6 @@ require("packer").startup({
             "lewis6991/gitsigns.nvim",
             requires = "nvim-lua/plenary.nvim",
             config = myConf.gitsigns,
-        })
-        use({
-            "tpope/vim-surround",
-            requires = "tpope/vim-repeat",
         })
         use({
             "tpope/vim-fugitive",
@@ -154,21 +136,19 @@ require("packer").startup({
         use({ "nvim-treesitter/playground" })
 
         -- Appearance ---------------------------------------------------------------------------------
+        -- use({ "marko-cerovac/material.nvim" })
+        -- use({ "kyazdani42/blue-moon" })
+        -- use({ "mhartington/oceanic-next" })
+        -- use({ "sainnhe/everforest" })
+        -- use({ "kvrohit/substrata.nvim" })
         use({
             "ellisonleao/gruvbox.nvim",
             requires = { "rktjmp/lush.nvim" },
-            -- config = function() vim.cmd[[colo gruvbox]] end
         })
-        use({ "marko-cerovac/material.nvim" })
-        use({ "kyazdani42/blue-moon" })
-        use({ "mhartington/oceanic-next" })
-        use({ "sainnhe/everforest" })
         use({ "EdenEast/nightfox.nvim" })
-        use({ "morhetz/gruvbox" })
-        use("kvrohit/substrata.nvim")
         use({
             "akinsho/nvim-bufferline.lua",
-            requires = "kyazdani42/nvim-web-devicons",
+            requires = { "kyazdani42/nvim-web-devicons", opt = true },
             config = myConf.bufferline,
         })
         use({
@@ -184,6 +164,7 @@ require("packer").startup({
             "SirVer/ultisnips",
             event = "VimEnter *",
         })
+
         -- File Operations ----------------------------------------------------------------------------
         use({
             "kyazdani42/nvim-tree.lua",
@@ -202,26 +183,21 @@ require("packer").startup({
             requires = "junegunn/fzf",
             run = "make",
         })
+
         -- FileType Plugins ---------------------------------------------------------------------------
         use({ "rhysd/vim-grammarous", ft = { "markdown", "md", "text" } })
         use({ "chrisbra/csv.vim", ft = { "csv", "tsv" } })
         use({ "junegunn/goyo.vim", ft = { "text", "markdown", "md" } })
         use({ "mattn/emmet-vim", ft = { "html", "markdown", "md" } })
-        -- use {'tomlion/vim-solidity', ft = {'solidity'}}
-        -- use {'vim-latex/vim-latex', ft = {'tex'}}
+        use({ "tomlion/vim-solidity", ft = { "solidity" } })
         use({ "lervag/vimtex", ft = { "markdown", "md", "tex" } })
         use({ "lvht/tagbar-markdown", ft = { "markdown", "md" } })
         use({ "plasticboy/vim-markdown", ft = { "markdown", "md" } })
         use({ "davidgranstrom/nvim-markdown-preview", ft = { "markdown", "md" } })
         use({ "fuenor/JpFormat.vim", ft = { "text" } })
-        -- use {'rust-lang/rust.vim', ft = {'rust'}}
-        -- use 'fladson/vim-kitty'
-        use({
-            "KeitaNakamura/tex-conceal.vim",
-        })
-        use({
-            "chikamichi/mediawiki.vim",
-        })
+        use({ "rust-lang/rust.vim", ft = { "rust" } })
+        use({ "KeitaNakamura/tex-conceal.vim", ft = { "tex" } })
+        use({ "chikamichi/mediawiki.vim", ft = { "mediawikix" } })
 
         -- LSP and Debugger ---------------------------------------------------------------------------
         use({
@@ -236,9 +212,9 @@ require("packer").startup({
             "jose-elias-alvarez/null-ls.nvim",
             config = myConf.null_ls,
         })
-        -- use {'github/copilot.vim'}
-        use({ "mfussenegger/nvim-dap", config = myConf.nvim_dap })
-        use({ "rcarriga/nvim-dap-ui", config = myConf.dap_ui })
+        -- use({ "github/copilot.vim" })
+        -- use({ "mfussenegger/nvim-dap", config = myConf.nvim_dap })
+        -- use({ "rcarriga/nvim-dap-ui", config = myConf.dap_ui })
         use({
             "folke/trouble.nvim",
             requires = "kyazdani42/nvim-web-devicons",
@@ -255,10 +231,6 @@ require("packer").startup({
                     "onsails/lspkind-nvim",
                     config = myConf.nvim_lspkind,
                 },
-                -- {
-                --     "hrsh7th/vim-vsnip",
-                --     event = "InsertEnter *",
-                -- },
                 {
                     "hrsh7th/cmp-buffer",
                     event = "InsertEnter *",
@@ -291,23 +263,16 @@ require("packer").startup({
             config = myConf.lsp_status,
         })
     end,
+
     config = {
         display = {
             open_fn = require("packer.util").float,
         },
         profile = {
             enable = true,
-            threshold = 100, -- the amount in ms that a plugins load time must be over for it to be included in the profile
+            threshold = 100,
         },
     },
 })
-
-vim.cmd([[
-try
-    colo nightfox
-catch
-    echo "there is on colorscheme nightfox"
-endtry
-]])
 
 myConf.others()

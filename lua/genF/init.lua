@@ -1,5 +1,5 @@
 -- ┼─────────────────────────────────────────────────────────────────┼
--- │                       « Vim Options »                           │
+-- │ {{{                  « Vim Options »                            │
 -- ┼─────────────────────────────────────────────────────────────────┼
 local handle = io.popen("which pyenv")
 local result = handle:read("*a")
@@ -21,7 +21,6 @@ vim.opt.foldlevel = 999
 vim.opt.foldmethod = "expr"
 vim.opt.gdefault = true
 vim.opt.hidden = true
-vim.opt.hlsearch = false
 vim.opt.ignorecase = true
 vim.opt.inccommand = "split"
 vim.opt.incsearch = true
@@ -45,7 +44,6 @@ vim.opt.splitright = true
 vim.opt.swapfile = false
 vim.opt.tabstop = 2
 vim.opt.termguicolors = true
-vim.opt.guicursor = "a:block"
 
 vim.opt.shiftwidth = 2
 vim.opt.showtabline = 2
@@ -57,109 +55,94 @@ vim.opt.undoreload = 10000
 vim.opt.updatetime = 750
 vim.opt.whichwrap = "b,s,<,>,[,]"
 vim.opt.wrap = false
--- vim.opt.path:append([[**]])
 vim.opt.showmatch = true
 
 vim.g.netrw_silent = true
 
+-- }}}
 -- ┼─────────────────────────────────────────────────────────────────┼
 -- │ {{{                   « Key mappings »                          │
 -- ┼─────────────────────────────────────────────────────────────────┼
 
 vim.cmd([[let mapleader = "\<Space>"]])
+
+-- stylua: ignore start
 vim.api.nvim_set_keymap("n", "<Leader>rb", ":silent AsyncRun make build<cr>", { noremap = true, silent = true })
 vim.api.nvim_set_keymap("n", "<c-e>", "3<c-e>", { noremap = true })
 vim.api.nvim_set_keymap("n", "<c-n>", ":BufferLineCycleNext<cr>", { noremap = false, silent = true })
 vim.api.nvim_set_keymap("n", "<c-p>", ":BufferLineCyclePrev<cr>", { noremap = false, silent = true })
 vim.api.nvim_set_keymap("n", "<c-q>", ":NvimTreeToggle<cr>", { noremap = true, silent = true })
 vim.api.nvim_set_keymap("n", "<c-y>", "3<c-y>", { noremap = true })
-vim.api.nvim_set_keymap("n", "<down>", ":resize +2<cr>", { noremap = true, silent = true })
-vim.api.nvim_set_keymap("n", "<leader><leader>", "/<++><cr>:nohl<cr>c4l", { noremap = true, silent = true })
-vim.api.nvim_set_keymap(
-    "n",
-    "<leader>?",
-    ":vertical split<cr>:view ~/.config/nvim/keymap.md<cr>:setlocal nomodifiable nobuflisted<cr>",
-    { noremap = true, silent = true }
-)
-vim.api.nvim_set_keymap(
-    "n",
-    "<leader>bl",
-    ":Telescope current_buffer_fuzzy_find<cr>",
-    { noremap = false, silent = true }
-)
-vim.api.nvim_set_keymap("n", "<leader>cp", ":cp<cr>", { noremap = false, silent = true })
-vim.api.nvim_set_keymap("n", "<leader>cn", ":cn<cr>", { noremap = false, silent = true })
+vim.api.nvim_set_keymap("n", "<m-j>", ":resize +2<cr>", { noremap = true, silent = true })
+vim.api.nvim_set_keymap("n", "<m-h>", ":vertical resize -2<cr>", { noremap = true, silent = true })
+vim.api.nvim_set_keymap("n", "<m-l>", ":vertical resize +2<cr>", { noremap = true, silent = true })
+vim.api.nvim_set_keymap("n", "<m-k>", ":resize -2<cr>", { noremap = true, silent = true })
+
+vim.api.nvim_set_keymap("n", "<leader>?", ":vertical split<cr>:view ~/.config/nvim/keymap.md<cr>:setlocal nomodifiable nobuflisted<cr>", { noremap = true, silent = true })
+
+vim.api.nvim_set_keymap("n", "<leader>bl", ":Telescope current_buffer_fuzzy_find<cr>", { noremap = false, silent = true })
 vim.api.nvim_set_keymap("n", "<leader>gb", ":Telescope git_branches<cr>", { noremap = true, silent = true })
 vim.api.nvim_set_keymap("n", "<leader>gf", ":Telescope git_files<cr>", { noremap = true, silent = true })
 vim.api.nvim_set_keymap("n", "<leader>mc", ":BufferLinePickClose<cr>", { noremap = false, silent = true })
 vim.api.nvim_set_keymap("n", "<leader>mm", ":BufferLinePick<cr>", { noremap = false, silent = true })
 vim.api.nvim_set_keymap("n", "<leader>mn", ":BufferLineMoveNext<cr>", { noremap = false, silent = true })
 vim.api.nvim_set_keymap("n", "<leader>mp", ":BufferLineMovePrev<cr>", { noremap = false, silent = true })
+
 vim.api.nvim_set_keymap("n", "<leader>co", ":copen<cr>", { noremap = true, silent = true })
-vim.api.nvim_set_keymap(
-    "n",
-    "<leader>ss",
-    ":silent !open https://google.com -a /Applications/Safari.app<cr>",
-    { noremap = true, silent = true }
-)
+vim.api.nvim_set_keymap("n", "<leader>vq", ":vertical copen<cr>:vertical resize 80<cr>:wincmd h<cr>", { noremap = true, silent = true })
+vim.api.nvim_set_keymap("n", "<leader>cn", ":cn<cr>", { noremap = true, silent = true })
+vim.api.nvim_set_keymap("n", "<leader>cp", ":co<cr>", { noremap = true, silent = true })
+vim.api.nvim_set_keymap("n", "<leader>ss", ":silent !open https://google.com -a /Applications/Safari.app<cr>", { noremap = true, silent = true })
 vim.api.nvim_set_keymap("n", "<leader>ta", ":TagbarToggle<cr>", { noremap = true, silent = true })
 vim.api.nvim_set_keymap("n", "<leader>tf", ":Telescope find_files<cr>", { noremap = true, silent = true })
 vim.api.nvim_set_keymap("n", "<leader>tn", ":Telescope file_browser<cr>", { noremap = true, silent = true })
 vim.api.nvim_set_keymap("n", "<leader>ts", ":Telescope", { noremap = true, silent = true })
+
+vim.api.nvim_set_keymap("n", "<leader>tt", ":TroubleToggle<cr>", { noremap = true, silent = true })
+
 vim.api.nvim_set_keymap("n", "<leader>ut", ":UndotreeToggle<cr>", { noremap = true, silent = true })
-vim.api.nvim_set_keymap(
-    "n",
-    "<leader>vq",
-    ":vertical copen<cr>:vertical resize 80<cr>:wincmd h<cr>",
-    { noremap = true, silent = true }
-)
-vim.api.nvim_set_keymap("n", "<left>", ":vertical resize -2<cr>", { noremap = true, silent = true })
-vim.api.nvim_set_keymap(
-    "n",
-    "<m-c>",
-    ":vertical copen<cr>:vertical resize 80<cr>:wincmd h<cr>:Neomake! build<cr>",
-    { noremap = true, silent = true }
-)
-vim.api.nvim_set_keymap(
-    "n",
-    "<m-r>",
-    ":vertical copen<cr>:vertical resize 80<cr>:wincmd h<cr>:Neomake! make<cr>",
-    { noremap = true, silent = true }
-)
-vim.api.nvim_set_keymap("n", "<right>", ":vertical resize +2<cr>", { noremap = true, silent = true })
-vim.api.nvim_set_keymap("n", "<up>", ":resize -2<cr>", { noremap = true, silent = true })
+vim.api.nvim_set_keymap("n", "<m-c>", ":vertical copen<cr>:vertical resize 80<cr>:wincmd h<cr>:Neomake! build<cr>", { noremap = true, silent = true })
+vim.api.nvim_set_keymap("n", "<m-r>", ":vertical copen<cr>:vertical resize 80<cr>:wincmd h<cr>:Neomake! make<cr>", { noremap = true, silent = true })
+
+-- KEYMAPS
+vim.api.nvim_set_keymap("n", "<leader>db", [[:lua require'dap'.continue()<cr>]], { noremap = true, silent = true })
+vim.api.nvim_set_keymap("n", "<leader>dn", [[:lua require'dap'.continue()<cr>]], { noremap = true, silent = true })
+vim.api.nvim_set_keymap("n", "<leader>ds", [[:lua require'dap'.step_over()<cr>]], { noremap = true, silent = true })
+vim.api.nvim_set_keymap("n", "<leader>di", [[:lua require'dap'.step_into()<cr>]], { noremap = true, silent = true })
+vim.api.nvim_set_keymap("n", "<leader>dd", [[:lua require'dap'.toggle_breakpoint()<cr>]], { noremap = true, silent = true })
+vim.api.nvim_set_keymap("n", "<leader>dD", [[:lua require'dap'.set_breakpoint(vim.fn.input('Breakpoint condition: '))<CR>]], { noremap = true, silent = true })
+vim.api.nvim_set_keymap("n", "<leader>dp", [[:lua require'dap'.set_breakpoint(nil, nil, vim.fn.input('Log point message: '))<CR>]], { noremap = true, silent = true })
+vim.api.nvim_set_keymap("n", "<leader>dr", [[:lua require'dap'.repl.open()<CR>:wincmd h<cr>:set]], { noremap = true, silent = true })
+vim.api.nvim_set_keymap("n", "<leader>dl", [[:lua require'dap'.run_last()<CR>]], { noremap = true, silent = true })
+
 vim.api.nvim_set_keymap("n", "S", "<Plug>(easymotion-overwin-line)", { noremap = false, silent = true })
-vim.api.nvim_set_keymap("n", "ga", "<plug>(EasyAlign)", { noremap = false })
-vim.api.nvim_set_keymap("n", "s", "<Plug>(easymotion-overwin-f2)", { noremap = false, silent = true })
+vim.api.nvim_set_keymap("n", "<leader><leader>", "<Plug>(easymotion-overwin-f2)", { noremap = false, silent = true })
+vim.api.nvim_set_keymap("n", "<leader>j", "<Plug>(easymotion-j)", { noremap = false, silent = true })
+vim.api.nvim_set_keymap("n", "<leader>k", "<Plug>(easymotion-k)", { noremap = false, silent = true })
+vim.api.nvim_set_keymap("n", "<leader>h", "<Plug>(easymotion-linebackward)", { noremap = false, silent = true })
+vim.api.nvim_set_keymap("n", "<leader>l", "<Plug>(easymotion-lineforward)", { noremap = false, silent = true })
+vim.api.nvim_set_keymap("n", "<leader>ww", "<Plug>(easymotion-w)", { noremap = false, silent = true })
+
 vim.api.nvim_set_keymap("n", "j", "gj", { noremap = true, silent = true })
 vim.api.nvim_set_keymap("n", "gj", "j", { noremap = true, silent = true })
 vim.api.nvim_set_keymap("n", "k", "gk", { noremap = true, silent = true })
 vim.api.nvim_set_keymap("n", "gk", "k", { noremap = true, silent = true })
+
 vim.api.nvim_set_keymap("t", "<m-b>", [[<c-\><c-n>]], { noremap = true, silent = true })
-vim.api.nvim_set_keymap("v", "<down>", [[:m '>+1<cr>gv=cv]], { noremap = true, silent = true })
 vim.api.nvim_set_keymap("v", "<leader>s", ":sort<cr>", { noremap = true, silent = true })
+vim.api.nvim_set_keymap("v", "<down>", [[:m '>+1<cr>gv=cv]], { noremap = true, silent = true })
 vim.api.nvim_set_keymap("v", "<up>", [[:m '>-2<cr>gv=cv]], { noremap = true, silent = true })
 vim.api.nvim_set_keymap("x", "ga", "<plug>(EasyAlign)", { noremap = false })
-vim.api.nvim_set_keymap(
-    "n",
-    "<leader>bo",
-    [[:!source ~/.config/zsh/custom_func.zsh && blackout<cr><cr><C-l>]],
-    { noremap = true, silent = true }
-)
-vim.api.nvim_set_keymap(
-    "n",
-    "<leader>cbin",
-    [[:!source ~/.config/zsh/custom_func.zsh && change<cr><cr><C-l>]],
-    { noremap = true, silent = true }
-)
-vim.api.nvim_set_keymap(
-    "n",
-    "<leader>cbif",
-    [[:!source ~/.config/zsh/custom_func.zsh && change_f<cr><cr><C-l>]],
-    { noremap = true, silent = true }
-)
+vim.api.nvim_set_keymap("n", "ga", "<plug>(EasyAlign)", { noremap = false })
+
+vim.api.nvim_set_keymap("i", ";(", "(", { noremap = true, silent = true })
+vim.api.nvim_set_keymap("i", ";{", "{", { noremap = true, silent = true })
+vim.api.nvim_set_keymap("i", ";[", "[", { noremap = true, silent = true })
+vim.api.nvim_set_keymap("i", ";\"", "\"", { noremap = true, silent = true })
+
 -- vim.api.nvim_set_keymap('n', 'q:', [[<nop>]], {noremap = true, silent = true})
 -- vim.api.nvim_set_keymap('n', 'Q', [[<nop>]], {noremap = true, silent = true})
+-- stylua: ignore end
 
 -- }}}
 -- ┼─────────────────────────────────────────────────────────────────┼
@@ -172,7 +155,6 @@ vim.cmd([[autocmd ColorScheme * hi Normal guibg=none]])
 vim.cmd([[autocmd ColorScheme * hi NormalNC guibg=none]])
 vim.cmd([[autocmd ColorScheme * hi NormalSB guibg=none]])
 vim.cmd([[autocmd ColorScheme * hi NormalFloat guibg=none]])
-
 vim.cmd([[autocmd ColorScheme * hi SignColumn guibg=none]])
 vim.cmd([[autocmd ColorScheme * hi EndOfBuffer guifg=#222222]])
 vim.cmd([[autocmd ColorScheme * hi VertSplit guibg=none]])
@@ -192,11 +174,9 @@ vim.cmd([[autocmd ColorScheme * hi GitSignsDelete   guibg=none  guifg=red]])
 vim.cmd([[autocmd ColorScheme * hi GitSignsDeleteNr guibg=none  guifg=red]])
 vim.cmd([[autocmd ColorScheme * hi GitSignsDeleteLn guibg=none  guifg=red]])
 vim.cmd([[autocmd ColorScheme * hi Substitute guibg=#ffe37e guifg=#192330]])
-vim.cmd([[autocmd ColorScheme * hi Search guibg=#ffe37e guifg=#192330]])
+vim.cmd([[autocmd ColorScheme * hi Search guibg=#333333 gui=bold guifg=#ffe37e]])
 
 vim.cmd([[autocmd TermOpen * setlocal nonumber norelativenumber]])
-
--- vim.cmd [[autocmd Filetype * lua require'lsp-status'.update_current_function()]]
 
 vim.cmd([[augroup LuaHighLight]])
 vim.cmd([[ au! ]])
@@ -209,7 +189,7 @@ vim.cmd([[augroup END]])
 -- │ {{{             « Folding Configurations »                      │
 -- ┼─────────────────────────────────────────────────────────────────┼
 
-vim.cmd([[
+vim.cmd([=[
 if has("folding")
     set foldtext=MyFoldText()
     function! MyFoldText()
@@ -254,8 +234,8 @@ autocmd FileType vim setlocal foldmethod=marker
 autocmd BufRead,BufNewFile *.zprofile setlocal foldmethod=marker
 set viewoptions-=options
 autocmd BufRead,BufNewFile * hi Folded guifg=#928374 guibg=none gui=undercurl
-]])
+]=])
 
 -- }}}
 -- ┼─────────────────────────────────────────────────────────────────┼
--- vim:set foldmethod=marker:
+-- vim:set foldmethod=marker foldlevel=2:
