@@ -117,6 +117,9 @@ require("packer").startup({
         use({
             "rcarriga/nvim-notify",
         })
+        use({
+            "fuenor/JpFormat.vim",
+        })
 
         -- DashBoard ----------------------------------------------------------------------------------
         use({
@@ -190,13 +193,13 @@ require("packer").startup({
         use({ "junegunn/goyo.vim", ft = { "text", "markdown", "md" } })
         use({ "mattn/emmet-vim", ft = { "html", "markdown", "md" } })
         use({ "tomlion/vim-solidity", ft = { "solidity" } })
-        use({ "lervag/vimtex", ft = { "markdown", "md", "tex" } })
+        -- use({ "lervag/vimtex", ft = { "markdown", "md", "tex" } })
         use({ "lvht/tagbar-markdown", ft = { "markdown", "md" } })
         use({ "plasticboy/vim-markdown", ft = { "markdown", "md" } })
         use({ "davidgranstrom/nvim-markdown-preview", ft = { "markdown", "md" } })
         use({ "fuenor/JpFormat.vim", ft = { "text" } })
         use({ "rust-lang/rust.vim", ft = { "rust" } })
-        use({ "KeitaNakamura/tex-conceal.vim", ft = { "tex" } })
+        -- use({ "KeitaNakamura/tex-conceal.vim", ft = { "tex" } })
         use({ "chikamichi/mediawiki.vim", ft = { "mediawikix" } })
 
         -- LSP and Debugger ---------------------------------------------------------------------------

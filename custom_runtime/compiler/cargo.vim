@@ -8,7 +8,7 @@ if exists('current_compiler')
     finish
 endif
 runtime compiler/rustc.vim
-let current_compiler = "cargo"
+let current_compiler = 'cargo'
 
 " vint: -ProhibitAbbreviationOption
 let s:save_cpo = &cpo

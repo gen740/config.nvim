@@ -4,17 +4,17 @@
 " Latest Revision:  2013 Jul 12
 " For bugs, patches and license go to https://github.com/rust-lang/rust.vim
 
-if exists("current_compiler")
+if exists('current_compiler')
     finish
 endif
-let current_compiler = "rustc"
+let current_compiler = 'rustc'
 
 " vint: -ProhibitAbbreviationOption
 let s:save_cpo = &cpo
 set cpo&vim
 " vint: +ProhibitAbbreviationOption
 
-if exists(":CompilerSet") != 2
+if exists(':CompilerSet') != 2
     command -nargs=* CompilerSet setlocal <args>
 endif
 

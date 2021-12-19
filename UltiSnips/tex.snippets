@@ -108,3 +108,24 @@ endsnippet
 snippet nnn "nonumber newline"
 \nonumber \\\\
 endsnippet
+
+snippet ib "itembox"
+\begin{itembox}[${1:l}]{${2:title}}
+  $3
+\end{itembox}
+$0
+endsnippet
+
+snippet env "environment"
+\begin{$1}
+  $2
+\end{$1}
+$0
+endsnippet
+
+snippet itz "itemize"
+\begin{itemize}
+  \item $2
+\end{itemize}
+$0
+endsnippet

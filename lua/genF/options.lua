@@ -227,7 +227,7 @@ function M.gitsigns()
             follow_files = true,
         },
         sign_priority = 6,
-        update_debounce = 100,
+        update_debounce = 1000,
         status_formatter = nil, -- Use default
         word_diff = false,
     })
@@ -347,7 +347,7 @@ function M.LspInstaller()
         "rust_analyzer",
         "sumneko_lua",
         "tailwindcss",
-        "texlab",
+        -- "texlab",
         "tsserver",
         "vimls",
         "yamlls",
@@ -399,6 +399,7 @@ function M.LspInstaller()
         buf_set_keymap("n", "<space>q", "<cmd>lua vim.lsp.diagnostic.set_loclist()<CR>", opts)
         buf_set_keymap("n", "<space>f", "<cmd>lua vim.lsp.buf.formatting()<CR>", opts)
     end
+
     local flags = {
         debounce_text_changes = 100,
     }
@@ -448,16 +449,17 @@ function M.LspInstaller()
 end
 
 function M.null_ls()
-    local nullls_format = require("null-ls").builtins.formatting
-    local nullls_diagnostics = require("null-ls").builtins.diagnostics
+    local null_ls = require("null-ls")
     require("null-ls").setup({
         sources = {
-            nullls_format.stylua.with({
+            null_ls.builtins.formatting.stylua.with({
                 extra_args = { "--indent-type=Spaces" },
             }),
-            nullls_format.prettier,
-            nullls_format.autopep8,
-            nullls_diagnostics.vale,
+            null_ls.builtins.formatting.prettier,
+            null_ls.builtins.formatting.autopep8,
+            null_ls.builtins.diagnostics.teal,
+            null_ls.builtins.diagnostics.vint,
+            null_ls.builtins.diagnostics.vale,
         },
     })
 end
@@ -879,8 +881,6 @@ function M.lexima_init()
     -- lexima
     vim.cmd([[
     try
-        " let g:lexima_no_default_rules = v:true
-        let g:lexima_map_escape = ''
         call lexima#set_default_rules()
         call lexima#add_rule({ 'char': '<CR>', 'at': '>\%#<', 'input': '<CR><Up><End><CR>' })
         call lexima#add_rule({ 'char': '<C-L>', 'at': '\%#\s*)',   'input': '<Left><C-o>:<C-u>normal! f)<CR><Right>' })
@@ -914,9 +914,38 @@ function M.others()
     vim.g.UltiSnipsJumpForwardTrigger = "<c-j>"
     vim.g.UltiSnipsJumpBackwardTrigger = "<c-k>"
     vim.g.UltiSnipsEditSplit = "vertical"
+    vim.g.tex_conceal = ""
     vim.g.matchup_matchparen_offscreen = {
         method = "popup",
     }
+    vim.cmd([=[
+    let g:easy_align_delimiters = {
+        \ '>': { 'pattern': '>>\|=>\|>' },
+        \ '/': {
+        \     'pattern':         '//',
+        \     'left_margin':   2,
+        \     'right_margin':  0,
+        \     'stick_to_left': 0
+        \   },
+        \ ']': {
+        \     'pattern':       '[[\]]',
+        \     'left_margin':   0,
+        \     'right_margin':  0,
+        \     'stick_to_left': 0
+        \   },
+        \ ')': {
+        \     'pattern':       '[()]',
+        \     'left_margin':   0,
+        \     'right_margin':  0,
+        \     'stick_to_left': 0
+        \   },
+        \ 'd': {
+        \     'pattern':      ' \(\S\+\s*[;=]\)\@=',
+        \     'left_margin':  0,
+        \     'right_margin': 0
+        \   }
+        \ }
+    ]=])
 
     -- Set ColorScheme
     vim.cmd([[
