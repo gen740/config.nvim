@@ -13,9 +13,11 @@ nnoremap <m-c> :vertical copen<cr>:vertical resize 5<cr>:wincmd h<cr>:silent Asy
 nnoremap ® :silent AsyncRun make run<cr>
 nnoremap ç :vertical copen<cr>:vertical resize 5<cr>:wincmd h<cr>:silent AsyncRun make build<cr>
 
-set conceallevel=1
-let g:tex_conceal = ''
-set concealcursor="n"
+" set conceallevel=2
+" let g:tex_conceal='admgs'
+set conceallevel=0
+let g:tex_conceal=''
+set concealcursor="invc"
 hi Conceal guifg=#719cd6
 
 scriptencoding utf-8

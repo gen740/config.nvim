@@ -1,6 +1,4 @@
-local myConf = require("genF.options")
-
--- Auto Packer Install
+-- Auto Packer Install Start
 local packer_exists = pcall(vim.cmd, [[packadd packer.nvim]])
 if not packer_exists then
     if vim.fn.input("Download Packer? (y for yes)") ~= "y" then
@@ -15,6 +13,9 @@ if not packer_exists then
     print("Downloading packer.nvim...")
     return
 end
+-- Auto packer Install End
+
+local myConf = require("genF.options")
 
 require("packer").startup({
     function(use)
@@ -23,13 +24,11 @@ require("packer").startup({
             "wbthomason/packer.nvim",
         })
 
-        -- None Regular -------------------------------------------------------------------------------
-        use({
-            "kana/vim-textobj-user",
-        })
-        use({
-            "rbonvall/vim-textobj-latex",
-        })
+        -- use({
+        --     "gen740/Preview.vim",
+        --     requires = "vim-denops/denops.vim",
+        --     run = "make install",
+        -- })
 
         -- Utilities ----------------------------------------------------------------------------------
         use({
@@ -50,6 +49,9 @@ require("packer").startup({
                     filetypes = { "tsx", "jsx", "html", "xml" },
                 })
             end,
+        })
+        use({
+            "unblevable/quick-scope",
         })
         use({
             "cohama/lexima.vim",
@@ -116,9 +118,28 @@ require("packer").startup({
         })
         use({
             "rcarriga/nvim-notify",
+            config = function()
+                require("notify").setup({
+                    stages = "fade_in_slide_out",
+                    on_open = nil,
+                    on_close = nil,
+                    render = "default",
+                    timeout = 5000,
+                    background_colour = "#222222",
+                    minimum_width = 50,
+                    icons = {
+                        ERROR = "",
+                        WARN = "",
+                        INFO = "",
+                        DEBUG = "",
+                        TRACE = "✎",
+                    },
+                })
+            end,
         })
         use({
-            "fuenor/JpFormat.vim",
+            "folke/zen-mode.nvim",
+            config = myConf.Zen_init,
         })
 
         -- DashBoard ----------------------------------------------------------------------------------
@@ -190,17 +211,27 @@ require("packer").startup({
         -- FileType Plugins ---------------------------------------------------------------------------
         use({ "rhysd/vim-grammarous", ft = { "markdown", "md", "text" } })
         use({ "chrisbra/csv.vim", ft = { "csv", "tsv" } })
-        use({ "junegunn/goyo.vim", ft = { "text", "markdown", "md" } })
+        -- use({ "junegunn/goyo.vim", ft = { "text", "markdown", "md" } })
         use({ "mattn/emmet-vim", ft = { "html", "markdown", "md" } })
         use({ "tomlion/vim-solidity", ft = { "solidity" } })
         -- use({ "lervag/vimtex", ft = { "markdown", "md", "tex" } })
         use({ "lvht/tagbar-markdown", ft = { "markdown", "md" } })
         -- use({ "plasticboy/vim-markdown", ft = { "markdown", "md" } })
+        use({ "previm/previm" })
         use({ "davidgranstrom/nvim-markdown-preview", ft = { "markdown", "md" } })
         use({ "fuenor/JpFormat.vim", ft = { "text" } })
         use({ "rust-lang/rust.vim", ft = { "rust" } })
-        -- use({ "KeitaNakamura/tex-conceal.vim", ft = { "tex" } })
         use({ "chikamichi/mediawiki.vim", ft = { "mediawikix" } })
+        -- use({
+        --     "KeitaNakamura/tex-conceal.vim",
+        --     config = function()
+        --         vim.g.tex_conceal_frac = 1
+        --     end,
+        -- })
+        use({
+            requires = { "kana/vim-textobj-user" },
+            "rbonvall/vim-textobj-latex",
+        })
 
         -- LSP and Debugger ---------------------------------------------------------------------------
         use({
@@ -251,10 +282,6 @@ require("packer").startup({
                     event = "InsertEnter *",
                 },
                 {
-                    "ray-x/cmp-treesitter",
-                    event = "InsertEnter *",
-                },
-                {
                     "quangnguyen30192/cmp-nvim-ultisnips",
                     event = "InsertEnter",
                 },
@@ -266,16 +293,6 @@ require("packer").startup({
             config = myConf.lsp_status,
         })
     end,
-
-    config = {
-        display = {
-            open_fn = require("packer.util").float,
-        },
-        profile = {
-            enable = true,
-            threshold = 100,
-        },
-    },
 })
 
 myConf.others()

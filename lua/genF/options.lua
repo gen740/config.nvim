@@ -68,7 +68,7 @@ function M.treesitter()
             },
         },
         matchup = {
-            enable = true,
+            enable = false,
         },
     })
 end
@@ -250,10 +250,12 @@ function M.indent_blankline()
     vim.cmd([[autocmd FileType * highlight IndentBlanklineGray guifg=#928374 blend=nocombine]])
 
     vim.g.indentLine_fileTypeExclude = { "dashboard", "markdown" }
-    vim.g.indent_blankline_use_treesitter = true
+    -- vim.g.indent_blankline_use_treesitter = true
     vim.g.indent_blankline_show_current_context = true
+
     vim.g.indent_blankline_context_patterns = {
         "^if",
+        "import",
         "argument_list",
         "array",
         "arrow_function",
@@ -278,6 +280,7 @@ function M.indent_blankline()
         "while",
         "with",
     }
+
     vim.g.indent_blankline_context_highlight_list = {
         "IndentBlanklineAqua",
         "IndentBlanklineAqua",
@@ -307,6 +310,47 @@ end
 
 -- }}}
 -- ┼─────────────────────────────────────────────────────────────────┼
+-- │ {{{                      « Zen Mode »                           │
+-- ┼─────────────────────────────────────────────────────────────────┼
+
+function M.Zen_init()
+    require("zen-mode").setup({
+        window = {
+            backdrop = 1, -- shade the backdrop of the Zen window. Set to 1 to keep the same as Normal
+            -- height and width can be:
+            -- * an absolute number of cells when > 1
+            -- * a percentage of the width / height of the editor when <= 1
+            -- * a function that returns the width or the height
+            width = 100, -- width of the Zen window
+            height = 1, -- height of the Zen window
+            options = {
+                -- signcolumn = "no", -- disable signcolumn
+                -- number = false, -- disable number column
+                -- relativenumber = false, -- disable relative numbers
+                -- cursorline = false, -- disable cursorline
+                cursorcolumn = false, -- disable cursor column
+                foldcolumn = "0", -- disable fold column
+                -- list = false, -- disable whitespace characters
+            },
+        },
+        plugins = {
+            -- disable some global vim options (vim.o...)
+            -- comment the lines to not apply the options
+            options = {
+                enabled = true,
+                ruler = false, -- disables the ruler text in the cmd line area
+                showcmd = false, -- disables the command in the last line of the screen
+            },
+            twilight = { enabled = true }, -- enable to start Twilight when zen mode opens
+            gitsigns = { enabled = true }, -- disables git signs
+            tmux = { enabled = true }, -- disables the tmux statusline
+        },
+        on_open = function() end,
+        on_close = function() end,
+    })
+end
+-- }}}
+-- ┼─────────────────────────────────────────────────────────────────┼
 -- │ {{{                 « LSP Configurations »                      │
 -- ┼─────────────────────────────────────────────────────────────────┼
 
@@ -330,12 +374,20 @@ function M.nvim_lsp()
     --     cmd = { "/Users/fujimotogen/.local/bin/zeta-note-macos" },
     --     on_attach = on_attach,
     -- })
+
+    vim.lsp.for_each_buffer_client(0, function(client)
+        if client.name ~= "" then
+            client.resolved_capabilities.document_formatting = false
+            client.resolved_capabilities.document_range_formatting = false
+        end
+    end)
 end
 
 function M.LspInstaller()
     local lsp_installer = require("nvim-lsp-installer")
     local servers = {
         "bashls",
+        "fortls",
         "clangd",
         "cmake",
         "cssls",
@@ -347,8 +399,10 @@ function M.LspInstaller()
         "rust_analyzer",
         "sumneko_lua",
         "tailwindcss",
-        -- "texlab",
+        "texlab",
+        "denols",
         "tsserver",
+        "angularls",
         "vimls",
         "yamlls",
     }
@@ -429,6 +483,32 @@ function M.LspInstaller()
                     },
                 },
             })
+        elseif server.name == "jsonls" then
+            server:setup({
+                flags = flags,
+                on_attach = on_attach,
+                filetypes = { "json", "jsonc" },
+                settings = {
+                    json = {
+                        schemas = {
+                            { fileMatch = { "package.json" }, url = "https://json.schemastore.org/package.json" },
+                            { fileMatch = { "tsconfig*.json" }, url = "https://json.schemastore.org/tsconfig.json" },
+                        },
+                    },
+                },
+            })
+        elseif server.name == "tsserver" then
+            server:setup({
+                flags = flags,
+                on_attach = on_attach,
+                root_dir = require("lspconfig").util.root_pattern("package.json", "tsconfig.json"),
+            })
+        elseif server.name == "denols" then
+            server:setup({
+                flags = flags,
+                on_attach = on_attach,
+                root_dir = require("lspconfig").util.root_pattern("deno.json", "deno.jsonc"),
+            })
         else
             server:setup({
                 flags = flags,
@@ -455,11 +535,14 @@ function M.null_ls()
             null_ls.builtins.formatting.stylua.with({
                 extra_args = { "--indent-type=Spaces" },
             }),
-            null_ls.builtins.formatting.prettier,
+            null_ls.builtins.formatting.prettier.with({
+                filetypes = { "yaml", "markdown" },
+            }),
+            null_ls.builtins.formatting.fprettify,
             null_ls.builtins.formatting.autopep8,
             null_ls.builtins.diagnostics.teal,
             null_ls.builtins.diagnostics.vint,
-            null_ls.builtins.diagnostics.vale,
+            -- null_ls.builtins.diagnostics.vale,
         },
     })
 end
@@ -483,9 +566,9 @@ function M.nvim_cmp()
             ["<C-n>"] = cmp.mapping.select_next_item(),
             ["<C-d>"] = cmp.mapping.scroll_docs(-4),
             ["<C-f>"] = cmp.mapping.scroll_docs(4),
-            ["<C-Space>"] = cmp.mapping.complete(),
-            ["<C-e>"] = cmp.mapping.close(),
-            ["<CR>"] = cmp.mapping.confirm({
+            ["<C-c>"] = cmp.mapping.complete(),
+            ["<C-o>"] = cmp.mapping.close(),
+            ["<C-e>"] = cmp.mapping.confirm({
                 behavior = cmp.ConfirmBehavior.Replace,
                 select = true,
             }),
@@ -500,7 +583,6 @@ function M.nvim_cmp()
             { name = "nvim_lsp" },
             { name = "buffer", keyword_length = 5 },
             { name = "path" },
-            -- { name = "treesitter" },
             { name = "ultisnips" },
             { name = "calc" },
         },
@@ -510,7 +592,6 @@ function M.nvim_cmp()
                 vim_item.menu = ({
                     buffer = "[Buffer]",
                     nvim_lsp = "[LSP]",
-                    -- treesitter = "[TS]",
                     ultisnips = "[UltiSnips]",
                     nvim_lua = "[Lua]",
                     latex_symbols = "[Latex]",
@@ -527,10 +608,10 @@ end
 -- ┼─────────────────────────────────────────────────────────────────┼
 
 function M.nvim_lspkind()
-    require("lspkind").init({
-        with_text = true,
-        preset = "default",
-    })
+    -- require("lspkind").init({
+    --     with_text = true,
+    --     preset = "default",
+    -- })
 end
 
 --}}}
@@ -890,10 +971,16 @@ function M.lexima_init()
         call lexima#add_rule({ "char": '<C-L>', 'at': '\%#\s*`',   'input': '<Left><C-o>:<C-u>normal! f`<CR><Right>' })
         call lexima#add_rule({ "char": '<C-L>', 'at': '\%#\s*"',   'input': '<Left><C-o>:<C-u>normal! f"<CR><Right>' })
         call lexima#add_rule({ "char": '<C-L>', 'at': '\%#\s*''',  'input': "<Left><C-o>:<C-u>normal! f'<CR><Right>" })
+        " Please add below in your vimrc
+        call lexima#add_rule({'char': '$', 'input_after': '$', 'filetype': 'latex'})
+        " call lexima#add_rule({'char': '\\left(', 'input_after': '\\right)', 'filetype': 'latex'})
+        call lexima#add_rule({'char': '$', 'at': '\%#\$', 'leave': 1, 'filetype': 'latex'})
+        call lexima#add_rule({'char': '<BS>', 'at': '\$\%#\$', 'delete': 1, 'filetype': 'latex'})
     catch
         echo "Please install Lexima Plugin"
     endtry
-    ]])
+
+        ]])
 end
 
 --}}}
@@ -914,7 +1001,6 @@ function M.others()
     vim.g.UltiSnipsJumpForwardTrigger = "<c-j>"
     vim.g.UltiSnipsJumpBackwardTrigger = "<c-k>"
     vim.g.UltiSnipsEditSplit = "vertical"
-    vim.g.tex_conceal = ""
     vim.g.matchup_matchparen_offscreen = {
         method = "popup",
     }
@@ -924,12 +1010,6 @@ function M.others()
         \ '/': {
         \     'pattern':         '//',
         \     'left_margin':   2,
-        \     'right_margin':  0,
-        \     'stick_to_left': 0
-        \   },
-        \ ']': {
-        \     'pattern':       '[[\]]',
-        \     'left_margin':   0,
         \     'right_margin':  0,
         \     'stick_to_left': 0
         \   },
@@ -945,6 +1025,40 @@ function M.others()
         \     'right_margin': 0
         \   }
         \ }
+
+    let g:sandwich#recipes = deepcopy(g:sandwich#default_recipes)
+    let g:sandwich#recipes += [
+          \   {
+          \     'buns'      : ['\left(', '\right)'],
+          \     'nesting'   : 1,
+          \     'input'     : ['m('],
+          \   },
+          \   {
+          \     'buns'      : ['\left\{', '\right\}'],
+          \     'nesting'   : 1,
+          \     'input'     : ['m{'],
+          \   },
+          \   {
+          \     'buns'      : ['\left[', '\right]'],
+          \     'nesting'   : 1,
+          \     'input'     : ['m['],
+          \   },
+          \   {
+          \     'buns'      : ['\left(', '\right.'],
+          \     'nesting'   : 1,
+          \     'input'     : ['mm('],
+          \   },
+          \   {
+          \     'buns'      : ['\left\{', '\right.'],
+          \     'nesting'   : 1,
+          \     'input'     : ['mm{'],
+          \   },
+          \   {
+          \     'buns'      : ['\left[', '\right.'],
+          \     'nesting'   : 1,
+          \     'input'     : ['mm['],
+          \   },
+          \ ]
     ]=])
 
     -- Set ColorScheme
@@ -955,7 +1069,6 @@ function M.others()
         echo "there is on colorscheme nightfox"
     endtry
     ]])
-    -- vim.cmd[[let g:matchup_matchparen_offscreen = {'method': 'popup'}]]
 end
 
 --- }}}
@@ -964,4 +1077,4 @@ end
 -- Export
 
 return M
--- vim:set foldmethod=marker foldlevel=3:
+-- vim:set foldmethod=marker foldlevel=3 nowrap:

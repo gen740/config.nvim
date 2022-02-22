@@ -1,0 +1,15 @@
+* {
+  background-color: #333333;
+  color: #cccccc;
+  font-size: 18px;
+}
+
+h1 {
+  font-size: 1em;
+}
+
+/* body{ */
+/*   -ms-writing-mode: tb-rl; */
+/*   writing-mode: vertical-rl; */
+/*   text-orientation: upright; */
+/* } */

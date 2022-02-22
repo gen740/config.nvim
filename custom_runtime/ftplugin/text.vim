@@ -11,6 +11,8 @@ set cpo&vim
 setlocal tabstop=4 softtabstop=4 shiftwidth=4 wrap
 setlocal textwidth=80
 
+abbreviate dash ――
+
 " vint: -ProhibitAbbreviationOption
 let &cpo = s:save_cpo
 unlet s:save_cpo

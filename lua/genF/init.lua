@@ -11,7 +11,7 @@ if result ~= "" then
 end
 
 vim.opt.clipboard = "unnamed"
-vim.opt.colorcolumn = "80"
+vim.opt.colorcolumn = "100"
 vim.opt.expandtab = true
 vim.opt.foldenable = true
 vim.opt.foldexpr = "nvim_treesitter#foldexpr()"
@@ -20,7 +20,7 @@ vim.opt.foldmethod = "expr"
 vim.opt.gdefault = true
 vim.opt.hidden = true
 vim.opt.ignorecase = true
-vim.opt.inccommand = "split"
+vim.opt.inccommand = "nosplit"
 vim.opt.incsearch = true
 vim.opt.lazyredraw = true
 vim.opt.list = true
@@ -42,6 +42,7 @@ vim.opt.splitright = true
 vim.opt.swapfile = false
 vim.opt.tabstop = 2
 vim.opt.termguicolors = true
+vim.opt.guicursor = ""
 
 vim.opt.shiftwidth = 2
 vim.opt.showtabline = 2
@@ -50,10 +51,10 @@ vim.opt.undodir = os.getenv("HOME") .. "/.vim/undo"
 vim.opt.undofile = true
 vim.opt.undolevels = 10000
 vim.opt.undoreload = 10000
-vim.opt.updatetime = 750
+vim.opt.updatetime = 50
 vim.opt.whichwrap = "b,s,<,>,[,]"
 vim.opt.wrap = false
-vim.opt.showmatch = true
+-- vim.opt.showmatch = true
 
 vim.g.netrw_silent = true
 vim.g.vimsyn_embed = "lPr"
@@ -95,7 +96,8 @@ vim.api.nvim_set_keymap("n", "<leader>ss", "<cmd>silent !open https://google.com
 vim.api.nvim_set_keymap("n", "<leader>ta", "<cmd>TagbarToggle<cr>", { noremap = true, silent = true })
 vim.api.nvim_set_keymap("n", "<leader>tf", "<cmd>Telescope find_files<cr>", { noremap = true, silent = true })
 vim.api.nvim_set_keymap("n", "<leader>tn", "<cmd>Telescope file_browser<cr>", { noremap = true, silent = true })
-vim.api.nvim_set_keymap("n", "<leader>ts", "<cmd>Telescope", { noremap = true, silent = true })
+vim.api.nvim_set_keymap("n", "<leader>tl", "<cmd>Telescope live_grep<cr>", { noremap = true, silent = true })
+vim.api.nvim_set_keymap("n", "<leader>ts", ":Telescope", { noremap = false, silent = false })
 
 vim.api.nvim_set_keymap("n", "<leader>tt", "<cmd>TroubleToggle<cr>", { noremap = true, silent = true })
 
@@ -122,6 +124,8 @@ vim.api.nvim_set_keymap("n", "<leader>h", "<Plug>(easymotion-linebackward)", { n
 vim.api.nvim_set_keymap("n", "<leader>l", "<Plug>(easymotion-lineforward)", { noremap = false, silent = true })
 vim.api.nvim_set_keymap("n", "<leader>ww", "<Plug>(easymotion-w)", { noremap = false, silent = true })
 
+vim.api.nvim_set_keymap("n", "<leader>z", "<cmd>ZenMode<cr>", { noremap = false, silent = true })
+
 vim.api.nvim_set_keymap("n", "j", "gj", { noremap = true, silent = true })
 vim.api.nvim_set_keymap("n", "gj", "j", { noremap = true, silent = true })
 vim.api.nvim_set_keymap("n", "k", "gk", { noremap = true, silent = true })
@@ -136,13 +140,14 @@ vim.api.nvim_set_keymap("n", "ga", "<plug>(EasyAlign)", { noremap = false })
 
 vim.api.nvim_set_keymap("n", "<leader>rs", "<cmd>LspRestart<cr>", { noremap = false })
 
-vim.api.nvim_set_keymap("i", ";(", "(", { noremap = true, silent = true })
-vim.api.nvim_set_keymap("i", ";{", "{", { noremap = true, silent = true })
-vim.api.nvim_set_keymap("i", ";[", "[", { noremap = true, silent = true })
-vim.api.nvim_set_keymap("i", ";\"", "\"", { noremap = true, silent = true })
+-- vim.api.nvim_set_keymap("i", ";(", "(", { noremap = true, silent = true })
+-- vim.api.nvim_set_keymap("i", ";{", "{", { noremap = true, silent = true })
+-- vim.api.nvim_set_keymap("i", ";[", "[", { noremap = true, silent = true })
+-- vim.api.nvim_set_keymap("i", ";\"", "\"", { noremap = true, silent = true })
 
--- vim.api.nvim_set_keymap('n', 'q:', [[<nop>]], {noremap = true, silent = true})
--- vim.api.nvim_set_keymap('n', 'Q', [[<nop>]], {noremap = true, silent = true})
+vim.api.nvim_set_keymap('n', 'q:', [[<nop>]], {noremap = true, silent = true})
+vim.api.nvim_set_keymap('n', 'Q', [[<nop>]], {noremap = true, silent = true})
+vim.api.nvim_set_keymap('n', '<leader>to',[[<cmd>!open -a LivePDFviewer.app %:r.pdf<cr>]] ,{noremap = true, silent = true})
 -- stylua: ignore end
 
 -- }}}
