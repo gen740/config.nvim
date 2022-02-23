@@ -355,7 +355,7 @@ end
 -- ┼─────────────────────────────────────────────────────────────────┼
 
 function M.nvim_lsp()
-    -- local nvim_lsp = require("lspconfig")
+    -- require("lspconfig").solargraph.setup({})
     -- nvim_lsp.bashls.setup({
     --     on_attach = on_attach,
     --     flags = flags,
@@ -386,23 +386,24 @@ end
 function M.LspInstaller()
     local lsp_installer = require("nvim-lsp-installer")
     local servers = {
+        "angularls",
         "bashls",
-        "fortls",
         "clangd",
         "cmake",
         "cssls",
         "cssmodules_ls",
+        "denols",
         "dockerls",
+        "fortls",
         "gopls",
         "html",
         "pyright",
         "rust_analyzer",
+        "solargraph",
         "sumneko_lua",
         "tailwindcss",
         "texlab",
-        "denols",
         "tsserver",
-        "angularls",
         "vimls",
         "yamlls",
     }
