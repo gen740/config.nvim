@@ -5,11 +5,6 @@ local handle = io.popen("which pyenv")
 local result = handle:read("*a")
 handle:close()
 
-if result ~= "" then
-    vim.g.python3_host_prog = "~/.pyenv/versions/neovim-3/bin/python"
-    vim.g.python_host_prog = "~/.pyenv/versions/neovim-2/bin/python"
-end
-
 vim.opt.clipboard = "unnamed"
 vim.opt.colorcolumn = "100"
 vim.opt.expandtab = true
