@@ -414,7 +414,7 @@ function M.LspInstaller()
             end
         end
     end
-    local on_attach = function(bufnr)
+    local on_attach = function(client, bufnr)
         local border = { "╭", "─", "╮", "│", "╯", "─", "╰", "│" }
         local signs = { Error = " ", Warning = " ", Hint = " ", Information = " " }
         for type, icon in pairs(signs) do
@@ -537,9 +537,9 @@ function M.null_ls()
             null_ls.builtins.formatting.prettier.with({
                 filetypes = { "yaml", "markdown" },
             }),
-            null_ls.builtins.formatting.fprettify,
+            -- null_ls.builtins.formatting.fprettify,
             null_ls.builtins.formatting.autopep8,
-            null_ls.builtins.diagnostics.teal,
+            -- null_ls.builtins.diagnostics.teal,
             null_ls.builtins.diagnostics.vint,
             -- null_ls.builtins.diagnostics.vale,
         },
