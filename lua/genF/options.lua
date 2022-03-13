@@ -607,10 +607,10 @@ end
 -- ┼─────────────────────────────────────────────────────────────────┼
 
 function M.nvim_lspkind()
-    require("lspkind").init({
-        with_text = true,
-        preset = "default",
-    })
+    -- require("lspkind").init({
+    --     with_text = true,
+    --     preset = "default",
+    -- })
 end
 
 --}}}
