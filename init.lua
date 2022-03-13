@@ -2,8 +2,7 @@ require("genF.init")
 require("genF.plugins")
 
 vim.cmd([[source ~/.config/nvim/foldingtxt.vim]])
-vim.cmd([[source ~/home/Labo/Project/Preview.nvim/debug.vim]])
-
+-- vim.cmd([[source ~/home/Labo/Project/Preview.nvim/debug.vim]])
 vim.cmd([[
 
 set conceallevel=0
@@ -13,7 +12,6 @@ let g:qs_highlight_on_keys = ['f', 'F', 't', 'T']
 " highlight QuickScopeSecondary guifg=lightblue gui=underline
 highlight QuickScopePrimary guifg='#ffe37e' gui=underline
 " let g:denops#debug = 1
-
 
 " Preview.vim
 " ========================================================================
@@ -33,6 +31,5 @@ let g:preview_enable_plantuml = 1
 let g:preview_enable_mermaid = 1
 
 let JpFormatCursorMovedI = 1
-" let g:preview_open_cmd = 'open -a Safari'
 " ========================================================================
 ]])

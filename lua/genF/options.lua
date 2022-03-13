@@ -240,7 +240,6 @@ end
 function M.indent_blankline()
     vim.cmd([[autocmd FileType * highlight IndentBlanklineIndent1 guifg=#665c54 blend=nocombine]])
     vim.cmd([[autocmd FileType * highlight IndentBlanklineIndent2 guifg=#3c3836 blend=nocombine]])
-
     vim.cmd([[autocmd FileType * highlight IndentBlanklineBlue guifg=#458588 blend=nocombine]])
     vim.cmd([[autocmd FileType * highlight IndentBlanklinePurple guifg=#b16286 blend=nocombine]])
     vim.cmd([[autocmd FileType * highlight IndentBlanklineAqua guifg=#a381ff blend=nocombine]])
@@ -374,7 +373,6 @@ function M.nvim_lsp()
     --     cmd = { "/Users/fujimotogen/.local/bin/zeta-note-macos" },
     --     on_attach = on_attach,
     -- })
-
     vim.lsp.for_each_buffer_client(0, function(client)
         if client.name ~= "" then
             client.resolved_capabilities.document_formatting = false
@@ -386,26 +384,26 @@ end
 function M.LspInstaller()
     local lsp_installer = require("nvim-lsp-installer")
     local servers = {
-        "angularls",
-        "bashls",
+        -- "angularls",
+        -- "bashls",
         "clangd",
         "cmake",
-        "cssls",
-        "cssmodules_ls",
-        "denols",
-        "dockerls",
-        "fortls",
-        "gopls",
-        "html",
+        -- "cssls",
+        -- "cssmodules_ls",
+        -- "denols",
+        -- "dockerls",
+        -- "fortls",
+        -- "gopls",
+        -- "html",
         "pyright",
-        "rust_analyzer",
-        "solargraph",
+        -- "rust_analyzer",
+        -- "solargraph",
         "sumneko_lua",
-        "tailwindcss",
-        "texlab",
-        "tsserver",
+        -- "tailwindcss",
+        -- "texlab",
+        -- "tsserver",
         "vimls",
-        "yamlls",
+        -- "yamlls",
     }
     for _, name in pairs(servers) do
         local server_is_found, server = lsp_installer.get_server(name)
@@ -609,10 +607,10 @@ end
 -- ┼─────────────────────────────────────────────────────────────────┼
 
 function M.nvim_lspkind()
-    -- require("lspkind").init({
-    --     with_text = true,
-    --     preset = "default",
-    -- })
+    require("lspkind").init({
+        with_text = true,
+        preset = "default",
+    })
 end
 
 --}}}
@@ -980,7 +978,6 @@ function M.lexima_init()
     catch
         echo "Please install Lexima Plugin"
     endtry
-
         ]])
 end
 
@@ -1005,7 +1002,7 @@ function M.others()
     vim.g.matchup_matchparen_offscreen = {
         method = "popup",
     }
-    vim.cmd([=[
+    vim.cmd([[
     let g:easy_align_delimiters = {
         \ '>': { 'pattern': '>>\|=>\|>' },
         \ '/': {
@@ -1026,7 +1023,6 @@ function M.others()
         \     'right_margin': 0
         \   }
         \ }
-
     let g:sandwich#recipes = deepcopy(g:sandwich#default_recipes)
     let g:sandwich#recipes += [
           \   {
@@ -1060,7 +1056,7 @@ function M.others()
           \     'input'     : ['mm['],
           \   },
           \ ]
-    ]=])
+    ]])
 
     -- Set ColorScheme
     vim.cmd([[
