@@ -20,6 +20,9 @@ vim.opt.incsearch = true
 vim.opt.lazyredraw = true
 vim.opt.list = true
 vim.opt.listchars = [[tab:»-,trail:▒,extends:»,precedes:«,nbsp:%]] -- ,eol:↲│,conceal:◇
+if vim.fn.has("nvim-0.7") then
+    vim.opt.laststatus = 3
+end
 vim.opt.modeline = true
 vim.opt.mouse:append("a")
 vim.opt.number = true

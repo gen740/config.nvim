@@ -165,7 +165,6 @@ function M.nvim_tree()
             cmd = nil,
             args = {},
         },
-
         view = {
             width = 30,
             side = "left",
@@ -316,25 +315,14 @@ function M.Zen_init()
     require("zen-mode").setup({
         window = {
             backdrop = 1, -- shade the backdrop of the Zen window. Set to 1 to keep the same as Normal
-            -- height and width can be:
-            -- * an absolute number of cells when > 1
-            -- * a percentage of the width / height of the editor when <= 1
-            -- * a function that returns the width or the height
             width = 100, -- width of the Zen window
             height = 1, -- height of the Zen window
             options = {
-                -- signcolumn = "no", -- disable signcolumn
-                -- number = false, -- disable number column
-                -- relativenumber = false, -- disable relative numbers
-                -- cursorline = false, -- disable cursorline
                 cursorcolumn = false, -- disable cursor column
                 foldcolumn = "0", -- disable fold column
-                -- list = false, -- disable whitespace characters
             },
         },
         plugins = {
-            -- disable some global vim options (vim.o...)
-            -- comment the lines to not apply the options
             options = {
                 enabled = true,
                 ruler = false, -- disables the ruler text in the cmd line area
@@ -348,31 +336,51 @@ function M.Zen_init()
         on_close = function() end,
     })
 end
+
 -- }}}
 -- ┼─────────────────────────────────────────────────────────────────┼
 -- │ {{{                 « LSP Configurations »                      │
 -- ┼─────────────────────────────────────────────────────────────────┼
 
 function M.nvim_lsp()
-    -- require("lspconfig").solargraph.setup({})
-    -- nvim_lsp.bashls.setup({
-    --     on_attach = on_attach,
-    --     flags = flags,
-    --     cmd = { "~/.local/share/nvim/lsp_servers/bash" },
-    -- })
-    -- local servers = {
-    --     "cmake",
-    -- }
-    -- for _, lsp in ipairs(servers) do
-    --     nvim_lsp[lsp].setup({
-    --         on_attach = on_attach,
-    --         flags = flags,
-    --     })
-    -- end
-    -- require("lspconfig").zeta_note.setup({
-    --     cmd = { "/Users/fujimotogen/.local/bin/zeta-note-macos" },
-    --     on_attach = on_attach,
-    -- })
+    local opts = { noremap = true, silent = true }
+    vim.api.nvim_set_keymap("n", "<space>e", "<cmd>lua vim.diagnostic.open_float()<CR>", opts)
+    vim.api.nvim_set_keymap("n", "[d", "<cmd>lua vim.diagnostic.goto_prev()<CR>", opts)
+    vim.api.nvim_set_keymap("n", "]d", "<cmd>lua vim.diagnostic.goto_next()<CR>", opts)
+    vim.api.nvim_set_keymap("n", "<space>q", "<cmd>lua vim.diagnostic.setloclist()<CR>", opts)
+
+    local on_attach = function(_, bufnr)
+        vim.api.nvim_buf_set_option(bufnr, "omnifunc", "v:lua.vim.lsp.omnifunc")
+
+        vim.api.nvim_buf_set_keymap(bufnr, "n", "gD", "<cmd>lua vim.lsp.buf.declaration()<CR>", opts)
+        vim.api.nvim_buf_set_keymap(bufnr, "n", "gd", "<cmd>lua vim.lsp.buf.definition()<CR>", opts)
+        vim.api.nvim_buf_set_keymap(bufnr, "n", "K", "<cmd>lua vim.lsp.buf.hover()<CR>", opts)
+        vim.api.nvim_buf_set_keymap(bufnr, "n", "gi", "<cmd>lua vim.lsp.buf.implementation()<CR>", opts)
+        vim.api.nvim_buf_set_keymap(bufnr, "n", "<C-k>", "<cmd>lua vim.lsp.buf.signature_help()<CR>", opts)
+        vim.api.nvim_buf_set_keymap(bufnr, "n", "<space>wa", "<cmd>lua vim.lsp.buf.add_workspace_folder()<CR>", opts)
+        vim.api.nvim_buf_set_keymap(bufnr, "n", "<space>wr", "<cmd>lua vim.lsp.buf.remove_workspace_folder()<CR>", opts)
+        vim.api.nvim_buf_set_keymap(
+            bufnr,
+            "n",
+            "<space>wl",
+            "<cmd>lua print(vim.inspect(vim.lsp.buf.list_workspace_folders()))<CR>",
+            opts
+        )
+        vim.api.nvim_buf_set_keymap(bufnr, "n", "<space>D", "<cmd>lua vim.lsp.buf.type_definition()<CR>", opts)
+        vim.api.nvim_buf_set_keymap(bufnr, "n", "<space>rn", "<cmd>lua vim.lsp.buf.rename()<CR>", opts)
+        vim.api.nvim_buf_set_keymap(bufnr, "n", "<space>ca", "<cmd>lua vim.lsp.buf.code_action()<CR>", opts)
+        vim.api.nvim_buf_set_keymap(bufnr, "n", "gr", "<cmd>lua vim.lsp.buf.references()<CR>", opts)
+        vim.api.nvim_buf_set_keymap(bufnr, "n", "<space>f", "<cmd>lua vim.lsp.buf.formatting()<CR>", opts)
+    end
+    local servers = { "clangd", "rust_analyzer", "tsserver" }
+    for _, lsp in pairs(servers) do
+        require("lspconfig")[lsp].setup({
+            on_attach = on_attach,
+            flags = {
+                debounce_text_changes = 150,
+            },
+        })
+    end
     vim.lsp.for_each_buffer_client(0, function(client)
         if client.name ~= "" then
             client.resolved_capabilities.document_formatting = false
@@ -383,38 +391,17 @@ end
 
 function M.LspInstaller()
     local lsp_installer = require("nvim-lsp-installer")
-    local servers = {
-        -- "angularls",
-        -- "bashls",
-        "clangd",
-        "cmake",
-        -- "cssls",
-        -- "cssmodules_ls",
-        -- "denols",
-        -- "dockerls",
-        -- "fortls",
-        -- "gopls",
-        -- "html",
-        "pyright",
-        -- "rust_analyzer",
-        -- "solargraph",
-        "sumneko_lua",
-        -- "tailwindcss",
-        -- "texlab",
-        -- "tsserver",
-        "vimls",
-        -- "yamlls",
-    }
-    for _, name in pairs(servers) do
-        local server_is_found, server = lsp_installer.get_server(name)
-        if server_is_found then
-            if not server:is_installed() then
-                print("Installing " .. name)
-                server:install()
-            end
-        end
-    end
-    local on_attach = function(client, bufnr)
+    -- local servers = { "clangd", "cmake", "pyright" }
+    -- for _, name in pairs(servers) do
+    --     local server_is_found, server = lsp_installer.get_server(name)
+    --     if server_is_found then
+    --         if not server:is_installed() then
+    --             print("Installing " .. name)
+    --             server:install()
+    --         end
+    --     end
+    -- end
+    local on_attach = function(_, bufnr)
         local border = { "╭", "─", "╮", "│", "╯", "─", "╰", "│" }
         local signs = { Error = " ", Warning = " ", Hint = " ", Information = " " }
         for type, icon in pairs(signs) do
@@ -515,7 +502,6 @@ function M.LspInstaller()
             })
         end
     end)
-
     lsp_installer.settings({
         ui = {
             icons = {
@@ -538,9 +524,9 @@ function M.null_ls()
                 filetypes = { "yaml", "markdown" },
             }),
             -- null_ls.builtins.formatting.fprettify,
-            null_ls.builtins.formatting.autopep8,
+            -- null_ls.builtins.formatting.autopep8,
             -- null_ls.builtins.diagnostics.teal,
-            null_ls.builtins.diagnostics.vint,
+            -- null_ls.builtins.diagnostics.vint,
             -- null_ls.builtins.diagnostics.vale,
         },
     })
