@@ -77,11 +77,16 @@ snippet ddmb "ddot mathbold"
 \ddot{\bm{$1}}$0
 endsnippet
 
-snippet al* "align+"
+snippet al* "align*"
 \begin{align*}
   $1
-\end{align*}
-$0
+\end{align*}$0
+endsnippet
+
+snippet al "align"
+\begin{align*}
+  $1
+\end{align*}$0
 endsnippet
 
 snippet flal "align+"
@@ -140,4 +145,10 @@ snippet cas "case environment"
 	$0
 \end{cases}
 endsnippet
+
 		
+snippet itb "item box"
+\begin{itembox}[${1:l}]{$2}
+	$0
+\end{itembox}
+endsnippet

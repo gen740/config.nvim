@@ -753,6 +753,15 @@ function M.nvim_dap()
             end,
         },
     }
+    vim.api.nvim_set_keymap("n", "<leader>db", [[<cmd>lua require'dap'.continue()<cr>]], { noremap = true, silent = true })
+    vim.api.nvim_set_keymap("n", "<leader>dn", [[<cmd>lua require'dap'.continue()<cr>]], { noremap = true, silent = true })
+    vim.api.nvim_set_keymap("n", "<leader>ds", [[<cmd>lua require'dap'.step_over()<cr>]], { noremap = true, silent = true })
+    vim.api.nvim_set_keymap("n", "<leader>di", [[<cmd>lua require'dap'.step_into()<cr>]], { noremap = true, silent = true })
+    vim.api.nvim_set_keymap("n", "<leader>dd", [[<cmd>lua require'dap'.toggle_breakpoint()<cr>]], { noremap = true, silent = true })
+    vim.api.nvim_set_keymap("n", "<leader>dD", [[<cmd>lua require'dap'.set_breakpoint(vim.fn.input('Breakpoint condition: '))<CR>]], { noremap = true, silent = true })
+    vim.api.nvim_set_keymap("n", "<leader>dp", [[<cmd>lua require'dap'.set_breakpoint(nil, nil, vim.fn.input('Log point message: '))<CR>]], { noremap = true, silent = true })
+    vim.api.nvim_set_keymap("n", "<leader>dr", [[<cmd>lua require'dap'.repl.open()<CR>:wincmd h<cr>:set]], { noremap = true, silent = true })
+    vim.api.nvim_set_keymap("n", "<leader>dl", [[<cmd>lua require'dap'.run_last()<CR>]], { noremap = true, silent = true })
 end
 
 function Dap_Setup()
@@ -1009,39 +1018,6 @@ function M.others()
         \     'right_margin': 0
         \   }
         \ }
-    let g:sandwich#recipes = deepcopy(g:sandwich#default_recipes)
-    let g:sandwich#recipes += [
-          \   {
-          \     'buns'      : ['\left(', '\right)'],
-          \     'nesting'   : 1,
-          \     'input'     : ['m('],
-          \   },
-          \   {
-          \     'buns'      : ['\left\{', '\right\}'],
-          \     'nesting'   : 1,
-          \     'input'     : ['m{'],
-          \   },
-          \   {
-          \     'buns'      : ['\left[', '\right]'],
-          \     'nesting'   : 1,
-          \     'input'     : ['m['],
-          \   },
-          \   {
-          \     'buns'      : ['\left(', '\right.'],
-          \     'nesting'   : 1,
-          \     'input'     : ['mm('],
-          \   },
-          \   {
-          \     'buns'      : ['\left\{', '\right.'],
-          \     'nesting'   : 1,
-          \     'input'     : ['mm{'],
-          \   },
-          \   {
-          \     'buns'      : ['\left[', '\right.'],
-          \     'nesting'   : 1,
-          \     'input'     : ['mm['],
-          \   },
-          \ ]
     ]])
 
     -- Set ColorScheme

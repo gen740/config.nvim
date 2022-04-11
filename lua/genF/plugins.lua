@@ -23,7 +23,6 @@ require("packer").startup({
         use({
             "wbthomason/packer.nvim",
         })
-
         -- use({
         --     "gen740/Preview.vim",
         --     requires = "vim-denops/denops.vim",
@@ -31,17 +30,17 @@ require("packer").startup({
         -- })
 
         -- Utilities ----------------------------------------------------------------------------------
-        use({
-            "vim-denops/denops.vim",
-        })
-        use({
-            "RRethy/vim-hexokinase",
-            run = "make hexokinase",
-            config = function()
-                vim.g.Hexokinase_highlighters = { "virtual" }
-            end,
-            cmd = { "HexokinaseToggle" },
-        })
+        -- use({
+        --     "vim-denops/denops.vim",
+        -- })
+        -- use({
+        --     "RRethy/vim-hexokinase",
+        --     run = "make hexokinase",
+        --     config = function()
+        --         vim.g.Hexokinase_highlighters = { "virtual" }
+        --     end,
+        --     cmd = { "HexokinaseToggle" },
+        -- })
         use({
             "windwp/nvim-ts-autotag",
             config = function()
@@ -64,29 +63,29 @@ require("packer").startup({
             "skywind3000/asyncrun.vim",
             cmd = { "AsyncRun", "Say" },
         })
-        use({
-            "kevinhwang91/nvim-bqf",
-            requires = "junegunn/fzf",
-            config = myConf.bqf,
-            -- cmd = {'copen'}
-        })
+        -- use({
+        --     "kevinhwang91/nvim-bqf",
+        --     requires = "junegunn/fzf",
+        --     config = myConf.bqf,
+        --     -- cmd = {'copen'}
+        -- })
         use({
             "easymotion/vim-easymotion",
         })
-        use({
-            "junegunn/vim-easy-align",
-        })
+        -- use({
+        --     "junegunn/vim-easy-align",
+        -- })
         use({
             "numToStr/Comment.nvim",
             config = function()
                 require("Comment").setup()
             end,
         })
-        use({
-            "folke/todo-comments.nvim",
-            requires = "nvim-lua/plenary.nvim",
-            config = myConf.todo_comment,
-        })
+        -- use({
+        --     "folke/todo-comments.nvim",
+        --     requires = "nvim-lua/plenary.nvim",
+        --     config = myConf.todo_comment,
+        -- })
         use({
             "lewis6991/gitsigns.nvim",
             requires = "nvim-lua/plenary.nvim",
@@ -106,49 +105,39 @@ require("packer").startup({
             config = myConf.toggle_term,
         })
         use({
-            "majutsushi/tagbar",
-            cmd = "TagbarToggle",
-        })
-        use({
             "mbbill/undotree",
             cmd = "UndotreeToggle",
         })
         use({
             "andymass/vim-matchup",
         })
-        use({
-            "rcarriga/nvim-notify",
-            config = function()
-                require("notify").setup({
-                    stages = "fade_in_slide_out",
-                    on_open = nil,
-                    on_close = nil,
-                    render = "default",
-                    timeout = 5000,
-                    background_colour = "#222222",
-                    minimum_width = 50,
-                    icons = {
-                        ERROR = "",
-                        WARN = "",
-                        INFO = "",
-                        DEBUG = "",
-                        TRACE = "✎",
-                    },
-                })
-            end,
-        })
-        use({
-            "folke/zen-mode.nvim",
-            config = myConf.Zen_init,
-        })
+        -- use({
+        --     "rcarriga/nvim-notify",
+        --     config = function()
+        --         require("notify").setup({
+        --             stages = "fade_in_slide_out",
+        --             on_open = nil,
+        --             on_close = nil,
+        --             render = "default",
+        --             timeout = 5000,
+        --             background_colour = "#222222",
+        --             minimum_width = 50,
+        --             icons = {
+        --                 ERROR = "",
+        --                 WARN = "",
+        --                 INFO = "",
+        --                 DEBUG = "",
+        --                 TRACE = "✎",
+        --             },
+        --         })
+        --     end,
+        -- })
+        -- use({
+        --     "folke/zen-mode.nvim",
+        --     config = myConf.Zen_init,
+        -- })
 
-        -- DashBoard ----------------------------------------------------------------------------------
-        use({
-            "glepnir/dashboard-nvim",
-            config = myConf.dashboard,
-        })
-
-        -- Treesitter ---------------------------------------------------------------------------------
+        -- -- Treesitter ---------------------------------------------------------------------------------
         use({
             "nvim-treesitter/nvim-treesitter",
             requires = {
@@ -159,16 +148,16 @@ require("packer").startup({
         })
         use({ "nvim-treesitter/playground" })
 
-        -- Appearance ---------------------------------------------------------------------------------
-        -- use({ "marko-cerovac/material.nvim" })
-        -- use({ "kyazdani42/blue-moon" })
-        -- use({ "mhartington/oceanic-next" })
-        -- use({ "sainnhe/everforest" })
-        -- use({ "kvrohit/substrata.nvim" })
-        use({
-            "ellisonleao/gruvbox.nvim",
-            requires = { "rktjmp/lush.nvim" },
-        })
+        -- -- Appearance ---------------------------------------------------------------------------------
+        -- -- use({ "marko-cerovac/material.nvim" })
+        -- -- use({ "kyazdani42/blue-moon" })
+        -- -- use({ "mhartington/oceanic-next" })
+        -- -- use({ "sainnhe/everforest" })
+        -- -- use({ "kvrohit/substrata.nvim" })
+        -- use({
+        --     "ellisonleao/gruvbox.nvim",
+        --     requires = { "rktjmp/lush.nvim" },
+        -- })
         use({ "EdenEast/nightfox.nvim" })
         use({
             "akinsho/nvim-bufferline.lua",
@@ -209,25 +198,22 @@ require("packer").startup({
         })
 
         -- FileType Plugins ---------------------------------------------------------------------------
-        use({ "rhysd/vim-grammarous", ft = { "markdown", "md", "text" } })
-        use({ "chrisbra/csv.vim", ft = { "csv", "tsv" } })
-        -- use({ "junegunn/goyo.vim", ft = { "text", "markdown", "md" } })
-        use({ "mattn/emmet-vim", ft = { "html", "markdown", "md" } })
-        use({ "tomlion/vim-solidity", ft = { "solidity" } })
-        -- use({ "lervag/vimtex", ft = { "markdown", "md", "tex" } })
-        use({ "lvht/tagbar-markdown", ft = { "markdown", "md" } })
+        -- use({ "rhysd/vim-grammarous", ft = { "markdown", "md", "text" } })
+        -- use({ "chrisbra/csv.vim", ft = { "csv", "tsv" } })
+        -- -- use({ "junegunn/goyo.vim", ft = { "text", "markdown", "md" } })
+        -- use({ "mattn/emmet-vim", ft = { "html", "markdown", "md" } })
+        -- use({ "tomlion/vim-solidity", ft = { "solidity" } })
+        use({ "lervag/vimtex", ft = { "markdown", "md", "tex" } })
         -- use({ "plasticboy/vim-markdown", ft = { "markdown", "md" } })
-        use({ "previm/previm" })
-        use({ "davidgranstrom/nvim-markdown-preview", ft = { "markdown", "md" } })
         use({ "fuenor/JpFormat.vim", ft = { "text" } })
-        use({ "rust-lang/rust.vim", ft = { "rust" } })
-        use({ "chikamichi/mediawiki.vim", ft = { "mediawikix" } })
-        -- use({
-        --     "KeitaNakamura/tex-conceal.vim",
-        --     config = function()
-        --         vim.g.tex_conceal_frac = 1
-        --     end,
-        -- })
+        -- use({ "rust-lang/rust.vim", ft = { "rust" } })
+        -- use({ "chikamichi/mediawiki.vim", ft = { "mediawikix" } })
+        use({
+            "KeitaNakamura/tex-conceal.vim",
+            config = function()
+                vim.g.tex_conceal_frac = 1
+            end,
+        })
         use({
             requires = { "kana/vim-textobj-user" },
             "rbonvall/vim-textobj-latex",
@@ -246,18 +232,17 @@ require("packer").startup({
             "jose-elias-alvarez/null-ls.nvim",
             config = myConf.null_ls,
         })
-        -- use({ "github/copilot.vim" })
+        use({ "github/copilot.vim" })
         -- use({ "mfussenegger/nvim-dap", config = myConf.nvim_dap })
         -- use({ "rcarriga/nvim-dap-ui", config = myConf.dap_ui })
-        use({
-            "folke/trouble.nvim",
-            requires = "kyazdani42/nvim-web-devicons",
-            config = function()
-                require("trouble").setup({})
-            end,
-            cmd = "TroubleToggle",
-        })
-
+        -- use({
+        --     "folke/trouble.nvim",
+        --     requires = "kyazdani42/nvim-web-devicons",
+        --     config = function()
+        --         require("trouble").setup({})
+        --     end,
+        --     cmd = "TroubleToggle",
+        -- })
         use({
             "hrsh7th/nvim-cmp",
             requires = {

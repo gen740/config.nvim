@@ -1,4 +1,5 @@
 scriptencoding utf-8
+
 if has('folding')
     set foldtext=MyFoldText()
     function! MyFoldText()
@@ -34,5 +35,4 @@ endif
 
 set foldmethod=expr
 set foldexpr=nvim_treesitter#foldexpr()
-
 set viewoptions-=options

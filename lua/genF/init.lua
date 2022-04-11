@@ -5,6 +5,10 @@ local handle = io.popen("which pyenv")
 local result = handle:read("*a")
 handle:close()
 
+if result ~= "" then
+    vim.g.python3_host_prog = "~/.pyenv/versions/neovim-3/bin/python"
+end
+
 vim.opt.clipboard = "unnamed"
 vim.opt.colorcolumn = "100"
 vim.opt.expandtab = true
@@ -49,7 +53,7 @@ vim.opt.undodir = os.getenv("HOME") .. "/.vim/undo"
 vim.opt.undofile = true
 vim.opt.undolevels = 10000
 vim.opt.undoreload = 10000
-vim.opt.updatetime = 50
+vim.opt.updatetime = 1500
 vim.opt.whichwrap = "b,s,<,>,[,]"
 vim.opt.wrap = false
 -- vim.opt.showmatch = true
@@ -75,8 +79,6 @@ vim.api.nvim_set_keymap("n", "<m-j>", "<cmd>resize +2<cr>", { noremap = true, si
 vim.api.nvim_set_keymap("n", "<m-h>", "<cmd>vertical resize -2<cr>", { noremap = true, silent = true })
 vim.api.nvim_set_keymap("n", "<m-l>", "<cmd>vertical resize +2<cr>", { noremap = true, silent = true })
 vim.api.nvim_set_keymap("n", "<m-k>", "<cmd>resize -2<cr>", { noremap = true, silent = true })
-
-vim.api.nvim_set_keymap("n", "<leader>?", "<cmd>vertical split<cr><cmd>view ~/.config/nvim/keymap.md<cr><cmd>setlocal nomodifiable nobuflisted<cr>", { noremap = true, silent = true })
 
 vim.api.nvim_set_keymap("n", "<leader>bl", "<cmd>Telescope current_buffer_fuzzy_find<cr>", { noremap = false, silent = true })
 vim.api.nvim_set_keymap("n", "<leader>gb", "<cmd>Telescope git_branches<cr>", { noremap = true, silent = true })
@@ -104,16 +106,6 @@ vim.api.nvim_set_keymap("n", "<m-c>", "<cmd>vertical copen<cr><cmd>vertical resi
 vim.api.nvim_set_keymap("n", "<m-r>", "<cmd>vertical copen<cr><cmd>vertical resize 80<cr><cmd>wincmd h<cr><cmd>Neomake! make<cr>", { noremap = true, silent = true })
 
 -- KEYMAPS
-vim.api.nvim_set_keymap("n", "<leader>db", [[<cmd>lua require'dap'.continue()<cr>]], { noremap = true, silent = true })
-vim.api.nvim_set_keymap("n", "<leader>dn", [[<cmd>lua require'dap'.continue()<cr>]], { noremap = true, silent = true })
-vim.api.nvim_set_keymap("n", "<leader>ds", [[<cmd>lua require'dap'.step_over()<cr>]], { noremap = true, silent = true })
-vim.api.nvim_set_keymap("n", "<leader>di", [[<cmd>lua require'dap'.step_into()<cr>]], { noremap = true, silent = true })
-vim.api.nvim_set_keymap("n", "<leader>dd", [[<cmd>lua require'dap'.toggle_breakpoint()<cr>]], { noremap = true, silent = true })
-vim.api.nvim_set_keymap("n", "<leader>dD", [[<cmd>lua require'dap'.set_breakpoint(vim.fn.input('Breakpoint condition: '))<CR>]], { noremap = true, silent = true })
-vim.api.nvim_set_keymap("n", "<leader>dp", [[<cmd>lua require'dap'.set_breakpoint(nil, nil, vim.fn.input('Log point message: '))<CR>]], { noremap = true, silent = true })
-vim.api.nvim_set_keymap("n", "<leader>dr", [[<cmd>lua require'dap'.repl.open()<CR>:wincmd h<cr>:set]], { noremap = true, silent = true })
-vim.api.nvim_set_keymap("n", "<leader>dl", [[<cmd>lua require'dap'.run_last()<CR>]], { noremap = true, silent = true })
-
 vim.api.nvim_set_keymap("n", "S", "<Plug>(easymotion-overwin-line)", { noremap = false, silent = true })
 vim.api.nvim_set_keymap("n", "<leader><leader>", "<Plug>(easymotion-overwin-f2)", { noremap = false, silent = true })
 vim.api.nvim_set_keymap("n", "<leader>j", "<Plug>(easymotion-j)", { noremap = false, silent = true })
@@ -153,42 +145,45 @@ vim.api.nvim_set_keymap('n', '<leader>to',[[<cmd>!open -a LivePDFviewer.app %:r.
 -- │ {{{                   « AutoCommands »                          │
 -- ┼─────────────────────────────────────────────────────────────────┼
 
-vim.cmd([[augroup CustomColorScheme]])
-vim.cmd([[  au! ]])
--- vim.cmd([[autocmd WinEnter,BufEnter,FocusGained,InsertLeave,CursorHold * set cursorline nocursorcolumn]])
--- vim.cmd([[autocmd BufLeave,FocusLost,InsertEnter,CursorMoved * set nocursorline nocursorcolumn]])
-vim.cmd([[  autocmd ColorScheme * hi Normal guibg=none]])
-vim.cmd([[  autocmd ColorScheme * hi NormalNC guibg=none]])
-vim.cmd([[  autocmd ColorScheme * hi NormalSB guibg=none]])
-vim.cmd([[  autocmd ColorScheme * hi NormalFloat guibg=none]])
-vim.cmd([[  autocmd ColorScheme * hi SignColumn guibg=none]])
-vim.cmd([[  autocmd ColorScheme * hi EndOfBuffer guifg=#222222]])
-vim.cmd([[  autocmd ColorScheme * hi VertSplit guibg=none]])
-vim.cmd([[  autocmd ColorScheme * hi GitSignsAdd guifg=lightblue]]) -- 9999ff
-vim.cmd([[  autocmd ColorScheme * hi CmpDocumentation guibg=none]])
-vim.cmd([[  autocmd ColorScheme * hi CmpDocumentationBorder guibg=none]])
-vim.cmd([[  autocmd ColorScheme * hi EasyMotionTarget  guifg=yellow]])
-vim.cmd([[  autocmd ColorScheme * hi GitSignsAdd      guibg=none  guifg=lightblue]])
-vim.cmd([[  autocmd ColorScheme * hi GitSignsAddNr    guibg=none  guifg=lightblue]])
-vim.cmd([[  autocmd ColorScheme * hi GitSignsAddLn    guibg=none  guifg=lightblue]])
-vim.cmd([[  autocmd ColorScheme * hi GitSignsChange   guibg=none  guifg=lightgreen]])
-vim.cmd([[  autocmd ColorScheme * hi GitSignsChangeNr guibg=none  guifg=lightgreen]])
-vim.cmd([[  autocmd ColorScheme * hi GitSignsChangeLn guibg=none  guifg=lightgreen]])
-vim.cmd([[  autocmd ColorScheme * hi LineNr guibg=none  guifg=#5b6282]])
-vim.cmd([[  autocmd ColorScheme * hi NvimTreeNormal guibg=none]])
-vim.cmd([[  autocmd ColorScheme * hi GitSignsDelete   guibg=none  guifg=red]])
-vim.cmd([[  autocmd ColorScheme * hi GitSignsDeleteNr guibg=none  guifg=red]])
-vim.cmd([[  autocmd ColorScheme * hi GitSignsDeleteLn guibg=none  guifg=red]])
-vim.cmd([[  autocmd ColorScheme * hi Substitute guibg=#ffe37e guifg=#192330]])
-vim.cmd([[  autocmd ColorScheme * hi Search guibg=#333333 gui=bold guifg=#ffe37e]])
-vim.cmd([[  autocmd BufRead,BufNewFile * hi Folded guifg=#928374 guibg=none gui=undercurl ]])
-vim.cmd([[  autocmd TermOpen * setlocal nonumber norelativenumber]])
-vim.cmd([[  augroup END]])
+vim.cmd([[
+augroup CustomColorScheme
+    au!
+    autocmd WinEnter,BufEnter,BufWinEnter,FocusGained,InsertLeave * set cursorline nocursorcolumn
+    autocmd BufLeave,FocusLost,BufWinLeave,InsertEnter * set nocursorline nocursorcolumn
+    autocmd ColorScheme * hi Normal guibg=none
+    autocmd ColorScheme * hi CursorLine guibg=#282828
+    autocmd ColorScheme * hi NormalNC guibg=none
+    autocmd ColorScheme * hi NormalSB guibg=none
+    autocmd ColorScheme * hi NormalFloat guibg=none
+    autocmd ColorScheme * hi SignColumn guibg=none
+    autocmd ColorScheme * hi EndOfBuffer guifg=#222222
+    autocmd ColorScheme * hi VertSplit guibg=none
+    autocmd ColorScheme * hi GitSignsAdd guifg=lightblue " 9999ff
+    autocmd ColorScheme * hi CmpDocumentation guibg=none
+    autocmd ColorScheme * hi CmpDocumentationBorder guibg=none
+    autocmd ColorScheme * hi EasyMotionTarget  guifg=yellow
+    autocmd ColorScheme * hi GitSignsAdd      guibg=none  guifg=lightblue
+    autocmd ColorScheme * hi GitSignsAddNr    guibg=none  guifg=lightblue
+    autocmd ColorScheme * hi GitSignsAddLn    guibg=none  guifg=lightblue
+    autocmd ColorScheme * hi GitSignsChange   guibg=none  guifg=lightgreen
+    autocmd ColorScheme * hi GitSignsChangeNr guibg=none  guifg=lightgreen
+    autocmd ColorScheme * hi GitSignsChangeLn guibg=none  guifg=lightgreen
+    autocmd ColorScheme * hi LineNr guibg=none  guifg=#5b6282
+    autocmd ColorScheme * hi NvimTreeNormal guibg=none
+    autocmd ColorScheme * hi GitSignsDelete   guibg=none  guifg=red
+    autocmd ColorScheme * hi GitSignsDeleteNr guibg=none  guifg=red
+    autocmd ColorScheme * hi GitSignsDeleteLn guibg=none  guifg=red
+    autocmd ColorScheme * hi Substitute guibg=#ffe37e guifg=#192330
+    autocmd ColorScheme * hi Search guibg=#333333 gui=bold guifg=#ffe37e
+    autocmd BufRead,BufNewFile * hi Folded guifg=#928374 guibg=none gui=undercurl 
+    autocmd TermOpen * setlocal nonumber norelativenumber
+augroup END
 
-vim.cmd([[augroup LuaHighLight]])
-vim.cmd([[  au! ]])
-vim.cmd([[  au TextYankPost * silent! lua return (not vim.v.event.visual) and require'vim.highlight'.on_yank()]])
-vim.cmd([[augroup END]])
+augroup LuaHighLight
+    au!
+    au TextYankPost * silent! lua return (not vim.v.event.visual) and require'vim.highlight'.on_yank()
+augroup END
+]])
 
 -- cursorline
 
