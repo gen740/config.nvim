@@ -33,6 +33,4 @@ if has('folding')
     endfunction
 endif
 
-set foldmethod=expr
-set foldexpr=nvim_treesitter#foldexpr()
 set viewoptions-=options

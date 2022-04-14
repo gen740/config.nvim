@@ -14,7 +14,7 @@ vim.opt.colorcolumn = "100"
 vim.opt.expandtab = true
 vim.opt.foldenable = true
 vim.opt.foldexpr = "nvim_treesitter#foldexpr()"
-vim.opt.foldlevel = 999
+vim.opt.foldlevel = 99
 vim.opt.foldmethod = "expr"
 vim.opt.gdefault = true
 vim.opt.hidden = true
@@ -24,9 +24,11 @@ vim.opt.incsearch = true
 vim.opt.lazyredraw = true
 vim.opt.list = true
 vim.opt.listchars = [[tab:»-,trail:▒,extends:»,precedes:«,nbsp:%]] -- ,eol:↲│,conceal:◇
+
 if vim.fn.has("nvim-0.7") then
     vim.opt.laststatus = 3
 end
+
 vim.opt.modeline = true
 vim.opt.mouse:append("a")
 vim.opt.number = true
@@ -69,12 +71,10 @@ vim.g.vimsyn_embed = "lPr"
 vim.cmd([[let mapleader = "\<Space>"]])
 
 -- stylua: ignore start
-vim.api.nvim_set_keymap("n", "<Leader>rb", "<cmd>AsyncRun make build<cr>", { noremap = true, silent = true })
 vim.api.nvim_set_keymap("n", "<c-e>", "3<c-e>", { noremap = true })
 vim.api.nvim_set_keymap("n", "<c-n>", "<cmd>BufferLineCycleNext<cr>", { noremap = false, silent = true })
 vim.api.nvim_set_keymap("n", "<c-p>", "<cmd>BufferLineCyclePrev<cr>", { noremap = false, silent = true })
 vim.api.nvim_set_keymap("n", "<c-q>", "<cmd>NvimTreeToggle<cr>", { noremap = true, silent = true })
-vim.api.nvim_set_keymap("n", "<c-y>", "3<c-y>", { noremap = true })
 vim.api.nvim_set_keymap("n", "<m-j>", "<cmd>resize +2<cr>", { noremap = true, silent = true })
 vim.api.nvim_set_keymap("n", "<m-h>", "<cmd>vertical resize -2<cr>", { noremap = true, silent = true })
 vim.api.nvim_set_keymap("n", "<m-l>", "<cmd>vertical resize +2<cr>", { noremap = true, silent = true })
@@ -99,8 +99,6 @@ vim.api.nvim_set_keymap("n", "<leader>tn", "<cmd>Telescope file_browser<cr>", { 
 vim.api.nvim_set_keymap("n", "<leader>tl", "<cmd>Telescope live_grep<cr>", { noremap = true, silent = true })
 vim.api.nvim_set_keymap("n", "<leader>ts", ":Telescope", { noremap = false, silent = false })
 
-vim.api.nvim_set_keymap("n", "<leader>tt", "<cmd>TroubleToggle<cr>", { noremap = true, silent = true })
-
 vim.api.nvim_set_keymap("n", "<leader>ut", "<cmd>UndotreeToggle<cr>", { noremap = true, silent = true })
 vim.api.nvim_set_keymap("n", "<m-c>", "<cmd>vertical copen<cr><cmd>vertical resize 80<cr><cmd>wincmd h<cr><cmd>Neomake! build<cr>", { noremap = true, silent = true })
 vim.api.nvim_set_keymap("n", "<m-r>", "<cmd>vertical copen<cr><cmd>vertical resize 80<cr><cmd>wincmd h<cr><cmd>Neomake! make<cr>", { noremap = true, silent = true })
@@ -123,21 +121,11 @@ vim.api.nvim_set_keymap("n", "gk", "k", { noremap = true, silent = true })
 
 vim.api.nvim_set_keymap("t", "<m-b>", [[<c-\><c-n>]], { noremap = true, silent = true })
 vim.api.nvim_set_keymap("v", "<leader>s", ":sort<cr>", { noremap = true, silent = true })
-vim.api.nvim_set_keymap("v", "<down>", [[:m '>+1<cr>gv=cv]], { noremap = true, silent = true })
-vim.api.nvim_set_keymap("v", "<up>", [[:m '>-2<cr>gv=cv]], { noremap = true, silent = true })
 vim.api.nvim_set_keymap("x", "ga", "<plug>(EasyAlign)", { noremap = false })
 vim.api.nvim_set_keymap("n", "ga", "<plug>(EasyAlign)", { noremap = false })
 
-vim.api.nvim_set_keymap("n", "<leader>rs", "<cmd>LspRestart<cr>", { noremap = false })
-
--- vim.api.nvim_set_keymap("i", ";(", "(", { noremap = true, silent = true })
--- vim.api.nvim_set_keymap("i", ";{", "{", { noremap = true, silent = true })
--- vim.api.nvim_set_keymap("i", ";[", "[", { noremap = true, silent = true })
--- vim.api.nvim_set_keymap("i", ";\"", "\"", { noremap = true, silent = true })
-
-vim.api.nvim_set_keymap('n', 'q:', [[<nop>]], {noremap = true, silent = true})
-vim.api.nvim_set_keymap('n', 'Q', [[<nop>]], {noremap = true, silent = true})
-vim.api.nvim_set_keymap('n', '<leader>to',[[<cmd>!open -a LivePDFviewer.app %:r.pdf<cr>]] ,{noremap = true, silent = true})
+vim.api.nvim_set_keymap('n', 'q:', [[<nop>]], { noremap = true, silent = true })
+vim.api.nvim_set_keymap('n', 'Q', [[<nop>]], { noremap = true, silent = true })
 -- stylua: ignore end
 
 -- }}}
@@ -154,13 +142,13 @@ augroup CustomColorScheme
     autocmd ColorScheme * hi CursorLine guibg=#282828
     autocmd ColorScheme * hi NormalNC guibg=none
     autocmd ColorScheme * hi NormalSB guibg=none
-    autocmd ColorScheme * hi NormalFloat guibg=none
+    " autocmd ColorScheme * hi NormalFloat guibg=none
     autocmd ColorScheme * hi SignColumn guibg=none
     autocmd ColorScheme * hi EndOfBuffer guifg=#222222
     autocmd ColorScheme * hi VertSplit guibg=none
     autocmd ColorScheme * hi GitSignsAdd guifg=lightblue " 9999ff
-    autocmd ColorScheme * hi CmpDocumentation guibg=none
-    autocmd ColorScheme * hi CmpDocumentationBorder guibg=none
+    " autocmd ColorScheme * hi CmpDocumentation guibg=none
+    " autocmd ColorScheme * hi CmpDocumentationBorder guibg=none
     autocmd ColorScheme * hi EasyMotionTarget  guifg=yellow
     autocmd ColorScheme * hi GitSignsAdd      guibg=none  guifg=lightblue
     autocmd ColorScheme * hi GitSignsAddNr    guibg=none  guifg=lightblue
@@ -188,6 +176,6 @@ augroup END
 -- cursorline
 
 -- }}}
--- }}}
 -- ┼─────────────────────────────────────────────────────────────────┼
--- vim:set foldmethod=marker foldlevel=2:
+
+-- vim:set foldmethod=marker foldlevel=0:

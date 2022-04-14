@@ -13,7 +13,6 @@ if not packer_exists then
     print("Downloading packer.nvim...")
     return
 end
--- Auto packer Install End
 
 local myConf = require("genF.options")
 
@@ -63,12 +62,6 @@ require("packer").startup({
             "skywind3000/asyncrun.vim",
             cmd = { "AsyncRun", "Say" },
         })
-        -- use({
-        --     "kevinhwang91/nvim-bqf",
-        --     requires = "junegunn/fzf",
-        --     config = myConf.bqf,
-        --     -- cmd = {'copen'}
-        -- })
         use({
             "easymotion/vim-easymotion",
         })
@@ -81,11 +74,6 @@ require("packer").startup({
                 require("Comment").setup()
             end,
         })
-        -- use({
-        --     "folke/todo-comments.nvim",
-        --     requires = "nvim-lua/plenary.nvim",
-        --     config = myConf.todo_comment,
-        -- })
         use({
             "lewis6991/gitsigns.nvim",
             requires = "nvim-lua/plenary.nvim",
@@ -111,31 +99,10 @@ require("packer").startup({
         use({
             "andymass/vim-matchup",
         })
-        -- use({
-        --     "rcarriga/nvim-notify",
-        --     config = function()
-        --         require("notify").setup({
-        --             stages = "fade_in_slide_out",
-        --             on_open = nil,
-        --             on_close = nil,
-        --             render = "default",
-        --             timeout = 5000,
-        --             background_colour = "#222222",
-        --             minimum_width = 50,
-        --             icons = {
-        --                 ERROR = "",
-        --                 WARN = "",
-        --                 INFO = "",
-        --                 DEBUG = "",
-        --                 TRACE = "✎",
-        --             },
-        --         })
-        --     end,
-        -- })
-        -- use({
-        --     "folke/zen-mode.nvim",
-        --     config = myConf.Zen_init,
-        -- })
+        use({
+            "folke/zen-mode.nvim",
+            config = myConf.Zen_init,
+        })
 
         -- -- Treesitter ---------------------------------------------------------------------------------
         use({
@@ -232,7 +199,7 @@ require("packer").startup({
             "jose-elias-alvarez/null-ls.nvim",
             config = myConf.null_ls,
         })
-        use({ "github/copilot.vim" })
+        -- use({ "github/copilot.vim" })
         -- use({ "mfussenegger/nvim-dap", config = myConf.nvim_dap })
         -- use({ "rcarriga/nvim-dap-ui", config = myConf.dap_ui })
         -- use({
@@ -264,6 +231,10 @@ require("packer").startup({
                 },
                 {
                     "hrsh7th/cmp-calc",
+                    event = "InsertEnter *",
+                },
+                {
+                    "hrsh7th/cmp-cmdline",
                     event = "InsertEnter *",
                 },
                 {

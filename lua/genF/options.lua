@@ -6,7 +6,6 @@ M = {}
 
 function M.treesitter()
     require("nvim-treesitter.configs").setup({
-        ensure_installed = "maintained", -- one of "all", "maintained" (parsers with maintainers), or a list of languages
         highlight = {
             enable = true,
             additional_vim_regex_highlighting = { "latex", "tex" },
@@ -147,11 +146,11 @@ end
 
 function M.nvim_tree()
     require("nvim-tree").setup({
-        disable_netrw = false,
-        hijack_netrw = false,
+        disable_netrw = true,
+        hijack_netrw = true,
         open_on_setup = false,
         ignore_ft_on_setup = {},
-        auto_close = false,
+        auto_close = true,
         open_on_tab = false,
         hijack_cursor = true,
         update_cwd = false,
@@ -252,31 +251,12 @@ function M.indent_blankline()
     vim.g.indent_blankline_show_current_context = true
 
     vim.g.indent_blankline_context_patterns = {
-        "^if",
-        "import",
-        "argument_list",
-        "array",
-        "arrow_function",
-        "block",
-        "switch_statement",
-        "case_statement",
-        "class",
-        "dictionary",
-        "dictionnary",
-        "element",
-        "enum_body",
-        "enum_item",
-        "environment",
-        "except",
-        "for",
-        "func_literal",
-        "function",
-        "method",
-        "object",
-        "table",
-        "try",
-        "while",
-        "with",
+        "^if", "argument_list", "array", "arrow_function",
+        "block", "case_statement", "class", "dictionary",
+        "dictionnary", "element", "enum_body", "enum_item",
+        "environment", "except", "for", "func_literal",
+        "function", "import", "method", "object",
+        "switch_statement", "table", "try", "while", "with",
     }
 
     vim.g.indent_blankline_context_highlight_list = {
@@ -342,49 +322,59 @@ end
 -- │ {{{                 « LSP Configurations »                      │
 -- ┼─────────────────────────────────────────────────────────────────┼
 
-function M.nvim_lsp()
+Lsp_on_attach = function(_, bufnr)
     local opts = { noremap = true, silent = true }
     vim.api.nvim_set_keymap("n", "<space>e", "<cmd>lua vim.diagnostic.open_float()<CR>", opts)
     vim.api.nvim_set_keymap("n", "[d", "<cmd>lua vim.diagnostic.goto_prev()<CR>", opts)
     vim.api.nvim_set_keymap("n", "]d", "<cmd>lua vim.diagnostic.goto_next()<CR>", opts)
     vim.api.nvim_set_keymap("n", "<space>q", "<cmd>lua vim.diagnostic.setloclist()<CR>", opts)
+    vim.api.nvim_buf_set_option(bufnr, "omnifunc", "v:lua.vim.lsp.omnifunc")
+    vim.api.nvim_buf_set_keymap(bufnr, "n", "gD", "<cmd>lua vim.lsp.buf.declaration()<CR>", opts)
+    vim.api.nvim_buf_set_keymap(bufnr, "n", "gd", "<cmd>lua vim.lsp.buf.definition()<CR>", opts)
+    vim.api.nvim_buf_set_keymap(bufnr, "n", "K", "<cmd>lua vim.lsp.buf.hover()<CR>", opts)
+    vim.api.nvim_buf_set_keymap(bufnr, "n", "gi", "<cmd>lua vim.lsp.buf.implementation()<CR>", opts)
+    vim.api.nvim_buf_set_keymap(bufnr, "n", "<C-k>", "<cmd>lua vim.lsp.buf.signature_help()<CR>", opts)
+    vim.api.nvim_buf_set_keymap(bufnr, "n", "<space>wa", "<cmd>lua vim.lsp.buf.add_workspace_folder()<CR>", opts)
+    vim.api.nvim_buf_set_keymap(bufnr, "n", "<space>wr", "<cmd>lua vim.lsp.buf.remove_workspace_folder()<CR>", opts)
+    vim.api.nvim_buf_set_keymap(bufnr, "n", "<space>wl", "<cmd>lua print(vim.inspect(vim.lsp.buf.list_workspace_folders()))<CR>", opts)
+    vim.api.nvim_buf_set_keymap(bufnr, "n", "<space>D", "<cmd>lua vim.lsp.buf.type_definition()<CR>", opts)
+    vim.api.nvim_buf_set_keymap(bufnr, "n", "<space>rn", "<cmd>lua vim.lsp.buf.rename()<CR>", opts)
+    vim.api.nvim_buf_set_keymap(bufnr, "n", "<space>ca", "<cmd>lua vim.lsp.buf.code_action()<CR>", opts)
+    vim.api.nvim_buf_set_keymap(bufnr, "n", "gr", "<cmd>lua vim.lsp.buf.references()<CR>", opts)
+    vim.api.nvim_buf_set_keymap(bufnr, "n", "<space>f", "<cmd>lua vim.lsp.buf.formatting()<CR>", opts)
+end
 
-    local on_attach = function(_, bufnr)
-        vim.api.nvim_buf_set_option(bufnr, "omnifunc", "v:lua.vim.lsp.omnifunc")
 
-        vim.api.nvim_buf_set_keymap(bufnr, "n", "gD", "<cmd>lua vim.lsp.buf.declaration()<CR>", opts)
-        vim.api.nvim_buf_set_keymap(bufnr, "n", "gd", "<cmd>lua vim.lsp.buf.definition()<CR>", opts)
-        vim.api.nvim_buf_set_keymap(bufnr, "n", "K", "<cmd>lua vim.lsp.buf.hover()<CR>", opts)
-        vim.api.nvim_buf_set_keymap(bufnr, "n", "gi", "<cmd>lua vim.lsp.buf.implementation()<CR>", opts)
-        vim.api.nvim_buf_set_keymap(bufnr, "n", "<C-k>", "<cmd>lua vim.lsp.buf.signature_help()<CR>", opts)
-        vim.api.nvim_buf_set_keymap(bufnr, "n", "<space>wa", "<cmd>lua vim.lsp.buf.add_workspace_folder()<CR>", opts)
-        vim.api.nvim_buf_set_keymap(bufnr, "n", "<space>wr", "<cmd>lua vim.lsp.buf.remove_workspace_folder()<CR>", opts)
-        vim.api.nvim_buf_set_keymap(
-            bufnr,
-            "n",
-            "<space>wl",
-            "<cmd>lua print(vim.inspect(vim.lsp.buf.list_workspace_folders()))<CR>",
-            opts
-        )
-        vim.api.nvim_buf_set_keymap(bufnr, "n", "<space>D", "<cmd>lua vim.lsp.buf.type_definition()<CR>", opts)
-        vim.api.nvim_buf_set_keymap(bufnr, "n", "<space>rn", "<cmd>lua vim.lsp.buf.rename()<CR>", opts)
-        vim.api.nvim_buf_set_keymap(bufnr, "n", "<space>ca", "<cmd>lua vim.lsp.buf.code_action()<CR>", opts)
-        vim.api.nvim_buf_set_keymap(bufnr, "n", "gr", "<cmd>lua vim.lsp.buf.references()<CR>", opts)
-        vim.api.nvim_buf_set_keymap(bufnr, "n", "<space>f", "<cmd>lua vim.lsp.buf.formatting()<CR>", opts)
-    end
+function M.nvim_lsp()
     local servers = { "clangd", "rust_analyzer", "tsserver" }
+    local border = {
+        { "╭", "FloatBorder" },
+        { "─", "FloatBorder" },
+        { "╮", "FloatBorder" },
+        { "│", "FloatBorder" },
+        { "╯", "FloatBorder" },
+        { "─", "FloatBorder" },
+        { "╰", "FloatBorder" },
+        { "│", "FloatBorder" },
+    }
+
+    local orig_util_open_floating_preview = vim.lsp.util.open_floating_preview
+    function vim.lsp.util.open_floating_preview(contents, syntax, opts, ...)
+        opts = opts or {}
+        opts.border = opts.border or border
+        return orig_util_open_floating_preview(contents, syntax, opts, ...)
+    end
+
     for _, lsp in pairs(servers) do
         require("lspconfig")[lsp].setup({
-            on_attach = on_attach,
-            flags = {
-                debounce_text_changes = 150,
-            },
+            on_attach = Lsp_on_attach,
         })
     end
+
     vim.lsp.for_each_buffer_client(0, function(client)
         if client.name ~= "" then
-            client.resolved_capabilities.document_formatting = false
-            client.resolved_capabilities.document_range_formatting = false
+            client.resolved_capabilities.document_formatting = true
+            client.resolved_capabilities.document_range_formatting = true
         end
     end)
 end
@@ -401,45 +391,6 @@ function M.LspInstaller()
     --         end
     --     end
     -- end
-    local on_attach = function(_, bufnr)
-        local border = { "╭", "─", "╮", "│", "╯", "─", "╰", "│" }
-        local signs = { Error = " ", Warning = " ", Hint = " ", Information = " " }
-        for type, icon in pairs(signs) do
-            local hl = "LspDiagnosticsSign" .. type
-            vim.fn.sign_define(hl, { text = icon, texthl = hl, numhl = "" })
-        end
-        vim.lsp.handlers["textDocument/hover"] = vim.lsp.with(vim.lsp.handlers.hover, { border = border })
-        vim.lsp.handlers["textDocument/signatureHelp"] = vim.lsp.with(
-            vim.lsp.handlers.signature_help,
-            { border = border }
-        )
-        local function buf_set_keymap(...)
-            vim.api.nvim_buf_set_keymap(bufnr, ...)
-        end
-        local function buf_set_option(...)
-            vim.api.nvim_buf_set_option(bufnr, ...)
-        end
-        buf_set_option("omnifunc", "v:lua.vim.lsp.omnifunc")
-        local opts = { noremap = true, silent = true }
-        buf_set_keymap("n", "gD", "<Cmd>lua vim.lsp.buf.declaration()<CR>", opts)
-        buf_set_keymap("n", "gd", "<Cmd>lua vim.lsp.buf.definition()<CR>", opts)
-        buf_set_keymap("n", "K", "<Cmd>lua vim.lsp.buf.hover()<CR>", opts)
-        buf_set_keymap("n", "gi", "<cmd>lua vim.lsp.buf.implementation()<CR>", opts)
-        buf_set_keymap("n", "<C-k>", "<cmd>lua vim.lsp.buf.signature_help()<CR>", opts)
-        buf_set_keymap("n", "<space>wa", "<cmd>lua vim.lsp.buf.add_workspace_folder()<CR>", opts)
-        buf_set_keymap("n", "<space>wr", "<cmd>lua vim.lsp.buf.remove_workspace_folder()<CR>", opts)
-        buf_set_keymap("n", "<space>wl", "<cmd>lua print(vim.inspect(vim.lsp.buf.list_workspace_folders()))<CR>", opts)
-        buf_set_keymap("n", "<space>td", "<cmd>lua vim.lsp.buf.type_definition()<CR>", opts)
-        buf_set_keymap("n", "<space>rn", "<cmd>lua vim.lsp.buf.rename()<CR>", opts)
-        buf_set_keymap("n", "<space>ca", "<cmd>lua vim.lsp.buf.code_action()<CR>", opts)
-        buf_set_keymap("n", "gr", "<cmd>lua vim.lsp.buf.references()<CR>", opts)
-        buf_set_keymap("n", "<space>e", "<cmd>lua vim.lsp.diagnostic.show_line_diagnostics()<CR>", opts)
-        buf_set_keymap("n", "[d", "<cmd>lua vim.lsp.diagnostic.goto_prev()<CR>", opts)
-        buf_set_keymap("n", "]d", "<cmd>lua vim.lsp.diagnostic.goto_next()<CR>", opts)
-        buf_set_keymap("n", "<space>q", "<cmd>lua vim.lsp.diagnostic.set_loclist()<CR>", opts)
-        buf_set_keymap("n", "<space>f", "<cmd>lua vim.lsp.buf.formatting()<CR>", opts)
-    end
-
     local flags = {
         debounce_text_changes = 100,
     }
@@ -450,7 +401,7 @@ function M.LspInstaller()
             table.insert(runtime_path, "lua/?/init.lua")
             server:setup({
                 flags = flags,
-                on_attach = on_attach,
+                on_attach = Lsp_on_attach,
                 settings = {
                     Lua = {
                         runtime = {
@@ -472,7 +423,7 @@ function M.LspInstaller()
         elseif server.name == "jsonls" then
             server:setup({
                 flags = flags,
-                on_attach = on_attach,
+                on_attach = Lsp_on_attach,
                 filetypes = { "json", "jsonc" },
                 settings = {
                     json = {
@@ -486,19 +437,19 @@ function M.LspInstaller()
         elseif server.name == "tsserver" then
             server:setup({
                 flags = flags,
-                on_attach = on_attach,
+                on_attach = Lsp_on_attach,
                 root_dir = require("lspconfig").util.root_pattern("package.json", "tsconfig.json"),
             })
         elseif server.name == "denols" then
             server:setup({
                 flags = flags,
-                on_attach = on_attach,
+                on_attach = Lsp_on_attach,
                 root_dir = require("lspconfig").util.root_pattern("deno.json", "deno.jsonc"),
             })
         else
             server:setup({
                 flags = flags,
-                on_attach = on_attach,
+                on_attach = Lsp_on_attach,
             })
         end
     end)
@@ -517,14 +468,14 @@ function M.null_ls()
     local null_ls = require("null-ls")
     require("null-ls").setup({
         sources = {
-            null_ls.builtins.formatting.stylua.with({
-                extra_args = { "--indent-type=Spaces" },
-            }),
+            -- null_ls.builtins.formatting.stylua.with({
+            --     extra_args = { "--indent-type=Spaces" },
+            -- }),
             null_ls.builtins.formatting.prettier.with({
                 filetypes = { "yaml", "markdown" },
             }),
             -- null_ls.builtins.formatting.fprettify,
-            -- null_ls.builtins.formatting.autopep8,
+            null_ls.builtins.formatting.autopep8,
             -- null_ls.builtins.diagnostics.teal,
             -- null_ls.builtins.diagnostics.vint,
             -- null_ls.builtins.diagnostics.vale,
@@ -539,7 +490,6 @@ end
 
 function M.nvim_cmp()
     local cmp = require("cmp")
-    local WIDE_HEIGHT = 40
     cmp.setup({
         snippet = {
             expand = function(args)
@@ -558,11 +508,9 @@ function M.nvim_cmp()
                 select = true,
             }),
         },
-        documentation = {
-            border = { "╭", "─", "╮", "│", "╯", "─", "╰", "│" },
-            winhighlight = "NormalFloat:CmpDocumentation,FloatBorder:CmpDocumentationBorder",
-            maxwidth = math.floor((WIDE_HEIGHT * 2) * (vim.o.columns / (WIDE_HEIGHT * 2 * 16 / 9))),
-            maxheight = math.floor(WIDE_HEIGHT * (WIDE_HEIGHT / vim.o.lines)),
+        window = {
+            completion = cmp.config.window.bordered(),
+            documentation = cmp.config.window.bordered(),
         },
         sources = {
             { name = "nvim_lsp" },
@@ -630,6 +578,7 @@ function M.lualine()
             format = nil,
             section_separators = { "", "" },
             component_separators = { "│", "│" },
+            globalstatus = vim.opt.laststatus:get(),
         },
         sections = {
             lualine_a = { { "mode", lower = true } },
@@ -873,83 +822,6 @@ end
 
 --}}}
 -- ┼─────────────────────────────────────────────────────────────────┼
--- │ {{{              « DashBoard Configurations »                   │
--- ┼─────────────────────────────────────────────────────────────────┼
-
-function M.dashboard()
-    vim.g.dashboard_default_executive = "telescope"
-    vim.g.dashboard_custom_section = {
-        buffer_list = {
-            description = { [[ Config Files                                              ]] },
-            command = [[:cd ~/.config/nvim | Telescope find_files]],
-        },
-        find_history = {
-            description = { [[ Recently opened files                                     ]] },
-            command = [[:DashboardFindHistory]],
-        },
-        find_file = {
-            description = { [[ Find file                                                 ]] },
-            command = [[:DashboardFindFile]],
-        },
-        new_file = {
-            description = { [[ New file                                                  ]] },
-            command = [[:DashboardNewFile]],
-        },
-        find_word = {
-            description = { [[ Find word                                                 ]] },
-            command = [[:DashboardFindWord]],
-        },
-    }
-    vim.g.dashboard_custom_header = { [[Satellite]] }
-    -- vim.g.dashboard_custom_footer = {""}
-    vim.cmd([[autocmd FileType dashboard highlight DashboardHeader guifg=#9999bb]])
-end
-
---}}}
--- ┼─────────────────────────────────────────────────────────────────┼
--- │ {{{               « TODO Comment & BQF »                        │
--- ┼─────────────────────────────────────────────────────────────────┼
-
-function M.todo_comment()
-    require("todo-comments").setup({
-        keywords = {
-            ERR = { icon = " ", color = "error", alt = { "ERROR", "ERR" } },
-            FIX = { icon = " ", color = "error", alt = { "FIXME", "BUG", "FIXIT", "ISSUE" } },
-            TODO = { icon = " ", color = "info" },
-            HACK = { icon = " ", color = "warning" },
-            WARN = { icon = " ", color = "warning", alt = { "WARNING" } },
-            PERF = { icon = " ", alt = { "OPTIM", "PERFORMANCE", "OPTIMIZE" } },
-            NOTE = { icon = " ", color = "hint", alt = { "INFO", "REF" } },
-        },
-    })
-end
-
-function M.bqf()
-    require("bqf").setup({
-        auto_enable = true,
-        preview = {
-            win_height = 12,
-            win_vheight = 12,
-            delay_syntax = 80,
-            border_chars = { "│", "│", "─", "─", "╭", "╮", "╰", "╯", "▌" },
-            -- border = { '╭', '─' ,'╮', '│', '╯', '─', '╰', '│' },
-        },
-        func_map = {
-            vsplit = "",
-            ptogglemode = "z,",
-            stoggleup = "",
-        },
-        filter = {
-            fzf = {
-                action_for = { ["ctrl-s"] = "split" },
-                extra_opts = { "--bind", "ctrl-o:toggle-all", "--prompt", "> " },
-            },
-        },
-    })
-end
-
---}}}
--- ┼─────────────────────────────────────────────────────────────────┼
 -- │ {{{                      « Lexima »                             │
 -- ┼─────────────────────────────────────────────────────────────────┼
 function M.lexima_init()
@@ -987,8 +859,10 @@ function M.others()
     vim.g.EasyMotion_do_mapping = 0
     vim.g.EasyMotion_use_migemo = 1
     vim.g.EasyMotion_startofline = 0
+
     -- markdown
     vim.g.vim_markdown_math = 1
+
     -- Ultisnips
     vim.g.UltiSnipsExpandTrigger = "<tab>"
     vim.g.UltiSnipsJumpForwardTrigger = "<c-j>"
@@ -997,28 +871,6 @@ function M.others()
     vim.g.matchup_matchparen_offscreen = {
         method = "popup",
     }
-    vim.cmd([[
-    let g:easy_align_delimiters = {
-        \ '>': { 'pattern': '>>\|=>\|>' },
-        \ '/': {
-        \     'pattern':         '//',
-        \     'left_margin':   2,
-        \     'right_margin':  0,
-        \     'stick_to_left': 0
-        \   },
-        \ ')': {
-        \     'pattern':       '[()]',
-        \     'left_margin':   0,
-        \     'right_margin':  0,
-        \     'stick_to_left': 0
-        \   },
-        \ 'd': {
-        \     'pattern':      ' \(\S\+\s*[;=]\)\@=',
-        \     'left_margin':  0,
-        \     'right_margin': 0
-        \   }
-        \ }
-    ]])
 
     -- Set ColorScheme
     vim.cmd([[
@@ -1033,7 +885,5 @@ end
 --- }}}
 -- ┼─────────────────────────────────────────────────────────────────┼
 
--- Export
-
 return M
--- vim:set foldmethod=marker foldlevel=3 nowrap:
+-- vim:set foldenable foldmethod=marker foldlevel=0 nowrap:

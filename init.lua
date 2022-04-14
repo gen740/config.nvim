@@ -5,11 +5,7 @@ vim.cmd([[source ~/.config/nvim/foldingtxt.vim]])
 -- vim.cmd([[source ~/home/Labo/Project/Preview.nvim/debug.vim]])
 vim.cmd([[
 
-set conceallevel=0
-set concealcursor="invc"
-let g:qs_highlight_on_keys = ['f', 'F', 't', 'T']
-" highlight QuickScopeSecondary guifg=lightblue gui=underline
-highlight QuickScopePrimary guifg='#ffe37e' gui=underline
+" let g:qs_highlight_on_keys = ['f', 'F', 't', 'T']
 " let g:denops#debug = 1
 
 " Preview.vim
