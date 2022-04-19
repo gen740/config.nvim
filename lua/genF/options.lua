@@ -6,70 +6,41 @@ M = {}
 
 function M.treesitter()
     require("nvim-treesitter.configs").setup({
-        highlight = {
-            enable = true,
-            additional_vim_regex_highlighting = { "latex", "tex" },
-        },
-        indent = {
-            enable = false,
-        },
-        incremental_selection = {
-            enable = false,
-        },
-        textobjects = {
-            select = {
-                enable = true,
-                keymaps = {
-                    ["af"] = "@function.outer",
-                    ["if"] = "@function.inner",
-                    ["ac"] = "@class.outer",
-                    ["ic"] = "@class.inner",
-                },
-            },
-            swap = {
-                enable = true,
-                swap_next = {
-                    ["<leader>sp"] = "@parameter.inner",
-                },
-                swap_previous = {
-                    ["<leader>sP"] = "@parameter.inner",
-                },
-            },
-            move = {
-                enable = true,
-                set_jumps = true, -- whether to set jumps in the jumplist
-                goto_next_start = {
-                    ["]m"] = "@function.outer",
-                    ["]]"] = "@class.outer",
-                },
-                goto_next_end = {
-                    ["]M"] = "@function.outer",
-                    ["]["] = "@class.outer",
-                },
-                goto_previous_start = {
-                    ["[m"] = "@function.outer",
-                    ["[["] = "@class.outer",
-                },
-                goto_previous_end = {
-                    ["[M"] = "@function.outer",
-                    ["[]"] = "@class.outer",
-                },
-            },
-        },
+        ensure_installed = { "c", "python", "cpp", "lua", "rust", "vim" },
+        highlight = { enable = true },
+        indent = { enable = false },
+        yati = { enable = true },
         refactor = {
             highlight_definitions = { enable = true },
             highlight_current_scope = { enable = false },
-            smart_rename = {
-                enable = true,
-                keymaps = {
-                    smart_rename = "gs",
-                },
-            },
         },
         matchup = {
-            enable = false,
+            enable = true,
         },
+        autotag = {
+            enable = true,
+        }
     })
+end
+
+function M.treesitter_context()
+    require 'treesitter-context'.setup {
+        enable = true,
+        throttle = true,
+        max_lines = 0,
+        patterns = {
+            default = {
+                'class',
+                'function',
+                'method',
+                -- 'for', -- These won't appear in the context
+                -- 'while',
+                -- 'if',
+                -- 'switch',
+                -- 'case',
+            },
+        }
+    }
 end
 
 -- }}}
@@ -99,6 +70,7 @@ function M.telescope()
                 "--line-number",
                 "--column",
                 "--smart-case",
+                "--trim"
             },
             prompt_prefix = "  ",
             layout_config = {
@@ -111,7 +83,6 @@ function M.telescope()
             selection_strategy = "reset",
             sorting_strategy = "ascending",
             layout_strategy = "horizontal",
-            border = {},
             file_ignore_patterns = {
                 "node_modules/*",
                 "legacy/*",
@@ -123,9 +94,13 @@ function M.telescope()
                 ".gitignore",
             },
             borderchars = { "─", "│", "─", "│", "╭", "╮", "╯", "╰" },
-            -- borderchars = { '─', '│', '─', '│', '┌', '┐', '┘', '└' };
             color_devicons = true,
             use_less = true,
+        },
+        pickers = {
+            find_files = {
+                find_command = { "fd", "--type", "f", "--strip-cwd-prefix" }
+            },
         },
         extensions = {
             fzf = {
@@ -150,7 +125,6 @@ function M.nvim_tree()
         hijack_netrw = true,
         open_on_setup = false,
         ignore_ft_on_setup = {},
-        auto_close = true,
         open_on_tab = false,
         hijack_cursor = true,
         update_cwd = false,
@@ -246,10 +220,9 @@ function M.indent_blankline()
     vim.cmd([[autocmd FileType * highlight IndentBlanklineGreen guifg=#98971a blend=nocombine]])
     vim.cmd([[autocmd FileType * highlight IndentBlanklineGray guifg=#928374 blend=nocombine]])
 
-    vim.g.indentLine_fileTypeExclude = { "dashboard", "markdown" }
+    vim.g.indentLine_fileTypeExclude = { "dashboard", "markdown", "NvimTree", "toggleterm", "qf" }
     -- vim.g.indent_blankline_use_treesitter = true
     vim.g.indent_blankline_show_current_context = true
-
     vim.g.indent_blankline_context_patterns = {
         "^if", "argument_list", "array", "arrow_function",
         "block", "case_statement", "class", "dictionary",
@@ -258,7 +231,6 @@ function M.indent_blankline()
         "function", "import", "method", "object",
         "switch_statement", "table", "try", "while", "with",
     }
-
     vim.g.indent_blankline_context_highlight_list = {
         "IndentBlanklineAqua",
         "IndentBlanklineAqua",
@@ -381,25 +353,16 @@ end
 
 function M.LspInstaller()
     local lsp_installer = require("nvim-lsp-installer")
-    -- local servers = { "clangd", "cmake", "pyright" }
-    -- for _, name in pairs(servers) do
-    --     local server_is_found, server = lsp_installer.get_server(name)
-    --     if server_is_found then
-    --         if not server:is_installed() then
-    --             print("Installing " .. name)
-    --             server:install()
-    --         end
-    --     end
-    -- end
     local flags = {
         debounce_text_changes = 100,
     }
     lsp_installer.on_server_ready(function(server)
+        ---@diagnostic disable
         if server.name == "sumneko_lua" then
             local runtime_path = vim.split(package.path, ";")
             table.insert(runtime_path, "lua/?.lua")
             table.insert(runtime_path, "lua/?/init.lua")
-            server:setup({
+            server:setup({ -- ignore
                 flags = flags,
                 on_attach = Lsp_on_attach,
                 settings = {
@@ -452,6 +415,7 @@ function M.LspInstaller()
                 on_attach = Lsp_on_attach,
             })
         end
+        ---@diagnostic enable
     end)
     lsp_installer.settings({
         ui = {
@@ -514,37 +478,31 @@ function M.nvim_cmp()
         },
         sources = {
             { name = "nvim_lsp" },
-            { name = "buffer", keyword_length = 5 },
+            { name = 'nvim_lsp_signature_help' },
+            { name = "buffer", keyword_length = 3 },
+            { name = 'nvim_lsp_document_symbol' },
             { name = "path" },
             { name = "ultisnips" },
             { name = "calc" },
         },
         formatting = {
-            format = function(entry, vim_item)
-                vim_item.kind = require("lspkind").presets.default[vim_item.kind] .. " " .. vim_item.kind
-                vim_item.menu = ({
-                    buffer = "[Buffer]",
-                    nvim_lsp = "[LSP]",
-                    ultisnips = "[UltiSnips]",
-                    nvim_lua = "[Lua]",
-                    latex_symbols = "[Latex]",
-                })[entry.source.name]
-                return vim_item
-            end,
+            format = require("lspkind").cmp_format({
+                mode = 'symbol',
+                maxwidth = 50,
+                before = function(entry, vim_item)
+                    -- vim_item.kind = require("lspkind").presets.default[vim_item.kind] .. " " -- .. vim_item.kind
+                    vim_item.menu = ({
+                        buffer = "[Buf]",
+                        nvim_lsp = "[LSP]",
+                        ultisnips = "[USnips]",
+                        nvim_lua = "[Lua]",
+                        latex_symbols = "[Latex]",
+                    })[entry.source.name]
+                    return vim_item
+                end
+            })
         },
     })
-end
-
---}}}
--- ┼─────────────────────────────────────────────────────────────────┼
--- │ {{{                   « Nvim LSP Kind »                         │
--- ┼─────────────────────────────────────────────────────────────────┼
-
-function M.nvim_lspkind()
-    -- require("lspkind").init({
-    --     with_text = true,
-    --     preset = "default",
-    -- })
 end
 
 --}}}
@@ -789,7 +747,7 @@ end
 -- ┼─────────────────────────────────────────────────────────────────┼
 
 function M.toggle_term()
-    require("toggleterm").setup({
+    require("toggleterm").setup {
         -- size can be a number or function which is passed the current terminal
         size = function(term)
             if term.direction == "horizontal" then
@@ -799,25 +757,17 @@ function M.toggle_term()
             end
         end,
         open_mapping = [[<m-w>]],
-        hide_numbers = true, -- hide the number column in toggleterm buffers
+        -- hide_numbers = true, -- hide the number column in toggleterm buffers
         shade_filetypes = {},
         shade_terminals = true,
-        shading_factor = "<number>", -- the degree by which to darken to terminal colour, default: 1 for dark backgrounds, 3 for light
+        shading_factor = "1", -- the degree by which to darken to terminal colour, default: 1 for dark backgrounds, 3 for light
         start_in_insert = true,
         insert_mappings = true, -- whether or not the open mapping applies in insert mode
         persist_size = true,
         direction = "horizontal", -- 'vertical' | 'horizontal' | 'window' | 'float',
         close_on_exit = true, -- close the terminal window when the process exits
         shell = vim.o.shell, -- change the default shell
-        float_opts = {
-            border = "single", -- | 'double' | 'shadow' | 'curved' | ... other options supported by win open
-            winblend = 3,
-            highlights = {
-                border = "Normal",
-                background = "Normal",
-            },
-        },
-    })
+    }
 end
 
 --}}}
@@ -829,23 +779,10 @@ function M.lexima_init()
     vim.cmd([[
     try
         call lexima#set_default_rules()
-        call lexima#add_rule({ 'char': '<CR>', 'at': '>\%#<', 'input': '<CR><Up><End><CR>' })
-        call lexima#add_rule({ 'char': '<C-L>', 'at': '\%#\s*)',   'input': '<Left><C-o>:<C-u>normal! f)<CR><Right>' })
-        call lexima#add_rule({ "char": '<C-L>', 'at': '\%#\s*\}',  'input': '<Left><C-o>:<C-u>normal! f}<CR><Right>' })
-        call lexima#add_rule({ "char": '<C-L>', 'at': '\%#\s*\]',  'input': '<Left><C-o>:<C-u>normal! f]<CR><Right>' })
-        call lexima#add_rule({ "char": '<C-L>', 'at': '\%#\s*>',   'input': '<Left><C-o>:<C-u>normal! f><CR><Right>' })
-        call lexima#add_rule({ "char": '<C-L>', 'at': '\%#\s*`',   'input': '<Left><C-o>:<C-u>normal! f`<CR><Right>' })
-        call lexima#add_rule({ "char": '<C-L>', 'at': '\%#\s*"',   'input': '<Left><C-o>:<C-u>normal! f"<CR><Right>' })
-        call lexima#add_rule({ "char": '<C-L>', 'at': '\%#\s*''',  'input': "<Left><C-o>:<C-u>normal! f'<CR><Right>" })
-        " Please add below in your vimrc
-        call lexima#add_rule({'char': '$', 'input_after': '$', 'filetype': 'latex'})
-        " call lexima#add_rule({'char': '\\left(', 'input_after': '\\right)', 'filetype': 'latex'})
-        call lexima#add_rule({'char': '$', 'at': '\%#\$', 'leave': 1, 'filetype': 'latex'})
-        call lexima#add_rule({'char': '<BS>', 'at': '\$\%#\$', 'delete': 1, 'filetype': 'latex'})
     catch
         echo "Please install Lexima Plugin"
     endtry
-        ]])
+    ]])
 end
 
 --}}}
@@ -868,9 +805,7 @@ function M.others()
     vim.g.UltiSnipsJumpForwardTrigger = "<c-j>"
     vim.g.UltiSnipsJumpBackwardTrigger = "<c-k>"
     vim.g.UltiSnipsEditSplit = "vertical"
-    vim.g.matchup_matchparen_offscreen = {
-        method = "popup",
-    }
+    vim.g.matchup_matchparen_offscreen = { method = "popup" }
 
     -- Set ColorScheme
     vim.cmd([[
@@ -882,8 +817,8 @@ function M.others()
     ]])
 end
 
---- }}}
+-- }}}
 -- ┼─────────────────────────────────────────────────────────────────┼
 
 return M
--- vim:set foldenable foldmethod=marker foldlevel=0 nowrap:
+-- vim:set foldenable foldmethod=marker foldlevel=1 nowrap:

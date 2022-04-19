@@ -166,7 +166,9 @@ augroup CustomColorScheme
     autocmd BufRead,BufNewFile * hi Folded guifg=#928374 guibg=none gui=undercurl 
     autocmd TermOpen * setlocal nonumber norelativenumber
 augroup END
+]])
 
+vim.cmd([[
 augroup LuaHighLight
     au!
     au TextYankPost * silent! lua return (not vim.v.event.visual) and require'vim.highlight'.on_yank()
