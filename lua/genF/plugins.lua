@@ -18,29 +18,36 @@ local myConf = require("genF.options")
 
 require("packer").startup {
     function(use)
-        -- Packer -------------------------------------------------------------------------------------
-        use { "wbthomason/packer.nvim", }
+        --------------------------------------------------------------------------------------------
+        ---- Packer --------------------------------------------------------------------------------
+        --------------------------------------------------------------------------------------------
+        use { "wbthomason/packer.nvim", opt = true }
 
-        -- Utilities ----------------------------------------------------------------------------------
-        use { "vim-denops/denops.vim", }
-        use { "unblevable/quick-scope" }
-        use { "cohama/lexima.vim", config = M.lexima_init }
-        use { "machakann/vim-sandwich", }
+        --------------------------------------------------------------------------------------------
+        ---- Utilities -----------------------------------------------------------------------------
+        --------------------------------------------------------------------------------------------
+        use { "vim-denops/denops.vim", opt = true }
+        use { "cohama/lexima.vim", config = M.lexima_init, event = "User load_plugins" }
+        use { "machakann/vim-sandwich", event = "User load_plugins" }
         use { "skywind3000/asyncrun.vim", cmd = { "AsyncRun" } }
-        use { "easymotion/vim-easymotion" }
-        use { "numToStr/Comment.nvim", config = function() require("Comment").setup() end }
-        use { "lewis6991/gitsigns.nvim", requires = "nvim-lua/plenary.nvim", config = myConf.gitsigns }
+        use { "easymotion/vim-easymotion", event = "User load_plugins" }
+        use { "numToStr/Comment.nvim", config = function() require("Comment").setup() end, event = "User load_plugins" }
+        use { "lewis6991/gitsigns.nvim", requires = "nvim-lua/plenary.nvim", config = myConf.gitsigns, event = "User load_plugins" }
         use { "tpope/vim-fugitive", cmd = "Git" }
-        use { "kshenoy/vim-signature" }
+        use { "chentau/marks.nvim" }
         use { "lukas-reineke/indent-blankline.nvim", config = myConf.indent_blankline }
-        use { "akinsho/nvim-toggleterm.lua", config = myConf.toggle_term }
+        use { "akinsho/nvim-toggleterm.lua", config = myConf.toggle_term, cmd = { "ToggleTerm" } }
         use { "mbbill/undotree", cmd = "UndotreeToggle" }
-        use { "andymass/vim-matchup", }
-        use { "folke/zen-mode.nvim", config = myConf.Zen_init }
-        use { "petertriho/nvim-scrollbar", config = function() require("scrollbar").setup() end }
-        use { "tversteeg/registers.nvim" }
+        use { "andymass/vim-matchup", event = "User load_plugins" }
+        use { "folke/zen-mode.nvim", config = myConf.Zen_init, cmd = { "ZenMode" } }
+        use { "petertriho/nvim-scrollbar", config = function() require("scrollbar").setup() end,
+            key = { "j", "k", "<up>", "<down>", "<c-u>", "<c-d>", "<c-f>", "<c-b>" } }
+        use { "tversteeg/registers.nvim", event = "User load_plugins" }
+        use { "justinmk/vim-sneak", key = { "f", "F" } }
 
-        -- Treesitter ---------------------------------------------------------------------------------
+        --------------------------------------------------------------------------------------------
+        ---- Treesitter ----------------------------------------------------------------------------
+        --------------------------------------------------------------------------------------------
         use {
             "nvim-treesitter/nvim-treesitter",
             requires = {
@@ -53,25 +60,30 @@ require("packer").startup {
         }
         -- use { 'romgrk/nvim-treesitter-context', config = myConf.treesitter_context }
 
-        -- Appearance ---------------------------------------------------------------------------------
-        use { "marko-cerovac/material.nvim" }
-        use { "kyazdani42/blue-moon" }
-        use { "mhartington/oceanic-next" }
-        use { "sainnhe/everforest" }
-        use { "kvrohit/substrata.nvim" }
-        use { "ellisonleao/gruvbox.nvim", requires = { "rktjmp/lush.nvim" } }
+        --------------------------------------------------------------------------------------------
+        ---- Appearance ----------------------------------------------------------------------------
+        --------------------------------------------------------------------------------------------
+        -- use { "marko-cerovac/material.nvim" }
+        -- use { "kyazdani42/blue-moon" }
+        -- use { "mhartington/oceanic-next" }
+        -- use { "sainnhe/everforest" }
+        -- use { "kvrohit/substrata.nvim" }
+        -- use { "ellisonleao/gruvbox.nvim", requires = { "rktjmp/lush.nvim" } }
         use { "EdenEast/nightfox.nvim" }
         use { "akinsho/nvim-bufferline.lua", requires = { "kyazdani42/nvim-web-devicons", opt = true }, config = myConf.bufferline }
         use { "hoob3rt/lualine.nvim", requires = { "kyazdani42/nvim-web-devicons", opt = true }, config = myConf.lualine }
-        use { "honza/vim-snippets", event = "VimEnter *" }
-        use { "SirVer/ultisnips", event = "VimEnter *" }
+        use { "SirVer/ultisnips", requires = { "honza/vim-snippets" } }
 
-        -- File Operations ----------------------------------------------------------------------------
-        use { "kyazdani42/nvim-tree.lua", requires = { "kyazdani42/nvim-web-devicons" }, config = myConf.nvim_tree }
-        use { "nvim-telescope/telescope.nvim", requires = { "nvim-lua/popup.nvim", "nvim-lua/plenary.nvim" }, config = myConf.telescope, cmd = { "Telescope" } }
-        use { "nvim-telescope/telescope-fzf-native.nvim", requires = "junegunn/fzf", run = "make" }
+        --------------------------------------------------------------------------------------------
+        ---- File Operations -----------------------------------------------------------------------
+        --------------------------------------------------------------------------------------------
+        use { "kyazdani42/nvim-tree.lua", requires = { "kyazdani42/nvim-web-devicons" }, config = myConf.nvim_tree, cmd = { "NvimTreeToggle" } }
+        use { "nvim-telescope/telescope.nvim", requires = { "nvim-lua/popup.nvim", "nvim-lua/plenary.nvim" }, config = myConf.telescope, event = "User load_plugins" }
+        use { "nvim-telescope/telescope-fzf-native.nvim", requires = "junegunn/fzf", run = "make", }
 
-        -- FileType Plugins ---------------------------------------------------------------------------
+        --------------------------------------------------------------------------------------------
+        ---- FileType Plugins ----------------------------------------------------------------------
+        --------------------------------------------------------------------------------------------
         use { "rhysd/vim-grammarous", ft = { "markdown", "md", "text" } }
         use { "chrisbra/csv.vim", ft = { "csv", "tsv" } }
         use { "junegunn/goyo.vim", ft = { "text", "markdown", "md" } }
@@ -81,31 +93,35 @@ require("packer").startup {
         use { "fuenor/JpFormat.vim", ft = { "text" } }
         use { "rust-lang/rust.vim", ft = { "rust" } }
         use { "chikamichi/mediawiki.vim", ft = { "mediawikix" } }
-        use { "KeitaNakamura/tex-conceal.vim", config = function() vim.g.tex_conceal_frac = 1 end }
-        use { requires = { "kana/vim-textobj-user" }, "rbonvall/vim-textobj-latex" }
+        use { "KeitaNakamura/tex-conceal.vim", config = function() vim.g.tex_conceal_frac = 1 end, ft = { "latex" } }
+        use { requires = { "kana/vim-textobj-user" }, "rbonvall/vim-textobj-latex", ft = { "latex" } }
 
-        -- LSP and Debugger ---------------------------------------------------------------------------
-        use { "neovim/nvim-lspconfig", config = myConf.nvim_lsp }
-        use { "williamboman/nvim-lsp-installer", config = myConf.LspInstaller }
-        use { "jose-elias-alvarez/null-ls.nvim", config = myConf.null_ls }
+        --------------------------------------------------------------------------------------------
+        ---- LSP and Debugger ----------------------------------------------------------------------
+        --------------------------------------------------------------------------------------------
+        use { "neovim/nvim-lspconfig", config = myConf.nvim_lsp, event = "User load_plugins" }
+        use { "williamboman/nvim-lsp-installer", config = myConf.LspInstaller, event = "User load_plugins" }
+        use { "jose-elias-alvarez/null-ls.nvim", config = myConf.null_ls, event = "User load_plugins" }
         use {
             "hrsh7th/nvim-cmp",
             requires = {
                 { "onsails/lspkind-nvim" },
-                { "hrsh7th/cmp-buffer", event = "InsertEnter *" },
-                { "hrsh7th/cmp-nvim-lsp", event = "InsertEnter *" },
-                { "hrsh7th/cmp-nvim-lsp-signature-help", event = "InsertEnter *" },
-                { "hrsh7th/cmp-nvim-lsp-document-symbol", event = "InsertEnter *" },
-                { "hrsh7th/cmp-path", event = "InsertEnter *" },
-                { "hrsh7th/cmp-calc", event = "InsertEnter *" },
-                { "hrsh7th/cmp-cmdline", event = "InsertEnter *" },
-                { "quangnguyen30192/cmp-nvim-ultisnips", event = "InsertEnter" },
+                { "hrsh7th/cmp-buffer", event = "User load_plugins" },
+                { "hrsh7th/cmp-nvim-lsp", event = "User load_plugins" },
+                { "hrsh7th/cmp-nvim-lsp-signature-help", event = "User load_plugins" },
+                { "hrsh7th/cmp-nvim-lsp-document-symbol", event = "User load_plugins" },
+                { "hrsh7th/cmp-path", event = "User load_plugins" },
+                { "hrsh7th/cmp-calc", event = "User load_plugins" },
+                { "hrsh7th/cmp-cmdline", event = "User load_plugins" },
+                { "quangnguyen30192/cmp-nvim-ultisnips", event = "User load_plugins" },
             },
             config = myConf.nvim_cmp,
         }
-        use { "nvim-lua/lsp-status.nvim", config = myConf.lsp_status }
+        use { "nvim-lua/lsp-status.nvim", config = myConf.lsp_status, event = "User load_plugins" }
 
-        -- OBSELETE
+        --------------------------------------------------------------------------------------------
+        ---- Obsolete ------------------------------------------------------------------------------
+        --------------------------------------------------------------------------------------------
         -- use{
         --     "RRethy/vim-hexokinase",
         --     run = "make hexokinase",
