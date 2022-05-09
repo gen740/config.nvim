@@ -6,14 +6,14 @@ local function dir_exists(path)
         error('input error')
         return false
     end
-    local response = os.execute('cd ' .. path)
+    local response = os.execute('cd ' .. path .. ' 2> /dev/null')
     if response == nil then
         return false
     end
     return response
 end
 
-if dir_exists("~/.pyenv/versions/neovim-3/bin/python3") then
+if dir_exists("~/.pyenv/versions/neovim-3/bin") then
     vim.g.python3_host_prog = "~/.pyenv/versions/neovim-3/bin/python3"
 end
 
@@ -159,6 +159,8 @@ augroup CustomColorScheme
     autocmd ColorScheme * hi GitSignsDeleteLn guibg=none  guifg=red
     autocmd ColorScheme * hi Substitute guibg=#ffe37e guifg=#192330
     autocmd ColorScheme * hi Search guibg=#333333 gui=bold guifg=#ffe37e
+    autocmd ColorScheme * hi DiagnosticUnderlineError guibg=#303230 gui=none
+    autocmd ColorScheme * hi DiagnosticUnderlineWarn guibg=#303230 gui=none
     autocmd BufRead,BufNewFile * hi Folded guifg=#928374 guibg=none gui=undercurl
     autocmd TermOpen * setlocal nonumber norelativenumber
 augroup END
@@ -173,7 +175,6 @@ augroup END
 
 vim.cmd([[
     function! s:load_plugins()
-        echo "load_plugins"
     endfunction
     autocmd User load_plugins call s:load_plugins()
     function! s:load_plug(timer)

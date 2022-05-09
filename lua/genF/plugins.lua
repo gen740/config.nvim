@@ -27,8 +27,8 @@ require("packer").startup {
         ---- Utilities -----------------------------------------------------------------------------
         --------------------------------------------------------------------------------------------
         use { "vim-denops/denops.vim", opt = true }
-        use { "cohama/lexima.vim", config = M.lexima_init, event = "User load_plugins" }
-        use { "machakann/vim-sandwich", event = "User load_plugins" }
+        use { "cohama/lexima.vim", config = M.lexima_init }
+        use { "machakann/vim-sandwich" }
         use { "skywind3000/asyncrun.vim", cmd = { "AsyncRun" } }
         use { "easymotion/vim-easymotion", event = "User load_plugins" }
         use { "numToStr/Comment.nvim", config = function() require("Comment").setup() end, event = "User load_plugins" }
@@ -101,19 +101,19 @@ require("packer").startup {
         --------------------------------------------------------------------------------------------
         use { "neovim/nvim-lspconfig", config = myConf.nvim_lsp, event = "User load_plugins" }
         use { "williamboman/nvim-lsp-installer", config = myConf.LspInstaller, event = "User load_plugins" }
-        use { "jose-elias-alvarez/null-ls.nvim", config = myConf.null_ls, event = "User load_plugins" }
+        use { "jose-elias-alvarez/null-ls.nvim", config = myConf.null_ls }
         use {
             "hrsh7th/nvim-cmp",
             requires = {
                 { "onsails/lspkind-nvim" },
-                { "hrsh7th/cmp-buffer", event = "User load_plugins" },
-                { "hrsh7th/cmp-nvim-lsp", event = "User load_plugins" },
-                { "hrsh7th/cmp-nvim-lsp-signature-help", event = "User load_plugins" },
-                { "hrsh7th/cmp-nvim-lsp-document-symbol", event = "User load_plugins" },
-                { "hrsh7th/cmp-path", event = "User load_plugins" },
-                { "hrsh7th/cmp-calc", event = "User load_plugins" },
-                { "hrsh7th/cmp-cmdline", event = "User load_plugins" },
-                { "quangnguyen30192/cmp-nvim-ultisnips", event = "User load_plugins" },
+                { "hrsh7th/cmp-buffer" },
+                { "hrsh7th/cmp-nvim-lsp" },
+                { "hrsh7th/cmp-nvim-lsp-signature-help" },
+                { "hrsh7th/cmp-nvim-lsp-document-symbol" },
+                { "hrsh7th/cmp-path" },
+                { "hrsh7th/cmp-calc" },
+                { "hrsh7th/cmp-cmdline" },
+                { "quangnguyen30192/cmp-nvim-ultisnips" },
             },
             config = myConf.nvim_cmp,
         }
@@ -122,14 +122,14 @@ require("packer").startup {
         --------------------------------------------------------------------------------------------
         ---- Obsolete ------------------------------------------------------------------------------
         --------------------------------------------------------------------------------------------
-        -- use{
-        --     "RRethy/vim-hexokinase",
-        --     run = "make hexokinase",
-        --     config = function()
-        --         vim.g.Hexokinase_highlighters = { "virtual" }
-        --     end,
-        --     cmd = { "HexokinaseToggle" },
-        -- }
+        use {
+            "RRethy/vim-hexokinase",
+            run = "make hexokinase",
+            config = function()
+                vim.g.Hexokinase_highlighters = { "virtual" }
+            end,
+            cmd = { "HexokinaseToggle" },
+        }
         -- use {
         --     "folke/trouble.nvim",
         --     requires = "kyazdani42/nvim-web-devicons",
@@ -148,6 +148,17 @@ require("packer").startup {
         --     run = "make install",
         -- }
         -- use { "github/copilot.vim" }
+        -- use {
+        --     "zbirenbaum/copilot.lua",
+        --     event = { "VimEnter" },
+        --     config = function()
+        --         vim.defer_fn(function()
+        --             require("copilot").setup {
+        --                 ft_disable = { "markdown", "terraform" },
+        --             }
+        --         end, 100)
+        --     end,
+        -- }
     end,
 }
 

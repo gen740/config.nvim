@@ -122,8 +122,8 @@ end
 
 function M.nvim_tree()
     require("nvim-tree").setup({
-        disable_netrw = true,
-        hijack_netrw = true,
+        disable_netrw = false,
+        hijack_netrw = false,
         open_on_setup = false,
         ignore_ft_on_setup = {},
         open_on_tab = false,
@@ -776,8 +776,9 @@ end
 -- │ {{{                      « Lexima »                             │
 -- ┼─────────────────────────────────────────────────────────────────┼
 function M.lexima_init()
-    -- lexima
-    vim.cmd([[
+    vim.defer_fn(function()
+        -- lexima
+        vim.cmd([[
     try
         let g:lexima_enable_basic_rules = 1
         let g:lexima_enable_newline_rules = 1
@@ -786,7 +787,8 @@ function M.lexima_init()
     catch
         echo "Please install Lexima Plugin"
     endtry
-    ]])
+    ]]   )
+    end, 100)
 end
 
 --}}}
@@ -796,22 +798,25 @@ end
 
 -- Easy Motion
 function M.others()
-    vim.g.EasyMotion_keys = "aoeidtnpyfgcrl;qjkxbmwvzuhs" -- This Option is For Dvorak User
-    vim.g.EasyMotion_do_mapping = 0
-    vim.g.EasyMotion_use_migemo = 1
-    vim.g.EasyMotion_startofline = 0
+    vim.defer_fn(function()
+        vim.g.EasyMotion_keys = "aoeidtnpyfgcrl;qjkxbmwvzuhs" -- This Option is For Dvorak User
+        vim.g.EasyMotion_do_mapping = 0
+        vim.g.EasyMotion_use_migemo = 1
+        vim.g.EasyMotion_startofline = 0
 
-    -- markdown
-    vim.g.vim_markdown_math = 1
+        -- markdown
+        vim.g.vim_markdown_math = 1
 
-    -- Ultisnips
-    vim.g.UltiSnipsExpandTrigger = "<tab>"
-    vim.g.UltiSnipsJumpForwardTrigger = "<c-j>"
-    vim.g.UltiSnipsJumpBackwardTrigger = "<c-k>"
-    vim.g.UltiSnipsEditSplit = "vertical"
-    vim.g.matchup_matchparen_offscreen = { method = "popup" }
+        -- Ultisnips
+        vim.g.UltiSnipsExpandTrigger = "<tab>"
+        vim.g.UltiSnipsJumpForwardTrigger = "<c-j>"
+        vim.g.UltiSnipsJumpBackwardTrigger = "<c-k>"
+        vim.g.UltiSnipsEditSplit = "vertical"
+        vim.g.matchup_matchparen_offscreen = { method = "popup" }
 
-    -- Set ColorScheme
+        -- Set ColorScheme
+    end, 100
+    )
     vim.cmd([[
     try
         colo nightfox
