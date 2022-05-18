@@ -346,8 +346,8 @@ function M.nvim_lsp()
 
     vim.lsp.for_each_buffer_client(0, function(client)
         if client.name ~= "" then
-            client.resolved_capabilities.document_formatting = true
-            client.resolved_capabilities.document_range_formatting = true
+            client.server_capabilities.document_formatting = true
+            client.server_capabilities.document_range_formatting = true
         end
     end)
 end

@@ -61,10 +61,6 @@ snippet lr "left right"
 \left$1 $2 \right$1$0
 endsnippet
 
-snippet dfrac "\partial / \partial x"
-\frac{\partial ${1:v}}{\partial ${2:x}}$0
-endsnippet
-
 snippet frac "\partial / \partial x"
 \frac{$1}{$2}$0
 endsnippet
@@ -77,13 +73,13 @@ snippet ddmb "ddot mathbold"
 \ddot{\bm{$1}}$0
 endsnippet
 
-snippet al* "align*"
-\begin{align*}
+snippet al "align"
+\begin{align}
   $1
-\end{align*}$0
+\end{align}$0
 endsnippet
 
-snippet al "align"
+snippet al* "align*"
 \begin{align*}
   $1
 \end{align*}$0
@@ -110,21 +106,11 @@ snippet pm "pmatrix"
 $0
 endsnippet
 
-snippet nnn "nonumber newline"
-\nonumber \\\\
-endsnippet
-
 snippet ib "itembox"
 \begin{itembox}[${1:l}]{${2:title}}
   $3
 \end{itembox}
 $0
-endsnippet
-
-snippet env "environment"
-\begin{$1}
-  $2
-\end{$1}$0
 endsnippet
 
 snippet itz "itemize"
@@ -145,9 +131,30 @@ snippet cas "case environment"
 \end{cases}
 endsnippet
 
-		
 snippet itb "item box"
 \begin{itembox}[${1:l}]{$2}
 	$0
 \end{itembox}
 endsnippet
+
+snippet sum "sum"
+\sum_{$1}^{$2}$0
+endsnippet
+
+snippet mint "minted"
+\begin{minted}[linenos, firstnumber=1, fontsize=\footnotesize, xleftmargin=50pt]{$1}
+$0
+\end{minted}
+endsnippet
+
+snippet mini "minipage"
+\begin{minipage}[b]{$1\linewidth}
+	$0
+\end{minipage}
+endsnippet
+
+snippet lstl "lstlistings"
+\begin{lstlistings}[language=$1, firstline=${2:1}]
+$0
+\end{lstlistings}
+endsnippet	

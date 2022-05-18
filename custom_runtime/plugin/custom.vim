@@ -13,7 +13,7 @@ set cpoptions&vim
 "     call winrestview(l:save)
 "     :silent w
 " endfunction
-"
+
 fun! s:trimUseless()
     let l:save = winsaveview()
     keeppatterns %s/\n\+$/\r/ge
