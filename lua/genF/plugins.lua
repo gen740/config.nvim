@@ -25,9 +25,14 @@ require("packer").startup {
         ---- Utilities -----------------------------------------------------------------------------
         --------------------------------------------------------------------------------------------
         use { "vim-denops/denops.vim", opt = true }
-        use {
-            "cohama/lexima.vim",
-            config = require("genF.plugin_settings.lexima").lexima
+        -- use {
+        --     "cohama/lexima.vim",
+        --     config = require("genF.plugin_settings.lexima").lexima
+        -- }
+        use { 'windwp/nvim-autopairs',
+            config = function()
+                require('nvim-autopairs').setup { check_ts = true }
+            end
         }
         use { "machakann/vim-sandwich" }
         use { "skywind3000/asyncrun.vim", cmd = { "AsyncRun" } }
@@ -135,5 +140,3 @@ require("packer").startup {
         -- use { "rcarriga/nvim-dap-ui", config = require("genF.plugin_settings.dap").dap_ui }
     end,
 }
-
--- myConf.others()

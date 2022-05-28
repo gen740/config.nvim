@@ -52,7 +52,7 @@ function M.nvim_lsp()
         return orig_util_open_floating_preview(contents, syntax, opts, ...)
     end
 
-    local servers = { "rust_analyzer", "tsserver", "texlab", "pyright" }
+    local servers = { "rust_analyzer", "tsserver", "texlab", "pyright", "gopls" }
     for _, lsp in pairs(servers) do
         lspconfig[lsp].setup({
             on_attach = Lsp_on_attach,
@@ -121,6 +121,7 @@ function M.null_ls()
             null_ls.builtins.formatting.prettier.with({
                 filetypes = { "yaml", "markdown" },
             }),
+            -- null_ls.builtins.diagnostics.eslint,
             -- null_ls.builtins.formatting.fprettify,
             null_ls.builtins.formatting.autopep8,
             -- null_ls.builtins.diagnostics.teal,

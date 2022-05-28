@@ -6,11 +6,12 @@ return {
             let g:lexima_enable_basic_rules = 1
             let g:lexima_enable_newline_rules = 1
             let g:lexima_enable_endwise_rules = 1
-            call lexima#set_default_rules()
+            " call lexima#set_default_rules()
         catch
             echo "Please install Lexima Plugin"
         endtry
     ]]       )
         end, 100)
+        vim.call("lexima#set_default_rules")
     end
 }

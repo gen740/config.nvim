@@ -17,9 +17,9 @@ elseif dir_exists("~/.config/nvim-venv/bin") then
     vim.g.python3_host_prog = "~/.config/nvim-venv/bin/python3"
 end
 
-require("genF.options").setup()
-require("genF.keymap").setup()
-require("genF.autocmd").setup()
+require("genF.options")
+require("genF.keymap")
+require("genF.autocmd")
 require("genF.plugins")
 
 vim.cmd([[source ~/.config/nvim/foldingtxt.vim]])
