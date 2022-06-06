@@ -19,7 +19,7 @@ function Lsp_on_attach(_, bufnr)
     vim.api.nvim_buf_set_keymap(bufnr, "n", "<space>rn", "<cmd>lua vim.lsp.buf.rename()<CR>", opts)
     vim.api.nvim_buf_set_keymap(bufnr, "n", "<space>ca", "<cmd>lua vim.lsp.buf.code_action()<CR>", opts)
     vim.api.nvim_buf_set_keymap(bufnr, "n", "gr", "<cmd>lua vim.lsp.buf.references()<CR>", opts)
-    vim.api.nvim_buf_set_keymap(bufnr, "n", "<space>f", "<cmd>lua vim.lsp.buf.formatting()<CR>", opts)
+    vim.api.nvim_buf_set_keymap(bufnr, "n", "<space>f", "<cmd>lua vim.lsp.buf.format {async = true}<CR>", opts)
 end
 
 function M.nvim_lsp()
@@ -101,6 +101,9 @@ function M.nvim_lsp()
     lspconfig.denols.setup {
         on_attach = Lsp_on_attach,
         root_dir = require("lspconfig").util.root_pattern("deno.json", "deno.jsonc"),
+    }
+    lspconfig.cmake.setup {
+        on_attach = Lsp_on_attach,
     }
 
     vim.lsp.for_each_buffer_client(0, function(client)

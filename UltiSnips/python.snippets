@@ -2,3 +2,27 @@ snippet def "function"
 def $1($2):
     ${3:pass}
 endsnippet
+
+snippet matplotlib "matplotlib"
+import numpy as np
+import matplotlib.pyplot as plt
+
+ax: plt.Axes
+fig: plt.Figure
+
+fig, ax = plt.subplots()
+x = np.linspace(0, np.pi, 100)
+
+def f(x):
+    return np.sin(x)
+
+
+ax.plot(x, f(x))
+
+plt.show()
+endsnippet
+
+snippet mplxyax "matplotlib axes"
+ax.arrow(0, 0, 1, 0, head_width=0.1, head_length=0.1, color='k')
+ax.arrow(0, 0, 0, 1, head_width=0.1, head_length=0.1, color='k')
+endsnippet

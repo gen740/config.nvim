@@ -10,8 +10,8 @@ set cpo&vim
 
 nnoremap <m-r> :silent AsyncRun make run<cr>
 nnoremap <m-c> :vertical copen<cr>:vertical resize 5<cr>:wincmd h<cr>:silent AsyncRun make build<cr>
-nnoremap ® :silent AsyncRun make run<cr>
-nnoremap ç :vertical copen<cr>:vertical resize 5<cr>:wincmd h<cr>:silent AsyncRun make build<cr>
+" nnoremap ® :silent AsyncRun make run<cr>
+" nnoremap ç :vertical copen<cr>:vertical resize 5<cr>:wincmd h<cr>:silent AsyncRun make build<cr>
 
 set conceallevel=2
 let g:tex_conceal='admgs'
@@ -21,11 +21,11 @@ let g:tex_fast= "MS"
 set concealcursor="invc"
 hi Conceal guifg=#719cd6
 
-scriptencoding utf-8
-augroup CUSTOM_TEX_AUCMD
-  autocmd BufWritePost *.tex :AsyncRun make build
-  autocmd Syntax * syn match TexThereFore /\\therefore/ conceal cchar=∴
-augroup END
+" scriptencoding utf-8
+" augroup CUSTOM_TEX_AUCMD
+"   autocmd BufWritePost *.tex :AsyncRun make build
+"   autocmd Syntax * syn match TexThereFore /\\therefore/ conceal cchar=∴
+" augroup END
 " :silent Copilot disable
 
 
