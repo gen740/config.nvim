@@ -1,6 +1,6 @@
-if vim.fn.has('nvim-0.7') then
-    vim.opt.laststatus = 3
-end
+-- if vim.fn.has('nvim-0.7') then
+vim.opt.laststatus = 0
+-- end
 
 vim.opt.clipboard = 'unnamed'
 vim.opt.colorcolumn = '100'
@@ -43,7 +43,7 @@ vim.opt.tabstop = 4
 vim.opt.shiftwidth = 4
 vim.opt.softtabstop = 4
 
-vim.opt.showtabline = 2
+vim.opt.showtabline = 0
 vim.opt.undodir = os.getenv('HOME') .. '/.vim/undo'
 vim.opt.undofile = true
 vim.opt.undolevels = 10000

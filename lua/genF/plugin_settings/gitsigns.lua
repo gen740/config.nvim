@@ -18,7 +18,7 @@ return {
                     linehl = "GitSignsChangeLn",
                 },
             },
-            numhl = true,
+            numhl = false,
             linehl = false,
             keymaps = {
                 -- Default keymap options

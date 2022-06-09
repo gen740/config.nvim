@@ -1,8 +1,8 @@
 vim.cmd([[let mapleader = "\<Space>"]])
 
 -- stylua: ignore start
-vim.api.nvim_set_keymap("n", "<c-n>", "<cmd>BufferLineCycleNext<cr>", { noremap = false, silent = true })
-vim.api.nvim_set_keymap("n", "<c-p>", "<cmd>BufferLineCyclePrev<cr>", { noremap = false, silent = true })
+-- vim.api.nvim_set_keymap("n", "<c-n>", "<cmd>BufferLineCycleNext<cr>", { noremap = false, silent = true })
+-- vim.api.nvim_set_keymap("n", "<c-p>", "<cmd>BufferLineCyclePrev<cr>", { noremap = false, silent = true })
 vim.api.nvim_set_keymap("n", "<c-q>", "<cmd>NvimTreeToggle<cr>", { noremap = true, silent = true })
 
 vim.api.nvim_set_keymap("n", "<m-j>", "<cmd>resize +2<cr>", { noremap = true, silent = true })
@@ -18,13 +18,13 @@ vim.api.nvim_set_keymap("n", "<leader>tcb", "<cmd>Telescope current_buffer_fuzzy
 vim.api.nvim_set_keymap("n", "<leader>tb", "<cmd>Telescope git_branches<cr>", { noremap = true, silent = true })
 vim.api.nvim_set_keymap("n", "<leader>tg", "<cmd>Telescope git_files<cr>", { noremap = true, silent = true })
 vim.api.nvim_set_keymap("n", "<leader>tf", "<cmd>Telescope find_files<cr>", { noremap = true, silent = true })
-vim.api.nvim_set_keymap("n", "<leader>tn", "<cmd>Telescope file_browser<cr>", { noremap = true, silent = true })
+vim.api.nvim_set_keymap("n", "<leader>tn", "<cmd>Telescope buffers<cr>", { noremap = true, silent = true })
 vim.api.nvim_set_keymap("n", "<leader>tl", "<cmd>Telescope live_grep<cr>", { noremap = true, silent = true })
 vim.api.nvim_set_keymap("n", "<leader>ts", ":Telescope", { noremap = false, silent = false })
 
-vim.api.nvim_set_keymap("n", "<leader>bc", "<cmd>BufferLinePickClose<cr>", { noremap = false, silent = true })
-vim.api.nvim_set_keymap("n", "<leader>bn", "<cmd>BufferLineMoveNext<cr>", { noremap = false, silent = true })
-vim.api.nvim_set_keymap("n", "<leader>bp", "<cmd>BufferLineMovePrev<cr>", { noremap = false, silent = true })
+-- vim.api.nvim_set_keymap("n", "<leader>bc", "<cmd>BufferLinePickClose<cr>", { noremap = false, silent = true })
+-- vim.api.nvim_set_keymap("n", "<leader>bn", "<cmd>BufferLineMoveNext<cr>", { noremap = false, silent = true })
+-- vim.api.nvim_set_keymap("n", "<leader>bp", "<cmd>BufferLineMovePrev<cr>", { noremap = false, silent = true })
 
 vim.api.nvim_set_keymap("n", "<leader>ut", "<cmd>UndotreeToggle<cr>", { noremap = true, silent = true })
 
@@ -42,5 +42,21 @@ vim.api.nvim_set_keymap("n", "gk", "k", { noremap = true, silent = true })
 vim.api.nvim_set_keymap("t", "<m-b>", [[<c-\><c-n>]], { noremap = true, silent = true })
 vim.api.nvim_set_keymap("v", "<leader>s", ":sort<cr>", { noremap = true, silent = true })
 
-vim.api.nvim_set_keymap('n', 'q:', [[<nop>]], { noremap = true, silent = true })
+vim.api.nvim_set_keymap("n", "<C-p>", "<C-^>", { noremap = true, silent = true })
+
+vim.api.nvim_set_keymap("n", "<C-g>", "<cmd>lua Toggle_status()<cr>", { noremap = true, silent = true })
+
+function Toggle_status()
+    if vim.go.laststatus == 0 then
+        if vim.fn.has('nvim-0.7') then
+            vim.go.laststatus = 3
+        else
+            vim.go.laststatus = 2
+        end
+    else
+        vim.go.laststatus = 0
+    end
+end
+
+-- vim.api.nvim_set_keymap('n', 'q:', [[<nop>]], { noremap = true, silent = true })
 -- stylua: ignore end

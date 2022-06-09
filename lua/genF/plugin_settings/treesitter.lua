@@ -5,7 +5,6 @@ function M.treesitter()
         ensure_installed = { "c", "python", "cpp", "lua", "rust", "vim" },
         highlight = { enable = true },
         indent = { enable = false },
-        yati = { enable = true },
         refactor = {
             highlight_definitions = { enable = true },
             highlight_current_scope = { enable = false },

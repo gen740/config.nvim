@@ -25,39 +25,38 @@ require('packer').startup {
         ---- Utilities -----------------------------------------------------------------------------
         --------------------------------------------------------------------------------------------
         use { 'vim-denops/denops.vim', opt = true }
-        use {
-            'cohama/lexima.vim',
-            config = require('genF.plugin_settings.lexima').lexima
-        }
-        -- use { 'windwp/nvim-autopairs',
-        --     config = function()
-        --         require('nvim-autopairs').setup { check_ts = true }
-        --     end
-        -- }
+        use { 'cohama/lexima.vim', config = require('genF.plugin_settings.lexima').lexima }
         use { 'machakann/vim-sandwich' }
         use { 'skywind3000/asyncrun.vim', cmd = { 'AsyncRun' } }
         use { 'easymotion/vim-easymotion', event = 'User load_plugins' }
         use { 'numToStr/Comment.nvim', config = function() require('Comment').setup {} end, event = 'User load_plugins' }
+        use { 'mbbill/undotree', cmd = 'UndotreeToggle' }
+        use { 'andymass/vim-matchup', event = 'User load_plugins' }
+        use { 'folke/zen-mode.nvim', config = require('genF.plugin_settings.zen').zen, cmd = { 'ZenMode' } }
+        use { 'tpope/vim-fugitive', cmd = 'Git' }
+        use { 'chentau/marks.nvim' }
+        use { 'tversteeg/registers.nvim', event = 'User load_plugins' }
+        -- use { 'justinmk/vim-sneak', key = { 'f', 'F' } }
         use {
             'lewis6991/gitsigns.nvim',
             requires = 'nvim-lua/plenary.nvim',
             config = require('genF.plugin_settings.gitsigns').gitsigns,
             event = 'User load_plugins'
         }
-        use { 'tpope/vim-fugitive', cmd = 'Git' }
-        use { 'chentau/marks.nvim' }
         use {
             'lukas-reineke/indent-blankline.nvim',
             config = require('genF.plugin_settings.indent_blankline').indent_blankline
         }
-        use { 'akinsho/nvim-toggleterm.lua', config = require('genF.plugin_settings.toggle_term').toggle_term, cmd = { 'ToggleTerm' } }
-        use { 'mbbill/undotree', cmd = 'UndotreeToggle' }
-        use { 'andymass/vim-matchup', event = 'User load_plugins' }
-        use { 'folke/zen-mode.nvim', config = require('genF.plugin_settings.zen').zen, cmd = { 'ZenMode' } }
-        use { 'petertriho/nvim-scrollbar', config = function() require('scrollbar').setup() end,
-            key = { 'j', 'k', '<up>', '<down>', '<c-u>', '<c-d>', '<c-f>', '<c-b>' } }
-        use { 'tversteeg/registers.nvim', event = 'User load_plugins' }
-        use { 'justinmk/vim-sneak', key = { 'f', 'F' } }
+        use {
+            'akinsho/nvim-toggleterm.lua',
+            config = require('genF.plugin_settings.toggle_term').toggle_term,
+            cmd = { 'ToggleTerm' }
+        }
+        use {
+            'petertriho/nvim-scrollbar',
+            config = function() require('scrollbar').setup() end,
+            key = { 'j', 'k', '<up>', '<down>', '<c-u>', '<c-d>', '<c-f>', '<c-b>' }
+        }
 
         --------------------------------------------------------------------------------------------
         ---- Treesitter ----------------------------------------------------------------------------
@@ -67,40 +66,69 @@ require('packer').startup {
             requires = {
                 'nvim-treesitter/nvim-treesitter-textobjects',
                 'nvim-treesitter/nvim-treesitter-refactor',
-                'yioneko/nvim-yati',
                 'nvim-treesitter/playground'
             },
             config = require('genF.plugin_settings.treesitter').treesitter,
         }
-        use { 'romgrk/nvim-treesitter-context', config = require('genF.plugin_settings.treesitter').treesitter_context }
+        -- use {
+        --     'romgrk/nvim-treesitter-context',
+        --     config = require('genF.plugin_settings.treesitter').treesitter_context
+        -- }
 
         --------------------------------------------------------------------------------------------
         ---- Appearance ----------------------------------------------------------------------------
         --------------------------------------------------------------------------------------------
         ---- Color Scheme
+        use { 'EdenEast/nightfox.nvim' }
         -- use { 'marko-cerovac/material.nvim' }
         -- use { 'kyazdani42/blue-moon' }
         -- use { 'mhartington/oceanic-next' }
         -- use { 'sainnhe/everforest' }
         -- use { 'kvrohit/substrata.nvim' }
-        use { 'ellisonleao/gruvbox.nvim', requires = { 'rktjmp/lush.nvim' } }
-        use { 'EdenEast/nightfox.nvim' }
+        -- use { 'ellisonleao/gruvbox.nvim', requires = { 'rktjmp/lush.nvim' } }
         -- use { 'doums/darcula' }
         -- use { 'arcticicestudio/nord-vim' }
         -- use { 'ray-x/aurora' }
         -- use { 'Rigellute/rigel' }
         -- use { 'dracula/vim' }
         ---- Bufferline
-        use { 'akinsho/nvim-bufferline.lua', requires = { 'kyazdani42/nvim-web-devicons', opt = true }, config = require('genF.plugin_settings.statusline').bufferline }
-        use { 'hoob3rt/lualine.nvim', requires = { 'kyazdani42/nvim-web-devicons', opt = true }, config = require('genF.plugin_settings.statusline').lualine }
+        -- use {
+        --     'akinsho/nvim-bufferline.lua',
+        --     requires = { 'kyazdani42/nvim-web-devicons', opt = true },
+        --     config = require('genF.plugin_settings.statusline').bufferline
+        -- }
+
+        use { 'hoob3rt/lualine.nvim',
+            requires = { 'kyazdani42/nvim-web-devicons', opt = true },
+            config = require('genF.plugin_settings.statusline').lualine
+        }
+
         use { 'SirVer/ultisnips', requires = { 'honza/vim-snippets' } }
 
         --------------------------------------------------------------------------------------------
         ---- File Operations -----------------------------------------------------------------------
         --------------------------------------------------------------------------------------------
-        use { 'kyazdani42/nvim-tree.lua', requires = { 'kyazdani42/nvim-web-devicons' }, config = require('genF.plugin_settings.nvim_tree').nvim_tree, cmd = { 'NvimTreeToggle' } }
-        use { 'nvim-telescope/telescope.nvim', requires = { 'nvim-lua/popup.nvim', 'nvim-lua/plenary.nvim' }, config = require('genF.plugin_settings.telescope').telescope, event = 'User load_plugins' }
-        use { 'nvim-telescope/telescope-fzf-native.nvim', requires = 'junegunn/fzf', run = 'make', }
+        use {
+            'kyazdani42/nvim-tree.lua',
+            requires = { 'kyazdani42/nvim-web-devicons' },
+            config = require('genF.plugin_settings.nvim_tree').nvim_tree,
+            cmd = { 'NvimTreeToggle' }
+        }
+
+        use {
+            'nvim-telescope/telescope.nvim',
+            requires = {
+                'nvim-lua/popup.nvim', 'nvim-lua/plenary.nvim'
+            },
+            config = require('genF.plugin_settings.telescope').telescope,
+            event = 'User load_plugins'
+        }
+
+        use {
+            'nvim-telescope/telescope-fzf-native.nvim',
+            requires = 'junegunn/fzf',
+            run = 'make',
+        }
 
         --------------------------------------------------------------------------------------------
         ---- FileType Plugins ----------------------------------------------------------------------
@@ -122,8 +150,15 @@ require('packer').startup {
         --------------------------------------------------------------------------------------------
         use { 'williamboman/nvim-lsp-installer' }
         use { 'neovim/nvim-lspconfig', config = require('genF.plugin_settings.lsp').nvim_lsp }
-        use { 'p00f/clangd_extensions.nvim', requires = { 'neovim/nvim-lspconfig' }, config = require('genF.plugin_settings.lsp').clangd_extentions }
-        use { 'jose-elias-alvarez/null-ls.nvim', config = require('genF.plugin_settings.lsp').null_ls }
+        use {
+            'p00f/clangd_extensions.nvim',
+            requires = { 'neovim/nvim-lspconfig' },
+            config = require('genF.plugin_settings.lsp').clangd_extentions
+        }
+        use {
+            'jose-elias-alvarez/null-ls.nvim',
+            config = require('genF.plugin_settings.lsp').null_ls
+        }
         use {
             'hrsh7th/nvim-cmp',
             requires = {
@@ -141,7 +176,11 @@ require('packer').startup {
             },
             config = require('genF.plugin_settings.nvim_cmp').nvim_cmp
         }
-        use { 'nvim-lua/lsp-status.nvim', config = require('genF.plugin_settings.statusline').lsp_status, event = 'User load_plugins' }
+        use {
+            'nvim-lua/lsp-status.nvim',
+            config = require('genF.plugin_settings.statusline').lsp_status,
+            event = 'User load_plugins'
+        }
         use { 'junegunn/vim-easy-align' }
         -- use { 'mfussenegger/nvim-dap', config = require('genF.plugin_settings.dap').nvim_dap }
         -- use { 'rcarriga/nvim-dap-ui', config = require('genF.plugin_settings.dap').dap_ui }

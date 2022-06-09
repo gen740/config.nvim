@@ -21,6 +21,10 @@ local function change_color()
     vim.api.nvim_set_hl(0, "NvimTreeNormal", { bg = nil, fg = "#cdcecf" })
     vim.api.nvim_set_hl(0, "TelescopeNormal", { bg = nil, fg = "#cdcecf" })
     vim.api.nvim_set_hl(0, "Substitute", { bg = "#ffe37e", fg = "#192330" })
+    vim.api.nvim_set_hl(0, "Folded", { bg = nil, fg = "#71839b" })
+    vim.api.nvim_set_hl(0, "LineNrAbove", { bg = nil, fg = "#5b6282" })
+    vim.api.nvim_set_hl(0, "LineNrBelow", { bg = nil, fg = "#5b6282" })
+    vim.api.nvim_set_hl(0, "LineNr", { bg = nil, fg = "yellow" })
     -- vim.api.nvim_set_hl(0, "VertSplit", { bg = nil })
     -- autocmd ColorScheme * hi CmpDocumentation guibg=none
     -- autocmd ColorScheme * hi CmpDocumentationBorder guibg=none
@@ -37,22 +41,6 @@ vim.api.nvim_create_autocmd({ "ColorScheme" }, {
     callback = change_color
 })
 
-vim.api.nvim_create_autocmd({ "WinEnter", "BufEnter", "BufWinEnter", "FocusGained", "InsertLeave" },
-    {
-        callback = function()
-            vim.opt.cursorline = true
-        end
-    }
-)
-
-vim.api.nvim_create_autocmd({ "BufLeave", "BufWinLeave", "FocusLost", "InsertEnter" },
-    {
-        callback = function()
-            vim.opt.cursorline = false
-        end
-    }
-)
-
 vim.api.nvim_create_autocmd({ "TermOpen" },
     {
         callback = function()
@@ -62,7 +50,6 @@ vim.api.nvim_create_autocmd({ "TermOpen" },
     }
 )
 
--- highight on yank
 vim.api.nvim_create_autocmd({ "TextYankPost" },
     {
         callback = function()
