@@ -14,7 +14,8 @@ function Lsp_on_attach(_, bufnr)
     vim.api.nvim_buf_set_keymap(bufnr, "n", "<C-k>", "<cmd>lua vim.lsp.buf.signature_help()<CR>", opts)
     vim.api.nvim_buf_set_keymap(bufnr, "n", "<space>wa", "<cmd>lua vim.lsp.buf.add_workspace_folder()<CR>", opts)
     vim.api.nvim_buf_set_keymap(bufnr, "n", "<space>wr", "<cmd>lua vim.lsp.buf.remove_workspace_folder()<CR>", opts)
-    vim.api.nvim_buf_set_keymap(bufnr, "n", "<space>wl", "<cmd>lua print(vim.inspect(vim.lsp.buf.list_workspace_folders()))<CR>", opts)
+    vim.api.nvim_buf_set_keymap(bufnr, "n", "<space>wl",
+        "<cmd>lua print(vim.inspect(vim.lsp.buf.list_workspace_folders()))<CR>", opts)
     vim.api.nvim_buf_set_keymap(bufnr, "n", "<space>D", "<cmd>lua vim.lsp.buf.type_definition()<CR>", opts)
     vim.api.nvim_buf_set_keymap(bufnr, "n", "<space>rn", "<cmd>lua vim.lsp.buf.rename()<CR>", opts)
     vim.api.nvim_buf_set_keymap(bufnr, "n", "<space>ca", "<cmd>lua vim.lsp.buf.code_action()<CR>", opts)
@@ -105,7 +106,9 @@ function M.nvim_lsp()
     lspconfig.cmake.setup {
         on_attach = Lsp_on_attach,
     }
-
+    lspconfig.julials.setup {
+        on_attach = Lsp_on_attach,
+    }
     vim.lsp.for_each_buffer_client(0, function(client)
         if client.name ~= "" then
             client.server_capabilities.document_formatting = true

@@ -1,6 +1,7 @@
--- if vim.fn.has('nvim-0.7') then
-vim.opt.laststatus = 0
--- end
+if vim.fn.has('nvim-0.7') then
+    vim.opt.laststatus = 0
+    vim.opt.cmdheight = 1
+end
 
 vim.opt.clipboard = 'unnamed'
 vim.opt.colorcolumn = '100'
@@ -17,7 +18,7 @@ vim.opt.inccommand = 'nosplit'
 vim.opt.incsearch = true
 
 vim.opt.list = true
-vim.opt.listchars = [[tab:»-,trail:▒,extends:»,precedes:«,nbsp:%]] -- ,eol:↲│,conceal:◇
+vim.opt.listchars = [[tab:»-,trail:█,extends:»,precedes:«,nbsp:%]] -- ,eol:↲│,conceal:◇
 
 vim.opt.modeline = true
 vim.opt.mouse:append('a')

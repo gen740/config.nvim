@@ -8,8 +8,8 @@ let s:save_cpo = &cpo
 set cpo&vim
 " vint: +ProhibitAbbreviationOption
 
-nnoremap <m-r> :silent AsyncRun make run<cr>
-nnoremap <m-c> :vertical copen<cr>:vertical resize 5<cr>:wincmd h<cr>:silent AsyncRun make build<cr>
+nnoremap <m-r> <cmd>silent AsyncRun make run<cr>
+nnoremap <m-c> <cmd>silent AsyncRun make build<cr>
 " nnoremap ® :silent AsyncRun make run<cr>
 " nnoremap ç :vertical copen<cr>:vertical resize 5<cr>:wincmd h<cr>:silent AsyncRun make build<cr>
 

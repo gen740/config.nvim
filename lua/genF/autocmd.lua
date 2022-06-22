@@ -25,7 +25,8 @@ local function change_color()
     vim.api.nvim_set_hl(0, "LineNrAbove", { bg = nil, fg = "#5b6282" })
     vim.api.nvim_set_hl(0, "LineNrBelow", { bg = nil, fg = "#5b6282" })
     vim.api.nvim_set_hl(0, "LineNr", { bg = nil, fg = "yellow" })
-    -- vim.api.nvim_set_hl(0, "VertSplit", { bg = nil })
+    -- vim.api.nvim_set_hl(0, "FidgetTask", { bg = nil, fg = "#ffffff" })
+    -- vim.api.nvim_set_hl(0, "FidgetTitle", { bg = nil, fg = "#ffffff" })
     -- autocmd ColorScheme * hi CmpDocumentation guibg=none
     -- autocmd ColorScheme * hi CmpDocumentationBorder guibg=none
     -- autocmd ColorScheme * hi DiagnosticUnderlineError guibg=#303230 gui=none

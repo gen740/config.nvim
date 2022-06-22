@@ -179,8 +179,8 @@ require('packer').startup {
         use {
             'nvim-lua/lsp-status.nvim',
             config = require('genF.plugin_settings.statusline').lsp_status,
-            event = 'User load_plugins'
         }
+        use { 'j-hui/fidget.nvim', config = function() require('fidget').setup {} end }
         use { 'junegunn/vim-easy-align' }
         -- use { 'mfussenegger/nvim-dap', config = require('genF.plugin_settings.dap').nvim_dap }
         -- use { 'rcarriga/nvim-dap-ui', config = require('genF.plugin_settings.dap').dap_ui }

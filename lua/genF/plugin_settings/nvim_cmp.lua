@@ -14,7 +14,7 @@ return {
                 ["<C-f>"] = cmp.mapping.scroll_docs(4),
                 -- ["<C-c>"] = cmp.mapping.complete(),
                 ["<C-o>"] = cmp.mapping.close(),
-                ["<C-e>"] = cmp.mapping.confirm({
+                ["<C-t>"] = cmp.mapping.confirm({
                     behavior = cmp.ConfirmBehavior.Replace,
                     select = true,
                 }),

@@ -56,11 +56,13 @@ vim.defer_fn(
 
         -- Ultisnips
         vim.g.UltiSnipsExpandTrigger = "<tab>"
-        vim.g.UltiSnipsJumpForwardTrigger = "<c-j>"
+        vim.g.UltiSnipsJumpForwardTrigger = "<c-e>"
         vim.g.UltiSnipsJumpBackwardTrigger = "<c-k>"
         vim.g.UltiSnipsEditSplit = "vertical"
         vim.g.matchup_matchparen_offscreen = { method = "popup" }
 
+        vim.api.nvim_set_hl(0, "FigetTask", { bg = nil, fg = "#ffffff" })
+        vim.api.nvim_set_hl(0, "FigetTitle", { bg = nil, fg = "#ffffff" })
         -- Set ColorScheme
-    end, 100
+    end, 1000
 )
