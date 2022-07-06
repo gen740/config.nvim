@@ -13,7 +13,7 @@ nnoremap <m-c> <cmd>silent AsyncRun make build<cr>
 " nnoremap ® :silent AsyncRun make run<cr>
 " nnoremap ç :vertical copen<cr>:vertical resize 5<cr>:wincmd h<cr>:silent AsyncRun make build<cr>
 
-set conceallevel=2
+set conceallevel=0
 let g:tex_conceal='admgs'
 let g:tex_fast= "MS"
 " set conceallevel=0

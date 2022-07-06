@@ -26,16 +26,6 @@ vim.cmd([[source ~/.config/nvim/foldingtxt.vim]])
 vim.cmd([[source ~/.config/nvim/gui.vim]])
 
 vim.cmd([[
-    function! s:load_plugins()
-    endfunction
-    autocmd User load_plugins call s:load_plugins()
-    function! s:load_plug(timer)
-        doautocmd User load_plugins
-    endfunction
-    call timer_start(300, function("s:load_plug"))
-]])
-
-vim.cmd([[
     try
         colo nightfox
     catch
@@ -51,9 +41,6 @@ vim.defer_fn(
         vim.g.EasyMotion_use_migemo = 1
         vim.g.EasyMotion_startofline = 0
 
-        -- markdown
-        vim.g.vim_markdown_math = 1
-
         -- Ultisnips
         vim.g.UltiSnipsExpandTrigger = "<tab>"
         vim.g.UltiSnipsJumpForwardTrigger = "<c-e>"
@@ -64,5 +51,5 @@ vim.defer_fn(
         vim.api.nvim_set_hl(0, "FigetTask", { bg = nil, fg = "#ffffff" })
         vim.api.nvim_set_hl(0, "FigetTitle", { bg = nil, fg = "#ffffff" })
         -- Set ColorScheme
-    end, 1000
+    end, 100
 )

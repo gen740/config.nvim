@@ -25,15 +25,15 @@ end
 
 function M.nvim_lsp()
     -- lsp-installer
-    require("nvim-lsp-installer").setup {
-        ui = {
-            icons = {
-                server_installed = "✓",
-                server_pending = "➜",
-                server_uninstalled = "✗",
-            },
-        },
-    }
+    -- require("nvim-lsp-installer").setup {
+    --     ui = {
+    --         icons = {
+    --             server_installed = "✓",
+    --             server_pending = "➜",
+    --             server_uninstalled = "✗",
+    --         },
+    --     },
+    -- }
     -- lspconfig
     local lspconfig = require("lspconfig")
     local border = {
@@ -53,7 +53,18 @@ function M.nvim_lsp()
         return orig_util_open_floating_preview(contents, syntax, opts, ...)
     end
 
-    local servers = { "rust_analyzer", "tsserver", "texlab", "pyright", "gopls" }
+    local servers = {
+        "rust_analyzer",
+        "tsserver",
+        "texlab",
+        "pylsp",
+        "gopls",
+        "sourcekit",
+        "cmake",
+        "julials",
+        "yamlls"
+    }
+
     for _, lsp in pairs(servers) do
         lspconfig[lsp].setup({
             on_attach = Lsp_on_attach,
@@ -83,6 +94,35 @@ function M.nvim_lsp()
             },
         },
     }
+    lspconfig.pylsp.setup {
+        settings = {
+            pylsp = {
+                -- configurationSources = { "flake8" },
+                plugins = {
+                    -- jedi_completion = { enabled = true },
+                    -- jedi_hover = { enabled = true },
+                    -- jedi_references = { enabled = true },
+                    -- jedi_signature_help = { enabled = true },
+                    -- jedi_symbols = { enabled = true, all_scopes = true },
+                    pycodestyle = { enabled = true },
+                    -- flake8 = {
+                    --     enabled = true,
+                    --     ignore = {},
+                    --     maxLineLength = 160
+                    -- },
+                    -- mypy = { enabled = true },
+                    isort = { enabled = true },
+                    -- yapf = { enabled = false },
+                    -- pylint = { enabled = false },
+                    -- pydocstyle = { enabled = false },
+                    -- mccabe = { enabled = false },
+                    -- preload = { enabled = false },
+                    -- rope_completion = { enabled = false }
+                }
+            }
+        },
+        on_attach = Lsp_on_attach
+    }
     lspconfig.jsonls.setup {
         on_attach = Lsp_on_attach,
         filetypes = { "json", "jsonc" },
@@ -103,12 +143,6 @@ function M.nvim_lsp()
         on_attach = Lsp_on_attach,
         root_dir = require("lspconfig").util.root_pattern("deno.json", "deno.jsonc"),
     }
-    lspconfig.cmake.setup {
-        on_attach = Lsp_on_attach,
-    }
-    lspconfig.julials.setup {
-        on_attach = Lsp_on_attach,
-    }
     vim.lsp.for_each_buffer_client(0, function(client)
         if client.name ~= "" then
             client.server_capabilities.document_formatting = true
@@ -127,6 +161,8 @@ function M.null_ls()
             null_ls.builtins.formatting.prettier.with({
                 filetypes = { "yaml", "markdown" },
             }),
+            null_ls.builtins.formatting.swiftformat,
+
             -- null_ls.builtins.diagnostics.eslint,
             -- null_ls.builtins.formatting.fprettify,
             null_ls.builtins.formatting.autopep8,
@@ -135,59 +171,6 @@ function M.null_ls()
             -- null_ls.builtins.diagnostics.vale,
         },
     })
-end
-
-function M.clangd_extentions()
-    require("clangd_extensions").setup {
-        server = {
-            on_attach = Lsp_on_attach,
-        },
-        extensions = {
-            autoSetHints = true,
-            hover_with_actions = true,
-            inlay_hints = {
-                only_current_line = true,
-                only_current_line_autocmd = "CursorHold",
-                show_parameter_hints = true,
-                parameter_hints_prefix = "<- ",
-                other_hints_prefix = "=> ",
-                max_len_align = false,
-                max_len_align_padding = 1,
-                right_align = false,
-                right_align_padding = 7,
-                highlight = "Comment",
-                priority = 100,
-            },
-            ast = {
-                role_icons = {
-                    type = "",
-                    declaration = "",
-                    expression = "",
-                    specifier = "",
-                    statement = "",
-                    ["template argument"] = "",
-                },
-                kind_icons = {
-                    Compound = "",
-                    Recovery = "",
-                    TranslationUnit = "",
-                    PackExpansion = "",
-                    TemplateTypeParm = "",
-                    TemplateTemplateParm = "",
-                    TemplateParamObject = "",
-                },
-                highlights = {
-                    detail = "Comment",
-                },
-                memory_usage = {
-                    border = "none",
-                },
-                symbol_info = {
-                    border = "none",
-                },
-            },
-        }
-    }
 end
 
 return M

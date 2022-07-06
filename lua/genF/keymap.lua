@@ -28,10 +28,10 @@ vim.api.nvim_set_keymap("n", "<leader>ts", ":Telescope", { noremap = false, sile
 
 vim.api.nvim_set_keymap("n", "<leader>ut", "<cmd>UndotreeToggle<cr>", { noremap = true, silent = true })
 
-vim.api.nvim_set_keymap("n", "S", "<Plug>(easymotion-overwin-line)", { noremap = false, silent = true })
-vim.api.nvim_set_keymap("n", "<leader>s", "<Plug>(easymotion-overwin-f2)", { noremap = false, silent = true })
-vim.api.nvim_set_keymap("n", "f", "<Plug>Sneak_s", { noremap = false, silent = true })
-vim.api.nvim_set_keymap("n", "F", "<Plug>Sneak_S", { noremap = false, silent = true })
+-- vim.api.nvim_set_keymap("n", "S", "<Plug>(easymotion-overwin-line)", { noremap = false, silent = true })
+-- vim.api.nvim_set_keymap("n", "<leader>s", "<Plug>(easymotion-overwin-f2)", { noremap = false, silent = true })
+-- vim.api.nvim_set_keymap("n", "f", "<Plug>Sneak_s", { noremap = false, silent = true })
+-- vim.api.nvim_set_keymap("n", "F", "<Plug>Sneak_S", { noremap = false, silent = true })
 vim.api.nvim_set_keymap("n", "<leader>z", "<cmd>ZenMode<cr>", { noremap = false, silent = true })
 
 vim.api.nvim_set_keymap("n", "j", "gj", { noremap = true, silent = true })
@@ -44,19 +44,19 @@ vim.api.nvim_set_keymap("v", "<leader>s", ":sort<cr>", { noremap = true, silent 
 
 vim.api.nvim_set_keymap("n", "<C-p>", "<C-^>", { noremap = true, silent = true })
 
-vim.api.nvim_set_keymap("n", "<C-g>", "<cmd>lua Toggle_status()<cr>", { noremap = true, silent = true })
+-- vim.api.nvim_set_keymap("n", "<C-g>", "<cmd>lua Toggle_status()<cr>", { noremap = true, silent = true })
 
-function Toggle_status()
-    if vim.go.laststatus == 0 then
-        if vim.fn.has('nvim-0.7') then
-            vim.go.laststatus = 3
-        else
-            vim.go.laststatus = 2
-        end
-    else
-        vim.go.laststatus = 0
-    end
-end
-
--- vim.api.nvim_set_keymap('n', 'q:', [[<nop>]], { noremap = true, silent = true })
--- stylua: ignore end
+-- function Toggle_status()
+--     if vim.go.laststatus == 0 then
+--         if vim.fn.has('nvim-0.7') then
+--             vim.go.laststatus = 3
+--         else
+--             vim.go.laststatus = 2
+--         end
+--     else
+--         vim.go.laststatus = 0
+--     end
+-- end
+--
+-- -- vim.api.nvim_set_keymap('n', 'q:', [[<nop>]], { noremap = true, silent = true })
+-- -- stylua: ignore end

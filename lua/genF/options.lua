@@ -1,5 +1,5 @@
 if vim.fn.has('nvim-0.7') then
-    vim.opt.laststatus = 0
+    vim.opt.laststatus = 3
     vim.opt.cmdheight = 1
 end
 
@@ -38,6 +38,7 @@ vim.opt.swapfile = true
 vim.opt.termguicolors = true
 vim.opt.guicursor = ''
 vim.opt.backspace = [[indent,eol,start]]
+vim.opt.winbar = '%=%f%m%=%y'
 
 vim.opt.expandtab = true
 vim.opt.tabstop = 4

@@ -24,24 +24,19 @@ require('packer').startup {
         --------------------------------------------------------------------------------------------
         ---- Utilities -----------------------------------------------------------------------------
         --------------------------------------------------------------------------------------------
-        use { 'vim-denops/denops.vim', opt = true }
-        use { 'cohama/lexima.vim', config = require('genF.plugin_settings.lexima').lexima }
-        use { 'machakann/vim-sandwich' }
+        use { 'cohama/lexima.vim', config = require('genF.plugin_settings.lexima').lexima, event = 'InsertEnter' }
+        use { 'machakann/vim-sandwich', keys = { 'sa', 'sd', 'sr' } }
         use { 'skywind3000/asyncrun.vim', cmd = { 'AsyncRun' } }
-        use { 'easymotion/vim-easymotion', event = 'User load_plugins' }
-        use { 'numToStr/Comment.nvim', config = function() require('Comment').setup {} end, event = 'User load_plugins' }
+        -- use { 'easymotion/vim-easymotion' }
+        use { 'numToStr/Comment.nvim', config = function() require('Comment').setup {} end, keys = "gc" }
         use { 'mbbill/undotree', cmd = 'UndotreeToggle' }
-        use { 'andymass/vim-matchup', event = 'User load_plugins' }
+        use { 'andymass/vim-matchup' }
         use { 'folke/zen-mode.nvim', config = require('genF.plugin_settings.zen').zen, cmd = { 'ZenMode' } }
         use { 'tpope/vim-fugitive', cmd = 'Git' }
-        use { 'chentau/marks.nvim' }
-        use { 'tversteeg/registers.nvim', event = 'User load_plugins' }
-        -- use { 'justinmk/vim-sneak', key = { 'f', 'F' } }
         use {
             'lewis6991/gitsigns.nvim',
             requires = 'nvim-lua/plenary.nvim',
             config = require('genF.plugin_settings.gitsigns').gitsigns,
-            event = 'User load_plugins'
         }
         use {
             'lukas-reineke/indent-blankline.nvim',
@@ -52,11 +47,8 @@ require('packer').startup {
             config = require('genF.plugin_settings.toggle_term').toggle_term,
             cmd = { 'ToggleTerm' }
         }
-        use {
-            'petertriho/nvim-scrollbar',
-            config = function() require('scrollbar').setup() end,
-            key = { 'j', 'k', '<up>', '<down>', '<c-u>', '<c-d>', '<c-f>', '<c-b>' }
-        }
+        use { 'SirVer/ultisnips', requires = { 'honza/vim-snippets' }, event = 'InsertEnter' }
+        -- use { 'rrethy/vim-hexokinase', run = 'make hexokinase' }
 
         --------------------------------------------------------------------------------------------
         ---- Treesitter ----------------------------------------------------------------------------
@@ -66,14 +58,12 @@ require('packer').startup {
             requires = {
                 'nvim-treesitter/nvim-treesitter-textobjects',
                 'nvim-treesitter/nvim-treesitter-refactor',
-                'nvim-treesitter/playground'
             },
             config = require('genF.plugin_settings.treesitter').treesitter,
         }
-        -- use {
-        --     'romgrk/nvim-treesitter-context',
-        --     config = require('genF.plugin_settings.treesitter').treesitter_context
-        -- }
+        use {
+            'nvim-treesitter/playground', cmd = 'TSPlaygroundToggle'
+        }
 
         --------------------------------------------------------------------------------------------
         ---- Appearance ----------------------------------------------------------------------------
@@ -97,13 +87,10 @@ require('packer').startup {
         --     requires = { 'kyazdani42/nvim-web-devicons', opt = true },
         --     config = require('genF.plugin_settings.statusline').bufferline
         -- }
-
         use { 'hoob3rt/lualine.nvim',
             requires = { 'kyazdani42/nvim-web-devicons', opt = true },
             config = require('genF.plugin_settings.statusline').lualine
         }
-
-        use { 'SirVer/ultisnips', requires = { 'honza/vim-snippets' } }
 
         --------------------------------------------------------------------------------------------
         ---- File Operations -----------------------------------------------------------------------
@@ -114,20 +101,18 @@ require('packer').startup {
             config = require('genF.plugin_settings.nvim_tree').nvim_tree,
             cmd = { 'NvimTreeToggle' }
         }
-
         use {
             'nvim-telescope/telescope.nvim',
             requires = {
-                'nvim-lua/popup.nvim', 'nvim-lua/plenary.nvim'
+                'nvim-lua/popup.nvim', 'nvim-lua/plenary.nvim',
+                {
+                    'nvim-telescope/telescope-fzf-native.nvim',
+                    requires = 'junegunn/fzf',
+                    run = 'make',
+                }
             },
             config = require('genF.plugin_settings.telescope').telescope,
-            event = 'User load_plugins'
-        }
-
-        use {
-            'nvim-telescope/telescope-fzf-native.nvim',
-            requires = 'junegunn/fzf',
-            run = 'make',
+            cmd = "Telescope"
         }
 
         --------------------------------------------------------------------------------------------
@@ -135,26 +120,21 @@ require('packer').startup {
         --------------------------------------------------------------------------------------------
         use { 'rhysd/vim-grammarous', ft = { 'markdown', 'md', 'text' } }
         use { 'chrisbra/csv.vim', ft = { 'csv', 'tsv' } }
-        use { 'junegunn/goyo.vim', ft = { 'text', 'markdown', 'md' } }
+        -- use { 'junegunn/goyo.vim', ft = { 'text', 'markdown', 'md' } }
         use { 'mattn/emmet-vim', ft = { 'html', 'markdown', 'md' } }
-        use { 'windwp/nvim-ts-autotag', config = function() require('nvim-ts-autotag').setup {} end, ft = { 'html', 'js', 'ts' } }
+        use { 'windwp/nvim-ts-autotag', config = function() require('nvim-ts-autotag').setup {} end,
+            ft = { 'html', 'js', 'ts' } }
         use { 'lervag/vimtex', ft = { 'markdown', 'md', 'tex' } }
         use { 'fuenor/JpFormat.vim', ft = { 'text' } }
         use { 'rust-lang/rust.vim', ft = { 'rust' } }
         use { 'chikamichi/mediawiki.vim', ft = { 'mediawikix' } }
-        use { 'KeitaNakamura/tex-conceal.vim', config = function() vim.g.tex_conceal_frac = 1 end, ft = { 'latex' } }
-        use { 'rbonvall/vim-textobj-latex', requires = { 'kana/vim-textobj-user' }, ft = { 'latex' } }
+        -- use { 'KeitaNakamura/tex-conceal.vim', config = function() vim.g.tex_conceal_frac = 1 end, ft = { 'latex' } }
+        -- use { 'rbonvall/vim-textobj-latex', requires = { 'kana/vim-textobj-user' }, ft = { 'latex' } }
 
         --------------------------------------------------------------------------------------------
         ---- LSP and Debugger ----------------------------------------------------------------------
         --------------------------------------------------------------------------------------------
-        use { 'williamboman/nvim-lsp-installer' }
         use { 'neovim/nvim-lspconfig', config = require('genF.plugin_settings.lsp').nvim_lsp }
-        use {
-            'p00f/clangd_extensions.nvim',
-            requires = { 'neovim/nvim-lspconfig' },
-            config = require('genF.plugin_settings.lsp').clangd_extentions
-        }
         use {
             'jose-elias-alvarez/null-ls.nvim',
             config = require('genF.plugin_settings.lsp').null_ls
@@ -172,17 +152,30 @@ require('packer').startup {
                 { 'hrsh7th/cmp-cmdline' },
                 { 'quangnguyen30192/cmp-nvim-ultisnips' },
                 { 'neovim/nvim-lspconfig' },
-                { 'p00f/clangd_extensions.nvim' }
+                -- { 'p00f/clangd_extensions.nvim' }
             },
             config = require('genF.plugin_settings.nvim_cmp').nvim_cmp
         }
-        use {
-            'nvim-lua/lsp-status.nvim',
-            config = require('genF.plugin_settings.statusline').lsp_status,
-        }
+        -- use {
+        --     'nvim-lua/lsp-status.nvim',
+        --     config = require('genF.plugin_settings.statusline').lsp_status,
+        -- }
         use { 'j-hui/fidget.nvim', config = function() require('fidget').setup {} end }
-        use { 'junegunn/vim-easy-align' }
+
+        --------------------------------------------------------------------------------------------
+        -- DUPLECATED ------------------------------------------------------------------------------
+        --------------------------------------------------------------------------------------------
+
+        -- use { 'junegunn/vim-easy-align' }
         -- use { 'mfussenegger/nvim-dap', config = require('genF.plugin_settings.dap').nvim_dap }
         -- use { 'rcarriga/nvim-dap-ui', config = require('genF.plugin_settings.dap').dap_ui }
+        -- use { 'chentau/marks.nvim' }
+        -- use { 'tversteeg/registers.nvim'}
+        -- use { 'justinmk/vim-sneak', key = { 'f', 'F' } }
+        -- use { 'vim-denops/denops.vim', opt = true }
+        -- use {
+        --     'romgrk/nvim-treesitter-context',
+        --     config = require('genF.plugin_settings.treesitter').treesitter_context
+        -- }
     end,
 }
