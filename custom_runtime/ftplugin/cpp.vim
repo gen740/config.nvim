@@ -6,19 +6,9 @@ let b:my_cpp_ftplugin = 1
 let s:save_cpo = &cpoptions
 set cpoptions&vim
 
-nnoremap <m-r> <cmd>AsyncRun make run<cr>
-nnoremap <m-c> <cmd>AsyncRun make build<cr>
+nnoremap <m-r> <cmd>AsyncRun make nvim_run<cr>
+nnoremap <m-c> <cmd>AsyncRun make nvim_build<cr>
 nnoremap <m-s> <cmd>AsyncStop<cr>
-
-let g:neomake_make_maker = {
-      \ 'exe': 'make',
-      \ 'args': ['run'],
-      \ }
-
-let g:neomake_build_maker = {
-      \ 'exe': 'make',
-      \ 'args': ['debug'],
-      \ }
 
 setlocal tabstop=2 softtabstop=2 shiftwidth=2
 setlocal conceallevel=2 concealcursor=nvic

@@ -8,15 +8,9 @@ let s:save_cpo = &cpo
 set cpo&vim
 " vint: +ProhibitAbbreviationOption
 
-let g:neomake_make_maker = {
-    \ 'exe': 'cargo',
-    \ 'args': ['run'],
-    \ }
-
-let g:neomake_build_maker = {
-    \ 'exe': 'cargo',
-    \ 'args': ['check'],
-    \ }
+nnoremap <m-r> <cmd>AsyncRun cargo run<cr>
+nnoremap <m-c> <cmd>AsyncRun cargo build<cr>
+nnoremap <m-s> <cmd>AsyncStop<cr>
 
 setlocal tabstop=4 softtabstop=4 shiftwidth=4
 setlocal makeprg=cargo

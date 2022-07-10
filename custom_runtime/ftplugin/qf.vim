@@ -14,6 +14,7 @@ augroup END
 
 " setlocal wrap nobuflisted
 setlocal nocursorline nonu norelativenumber
+setlocal colorcolumn=0
 
 " vint: -ProhibitAbbreviationOption
 let &cpo = s:save_cpo

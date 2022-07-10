@@ -60,3 +60,12 @@ vim.api.nvim_create_autocmd({ "TextYankPost" },
         end
     }
 )
+
+-- vim.api.nvim_create_autocmd({ "BufNew", "BufEnter" },
+--     {
+--         pattern = { "quickfix" },
+--         callback = function()
+--             vim.bo.winbar = ""
+--         end
+--     }
+-- )

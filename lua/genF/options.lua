@@ -4,7 +4,7 @@ if vim.fn.has('nvim-0.7') then
 end
 
 vim.opt.clipboard = 'unnamed'
-vim.opt.colorcolumn = '100'
+vim.opt.colorcolumn = '81'
 
 vim.opt.foldenable = true
 vim.opt.foldlevel = 99
@@ -16,9 +16,11 @@ vim.opt.hidden = true
 vim.opt.ignorecase = true
 vim.opt.inccommand = 'nosplit'
 vim.opt.incsearch = true
+vim.opt.breakindent = true
 
 vim.opt.list = true
-vim.opt.listchars = [[tab:»-,trail:█,extends:»,precedes:«,nbsp:%]] -- ,eol:↲│,conceal:◇
+-- ,eol:↲│,conceal:◇
+vim.opt.listchars = [[tab:»-,trail:█,extends:»,precedes:«,nbsp:%]]
 
 vim.opt.modeline = true
 vim.opt.mouse:append('a')
@@ -38,7 +40,7 @@ vim.opt.swapfile = true
 vim.opt.termguicolors = true
 vim.opt.guicursor = ''
 vim.opt.backspace = [[indent,eol,start]]
-vim.opt.winbar = '%=%f%m%=%y'
+vim.opt.winbar = '%=%f%m%='
 
 vim.opt.expandtab = true
 vim.opt.tabstop = 4
