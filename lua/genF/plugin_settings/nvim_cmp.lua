@@ -19,10 +19,10 @@ return {
                     select = true,
                 }),
             },
-            window = {
-                -- completion = cmp.config.window.bordered(),
-                -- documentation = cmp.config.window.bordered(),
-            },
+            -- window = {
+            --     completion = cmp.config.window.bordered(),
+            --     documentation = cmp.config.window.bordered(),
+            -- },
             sources = {
                 { name = "nvim_lsp" },
                 { name = 'nvim_lsp_signature_help' },
@@ -37,7 +37,6 @@ return {
                     mode = 'symbol',
                     maxwidth = 50,
                     before = function(entry, vim_item)
-                        -- vim_item.kind = require("lspkind").presets.default[vim_item.kind] .. " " -- .. vim_item.kind
                         vim_item.menu = ({
                             buffer = "[Buf]",
                             nvim_lsp = "[LSP]",
@@ -54,7 +53,6 @@ return {
                     cmp.config.compare.offset,
                     cmp.config.compare.exact,
                     cmp.config.compare.recently_used,
-                    -- require("clangd_extensions.cmp_scores"),
                     cmp.config.compare.kind,
                     cmp.config.compare.sort_text,
                     cmp.config.compare.length,

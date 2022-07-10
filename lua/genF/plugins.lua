@@ -24,30 +24,32 @@ require('packer').startup {
         --------------------------------------------------------------------------------------------
         ---- Utilities -----------------------------------------------------------------------------
         --------------------------------------------------------------------------------------------
-        use { 'cohama/lexima.vim', config = require('genF.plugin_settings.lexima').lexima, event = 'InsertEnter' }
+        use { 'cohama/lexima.vim', config = function() require('genF.plugin_settings.lexima') end }
         use { 'machakann/vim-sandwich', keys = { 'sa', 'sd', 'sr' } }
         use { 'skywind3000/asyncrun.vim', cmd = { 'AsyncRun' } }
-        -- use { 'easymotion/vim-easymotion' }
         use { 'numToStr/Comment.nvim', config = function() require('Comment').setup {} end, keys = "gc" }
         use { 'mbbill/undotree', cmd = 'UndotreeToggle' }
-        use { 'andymass/vim-matchup' }
-        use { 'folke/zen-mode.nvim', config = require('genF.plugin_settings.zen').zen, cmd = { 'ZenMode' } }
+        use { 'andymass/vim-matchup', keys = { '%' } }
+        use { 'folke/zen-mode.nvim', config = function() require('genF.plugin_settings.zen') end, cmd = { 'ZenMode' } }
         use { 'tpope/vim-fugitive', cmd = 'Git' }
+        use { 'nvim-lua/plenary.nvim' }
         use {
             'lewis6991/gitsigns.nvim',
-            requires = 'nvim-lua/plenary.nvim',
-            config = require('genF.plugin_settings.gitsigns').gitsigns,
+            config = function() require('genF.plugin_settings.gitsigns') end,
         }
         use {
             'lukas-reineke/indent-blankline.nvim',
-            config = require('genF.plugin_settings.indent_blankline').indent_blankline
+            config = function() require('genF.plugin_settings.indent_blankline') end
         }
         use {
             'akinsho/nvim-toggleterm.lua',
-            config = require('genF.plugin_settings.toggle_term').toggle_term,
+            config = function() require('genF.plugin_settings.toggle_term') end,
             cmd = { 'ToggleTerm' }
         }
-        use { 'SirVer/ultisnips', requires = { 'honza/vim-snippets' }, event = 'InsertEnter' }
+        use {
+            'SirVer/ultisnips',
+            requires = { 'honza/vim-snippets' },
+        }
         -- use { 'rrethy/vim-hexokinase', run = 'make hexokinase' }
 
         --------------------------------------------------------------------------------------------
@@ -55,11 +57,11 @@ require('packer').startup {
         --------------------------------------------------------------------------------------------
         use {
             'nvim-treesitter/nvim-treesitter',
-            requires = {
-                'nvim-treesitter/nvim-treesitter-textobjects',
-                'nvim-treesitter/nvim-treesitter-refactor',
-            },
-            config = require('genF.plugin_settings.treesitter').treesitter,
+            -- requires = {
+            --     'nvim-treesitter/nvim-treesitter-textobjects',
+            --     'nvim-treesitter/nvim-treesitter-refactor',
+            -- },
+            config = function() require('genF.plugin_settings.treesitter') end,
         }
         use {
             'nvim-treesitter/playground', cmd = 'TSPlaygroundToggle'
@@ -98,20 +100,24 @@ require('packer').startup {
         use {
             'kyazdani42/nvim-tree.lua',
             requires = { 'kyazdani42/nvim-web-devicons' },
-            config = require('genF.plugin_settings.nvim_tree').nvim_tree,
+            config = function() require('genF.plugin_settings.nvim_tree') end,
             cmd = { 'NvimTreeToggle' }
         }
         use {
             'nvim-telescope/telescope.nvim',
             requires = {
-                'nvim-lua/popup.nvim', 'nvim-lua/plenary.nvim',
+                {
+                    'nvim-lua/popup.nvim',
+                    cmd = "Telescope",
+                },
                 {
                     'nvim-telescope/telescope-fzf-native.nvim',
                     requires = 'junegunn/fzf',
+                    -- cmd = "Telescope",
                     run = 'make',
                 }
             },
-            config = require('genF.plugin_settings.telescope').telescope,
+            config = function() require('genF.plugin_settings.telescope') end,
             cmd = "Telescope"
         }
 
@@ -126,7 +132,7 @@ require('packer').startup {
             ft = { 'html', 'js', 'ts' } }
         use { 'lervag/vimtex', ft = { 'markdown', 'md', 'tex' } }
         use { 'fuenor/JpFormat.vim', ft = { 'text' } }
-        use { 'rust-lang/rust.vim', ft = { 'rust' } }
+        -- use { 'rust-lang/rust.vim', ft = { 'rust' } }
         use { 'chikamichi/mediawiki.vim', ft = { 'mediawikix' } }
         -- use { 'KeitaNakamura/tex-conceal.vim', config = function() vim.g.tex_conceal_frac = 1 end, ft = { 'latex' } }
         -- use { 'rbonvall/vim-textobj-latex', requires = { 'kana/vim-textobj-user' }, ft = { 'latex' } }
@@ -142,17 +148,36 @@ require('packer').startup {
         use {
             'hrsh7th/nvim-cmp',
             requires = {
-                { 'onsails/lspkind-nvim' },
-                { 'hrsh7th/cmp-buffer' },
-                { 'hrsh7th/cmp-nvim-lsp' },
-                { 'hrsh7th/cmp-nvim-lsp-signature-help' },
-                { 'hrsh7th/cmp-nvim-lsp-document-symbol' },
-                { 'hrsh7th/cmp-path' },
-                { 'hrsh7th/cmp-calc' },
-                { 'hrsh7th/cmp-cmdline' },
-                { 'quangnguyen30192/cmp-nvim-ultisnips' },
-                { 'neovim/nvim-lspconfig' },
-                -- { 'p00f/clangd_extensions.nvim' }
+                {
+                    'onsails/lspkind-nvim',
+                },
+                {
+                    'hrsh7th/cmp-buffer',
+                },
+                {
+                    'hrsh7th/cmp-nvim-lsp',
+                },
+                {
+                    'hrsh7th/cmp-nvim-lsp-signature-help',
+                },
+                {
+                    'hrsh7th/cmp-nvim-lsp-document-symbol',
+                },
+                {
+                    'hrsh7th/cmp-path',
+                },
+                {
+                    'hrsh7th/cmp-calc',
+                },
+                {
+                    'hrsh7th/cmp-cmdline',
+                },
+                {
+                    'quangnguyen30192/cmp-nvim-ultisnips',
+                },
+                {
+                    'neovim/nvim-lspconfig',
+                },
             },
             config = require('genF.plugin_settings.nvim_cmp').nvim_cmp
         }
