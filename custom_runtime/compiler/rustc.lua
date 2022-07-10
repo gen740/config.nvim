@@ -1,19 +1,4 @@
-" Vim compiler file
-" Compiler:         Rust Compiler
-" Maintainer:       Chris Morgan <me@chrismorgan.info>
-" Latest Revision:  2013 Jul 12
-" For bugs, patches and license go to https://github.com/rust-lang/rust.vim
-
-if exists('current_compiler')
-    finish
-endif
-let current_compiler = 'rustc'
-
-" vint: -ProhibitAbbreviationOption
-let s:save_cpo = &cpo
-set cpo&vim
-" vint: +ProhibitAbbreviationOption
-
+vim.cmd([[
 if exists(':CompilerSet') != 2
     command -nargs=* CompilerSet setlocal <args>
 endif
@@ -48,10 +33,4 @@ CompilerSet errorformat+=
             \%-G%*[\ ]^,
             \%-G%*[\ ]^%*[~],
             \%-G%*[\ ]...
-
-" vint: -ProhibitAbbreviationOption
-let &cpo = s:save_cpo
-unlet s:save_cpo
-" vint: +ProhibitAbbreviationOption
-
-" vim: set et sw=4 sts=4 ts=8:
+]])
