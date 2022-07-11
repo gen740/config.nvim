@@ -21,9 +21,9 @@ require("genF.options")
 require("genF.keymap")
 require("genF.autocmd")
 require("genF.plugins")
+require("genF.statusline")
 
 vim.cmd([[source ~/.config/nvim/foldingtxt.vim]])
-vim.cmd([[source ~/.config/nvim/gui.vim]])
 
 vim.cmd([[
     try

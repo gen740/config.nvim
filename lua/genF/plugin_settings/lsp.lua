@@ -65,7 +65,8 @@ function M.nvim_lsp()
         "clangd",
         "cmake",
         "julials",
-        "yamlls"
+        "yamlls",
+        "zls"
     }
 
     for _, lsp in pairs(servers) do

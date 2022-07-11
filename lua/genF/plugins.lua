@@ -89,10 +89,10 @@ require('packer').startup {
         --     requires = { 'kyazdani42/nvim-web-devicons', opt = true },
         --     config = require('genF.plugin_settings.statusline').bufferline
         -- }
-        use { 'hoob3rt/lualine.nvim',
-            requires = { 'kyazdani42/nvim-web-devicons', opt = true },
-            config = require('genF.plugin_settings.statusline').lualine
-        }
+        -- use { 'hoob3rt/lualine.nvim',
+        --     requires = { 'kyazdani42/nvim-web-devicons', opt = true },
+        --     config = require('genF.plugin_settings.statusline').lualine
+        -- }
 
         --------------------------------------------------------------------------------------------
         ---- File Operations -----------------------------------------------------------------------
@@ -108,7 +108,7 @@ require('packer').startup {
             requires = {
                 {
                     'nvim-lua/popup.nvim',
-                    cmd = "Telescope",
+                    -- cmd = "Telescope",
                 },
                 {
                     'nvim-telescope/telescope-fzf-native.nvim',

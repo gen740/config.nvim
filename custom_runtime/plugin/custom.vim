@@ -6,14 +6,6 @@ let g:my_custom_plugin = 1
 let s:save_cpo = &cpoptions
 set cpoptions&vim
 
-" function! s:clang_format()
-"     let l:save = winsaveview()
-"     call s:trimUseless()
-"     :silent %! clang-format -style=file
-"     call winrestview(l:save)
-"     :silent w
-" endfunction
-
 fun! s:trimUseless()
     let l:save = winsaveview()
     keeppatterns %s/\n\+$/\r/ge
