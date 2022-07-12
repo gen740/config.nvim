@@ -57,10 +57,6 @@ require('packer').startup {
         --------------------------------------------------------------------------------------------
         use {
             'nvim-treesitter/nvim-treesitter',
-            -- requires = {
-            --     'nvim-treesitter/nvim-treesitter-textobjects',
-            --     'nvim-treesitter/nvim-treesitter-refactor',
-            -- },
             config = function() require('genF.plugin_settings.treesitter') end,
         }
         use {
@@ -83,16 +79,6 @@ require('packer').startup {
         -- use { 'ray-x/aurora' }
         -- use { 'Rigellute/rigel' }
         -- use { 'dracula/vim' }
-        ---- Bufferline
-        -- use {
-        --     'akinsho/nvim-bufferline.lua',
-        --     requires = { 'kyazdani42/nvim-web-devicons', opt = true },
-        --     config = require('genF.plugin_settings.statusline').bufferline
-        -- }
-        -- use { 'hoob3rt/lualine.nvim',
-        --     requires = { 'kyazdani42/nvim-web-devicons', opt = true },
-        --     config = require('genF.plugin_settings.statusline').lualine
-        -- }
 
         --------------------------------------------------------------------------------------------
         ---- File Operations -----------------------------------------------------------------------
@@ -181,11 +167,10 @@ require('packer').startup {
             },
             config = require('genF.plugin_settings.nvim_cmp').nvim_cmp
         }
-        -- use {
-        --     'nvim-lua/lsp-status.nvim',
-        --     config = require('genF.plugin_settings.statusline').lsp_status,
-        -- }
-        use { 'j-hui/fidget.nvim', config = function() require('fidget').setup {} end }
+        use {
+            'nvim-lua/lsp-status.nvim',
+            config = require('genF.plugin_settings.statusline').lsp_status,
+        }
 
         --------------------------------------------------------------------------------------------
         -- DUPLECATED ------------------------------------------------------------------------------
@@ -202,5 +187,16 @@ require('packer').startup {
         --     'romgrk/nvim-treesitter-context',
         --     config = require('genF.plugin_settings.treesitter').treesitter_context
         -- }
+        ---- Bufferline
+        -- use {
+        --     'akinsho/nvim-bufferline.lua',
+        --     requires = { 'kyazdani42/nvim-web-devicons', opt = true },
+        --     config = require('genF.plugin_settings.statusline').bufferline
+        -- }
+        -- use { 'hoob3rt/lualine.nvim',
+        --     requires = { 'kyazdani42/nvim-web-devicons', opt = true },
+        --     config = require('genF.plugin_settings.statusline').lualine
+        -- }
+        -- use { 'j-hui/fidget.nvim', config = function() require('fidget').setup {} end }
     end,
 }

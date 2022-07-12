@@ -23,7 +23,7 @@ require("genF.autocmd")
 require("genF.plugins")
 require("genF.statusline")
 
-vim.cmd([[source ~/.config/nvim/foldingtxt.vim]])
+vim.cmd([[source ~/.config/nvim/foldingtxt.lua]])
 
 vim.cmd([[
     try

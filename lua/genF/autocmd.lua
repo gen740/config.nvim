@@ -28,12 +28,6 @@ local function change_color()
     vim.api.nvim_set_hl(0, "WinBar", { bg = nil, fg = "#719cd6" })
     vim.api.nvim_set_hl(0, "WinBarNC", { bg = nil, fg = "#393b44" })
     vim.api.nvim_set_hl(0, "StatusLine", { fg = "#cdcecf", bg = nil })
-    -- vim.api.nvim_set_hl(0, "FidgetTask", { bg = nil, fg = "#ffffff" })
-    -- vim.api.nvim_set_hl(0, "FidgetTitle", { bg = nil, fg = "#ffffff" })
-    -- autocmd ColorScheme * hi CmpDocumentation guibg=none
-    -- autocmd ColorScheme * hi CmpDocumentationBorder guibg=none
-    -- autocmd ColorScheme * hi DiagnosticUnderlineError guibg=#303230 gui=none
-    -- autocmd ColorScheme * hi DiagnosticUnderlineWarn guibg=#303230 gui=none
 end
 
 vim.api.nvim_create_augroup("CustomColorScheme", {
@@ -61,12 +55,3 @@ vim.api.nvim_create_autocmd({ "TextYankPost" },
         end
     }
 )
-
--- vim.api.nvim_create_autocmd({ "BufNew", "BufEnter" },
---     {
---         pattern = { "quickfix" },
---         callback = function()
---             vim.bo.winbar = ""
---         end
---     }
--- )
