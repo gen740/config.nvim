@@ -112,7 +112,6 @@ require('packer').startup {
         --------------------------------------------------------------------------------------------
         use { 'rhysd/vim-grammarous', ft = { 'markdown', 'md', 'text' } }
         use { 'chrisbra/csv.vim', ft = { 'csv', 'tsv' } }
-        -- use { 'junegunn/goyo.vim', ft = { 'text', 'markdown', 'md' } }
         use { 'mattn/emmet-vim', ft = { 'html', 'markdown', 'md' } }
         use { 'windwp/nvim-ts-autotag', config = function() require('nvim-ts-autotag').setup {} end,
             ft = { 'html', 'js', 'ts' } }
@@ -128,42 +127,18 @@ require('packer').startup {
         --------------------------------------------------------------------------------------------
         use { 'neovim/nvim-lspconfig', config = require('genF.plugin_settings.lsp').nvim_lsp }
         use {
-            'jose-elias-alvarez/null-ls.nvim',
-            config = require('genF.plugin_settings.lsp').null_ls
-        }
-        use {
             'hrsh7th/nvim-cmp',
             requires = {
-                {
-                    'onsails/lspkind-nvim',
-                },
-                {
-                    'hrsh7th/cmp-buffer',
-                },
-                {
-                    'hrsh7th/cmp-nvim-lsp',
-                },
-                {
-                    'hrsh7th/cmp-nvim-lsp-signature-help',
-                },
-                {
-                    'hrsh7th/cmp-nvim-lsp-document-symbol',
-                },
-                {
-                    'hrsh7th/cmp-path',
-                },
-                {
-                    'hrsh7th/cmp-calc',
-                },
-                {
-                    'hrsh7th/cmp-cmdline',
-                },
-                {
-                    'quangnguyen30192/cmp-nvim-ultisnips',
-                },
-                {
-                    'neovim/nvim-lspconfig',
-                },
+                { 'onsails/lspkind-nvim' },
+                { 'hrsh7th/cmp-buffer' },
+                { 'hrsh7th/cmp-nvim-lsp' },
+                { 'hrsh7th/cmp-nvim-lsp-signature-help' },
+                { 'hrsh7th/cmp-nvim-lsp-document-symbol' },
+                { 'hrsh7th/cmp-path', },
+                { 'hrsh7th/cmp-calc' },
+                { 'hrsh7th/cmp-cmdline' },
+                { 'quangnguyen30192/cmp-nvim-ultisnips' },
+                { 'neovim/nvim-lspconfig' },
             },
             config = require('genF.plugin_settings.nvim_cmp').nvim_cmp
         }
@@ -175,8 +150,7 @@ require('packer').startup {
         --------------------------------------------------------------------------------------------
         -- DUPLECATED ------------------------------------------------------------------------------
         --------------------------------------------------------------------------------------------
-
-        -- use { 'junegunn/vim-easy-align' }
+        use { 'junegunn/vim-easy-align' }
         -- use { 'mfussenegger/nvim-dap', config = require('genF.plugin_settings.dap').nvim_dap }
         -- use { 'rcarriga/nvim-dap-ui', config = require('genF.plugin_settings.dap').dap_ui }
         -- use { 'chentau/marks.nvim' }

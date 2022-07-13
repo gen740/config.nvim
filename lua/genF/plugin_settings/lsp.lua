@@ -6,6 +6,7 @@ function Lsp_on_attach(_, bufnr)
     vim.keymap.set('n', '[d', vim.diagnostic.goto_prev, opts)
     vim.keymap.set('n', ']d', vim.diagnostic.goto_next, opts)
     vim.keymap.set('n', '<space>q', vim.diagnostic.setloclist, opts)
+
     local bufopts = { noremap = true, silent = true, buffer = bufnr }
     -- vim.keymap.set('omnifunc', 'v:lua.vim.lsp.omnifunc')
     vim.keymap.set('n', 'gD', vim.lsp.buf.declaration, bufopts)
@@ -26,35 +27,7 @@ function Lsp_on_attach(_, bufnr)
 end
 
 function M.nvim_lsp()
-    -- lsp-installer
-    -- require("nvim-lsp-installer").setup {
-    --     ui = {
-    --         icons = {
-    --             server_installed = "✓",
-    --             server_pending = "➜",
-    --             server_uninstalled = "✗",
-    --         },
-    --     },
-    -- }
-    -- lspconfig
     local lspconfig = require("lspconfig")
-    local border = {
-        { "╭", "FloatBorder" },
-        { "─", "FloatBorder" },
-        { "╮", "FloatBorder" },
-        { "│", "FloatBorder" },
-        { "╯", "FloatBorder" },
-        { "─", "FloatBorder" },
-        { "╰", "FloatBorder" },
-        { "│", "FloatBorder" },
-    }
-    local orig_util_open_floating_preview = vim.lsp.util.open_floating_preview
-    function vim.lsp.util.open_floating_preview(contents, syntax, opts, ...)
-        opts = opts or {}
-        opts.border = opts.border or border
-        return orig_util_open_floating_preview(contents, syntax, opts, ...)
-    end
-
     local servers = {
         "rust_analyzer",
         "tsserver",
@@ -98,35 +71,7 @@ function M.nvim_lsp()
             },
         },
     }
-    -- lspconfig.pylsp.setup {
-    --     settings = {
-    --         pylsp = {
-    --             -- configurationSources = { "flake8" },
-    --             plugins = {
-    --                 jedi_completion = { enabled = true },
-    --                 -- jedi_hover = { enabled = true },
-    --                 -- jedi_references = { enabled = true },
-    --                 jedi_signature_help = { enabled = true },
-    --                 -- jedi_symbols = { enabled = true, all_scopes = true },
-    --                 -- pycodestyle = { enabled = true },
-    --                 -- flake8 = {
-    --                 --     enabled = true,
-    --                 --     ignore = {},
-    --                 --     maxLineLength = 160
-    --                 -- },
-    --                 -- mypy = { enabled = true },
-    --                 -- isort = { enabled = true },
-    --                 -- yapf = { enabled = false },
-    --                 -- pylint = { enabled = false },
-    --                 -- pydocstyle = { enabled = false },
-    --                 -- mccabe = { enabled = false },
-    --                 -- preload = { enabled = false },
-    --                 -- rope_completion = { enabled = false }
-    --             }
-    --         }
-    --     },
-    --     on_attach = Lsp_on_attach
-    -- }
+
     lspconfig.jsonls.setup {
         on_attach = Lsp_on_attach,
         filetypes = { "json", "jsonc" },
@@ -139,42 +84,13 @@ function M.nvim_lsp()
             },
         }
     }
-    lspconfig.tsserver.setup {
-        on_attach = Lsp_on_attach,
-        root_dir = require("lspconfig").util.root_pattern("package.json", "tsconfig.json"),
-    }
-    lspconfig.denols.setup {
-        on_attach = Lsp_on_attach,
-        root_dir = require("lspconfig").util.root_pattern("deno.json", "deno.jsonc"),
-    }
+
     vim.lsp.for_each_buffer_client(0, function(client)
         if client.name ~= "" then
             client.server_capabilities.document_formatting = true
             client.server_capabilities.document_range_formatting = true
         end
     end)
-end
-
-function M.null_ls()
-    local null_ls = require("null-ls")
-    require("null-ls").setup({
-        sources = {
-            -- null_ls.builtins.formatting.stylua.with({
-            --     extra_args = { "--indent-type=Spaces" },
-            -- }),
-            null_ls.builtins.formatting.prettier.with({
-                filetypes = { "yaml", "markdown" },
-            }),
-            null_ls.builtins.formatting.swiftformat,
-
-            -- null_ls.builtins.diagnostics.eslint,
-            -- null_ls.builtins.formatting.fprettify,
-            null_ls.builtins.formatting.autopep8,
-            -- null_ls.builtins.diagnostics.teal,
-            -- null_ls.builtins.diagnostics.vint,
-            -- null_ls.builtins.diagnostics.vale,
-        },
-    })
 end
 
 return M

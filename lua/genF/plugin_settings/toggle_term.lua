@@ -8,7 +8,7 @@ require("toggleterm").setup {
         end
     end,
     open_mapping = [[<m-w>]],
-    -- hide_numbers = true, -- hide the number column in toggleterm buffers
+    hide_numbers = true,
     shade_filetypes = {},
     shade_terminals = true,
     shading_factor = "1", -- the degree by which to darken to terminal colour, default: 1 for dark backgrounds, 3 for light

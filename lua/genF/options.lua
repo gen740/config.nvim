@@ -3,58 +3,61 @@ if vim.fn.has('nvim-0.7') then
     vim.opt.cmdheight = 1
 end
 
-vim.opt.clipboard = 'unnamed'
-vim.opt.colorcolumn = '81'
+local opt = vim.opt
 
-vim.opt.foldenable = true
-vim.opt.foldlevel = 99
-vim.opt.foldmethod = 'expr'
-vim.opt.foldexpr = 'nvim_treesitter#foldexpr()'
+opt.clipboard = 'unnamed'
+opt.colorcolumn = '81'
 
-vim.opt.gdefault = true
-vim.opt.hidden = true
-vim.opt.ignorecase = true
-vim.opt.inccommand = 'nosplit'
-vim.opt.incsearch = true
-vim.opt.breakindent = true
+opt.foldenable = true
+opt.foldlevel = 99
+opt.foldmethod = 'expr'
+opt.foldexpr = 'nvim_treesitter#foldexpr()'
 
-vim.opt.list = true
+opt.gdefault = true
+opt.hidden = true
+opt.ignorecase = true
+opt.inccommand = 'nosplit'
+opt.incsearch = true
+opt.breakindent = true
+
+opt.list = true
 -- ,eol:↲│,conceal:◇
-vim.opt.listchars = [[tab:»-,trail:█,extends:»,precedes:«,nbsp:%]]
+opt.listchars = [[tab:»-,trail:█,extends:»,precedes:«,nbsp:%]]
 
-vim.opt.modeline = true
-vim.opt.mouse:append('a')
-vim.opt.number = true
-vim.opt.pumheight = 10
-vim.opt.relativenumber = true
-vim.opt.runtimepath:append('~/.config/nvim/custom_runtime')
-vim.opt.scrolloff = 8
-vim.opt.shada = [['1000,f1,<500,:500,@500,/500]]
-vim.opt.shortmess = 'acostTWI'
-vim.opt.showmode = false
-vim.opt.signcolumn = 'yes'
-vim.opt.smartcase = true
-vim.opt.splitbelow = true
-vim.opt.splitright = true
-vim.opt.swapfile = true
-vim.opt.termguicolors = true
-vim.opt.guicursor = ''
-vim.opt.backspace = [[indent,eol,start]]
-vim.opt.winbar = '%=%f%m%='
+opt.modeline = true
+opt.mouse:append('a')
+opt.number = true
+opt.pumheight = 10
+opt.relativenumber = true
+opt.runtimepath:append('~/.config/nvim/custom_runtime')
+opt.scrolloff = 8
+opt.shada = [['1000,f1,<500,:500,@500,/500]]
+opt.shortmess = 'acostTWI'
+opt.showmode = false
+opt.signcolumn = 'yes'
+opt.smartcase = true
+opt.splitbelow = true
+opt.splitright = true
+opt.swapfile = true
+opt.termguicolors = true
+opt.guicursor = ''
+opt.backspace = [[indent,eol,start]]
+opt.winbar = '%=%f%m%='
 
-vim.opt.expandtab = true
-vim.opt.tabstop = 4
-vim.opt.shiftwidth = 4
-vim.opt.softtabstop = 4
+opt.expandtab = true
+opt.tabstop = 4
+opt.shiftwidth = 4
+opt.softtabstop = 4
 
-vim.opt.showtabline = 0
-vim.opt.undodir = os.getenv('HOME') .. '/.vim/undo'
-vim.opt.undofile = true
-vim.opt.undolevels = 10000
-vim.opt.undoreload = 10000
-vim.opt.updatetime = 250
-vim.opt.whichwrap = 'b,s,<,>,[,]'
-vim.opt.wrap = false
+opt.showtabline = 0
+opt.undodir = os.getenv('HOME') .. '/.vim/undo'
+opt.undofile = true
+opt.undolevels = 10000
+opt.undoreload = 10000
+opt.updatetime = 250
+opt.whichwrap = 'b,s,<,>,[,]'
+opt.wrap = false
+opt.viewoptions = "folds,cursor"
 -- vim.opt.showmatch = true
 
 vim.g.netrw_silent = true
