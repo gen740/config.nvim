@@ -54,10 +54,12 @@ opt.undodir = os.getenv('HOME') .. '/.vim/undo'
 opt.undofile = true
 opt.undolevels = 10000
 opt.undoreload = 10000
-opt.updatetime = 250
+opt.updatetime = 3000
 opt.whichwrap = 'b,s,<,>,[,]'
 opt.wrap = false
 opt.viewoptions = "folds,cursor"
+-- vim.cmd([[set fillchars+=eob:\ ]])
+opt.fillchars = [[eob: ]]
 -- vim.opt.showmatch = true
 
 vim.g.netrw_silent = true

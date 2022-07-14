@@ -60,3 +60,40 @@ aucmd({ "TextYankPost" }, {
         return (not vim.v.event.visual) and require 'vim.highlight'.on_yank()
     end
 })
+
+
+aucmd({ "VimEnter" }, {
+    callback = function()
+        vim.cmd([[AsyncStop | AsyncRun mpv ~/.config/nvim/audio/001_ずんだもん（ノーマル）_お帰りなさい\ ご主….wav]])
+    end
+})
+
+aucmd({ "VimLeavePre" }, {
+    callback = function()
+        vim.cmd([[AsyncStop | !mpv ~/.config/nvim/audio/007_ずんだもん（ノーマル）_さようなら、またき….wav]])
+    end
+})
+
+aucmd({ "InsertEnter" }, {
+    callback = function()
+        vim.cmd([[AsyncStop |  AsyncRun mpv ~/.config/nvim/audio/006_ずんだもん（ノーマル）_インサート.wav]])
+    end
+})
+
+aucmd({ "InsertLeave" }, {
+    callback = function()
+        vim.cmd([[AsyncStop | AsyncRun mpv ~/.config/nvim/audio/005_ずんだもん（ノーマル）_ノーマル.wav]])
+    end
+})
+
+aucmd({ "BufWrite" }, {
+    callback = function()
+        vim.cmd([[AsyncStop | AsyncRun mpv ~/.config/nvim/audio/008_ずんだもん（ノーマル）_保存したのだ.wav]])
+    end
+})
+
+aucmd({ "CursorHoldI" }, {
+    callback = function()
+        vim.cmd([[AsyncStop | AsyncRun mpv ~/.config/nvim/audio/004_ずんだもん（ノーマル）_ご主人様、早く打っ….wav]])
+    end
+})

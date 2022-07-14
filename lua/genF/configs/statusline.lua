@@ -1,6 +1,4 @@
-M = {}
-
-function M.lsp_status()
+local function setup()
     local lsp_status = require("lsp-status")
     -- lsp_status.register_progress()
     lsp_status.config({
@@ -9,4 +7,6 @@ function M.lsp_status()
     })
 end
 
-return M
+return {
+    setup = setup
+}

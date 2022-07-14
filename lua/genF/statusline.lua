@@ -1,4 +1,4 @@
-local gitbranch = require("genF.gitbranch")
+local gitbranch = require("genf.gitbranch")
 
 vim.api.nvim_create_namespace("StatusLeftContent")
 vim.api.nvim_create_namespace("StatusLeftSeparatorLeft")

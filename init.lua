@@ -32,23 +32,3 @@ vim.cmd([[
     endtry
     let JpFormatCursorMovedI = 1
 ]])
-
-vim.defer_fn(
-    function()
-        vim.g.EasyMotion_keys = "aoeuidhtnpyfgcrl;qjkxbmwvzuhs" -- This Option is For Dvorak User
-        vim.g.EasyMotion_do_mapping = 0
-        vim.g.EasyMotion_use_migemo = 1
-        vim.g.EasyMotion_startofline = 0
-
-        -- Ultisnips
-        vim.g.UltiSnipsExpandTrigger = "<tab>"
-        vim.g.UltiSnipsJumpForwardTrigger = "<c-e>"
-        vim.g.UltiSnipsJumpBackwardTrigger = "<c-k>"
-        vim.g.UltiSnipsEditSplit = "vertical"
-        vim.g.matchup_matchparen_offscreen = { method = "popup" }
-
-        vim.api.nvim_set_hl(0, "FigetTask", { bg = nil, fg = "#ffffff" })
-        vim.api.nvim_set_hl(0, "FigetTitle", { bg = nil, fg = "#ffffff" })
-        -- Set ColorScheme
-    end, 100
-)

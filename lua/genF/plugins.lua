@@ -24,31 +24,32 @@ require('packer').startup {
         --------------------------------------------------------------------------------------------
         ---- Utilities -----------------------------------------------------------------------------
         --------------------------------------------------------------------------------------------
-        use { 'cohama/lexima.vim', config = function() require('genF.plugin_settings.lexima') end }
+        use { 'cohama/lexima.vim', config = require('genf.configs.lexima').setup }
         use { 'machakann/vim-sandwich', keys = { 'sa', 'sd', 'sr' } }
-        use { 'skywind3000/asyncrun.vim', cmd = { 'AsyncRun' } }
+        use { 'skywind3000/asyncrun.vim' }
         use { 'numToStr/Comment.nvim', config = function() require('Comment').setup {} end, keys = "gc" }
         use { 'mbbill/undotree', cmd = 'UndotreeToggle' }
         use { 'andymass/vim-matchup', keys = { '%' } }
-        use { 'folke/zen-mode.nvim', config = function() require('genF.plugin_settings.zen') end, cmd = { 'ZenMode' } }
+        use { 'folke/zen-mode.nvim', config = require('genf.configs.zen').setup, cmd = { 'ZenMode' } }
         use { 'tpope/vim-fugitive', cmd = 'Git' }
         use { 'nvim-lua/plenary.nvim' }
         use {
             'lewis6991/gitsigns.nvim',
-            config = function() require('genF.plugin_settings.gitsigns') end,
+            config = require('genf.configs.gitsigns').setup,
         }
         use {
             'lukas-reineke/indent-blankline.nvim',
-            config = function() require('genF.plugin_settings.indent_blankline') end
+            config = require('genf.configs.indent_blankline').setup
         }
         use {
             'akinsho/nvim-toggleterm.lua',
-            config = function() require('genF.plugin_settings.toggle_term') end,
+            config = require('genf.configs.toggle_term').setup,
             cmd = { 'ToggleTerm' }
         }
         use {
             'SirVer/ultisnips',
             requires = { 'honza/vim-snippets' },
+            config = require('genf.configs.ultisnips').setup
         }
         -- use { 'rrethy/vim-hexokinase', run = 'make hexokinase' }
 
@@ -57,7 +58,7 @@ require('packer').startup {
         --------------------------------------------------------------------------------------------
         use {
             'nvim-treesitter/nvim-treesitter',
-            config = function() require('genF.plugin_settings.treesitter') end,
+            config = require('genf.configs.treesitter').setup,
         }
         use {
             'nvim-treesitter/playground', cmd = 'TSPlaygroundToggle'
@@ -86,7 +87,7 @@ require('packer').startup {
         use {
             'kyazdani42/nvim-tree.lua',
             requires = { 'kyazdani42/nvim-web-devicons' },
-            config = function() require('genF.plugin_settings.nvim_tree') end,
+            config = require('genf.configs.nvim_tree').setup,
             cmd = { 'NvimTreeToggle' }
         }
         use {
@@ -103,7 +104,7 @@ require('packer').startup {
                     run = 'make',
                 }
             },
-            config = function() require('genF.plugin_settings.telescope') end,
+            config = require('genf.configs.telescope').setup,
             cmd = "Telescope"
         }
 
@@ -125,7 +126,7 @@ require('packer').startup {
         --------------------------------------------------------------------------------------------
         ---- LSP and Debugger ----------------------------------------------------------------------
         --------------------------------------------------------------------------------------------
-        use { 'neovim/nvim-lspconfig', config = require('genF.plugin_settings.lsp').nvim_lsp }
+        use { 'neovim/nvim-lspconfig', config = require('genf.configs.lsp').nvim_lsp }
         use {
             'hrsh7th/nvim-cmp',
             requires = {
@@ -140,36 +141,36 @@ require('packer').startup {
                 { 'quangnguyen30192/cmp-nvim-ultisnips' },
                 { 'neovim/nvim-lspconfig' },
             },
-            config = require('genF.plugin_settings.nvim_cmp').nvim_cmp
+            config = require('genf.configs.nvim_cmp').nvim_cmp
         }
         use {
             'nvim-lua/lsp-status.nvim',
-            config = require('genF.plugin_settings.statusline').lsp_status,
+            config = require('genf.configs.statusline').lsp_status,
         }
 
         --------------------------------------------------------------------------------------------
         -- DUPLECATED ------------------------------------------------------------------------------
         --------------------------------------------------------------------------------------------
         use { 'junegunn/vim-easy-align' }
-        -- use { 'mfussenegger/nvim-dap', config = require('genF.plugin_settings.dap').nvim_dap }
-        -- use { 'rcarriga/nvim-dap-ui', config = require('genF.plugin_settings.dap').dap_ui }
+        -- use { 'mfussenegger/nvim-dap', config = require('genf.configs.dap').nvim_dap }
+        -- use { 'rcarriga/nvim-dap-ui', config = require('genf.configs.dap').dap_ui }
         -- use { 'chentau/marks.nvim' }
         -- use { 'tversteeg/registers.nvim'}
         -- use { 'justinmk/vim-sneak', key = { 'f', 'F' } }
         -- use { 'vim-denops/denops.vim', opt = true }
         -- use {
         --     'romgrk/nvim-treesitter-context',
-        --     config = require('genF.plugin_settings.treesitter').treesitter_context
+        --     config = require('genf.configs.treesitter').treesitter_context
         -- }
         ---- Bufferline
         -- use {
         --     'akinsho/nvim-bufferline.lua',
         --     requires = { 'kyazdani42/nvim-web-devicons', opt = true },
-        --     config = require('genF.plugin_settings.statusline').bufferline
+        --     config = require('genf.configs.statusline').bufferline
         -- }
         -- use { 'hoob3rt/lualine.nvim',
         --     requires = { 'kyazdani42/nvim-web-devicons', opt = true },
-        --     config = require('genF.plugin_settings.statusline').lualine
+        --     config = require('genf.confign_settings.statusline').lualine
         -- }
         -- use { 'j-hui/fidget.nvim', config = function() require('fidget').setup {} end }
     end,
