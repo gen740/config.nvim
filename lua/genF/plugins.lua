@@ -170,7 +170,7 @@ require('packer').startup {
         -- }
         -- use { 'hoob3rt/lualine.nvim',
         --     requires = { 'kyazdani42/nvim-web-devicons', opt = true },
-        --     config = require('genf.confign_settings.statusline').lualine
+        --     config = require('genf.configs.statusline').lualine
         -- }
         -- use { 'j-hui/fidget.nvim', config = function() require('fidget').setup {} end }
     end,

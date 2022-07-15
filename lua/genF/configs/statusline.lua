@@ -7,6 +7,11 @@ local function setup()
     })
 end
 
+local function lualine()
+    require('lualine').setup({})
+end
+
 return {
-    setup = setup
+    setup = setup,
+    lualine = lualine
 }

@@ -26,7 +26,8 @@ function MyFoldText()
     else
         foldtext = '┈ ' .. (get_vvar('foldend') - get_vvar('foldstart') + 1) .. ' ﲐ ┈'
         local endofline = 78
-        linetext = vim.fn.strpart(vim.fn.getline(get_vvar('foldstart')), 0, endofline - vim.fn.strwidth(foldtext))
+        linetext = vim.fn.strpart(vim.fn.getline(get_vvar('foldstart')), 0, endofline + 4)
+        print(linetext)
         align = endofline - vim.fn.strwidth(linetext)
     end
     return linetext .. '  ' .. string.rep('┈', math.floor(align)) .. foldtext
