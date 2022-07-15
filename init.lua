@@ -17,12 +17,12 @@ elseif dir_exists("~/.config/nvim-venv/bin") then
     vim.g.python3_host_prog = "~/.config/nvim-venv/bin/python3"
 end
 
-require("genF.options")
-require("genF.keymap")
-require("genF.autocmd")
-require("genF.plugins")
-require("genF.statusline")
-require("genF.foldingtxt")
+require("genf.options")
+require("genf.keymap")
+require("genf.autocmd")
+require("genf.plugins")
+require("genf.statusline")
+require("genf.foldingtxt")
 
 vim.cmd([[
     try
