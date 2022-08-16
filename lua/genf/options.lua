@@ -25,7 +25,6 @@ opt.list = true
 opt.listchars = [[tab:»-,trail:█,extends:»,precedes:«,nbsp:%]]
 
 opt.modeline = true
-opt.mouse:append('a')
 opt.number = true
 opt.pumheight = 10
 opt.relativenumber = true
@@ -60,6 +59,10 @@ opt.wrap = false
 opt.viewoptions = "folds,cursor"
 -- vim.cmd([[set fillchars+=eob:\ ]])
 opt.fillchars = [[eob: ]]
+
+opt.mousemodel = ""
+opt.mouse = ""
+
 -- vim.opt.showmatch = true
 
 vim.g.netrw_silent = true

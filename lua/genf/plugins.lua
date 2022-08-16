@@ -29,7 +29,7 @@ require('packer').startup {
         use { 'skywind3000/asyncrun.vim' }
         use { 'numToStr/Comment.nvim', config = function() require('Comment').setup {} end, keys = "gc" }
         use { 'mbbill/undotree', cmd = 'UndotreeToggle' }
-        use { 'andymass/vim-matchup', keys = { '%' } }
+        use { 'andymass/vim-matchup' }
         use { 'folke/zen-mode.nvim', config = require('genf.configs.zen').setup, cmd = { 'ZenMode' } }
         use { 'tpope/vim-fugitive', cmd = 'Git' }
         use { 'nvim-lua/plenary.nvim' }
@@ -69,12 +69,12 @@ require('packer').startup {
         --------------------------------------------------------------------------------------------
         ---- Color Scheme
         use { 'EdenEast/nightfox.nvim' }
-        -- use { 'marko-cerovac/material.nvim' }
-        -- use { 'kyazdani42/blue-moon' }
-        -- use { 'mhartington/oceanic-next' }
-        -- use { 'sainnhe/everforest' }
-        -- use { 'kvrohit/substrata.nvim' }
-        -- use { 'ellisonleao/gruvbox.nvim', requires = { 'rktjmp/lush.nvim' } }
+        use { 'marko-cerovac/material.nvim' }
+        use { 'kyazdani42/blue-moon' }
+        use { 'mhartington/oceanic-next' }
+        use { 'sainnhe/everforest' }
+        use { 'kvrohit/substrata.nvim' }
+        use { 'ellisonleao/gruvbox.nvim', requires = { 'rktjmp/lush.nvim' } }
         -- use { 'doums/darcula' }
         -- use { 'arcticicestudio/nord-vim' }
         -- use { 'ray-x/aurora' }
@@ -111,13 +111,13 @@ require('packer').startup {
         --------------------------------------------------------------------------------------------
         ---- FileType Plugins ----------------------------------------------------------------------
         --------------------------------------------------------------------------------------------
-        use { 'rhysd/vim-grammarous', ft = { 'markdown', 'md', 'text' } }
+        use { 'rhysd/vim-grammarous', ft = { 'markdown', 'markdown', 'text' } }
         use { 'chrisbra/csv.vim', ft = { 'csv', 'tsv' } }
-        use { 'mattn/emmet-vim', ft = { 'html', 'markdown', 'md' } }
+        use { 'mattn/emmet-vim', ft = { 'html', 'markdown', 'markdown' } }
         use { 'windwp/nvim-ts-autotag', config = function() require('nvim-ts-autotag').setup {} end,
             ft = { 'html', 'js', 'ts' } }
-        use { 'lervag/vimtex', ft = { 'markdown', 'md', 'tex' } }
-        use { 'fuenor/JpFormat.vim', ft = { 'text' } }
+        use { 'lervag/vimtex', ft = { 'markdown', 'tex' } }
+        use { 'fuenor/JpFormat.vim', ft = { 'text', 'markdown' } }
         -- use { 'rust-lang/rust.vim', ft = { 'rust' } }
         use { 'chikamichi/mediawiki.vim', ft = { 'mediawikix' } }
         -- use { 'KeitaNakamura/tex-conceal.vim', config = function() vim.g.tex_conceal_frac = 1 end, ft = { 'latex' } }
@@ -127,6 +127,7 @@ require('packer').startup {
         ---- LSP and Debugger ----------------------------------------------------------------------
         --------------------------------------------------------------------------------------------
         use { 'neovim/nvim-lspconfig', config = require('genf.configs.lsp').nvim_lsp }
+        use { 'jose-elias-alvarez/null-ls.nvim', config = require('genf.configs.lsp').nullls }
         use {
             'hrsh7th/nvim-cmp',
             requires = {

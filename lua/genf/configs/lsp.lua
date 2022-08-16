@@ -93,4 +93,12 @@ function M.nvim_lsp()
     end)
 end
 
+function M.nullls()
+    require("null-ls").setup({
+        sources = {
+            require("null-ls").builtins.formatting.autopep8,
+        },
+    })
+end
+
 return M
