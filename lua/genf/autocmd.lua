@@ -32,6 +32,8 @@ local function change_color()
     hl(0, "LineNr", { bg = nil, fg = "yellow" })
     hl(0, "WinBar", { bg = nil, fg = "#719cd6" })
     hl(0, "WinBarNC", { bg = nil, fg = "#393b44" })
+    hl(0, "WinSeparator", { bg = nil, fg = "#81b29a" })
+    hl(0, "VertSplit", { bg = nil, fg = "#81b29a" })
     hl(0, "StatusLine", { fg = "#cdcecf", bg = nil })
 
     -- Indent Blankline

@@ -153,8 +153,8 @@ require('packer').startup {
         -- DUPLECATED ------------------------------------------------------------------------------
         --------------------------------------------------------------------------------------------
         use { 'junegunn/vim-easy-align' }
-        -- use { 'mfussenegger/nvim-dap', config = require('genf.configs.dap').nvim_dap }
-        -- use { 'rcarriga/nvim-dap-ui', config = require('genf.configs.dap').dap_ui }
+        use { 'mfussenegger/nvim-dap', config = require('genf.configs.dap').nvim_dap }
+        use { 'rcarriga/nvim-dap-ui', config = require('genf.configs.dap').dap_ui }
         -- use { 'chentau/marks.nvim' }
         -- use { 'tversteeg/registers.nvim'}
         -- use { 'justinmk/vim-sneak', key = { 'f', 'F' } }

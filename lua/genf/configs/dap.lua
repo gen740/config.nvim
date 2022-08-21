@@ -1,5 +1,6 @@
 M = {}
 
+
 function M.nvim_dap()
     local dap = require("dap")
     dap.adapters.lldb = {
@@ -20,8 +21,8 @@ function M.nvim_dap()
             program = function()
                 return vim.fn.input("Path to executable: ", vim.fn.getcwd() .. "/", "file")
             end,
-            cwd = "${workspaceFolder}",
-            stopOnEntry = false,
+            cwd = [[${workspaceFolder}]],
+            stopOnEntry = true,
             args = {},
             runInTerminal = false,
         },
@@ -46,36 +47,46 @@ function M.nvim_dap()
             end,
         },
     }
-    vim.api.nvim_set_keymap("n", "<leader>db", [[<cmd>lua require'dap'.continue()<cr>]], { noremap = true, silent = true })
-    vim.api.nvim_set_keymap("n", "<leader>dn", [[<cmd>lua require'dap'.continue()<cr>]], { noremap = true, silent = true })
-    vim.api.nvim_set_keymap("n", "<leader>ds", [[<cmd>lua require'dap'.step_over()<cr>]], { noremap = true, silent = true })
-    vim.api.nvim_set_keymap("n", "<leader>di", [[<cmd>lua require'dap'.step_into()<cr>]], { noremap = true, silent = true })
-    vim.api.nvim_set_keymap("n", "<leader>dd", [[<cmd>lua require'dap'.toggle_breakpoint()<cr>]], { noremap = true, silent = true })
-    vim.api.nvim_set_keymap("n", "<leader>dD", [[<cmd>lua require'dap'.set_breakpoint(vim.fn.input('Breakpoint condition: '))<CR>]], { noremap = true, silent = true })
-    vim.api.nvim_set_keymap("n", "<leader>dp", [[<cmd>lua require'dap'.set_breakpoint(nil, nil, vim.fn.input('Log point message: '))<CR>]], { noremap = true, silent = true })
-    vim.api.nvim_set_keymap("n", "<leader>dr", [[<cmd>lua require'dap'.repl.open()<CR>:wincmd h<cr>:set]], { noremap = true, silent = true })
-    vim.api.nvim_set_keymap("n", "<leader>dl", [[<cmd>lua require'dap'.run_last()<CR>]], { noremap = true, silent = true })
+    vim.api.nvim_set_keymap("n", "<leader>db", [[<cmd>lua require'dap'.continue()<cr>]],
+        { noremap = true, silent = true })
+    vim.api.nvim_set_keymap("n", "<leader>dn", [[<cmd>lua require'dap'.continue()<cr>]],
+        { noremap = true, silent = true })
+    vim.api.nvim_set_keymap("n", "<leader>ds", [[<cmd>lua require'dap'.step_over()<cr>]],
+        { noremap = true, silent = true })
+    vim.api.nvim_set_keymap("n", "<leader>di", [[<cmd>lua require'dap'.step_into()<cr>]],
+        { noremap = true, silent = true })
+    vim.api.nvim_set_keymap("n", "<leader>dd", [[<cmd>lua require'dap'.toggle_breakpoint()<cr>]],
+        { noremap = true, silent = true })
+    vim.api.nvim_set_keymap("n", "<leader>dD",
+        [[<cmd>lua require'dap'.set_breakpoint(vim.fn.input('Breakpoint condition: '))<CR>]],
+        { noremap = true, silent = true })
+    vim.api.nvim_set_keymap("n", "<leader>dp",
+        [[<cmd>lua require'dap'.set_breakpoint(nil, nil, vim.fn.input('Log point message: '))<CR>]],
+        { noremap = true, silent = true })
+    vim.api.nvim_set_keymap("n", "<leader>dr", [[<cmd>lua require'dap'.repl.open()<CR>:wincmd h<cr>:set]],
+        { noremap = true, silent = true })
+    vim.api.nvim_set_keymap("n", "<leader>dl", [[<cmd>lua require'dap'.run_last()<CR>]],
+        { noremap = true, silent = true })
 end
 
-function Dap_Setup()
-    vim.cmd([[autocmd FileType dap-repl setlocal nobuflisted]])
-    require("dap").continue()
-    vim.fn.feedkeys(":only\n", "x")
-    local cur_win = vim.api.nvim_get_current_win()
-    local cur_win_height = vim.api.nvim_win_get_height(cur_win)
-    local widgets = require("dap.ui.widgets")
-    local my_sidebar = widgets.sidebar(widgets.scopes)
-    my_sidebar.open()
-    -- my_sidebar = widgets.sidebar(widgets.frames)
-    -- my_sidebar.open()
-    require("dap").repl.open()
-    vim.api.nvim_win_set_height(cur_win, math.floor(cur_win_height * 3 / 4))
-end
-
-function Dap_Float()
-    local widgets = require("dap.ui.widgets")
-    widgets.centered_float(widgets.scopes)
-end
+-- function Dap_Setup()
+--     vim.cmd([[autocmd FileType dap-repl setlocal nobuflisted]])
+--     require("dap").continue()
+--     vim.fn.feedkeys(":only\n", "x")
+--     local cur_win = vim.api.nvim_get_current_win()
+--     local cur_win_height = vim.api.nvim_win_get_height(cur_win)
+--     local widgets = require("dap.ui.widgets")
+--     local my_sidebar = widgets.sidebar(widgets.scopes)
+--     my_sidebar.open()
+--     -- my_sidebar = widgets.sidebar(widgets.frames)
+--     -- my_sidebar.open()
+--     require("dap").repl.open()
+--     vim.api.nvim_win_set_height(cur_win, math.floor(cur_win_height * 3 / 4))
+-- end
+-- function Dap_Float()
+--     local widgets = require("dap.ui.widgets")
+--     widgets.centered_float(widgets.scopes)
+-- end
 
 function M.dap_ui()
     require("dapui").setup({
@@ -88,23 +99,6 @@ function M.dap_ui()
             edit = "e",
             repl = "r",
         },
-        sidebar = {
-            -- open_on_start = true,
-            elements = {
-                { id = "scopes", size = 0.33 },
-                { id = "breakpoints", size = 0.33 },
-                { id = "stacks", size = 0.33 },
-                -- { id = "watches", size = 00.25 },
-            },
-            size = 40,
-            position = "right", -- Can be "left", "right", "top", "bottom"
-        },
-        tray = {
-            -- open_on_start = true,
-            elements = { "repl" },
-            size = 15,
-            position = "bottom", -- Can be "left", "right", "top", "bottom"
-        },
         floating = {
             max_height = nil, -- These can be integers or a float between 0 and 1.
             max_width = nil, -- Floats will be treated as percentage of your screen.
@@ -113,17 +107,36 @@ function M.dap_ui()
             },
         },
         windows = { indent = 1 },
+        layouts = {
+            {
+                elements = {
+                    'scopes',
+                    'breakpoints',
+                    'stacks',
+                    'watches',
+                },
+                size = 40,
+                position = 'left',
+            },
+            {
+                elements = {
+                    'repl',
+                    'console',
+                },
+                size = 10,
+                position = 'bottom',
+            },
+        },
     })
-
     local dap, dapui = require("dap"), require("dapui")
     dap.listeners.after.event_initialized["dapui_config"] = function()
-        dapui.open()
+        dapui.open({})
     end
     dap.listeners.before.event_terminated["dapui_config"] = function()
-        dapui.close()
+        dapui.close({})
     end
     dap.listeners.before.event_exited["dapui_config"] = function()
-        dapui.close()
+        dapui.close({})
     end
 end
 
