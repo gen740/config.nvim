@@ -1,5 +1,3 @@
-vim.cmd([[let mapleader = "\<Space>"]])
-
 -- stylua: ignore start
 local keymap = function(mode, key, cmd)
     vim.api.nvim_set_keymap(mode, key, cmd, { noremap = true, silent = true })
@@ -29,12 +27,17 @@ keymap("n", "k", "gk")
 keymap("n", "gk", "k")
 keymap("t", "<m-b>", [[<c-\><c-n>]])
 keymap("v", "<leader>s", ":sort<cr>")
-keymap('n', 'q:', [[<nop>]])
+keymap('n', 'q:', '<nop>')
 
--- :cnoremap <C-A> <Home>
--- :cnoremap <C-F> <Right>
--- :cnoremap <C-B> <Left>
--- :cnoremap <Esc>b <S-Left>
--- :cnoremap <Esc>f <S-Right>
+-- Dap
+keymap('n', '<leader>db', '<cmd>lua require"dap".continue()<cr>')
+keymap('n', '<leader>dn', '<cmd>lua require"dap".continue()<cr>')
+keymap('n', '<leader>ds', '<cmd>lua require"dap".step_over()<cr>')
+keymap('n', '<leader>di', '<cmd>lua require"dap".step_into()<cr>')
+keymap('n', '<leader>dd', '<cmd>lua require"dap".toggle_breakpoint()<cr>')
+keymap('n', '<leader>dD', '<cmd>lua require"dap".set_breakpoint(vim.fn.input("Breakpoint condition: "))<CR>')
+keymap('n', '<leader>dp', '<cmd>lua require"dap".set_breakpoint(nil, nil, vim.fn.input("Log point message: "))<CR>')
+keymap('n', '<leader>dr', '<cmd>lua require"dap".repl.open()<CR>:wincmd h<cr>:set')
+keymap('n', '<leader>dl', '<cmd>lua require"dap".run_last()<CR>')
 
--- -- stylua: ignore end
+-- stylua: ignore end

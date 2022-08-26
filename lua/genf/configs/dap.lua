@@ -10,7 +10,7 @@ function M.nvim_dap()
     }
     dap.adapters.python = {
         type = "executable",
-        command = "/Users/fujimotogen/.pyenv/versions/debugpy/bin/python",
+        command = "/Users/fujimotogen/.pyenv/shims/python3",
         args = { "-m", "debugpy.adapter" },
     }
     dap.configurations.cpp = {
@@ -22,8 +22,7 @@ function M.nvim_dap()
                 return vim.fn.input("Path to executable: ", vim.fn.getcwd() .. "/", "file")
             end,
             cwd = [[${workspaceFolder}]],
-            stopOnEntry = true,
-            args = {},
+            stopOnEntry = false,
             runInTerminal = false,
         },
     }
@@ -42,91 +41,57 @@ function M.nvim_dap()
                 elseif vim.fn.executable(cwd .. "/.venv/bin/python") == 1 then
                     return cwd .. "/.venv/bin/python"
                 else
-                    return "/usr/bin/python"
+                    return "/Users/fujimotogen/.pyenv/shims/python3"
                 end
             end,
         },
     }
-    vim.api.nvim_set_keymap("n", "<leader>db", [[<cmd>lua require'dap'.continue()<cr>]],
-        { noremap = true, silent = true })
-    vim.api.nvim_set_keymap("n", "<leader>dn", [[<cmd>lua require'dap'.continue()<cr>]],
-        { noremap = true, silent = true })
-    vim.api.nvim_set_keymap("n", "<leader>ds", [[<cmd>lua require'dap'.step_over()<cr>]],
-        { noremap = true, silent = true })
-    vim.api.nvim_set_keymap("n", "<leader>di", [[<cmd>lua require'dap'.step_into()<cr>]],
-        { noremap = true, silent = true })
-    vim.api.nvim_set_keymap("n", "<leader>dd", [[<cmd>lua require'dap'.toggle_breakpoint()<cr>]],
-        { noremap = true, silent = true })
-    vim.api.nvim_set_keymap("n", "<leader>dD",
-        [[<cmd>lua require'dap'.set_breakpoint(vim.fn.input('Breakpoint condition: '))<CR>]],
-        { noremap = true, silent = true })
-    vim.api.nvim_set_keymap("n", "<leader>dp",
-        [[<cmd>lua require'dap'.set_breakpoint(nil, nil, vim.fn.input('Log point message: '))<CR>]],
-        { noremap = true, silent = true })
-    vim.api.nvim_set_keymap("n", "<leader>dr", [[<cmd>lua require'dap'.repl.open()<CR>:wincmd h<cr>:set]],
-        { noremap = true, silent = true })
-    vim.api.nvim_set_keymap("n", "<leader>dl", [[<cmd>lua require'dap'.run_last()<CR>]],
-        { noremap = true, silent = true })
 end
-
--- function Dap_Setup()
---     vim.cmd([[autocmd FileType dap-repl setlocal nobuflisted]])
---     require("dap").continue()
---     vim.fn.feedkeys(":only\n", "x")
---     local cur_win = vim.api.nvim_get_current_win()
---     local cur_win_height = vim.api.nvim_win_get_height(cur_win)
---     local widgets = require("dap.ui.widgets")
---     local my_sidebar = widgets.sidebar(widgets.scopes)
---     my_sidebar.open()
---     -- my_sidebar = widgets.sidebar(widgets.frames)
---     -- my_sidebar.open()
---     require("dap").repl.open()
---     vim.api.nvim_win_set_height(cur_win, math.floor(cur_win_height * 3 / 4))
--- end
--- function Dap_Float()
---     local widgets = require("dap.ui.widgets")
---     widgets.centered_float(widgets.scopes)
--- end
 
 function M.dap_ui()
     require("dapui").setup({
         icons = { expanded = "▾", collapsed = "▸" },
         mappings = {
-            -- Use a table to apply multiple mappings
             expand = { "<CR>", "<2-LeftMouse>" },
             open = "o",
             remove = "d",
             edit = "e",
             repl = "r",
+            toggle = "t",
+        },
+        expand_lines = vim.fn.has("nvim-0.7"),
+        layouts = {
+            {
+                elements = {
+                    { id = "scopes", size = 0.25 },
+                    "breakpoints",
+                    "stacks",
+                    "watches",
+                },
+                size = 40, -- 40 columns
+                position = "left",
+            },
+            {
+                elements = {
+                    "repl",
+                    "console",
+                },
+                size = 0.25, -- 25% of total lines
+                position = "bottom",
+            },
         },
         floating = {
             max_height = nil, -- These can be integers or a float between 0 and 1.
             max_width = nil, -- Floats will be treated as percentage of your screen.
+            border = "single", -- Border style. Can be "single", "double" or "rounded"
             mappings = {
                 close = { "q", "<Esc>" },
             },
         },
         windows = { indent = 1 },
-        layouts = {
-            {
-                elements = {
-                    'scopes',
-                    'breakpoints',
-                    'stacks',
-                    'watches',
-                },
-                size = 40,
-                position = 'left',
-            },
-            {
-                elements = {
-                    'repl',
-                    'console',
-                },
-                size = 10,
-                position = 'bottom',
-            },
-        },
+        render = {
+            max_type_length = nil, -- Can be integer or nil.
+        }
     })
     local dap, dapui = require("dap"), require("dapui")
     dap.listeners.after.event_initialized["dapui_config"] = function()

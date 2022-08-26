@@ -67,3 +67,4 @@ opt.mouse = ""
 
 vim.g.netrw_silent = true
 vim.g.vimsyn_embed = 'lPr'
+vim.g.mapleader = [[ ]]
