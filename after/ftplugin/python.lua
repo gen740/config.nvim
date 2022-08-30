@@ -10,6 +10,10 @@ vim.keymap.set('n', '<m-s>', function()
     vim.cmd('AsyncStop')
 end)
 
+vim.keymap.set('n', '<leader>f', function()
+    vim.cmd [[silent !black -q %]]
+end)
+
 vim.opt_local.tabstop = 4
 vim.opt_local.softtabstop = 4
 vim.opt_local.shiftwidth = 4

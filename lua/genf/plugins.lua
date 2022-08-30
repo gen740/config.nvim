@@ -29,7 +29,7 @@ require('packer').startup {
         use { 'skywind3000/asyncrun.vim' }
         use { 'numToStr/Comment.nvim', config = function() require('Comment').setup {} end, keys = "gc" }
         use { 'mbbill/undotree', cmd = 'UndotreeToggle' }
-        use { 'andymass/vim-matchup' }
+        -- use { 'andymass/vim-matchup' }
         use { 'folke/zen-mode.nvim', config = require('genf.configs.zen').setup, cmd = { 'ZenMode' } }
         use { 'tpope/vim-fugitive', cmd = 'Git' }
         use { 'nvim-lua/plenary.nvim' }
@@ -127,7 +127,7 @@ require('packer').startup {
         ---- LSP and Debugger ----------------------------------------------------------------------
         --------------------------------------------------------------------------------------------
         use { 'neovim/nvim-lspconfig', config = require('genf.configs.lsp').nvim_lsp }
-        use { 'jose-elias-alvarez/null-ls.nvim', config = require('genf.configs.lsp').nullls }
+        use { 'lvimuser/lsp-inlayhints.nvim', config = require('genf.configs.lsp').inlay_hints }
         use {
             'hrsh7th/nvim-cmp',
             requires = {

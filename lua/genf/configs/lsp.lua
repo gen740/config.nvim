@@ -1,6 +1,7 @@
 M = {}
 
-function Lsp_on_attach(_, bufnr)
+function Lsp_on_attach(client, bufnr)
+    require("lsp-inlayhints").on_attach(client, bufnr, true)
     local opts = { noremap = true, silent = true }
     vim.keymap.set('n', '<space>e', vim.diagnostic.open_float, opts)
     vim.keymap.set('n', '[d', vim.diagnostic.goto_prev, opts)
@@ -23,7 +24,38 @@ function Lsp_on_attach(_, bufnr)
     vim.keymap.set('n', '<space>rn', vim.lsp.buf.rename, bufopts)
     vim.keymap.set('n', '<space>ca', vim.lsp.buf.code_action, bufopts)
     vim.keymap.set('n', 'gr', vim.lsp.buf.references, bufopts)
-    vim.keymap.set('n', '<space>f', function() vim.lsp.buf.format { async = true } end, bufopts)
+    if client["server_capabilities"]["documentFormattingProvider"] then
+        vim.keymap.set('n', '<space>f', function() vim.lsp.buf.format { async = true } end, bufopts)
+    end
+end
+
+function M.inlay_hints()
+    require("lsp-inlayhints").setup {
+        inlay_hints = {
+            parameter_hints = {
+                show = true,
+                prefix = "← ",
+                separator = ", ",
+                remove_colon_start = false,
+                remove_colon_end = true,
+            },
+            type_hints = {
+                show = true,
+                prefix = "∷ ",
+                separator = ", ",
+                remove_colon_start = true,
+                remove_colon_end = false,
+            },
+            only_current_line = true,
+            labels_separator = " ",
+            max_len_align = false,
+            max_len_align_padding = 1,
+            -- highlight group
+            highlight = "LspInlayHint",
+        },
+        enabled_at_startup = true,
+        debug_mode = false,
+    }
 end
 
 function M.nvim_lsp()
@@ -91,14 +123,6 @@ function M.nvim_lsp()
             client.server_capabilities.document_range_formatting = true
         end
     end)
-end
-
-function M.nullls()
-    require("null-ls").setup({
-        sources = {
-            require("null-ls").builtins.formatting.autopep8,
-        },
-    })
 end
 
 return M

@@ -38,9 +38,10 @@ local function change_color()
 
     -- Indent Blankline
     hlgroup("IndentBlanklineIndent1")
-    hl(0, "IndentBlanklineIndent1", { bg = nil, fg = "#373354", blend = 0 })
+    hl(0, "IndentBlanklineIndent1", { bg = nil, fg = "#474364", blend = 0 })
     hlgroup("IndentBlanklineIndent2")
-    hl(0, "IndentBlanklineIndent2", { bg = nil, fg = "#232136", blend = 0 })
+    hl(0, "IndentBlanklineIndent2", { bg = nil, fg = "#373354", blend = 0 })
+    hl(0, "LspInlayHint", { bg = nil, fg = "#5b6282" })
 end
 
 auproup("CustomColorScheme", { clear = true })
