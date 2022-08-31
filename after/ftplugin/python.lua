@@ -11,7 +11,9 @@ vim.keymap.set('n', '<m-s>', function()
 end)
 
 vim.keymap.set('n', '<leader>f', function()
+    vim.cmd [[silent w]]
     vim.cmd [[silent !black -q %]]
+    vim.cmd [[silent e!]]
 end)
 
 vim.opt_local.tabstop = 4

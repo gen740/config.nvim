@@ -25,6 +25,7 @@ require('packer').startup {
         ---- Utilities -----------------------------------------------------------------------------
         --------------------------------------------------------------------------------------------
         use { 'cohama/lexima.vim', config = require('genf.configs.lexima').setup }
+        use { 'junegunn/vim-easy-align' }
         use { 'machakann/vim-sandwich', keys = { 'sa', 'sd', 'sr' } }
         use { 'skywind3000/asyncrun.vim' }
         use { 'numToStr/Comment.nvim', config = function() require('Comment').setup {} end, keys = "gc" }
@@ -115,7 +116,7 @@ require('packer').startup {
         use { 'chrisbra/csv.vim', ft = { 'csv', 'tsv' } }
         use { 'mattn/emmet-vim', ft = { 'html', 'markdown', 'markdown' } }
         use { 'windwp/nvim-ts-autotag', config = function() require('nvim-ts-autotag').setup {} end,
-            ft = { 'html', 'js', 'ts' } }
+        ft = { 'html', 'js', 'ts' } }
         use { 'lervag/vimtex', ft = { 'markdown', 'tex' } }
         use { 'fuenor/JpFormat.vim', ft = { 'text', 'markdown' } }
         -- use { 'rust-lang/rust.vim', ft = { 'rust' } }
@@ -128,6 +129,8 @@ require('packer').startup {
         --------------------------------------------------------------------------------------------
         use { 'neovim/nvim-lspconfig', config = require('genf.configs.lsp').nvim_lsp }
         use { 'lvimuser/lsp-inlayhints.nvim', config = require('genf.configs.lsp').inlay_hints }
+        use { 'mfussenegger/nvim-dap', config = require('genf.configs.dap').nvim_dap }
+        use { 'rcarriga/nvim-dap-ui', config = require('genf.configs.dap').dap_ui }
         use {
             'hrsh7th/nvim-cmp',
             requires = {
@@ -150,29 +153,16 @@ require('packer').startup {
         }
 
         --------------------------------------------------------------------------------------------
-        -- DUPLECATED ------------------------------------------------------------------------------
+        -- OBSOLETE --------------------------------------------------------------------------------
         --------------------------------------------------------------------------------------------
-        use { 'junegunn/vim-easy-align' }
-        use { 'mfussenegger/nvim-dap', config = require('genf.configs.dap').nvim_dap }
-        use { 'rcarriga/nvim-dap-ui', config = require('genf.configs.dap').dap_ui }
         -- use { 'chentau/marks.nvim' }
         -- use { 'tversteeg/registers.nvim'}
         -- use { 'justinmk/vim-sneak', key = { 'f', 'F' } }
         -- use { 'vim-denops/denops.vim', opt = true }
         -- use {
-        --     'romgrk/nvim-treesitter-context',
-        --     config = require('genf.configs.treesitter').treesitter_context
-        -- }
-        ---- Bufferline
-        -- use {
-        --     'akinsho/nvim-bufferline.lua',
-        --     requires = { 'kyazdani42/nvim-web-devicons', opt = true },
-        --     config = require('genf.configs.statusline').bufferline
-        -- }
-        -- use { 'hoob3rt/lualine.nvim',
-        --     requires = { 'kyazdani42/nvim-web-devicons', opt = true },
-        --     config = require('genf.configs.statusline').lualine
-        -- }
-        -- use { 'j-hui/fidget.nvim', config = function() require('fidget').setup {} end }
-    end,
-}
+            --     'romgrk/nvim-treesitter-context',
+            --     config = require('genf.configs.treesitter').treesitter_context
+            -- }
+            ---- Bufferline
+        end,
+    }

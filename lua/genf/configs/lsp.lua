@@ -46,7 +46,7 @@ function M.inlay_hints()
                 remove_colon_start = true,
                 remove_colon_end = false,
             },
-            only_current_line = true,
+            only_current_line = false,
             labels_separator = " ",
             max_len_align = false,
             max_len_align_padding = 1,

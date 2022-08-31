@@ -3,68 +3,64 @@ if vim.fn.has('nvim-0.7') then
     vim.opt.cmdheight = 1
 end
 
-local opt = vim.opt
+local vim_options = {
+    backspace = [[indent,eol,start]],
 
-opt.clipboard = 'unnamed'
-opt.colorcolumn = '81'
+    breakindent = true,
+    clipboard = 'unnamed',
+    colorcolumn = '81',
+    foldenable = true,
+    foldexpr = 'nvim_treesitter#foldexpr()',
+    foldlevel = 99,
+    foldmethod = 'expr',
+    gdefault = true,
+    guicursor = '',
+    -- hidden = true,
+    ignorecase = true,
+    inccommand = 'nosplit',
+    incsearch = true,
+    list = true,
+    listchars = [[tab:»-,trail:█,extends:»,precedes:«,nbsp:%]], -- ,eol:↲│,conceal:◇
+    modeline = true,
+    number = true,
+    pumheight = 10,
+    relativenumber = true,
+    scrolloff = 8,
+    shada = [['1000,f1,<500,:500,@500,/500]],
+    shortmess = 'acostTWI',
+    showmode = false,
+    signcolumn = 'yes',
+    smartcase = true,
+    splitbelow = true,
+    splitright = true,
+    swapfile = true,
+    termguicolors = true,
+    winbar = '%=%f%m%=',
 
-opt.foldenable = true
-opt.foldlevel = 99
-opt.foldmethod = 'expr'
-opt.foldexpr = 'nvim_treesitter#foldexpr()'
+    showtabline = 0,
+    undodir = os.getenv('HOME') .. '/.vim/undo',
+    undofile = true,
+    undolevels = 10000,
+    undoreload = 10000,
+    updatetime = 250,
+    whichwrap = 'b,s,<,>,[,]',
+    wrap = false,
+    viewoptions = "folds,cursor",
+    -- vim.cmd([[set fillchars+=eob:\ ]])
+    fillchars = [[eob: ]],
 
-opt.gdefault = true
-opt.hidden = true
-opt.ignorecase = true
-opt.inccommand = 'nosplit'
-opt.incsearch = true
-opt.breakindent = true
+    mousemodel = "",
+    mouse = "",
 
-opt.list = true
--- ,eol:↲│,conceal:◇
-opt.listchars = [[tab:»-,trail:█,extends:»,precedes:«,nbsp:%]]
-
-opt.modeline = true
-opt.number = true
-opt.pumheight = 10
-opt.relativenumber = true
-opt.runtimepath:append('~/.config/nvim/custom_runtime')
-opt.scrolloff = 8
-opt.shada = [['1000,f1,<500,:500,@500,/500]]
-opt.shortmess = 'acostTWI'
-opt.showmode = false
-opt.signcolumn = 'yes'
-opt.smartcase = true
-opt.splitbelow = true
-opt.splitright = true
-opt.swapfile = true
-opt.termguicolors = true
-opt.guicursor = ''
-opt.backspace = [[indent,eol,start]]
-opt.winbar = '%=%f%m%='
-
-opt.expandtab = true
-opt.tabstop = 4
-opt.shiftwidth = 4
-opt.softtabstop = 4
-
-opt.showtabline = 0
-opt.undodir = os.getenv('HOME') .. '/.vim/undo'
-opt.undofile = true
-opt.undolevels = 10000
-opt.undoreload = 10000
-opt.updatetime = 250
-opt.whichwrap = 'b,s,<,>,[,]'
-opt.wrap = false
-opt.viewoptions = "folds,cursor"
--- vim.cmd([[set fillchars+=eob:\ ]])
-opt.fillchars = [[eob: ]]
-
-opt.mousemodel = ""
-opt.mouse = ""
-
--- vim.opt.showmatch = true
+    expandtab = true,
+    tabstop = 4,
+    shiftwidth = 4,
+    softtabstop = 4,
+}
 
 vim.g.netrw_silent = true
 vim.g.vimsyn_embed = 'lPr'
-vim.g.mapleader = [[ ]]
+
+for name, val in pairs(vim_options) do
+    vim.opt[name] = val
+end

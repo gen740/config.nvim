@@ -32,15 +32,15 @@ function MyFoldText()
     return linetext .. '  ' .. string.rep('┈', math.floor(align)) .. foldtext
 end
 
-if vim.fn.has("folding") then
+if vim.fn.has('folding') then
     vim.opt.foldtext = [[luaeval('MyFoldText()')]]
     local fillchars = get_gopt('fillchars')
-    if fillchars ~= "" then
-        fillchars = fillchars .. ","
+    if fillchars ~= '' then
+        fillchars = fillchars .. ','
     end
     if get_lopt('foldmethod') == 'diff' then
-        vim.api.nvim_set_option_value('fillchars', fillchars .. "fold: ", { scope = 'local' })
+        vim.api.nvim_set_option_value('fillchars', fillchars .. 'fold: ', { scope = 'local' })
     else
-        vim.api.nvim_set_option_value('fillchars', fillchars .. "fold:┈", { scope = 'local' })
+        vim.api.nvim_set_option_value('fillchars', fillchars .. 'fold:┈', { scope = 'local' })
     end
 end
