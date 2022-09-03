@@ -16,6 +16,6 @@ function! custom#say(text)
   endif
 endfunction
 
-function! custom#quickfik(expr)
+function! custom#quickfix(expr)
   :silent cexpr system(a:expr)
 endfunction

@@ -19,10 +19,6 @@ return {
                     select = true,
                 }),
             },
-            -- window = {
-            --     completion = cmp.config.window.bordered(),
-            --     documentation = cmp.config.window.bordered(),
-            -- },
             sources = {
                 { name = "nvim_lsp" },
                 { name = 'nvim_lsp_signature_help' },
@@ -50,29 +46,15 @@ return {
             },
             sorting = {
                 comparators = {
-                    cmp.config.compare.offset,
                     cmp.config.compare.exact,
                     cmp.config.compare.recently_used,
+                    cmp.config.compare.offset,
                     cmp.config.compare.kind,
                     cmp.config.compare.sort_text,
                     cmp.config.compare.length,
                     cmp.config.compare.order,
                 },
             },
-        })
-        cmp.setup.cmdline('/', {
-            mapping = cmp.mapping.preset.cmdline(),
-            sources = {
-                { name = 'buffer' }
-            }
-        })
-        cmp.setup.cmdline(':', {
-            mapping = cmp.mapping.preset.cmdline(),
-            sources = cmp.config.sources({
-                { name = 'path' }
-            }, {
-                { name = 'cmdline' }
-            })
         })
     end
 }

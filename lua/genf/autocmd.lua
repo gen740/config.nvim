@@ -64,3 +64,9 @@ aucmd({ 'TextYankPost' }, {
         return (not vim.v.event.visual) and require 'vim.highlight'.on_yank()
     end
 })
+
+vim.cmd[[
+    autocmd BufEnter,WinEnter,BufWinEnter toggleterm setlocal signcolumn=no
+]]
+
+-- aucmd({ '' })

@@ -30,7 +30,7 @@ require('packer').startup {
         use { 'skywind3000/asyncrun.vim' }
         use { 'numToStr/Comment.nvim', config = function() require('Comment').setup {} end, keys = "gc" }
         use { 'mbbill/undotree', cmd = 'UndotreeToggle' }
-        -- use { 'andymass/vim-matchup' }
+        use { 'andymass/vim-matchup' }
         use { 'folke/zen-mode.nvim', config = require('genf.configs.zen').setup, cmd = { 'ZenMode' } }
         use { 'tpope/vim-fugitive', cmd = 'Git' }
         use { 'nvim-lua/plenary.nvim' }
@@ -42,11 +42,11 @@ require('packer').startup {
             'lukas-reineke/indent-blankline.nvim',
             config = require('genf.configs.indent_blankline').setup
         }
-        use {
-            'akinsho/nvim-toggleterm.lua',
-            config = require('genf.configs.toggle_term').setup,
-            cmd = { 'ToggleTerm' }
-        }
+        -- use {
+        --     'akinsho/nvim-toggleterm.lua',
+        --     config = require('genf.configs.toggle_term').setup,
+        --     cmd = { 'ToggleTerm' }
+        -- }
         use {
             'SirVer/ultisnips',
             requires = { 'honza/vim-snippets' },
@@ -70,17 +70,12 @@ require('packer').startup {
         --------------------------------------------------------------------------------------------
         ---- Color Scheme
         use { 'EdenEast/nightfox.nvim' }
-        use { 'marko-cerovac/material.nvim' }
-        use { 'kyazdani42/blue-moon' }
-        use { 'mhartington/oceanic-next' }
-        use { 'sainnhe/everforest' }
-        use { 'kvrohit/substrata.nvim' }
-        use { 'ellisonleao/gruvbox.nvim', requires = { 'rktjmp/lush.nvim' } }
-        -- use { 'doums/darcula' }
-        -- use { 'arcticicestudio/nord-vim' }
-        -- use { 'ray-x/aurora' }
-        -- use { 'Rigellute/rigel' }
-        -- use { 'dracula/vim' }
+        -- use { 'marko-cerovac/material.nvim' }
+        -- use { 'kyazdani42/blue-moon' }
+        -- use { 'mhartington/oceanic-next' }
+        -- use { 'sainnhe/everforest' }
+        -- use { 'kvrohit/substrata.nvim' }
+        -- use { 'ellisonleao/gruvbox.nvim', requires = { 'rktjmp/lush.nvim' } }
 
         --------------------------------------------------------------------------------------------
         ---- File Operations -----------------------------------------------------------------------
@@ -96,12 +91,10 @@ require('packer').startup {
             requires = {
                 {
                     'nvim-lua/popup.nvim',
-                    -- cmd = "Telescope",
                 },
                 {
                     'nvim-telescope/telescope-fzf-native.nvim',
                     requires = 'junegunn/fzf',
-                    -- cmd = "Telescope",
                     run = 'make',
                 }
             },
@@ -116,11 +109,11 @@ require('packer').startup {
         use { 'chrisbra/csv.vim', ft = { 'csv', 'tsv' } }
         use { 'mattn/emmet-vim', ft = { 'html', 'markdown', 'markdown' } }
         use { 'windwp/nvim-ts-autotag', config = function() require('nvim-ts-autotag').setup {} end,
-        ft = { 'html', 'js', 'ts' } }
+            ft = { 'html', 'js', 'ts' } }
         use { 'lervag/vimtex', ft = { 'markdown', 'tex' } }
         use { 'fuenor/JpFormat.vim', ft = { 'text', 'markdown' } }
-        -- use { 'rust-lang/rust.vim', ft = { 'rust' } }
         use { 'chikamichi/mediawiki.vim', ft = { 'mediawikix' } }
+        -- use { 'rust-lang/rust.vim', ft = { 'rust' } }
         -- use { 'KeitaNakamura/tex-conceal.vim', config = function() vim.g.tex_conceal_frac = 1 end, ft = { 'latex' } }
         -- use { 'rbonvall/vim-textobj-latex', requires = { 'kana/vim-textobj-user' }, ft = { 'latex' } }
 
@@ -151,18 +144,17 @@ require('packer').startup {
             'nvim-lua/lsp-status.nvim',
             config = require('genf.configs.statusline').lsp_status,
         }
+        -- use {
+        --     "https://git.sr.ht/~whynothugo/lsp_lines.nvim",
+        --     config = function()
+        --         require("lsp_lines").setup()
+        --     end,
+        -- }
 
         --------------------------------------------------------------------------------------------
         -- OBSOLETE --------------------------------------------------------------------------------
         --------------------------------------------------------------------------------------------
-        -- use { 'chentau/marks.nvim' }
-        -- use { 'tversteeg/registers.nvim'}
-        -- use { 'justinmk/vim-sneak', key = { 'f', 'F' } }
-        -- use { 'vim-denops/denops.vim', opt = true }
-        -- use {
-            --     'romgrk/nvim-treesitter-context',
-            --     config = require('genf.configs.treesitter').treesitter_context
-            -- }
-            ---- Bufferline
-        end,
-    }
+        use { 'chentoast/marks.nvim', config = require('genf.configs.marks').marks }
+        use { 'tversteeg/registers.nvim' }
+    end,
+}
