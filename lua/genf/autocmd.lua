@@ -32,7 +32,8 @@ local function change_color()
     hl(0, 'WinBarNC', { bg = nil, fg = '#393b44' })
     hl(0, 'WinSeparator', { bg = nil, fg = '#81b29a' })
     hl(0, 'VertSplit', { bg = nil, fg = '#81b29a' })
-    hl(0, 'StatusLine', { fg = '#cdcecf', bg = nil })
+    hl(0, 'StatusLine', { bg = nil, fg = '#cdcecf' })
+    hl(0, 'QuickFixLine', { bg = '#333333', fg = '#cdcecf' })
 
     -- Indent Blankline
     hlgroup('IndentBlanklineIndent1')
@@ -65,7 +66,7 @@ aucmd({ 'TextYankPost' }, {
     end
 })
 
-vim.cmd[[
+vim.cmd [[
     autocmd BufEnter,WinEnter,BufWinEnter toggleterm setlocal signcolumn=no
 ]]
 

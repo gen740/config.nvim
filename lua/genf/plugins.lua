@@ -27,7 +27,7 @@ require('packer').startup {
         use { 'cohama/lexima.vim', config = require('genf.configs.lexima').setup }
         use { 'junegunn/vim-easy-align' }
         use { 'machakann/vim-sandwich', keys = { 'sa', 'sd', 'sr' } }
-        use { 'skywind3000/asyncrun.vim' }
+
         use { 'numToStr/Comment.nvim', config = function() require('Comment').setup {} end, keys = "gc" }
         use { 'mbbill/undotree', cmd = 'UndotreeToggle' }
         use { 'andymass/vim-matchup' }
@@ -42,11 +42,6 @@ require('packer').startup {
             'lukas-reineke/indent-blankline.nvim',
             config = require('genf.configs.indent_blankline').setup
         }
-        -- use {
-        --     'akinsho/nvim-toggleterm.lua',
-        --     config = require('genf.configs.toggle_term').setup,
-        --     cmd = { 'ToggleTerm' }
-        -- }
         use {
             'SirVer/ultisnips',
             requires = { 'honza/vim-snippets' },
