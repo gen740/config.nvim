@@ -42,7 +42,15 @@ require('packer').startup {
             requires = { 'honza/vim-snippets' },
             config = require('genf.configs.ultisnips').setup
         }
+        use { 'wakatime/vim-wakatime' }
         -- use { 'rrethy/vim-hexokinase', run = 'make hexokinase' }
+        use {
+            "max397574/colortils.nvim",
+            cmd = "Colortils",
+            config = function()
+                require("colortils").setup({})
+            end,
+        }
 
         --------------------------------------------------------------------------------------------
         ---- Treesitter ----------------------------------------------------------------------------

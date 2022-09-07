@@ -19,9 +19,11 @@ function M.asyncrun(cmd)
         if event == "stdout" or event == "stderr" then
             if data then
                 for idx, val in ipairs(data) do
+                    print(val)
                     if val ~= "" then
                         vim.list_extend(lines, { val })
                     end
+                    vim.api.nvim_command("doautocmd QuickFixCmdPost")
                 end
                 vim.fn.setqflist({}, " ", {
                     title = cmd,
