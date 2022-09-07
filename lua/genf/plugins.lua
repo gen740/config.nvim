@@ -31,13 +31,8 @@ require('packer').startup {
         use { 'numToStr/Comment.nvim', config = function() require('Comment').setup {} end, keys = "gc" }
         use { 'mbbill/undotree', cmd = 'UndotreeToggle' }
         use { 'andymass/vim-matchup' }
-        use { 'folke/zen-mode.nvim', config = require('genf.configs.zen').setup, cmd = { 'ZenMode' } }
         use { 'tpope/vim-fugitive', cmd = 'Git' }
         use { 'nvim-lua/plenary.nvim' }
-        use {
-            'lewis6991/gitsigns.nvim',
-            config = require('genf.configs.gitsigns').setup,
-        }
         use {
             'lukas-reineke/indent-blankline.nvim',
             config = require('genf.configs.indent_blankline').setup
@@ -139,17 +134,23 @@ require('packer').startup {
             'nvim-lua/lsp-status.nvim',
             config = require('genf.configs.statusline').lsp_status,
         }
+
+        --------------------------------------------------------------------------------------------
+        -- OBSOLETE --------------------------------------------------------------------------------
+        --------------------------------------------------------------------------------------------
+        -- use { 'tversteeg/registers.nvim' }
+        -- use { 'chentoast/marks.nvim', config = require('genf.configs.marks').marks }
+        -- use {
+        --     'lewis6991/gitsigns.nvim',
+        --     config = require('genf.configs.gitsigns').setup,
+        --     ft = { "cpp", "python", "go" }
+        -- }
         -- use {
         --     "https://git.sr.ht/~whynothugo/lsp_lines.nvim",
         --     config = function()
         --         require("lsp_lines").setup()
         --     end,
         -- }
-
-        --------------------------------------------------------------------------------------------
-        -- OBSOLETE --------------------------------------------------------------------------------
-        --------------------------------------------------------------------------------------------
-        use { 'chentoast/marks.nvim', config = require('genf.configs.marks').marks }
-        use { 'tversteeg/registers.nvim' }
+        -- use { 'folke/zen-mode.nvim', config = require('genf.configs.zen').setup, cmd = { 'ZenMode' } }
     end,
 }
