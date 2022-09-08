@@ -8,12 +8,14 @@ func CustomQuickfixTextFunc(info)
             call add(l, '┃ ' . d.text)
             continue
         endif
-        if d.type == "e"
-            call add(l, ' ' . bufname(d.bufnr) . '|' . d.lnum . '|' . d.text)
+        if and(d.bufnr == 0, d.lnum == 0)
+            call add(l, 'כֿ ' . ' ⇒ ' . d.text)
+        elseif d.type == "e"
+            call add(l, ' ' . bufname(d.bufnr) . '|' . d.lnum . '|⇒ ' . d.text)
         elseif d.type == "w"
-            call add(l, ' ' . bufname(d.bufnr) . '|' . d.lnum . '|' . d.text)
+            call add(l, ' ' . bufname(d.bufnr) . '|' . d.lnum . '|⇒ ' . d.text)
         else
-            call add(l, ' ' . bufname(d.bufnr) . '|' . d.lnum . '|' . d.text)
+            call add(l, ' ' . bufname(d.bufnr) . '|' . d.lnum . '|⇒ ' . d.text)
         endif
     endfor
     if len(l) == 0

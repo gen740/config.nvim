@@ -15,6 +15,11 @@ function M.asyncrun(cmd)
         is_running = true
     end
 
+    local efm = vim.api.nvim_buf_get_option(bufnr, "efm")
+    if efm == nil or efm == "" then
+        print("Plese set error format")
+    end
+
     local function on_event(job_id, data, event)
         if event == "stdout" or event == "stderr" then
             if data then
@@ -23,17 +28,14 @@ function M.asyncrun(cmd)
                     if val ~= "" then
                         vim.list_extend(lines, { val })
                     end
-                    vim.api.nvim_command("doautocmd QuickFixCmdPost")
                 end
                 vim.fn.setqflist({}, " ", {
                     title = cmd,
                     lines = lines,
-                    efm = vim.api.nvim_buf_get_option(bufnr, "efm")
+                    efm = efm
                 })
-                vim.api.nvim_command("doautocmd QuickFixCmdPost")
             end
         end
-
         if event == "exit" then
             vim.api.nvim_command("doautocmd QuickFixCmdPost")
             print("Done")

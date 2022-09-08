@@ -111,7 +111,7 @@ require('packer').startup {
         use { 'lervag/vimtex', ft = { 'markdown', 'tex' } }
         use { 'fuenor/JpFormat.vim', ft = { 'text', 'markdown' } }
         use { 'chikamichi/mediawiki.vim', ft = { 'mediawikix' } }
-        -- use { 'rust-lang/rust.vim', ft = { 'rust' } }
+        -- use { 'rust-lang/rust.vim' }
         -- use { 'KeitaNakamura/tex-conceal.vim', config = function() vim.g.tex_conceal_frac = 1 end, ft = { 'latex' } }
         -- use { 'rbonvall/vim-textobj-latex', requires = { 'kana/vim-textobj-user' }, ft = { 'latex' } }
 

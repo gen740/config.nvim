@@ -25,19 +25,16 @@ else
     CompilerSet makeprg=cargo\ $*
 endif
 
-augroup RustCargoQuickFixHooks
-    autocmd!
-    autocmd QuickFixCmdPre make call cargo#quickfix#CmdPre()
-    autocmd QuickFixCmdPost make call cargo#quickfix#CmdPost()
-augroup END
-
 " Ignore general cargo progress messages
-CompilerSet errorformat+=
+CompilerSet errorformat^=
             \%-G%\\s%#Downloading%.%#,
+            \%-G%\\s%#Checking%.%#,
             \%-G%\\s%#Compiling%.%#,
             \%-G%\\s%#Finished%.%#,
             \%-G%\\s%#error:\ Could\ not\ compile\ %.%#,
             \%-G%\\s%#To\ learn\ more\\,%.%#,
+            \%-G%\\s%#For\ more\ information\ about\ this\ error\\,%.%#,
+            \%-Gerror:\ test\ failed\\,\ to\ rerun\ pass%.%#,
             \%-Gnote:\ Run\ with\ \`RUST_BACKTRACE=%.%#,
             \%.%#panicked\ at\ \\'%m\\'\\,\ %f:%l:%c
 
