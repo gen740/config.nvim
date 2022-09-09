@@ -7,6 +7,7 @@ function M.asyncrun(cmd)
     local lines = {}
     local winnr = vim.fn.win_getid()
     local bufnr = vim.api.nvim_win_get_buf(winnr)
+    local qfwinid = vim.fn.getqflist({ winid = winnr }).winid
 
     if is_running then
         print("Command still runing")
@@ -19,6 +20,12 @@ function M.asyncrun(cmd)
     if efm == nil or efm == "" then
         print("Plese set error format")
     end
+
+    vim.fn.setqflist({}, " ", {
+        title = cmd,
+        lines = {},
+        efm = efm
+    })
 
     local function on_event(job_id, data, event)
         if event == "stdout" or event == "stderr" then
@@ -34,6 +41,12 @@ function M.asyncrun(cmd)
                     lines = lines,
                     efm = efm
                 })
+                -- vim.api.nvim_win_call(qfwinid,
+                --     function()
+                --         vim.cmd [[:norm G]]
+                --     end
+                -- )
+                vim.api.nvim_command("doautocmd QuickFixCmdPost")
             end
         end
         if event == "exit" then
@@ -61,5 +74,54 @@ function M.asyncstop()
         vim.fn.jobstop(running_jobid)
     end
 end
+
+local function dump(o)
+    if type(o) == 'table' then
+        local s = '{ '
+        for k, v in pairs(o) do
+            if type(k) ~= 'number' then k = '"' .. k .. '"' end
+            s = s .. '[' .. k .. '] = ' .. dump(v) .. ','
+        end
+        return s .. '} '
+    else
+        return tostring(o)
+    end
+end
+
+local function get_quickfix_buf()
+
+    local winnr = vim.fn.win_getid()
+    local bufnr = vim.api.nvim_win_get_buf(winnr)
+    local qfwinid = vim.fn.getqflist({ winid = winnr }).winid
+
+    vim.fn.setqflist({}, " ", {
+        title = "Test",
+        lines = {
+            "hoge",
+            "fuga",
+            "piyo",
+            "1",
+            "2",
+            "3",
+            "4",
+            "5",
+            "6",
+            "7",
+            "8",
+            "9",
+        },
+    })
+    vim.api.nvim_win_call(qfwinid,
+        function()
+            -- vim.api.nvim_win_set_cursor(qfwinid, { 0, 0 })
+            -- print("hello")
+            vim.cmd [[:norm G]]
+        end
+    )
+    -- print(vim.api.nvim_win_get_cursor(1000)[1])
+end
+
+get_quickfix_buf()
+
 
 return M

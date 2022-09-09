@@ -5,7 +5,7 @@ func CustomQuickfixTextFunc(info)
     let qflist = getqflist({'id' : a:info.id, 'items' : 1}).items
     for d in qflist
         if !d.valid
-            call add(l, '┃ ' . d.text)
+            call add(l, '┃ ' . substitute(d.text, "|", "┃", "g"))
             continue
         endif
         if and(d.bufnr == 0, d.lnum == 0)

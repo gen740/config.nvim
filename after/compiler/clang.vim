@@ -10,6 +10,9 @@ set cpo&vim
 
 CompilerSet errorformat=
             \%-G%f:%s:,
+            \%-GFAILED:%.%#,
+            \%-Gmake:\ %.%#,
+            \%-Gninja:\ %.%#,
             \%f:%l:%c:\ %trror:\ %m,
             \%f:%l:%c:\ %tarning:\ %m,
             \%f:%l:\ %trror:\ %m,
