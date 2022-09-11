@@ -1,10 +1,9 @@
--- stylua: ignore start
+vim.g.mapleader = [[ ]]
 local keymap = function(mode, key, cmd)
     vim.api.nvim_set_keymap(mode, key, cmd, { noremap = true, silent = true })
 end
 
-vim.g.mapleader = [[ ]]
-
+-- stylua: ignore start
 keymap('n', '<c-q>', '<cmd>NvimTreeToggle<cr>')
 keymap('n', '<m-j>', '<cmd>resize +2<cr>')
 keymap('n', '∆', '<cmd>resize +2<cr>')
@@ -16,6 +15,7 @@ keymap('n', '<m-k>', '<cmd>resize -2<cr>')
 keymap('n', '˚', '<cmd>resize -2<cr>')
 keymap('n', '<m-n>', '<cmd>cn<cr>')
 keymap('n', '˜', '<cmd>cn<cr>')
+
 keymap('n', '<m-p>', '<cmd>co<cr>')
 keymap('n', 'π', '<cmd>co<cr>')
 keymap('n', '<m-w>', '<cmd>lua ToggleTerminal()<cr>')

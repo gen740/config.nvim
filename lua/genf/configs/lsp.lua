@@ -1,5 +1,7 @@
 M = {}
 
+
+
 function Lsp_on_attach(client, bufnr)
     require("lsp-inlayhints").on_attach(client, bufnr, true)
     local opts = { noremap = true, silent = true }
@@ -25,7 +27,9 @@ function Lsp_on_attach(client, bufnr)
     vim.keymap.set('n', '<space>ca', vim.lsp.buf.code_action, bufopts)
     vim.keymap.set('n', 'gr', vim.lsp.buf.references, bufopts)
     if client["server_capabilities"]["documentFormattingProvider"] then
-        vim.keymap.set('n', '<space>f', function() vim.lsp.buf.format { async = true } end, bufopts)
+        vim.keymap.set('n', '<space>f', function()
+            vim.lsp.buf.format { async = true }
+        end, bufopts)
     end
 end
 

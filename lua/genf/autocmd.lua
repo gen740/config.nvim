@@ -1,70 +1,79 @@
-local hl = vim.api.nvim_set_hl
-local hlgroup = vim.api.nvim_create_namespace
+vim.api.nvim_create_namespace('IndentBlanklineIndent1')
+vim.api.nvim_create_namespace('IndentBlanklineIndent2')
+
+local hlcolors = {
+    Normal = { bg = nil, fg = '#cdcecf' },
+    CursorLine = { bg = '#222222' },
+    NormalNC = { bg = nil, fg = '#cdcecf' },
+    NormalSB = { bg = nil, fg = '#cdcecf' },
+    SignColumn = { bg = nil, fg = '#cdcecf' },
+    EasyMotionTarget = { fg = 'yellow' },
+    LineNr = { bg = nil, fg = '#5b6282' },
+    -- LineNr = { bg = nil, fg = 'yellow' },
+    Search = { bg = '#333333', fg = '#ffe37e', bold = true },
+    EndOfBuffer = { fg = '#222222' },
+    GitSignsAdd = { bg = nil, fg = 'lightblue' },
+    GitSignsAddNr = { bg = nil, fg = 'lightblue' },
+    GitSignsAddLn = { bg = nil, fg = 'lightblue' },
+    GitSignsChange = { bg = nil, fg = 'lightgreen' },
+    GitSignsChangeNr = { bg = nil, fg = 'lightgreen' },
+    GitSignsChangeLn = { bg = nil, fg = 'lightgreen' },
+    GitSignsDelete = { bg = nil, fg = 'red' },
+    GitSignsDeleteNr = { bg = nil, fg = 'red' },
+    GitSignsDeleteLn = { bg = nil, fg = 'red' },
+    NvimTreeNormal = { bg = nil, fg = '#cdcecf' },
+    TelescopeNormal = { bg = nil, fg = '#cdcecf' },
+    Substitute = { bg = '#ffe37e', fg = '#192330' },
+    Folded = { bg = nil, fg = '#71839b' },
+    LineNrAbove = { bg = nil, fg = '#5b6282' },
+    LineNrBelow = { bg = nil, fg = '#5b6282' },
+    WinBar = { bg = nil, fg = '#719cd6' },
+    WinBarNC = { bg = nil, fg = '#393b44' },
+    WinSeparator = { bg = nil, fg = '#81b29a' },
+    VertSplit = { bg = nil, fg = '#81b29a' },
+    StatusLine = { bg = nil, fg = '#cdcecf' },
+    QuickFixLine = { bg = '#333333', fg = '#cdcecf' },
+    IndentBlanklineIndent1 = { bg = nil, fg = '#474364', blend = 0 },
+    IndentBlanklineIndent2 = { bg = nil, fg = '#373354', blend = 0 },
+    LspInlayHint = { bg = nil, fg = '#5b6282' },
+}
 
 local function change_color()
-    hl(0, 'Normal', { bg = nil, fg = '#cdcecf' })
-    hl(0, 'CursorLine', { bg = '#222222' })
-    hl(0, 'NormalNC', { bg = nil, fg = '#cdcecf' })
-    hl(0, 'NormalSB', { bg = nil, fg = '#cdcecf' })
-    -- hl(0, 'NormalFloat', { bg = nil, fg = '#cdcecf' })
-    hl(0, 'SignColumn', { bg = nil, fg = '#cdcecf' })
-    hl(0, 'EasyMotionTarget', { fg = 'yellow' })
-    hl(0, 'LineNr', { bg = nil, fg = '#5b6282' })
-    hl(0, 'Search', { bg = '#333333', fg = '#ffe37e', bold = true })
-    hl(0, 'EndOfBuffer', { fg = '#222222' })
-    hl(0, 'GitSignsAdd', { bg = nil, fg = 'lightblue' })
-    hl(0, 'GitSignsAddNr', { bg = nil, fg = 'lightblue' })
-    hl(0, 'GitSignsAddLn', { bg = nil, fg = 'lightblue' })
-    hl(0, 'GitSignsChange', { bg = nil, fg = 'lightgreen' })
-    hl(0, 'GitSignsChangeNr', { bg = nil, fg = 'lightgreen' })
-    hl(0, 'GitSignsChangeLn', { bg = nil, fg = 'lightgreen' })
-    hl(0, 'GitSignsDelete', { bg = nil, fg = 'red' })
-    hl(0, 'GitSignsDeleteNr', { bg = nil, fg = 'red' })
-    hl(0, 'GitSignsDeleteLn', { bg = nil, fg = 'red' })
-    hl(0, 'NvimTreeNormal', { bg = nil, fg = '#cdcecf' })
-    hl(0, 'TelescopeNormal', { bg = nil, fg = '#cdcecf' })
-    hl(0, 'Substitute', { bg = '#ffe37e', fg = '#192330' })
-    hl(0, 'Folded', { bg = nil, fg = '#71839b' })
-    hl(0, 'LineNrAbove', { bg = nil, fg = '#5b6282' })
-    hl(0, 'LineNrBelow', { bg = nil, fg = '#5b6282' })
-    hl(0, 'LineNr', { bg = nil, fg = 'yellow' })
-    hl(0, 'WinBar', { bg = nil, fg = '#719cd6' })
-    hl(0, 'WinBarNC', { bg = nil, fg = '#393b44' })
-    hl(0, 'WinSeparator', { bg = nil, fg = '#81b29a' })
-    hl(0, 'VertSplit', { bg = nil, fg = '#81b29a' })
-    hl(0, 'StatusLine', { bg = nil, fg = '#cdcecf' })
-    hl(0, 'QuickFixLine', { bg = '#333333', fg = '#cdcecf' })
-
-    -- Indent Blankline
-    hlgroup('IndentBlanklineIndent1')
-    hl(0, 'IndentBlanklineIndent1', { bg = nil, fg = '#474364', blend = 0 })
-    hlgroup('IndentBlanklineIndent2')
-    hl(0, 'IndentBlanklineIndent2', { bg = nil, fg = '#373354', blend = 0 })
-    hl(0, 'LspInlayHint', { bg = nil, fg = '#5b6282' })
+    for key, val in pairs(hlcolors) do
+        vim.api.nvim_set_hl(0, key, val)
+    end
 end
 
-local aucmd = vim.api.nvim_create_autocmd
-local auproup = vim.api.nvim_create_augroup
+local autocmd = vim.api.nvim_create_autocmd
+local augroup = vim.api.nvim_create_augroup
 
-auproup('CustomColorScheme', { clear = true })
+augroup('CustomColorScheme', { clear = true })
 
-aucmd({ 'ColorScheme' }, {
+autocmd({ 'ColorScheme' }, {
     group = 'CustomColorScheme',
     callback = change_color
 })
 
-aucmd({ 'TermOpen' }, {
+autocmd({ 'TermOpen' }, {
     callback = function()
         vim.opt.number = false
         vim.opt.relativenumber = false
     end
 })
 
-aucmd({ 'TextYankPost' }, {
+autocmd({ 'TextYankPost' }, {
     callback = function()
         return (not vim.v.event.visual) and require 'vim.highlight'.on_yank()
     end
 })
+
+-- autocmd({ 'BufWritePre' }, {
+--     callback = function()
+--         local current_view = vim.fn.winsaveview()
+--         vim.lsp.buf.format { async = true }
+--         vim.fn.winrestview(current_view)
+--     end
+-- })
 
 vim.cmd [[
     autocmd BufEnter,WinEnter,BufWinEnter toggleterm setlocal signcolumn=no

@@ -14,12 +14,13 @@ vim.keymap.set('n', '<leader>f', function()
     if vim.fn.executable("black") then
         vim.cmd [[
         silent w
-        let current_view=winsaveview()
+        ]]
+        local current_view = vim.fn.winsaveview()
+        vim.cmd [[
         silent !black -q %
         silent e
-        call winrestview(current_view)
-        silent redraw!
         ]]
+        vim.fn.winrestview(current_view)
     end
 end)
 

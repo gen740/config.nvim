@@ -147,7 +147,7 @@ require('packer').startup {
         -- OBSOLETE --------------------------------------------------------------------------------
         --------------------------------------------------------------------------------------------
         -- use { 'tversteeg/registers.nvim' }
-        -- use { 'chentoast/marks.nvim', config = require('genf.configs.marks').marks }
+        use { 'chentoast/marks.nvim', config = require('genf.configs.marks').marks }
         -- use {
         --     'lewis6991/gitsigns.nvim',
         --     config = require('genf.configs.gitsigns').setup,
