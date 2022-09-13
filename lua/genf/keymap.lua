@@ -6,28 +6,18 @@ end
 -- stylua: ignore start
 keymap('n', '<c-q>', '<cmd>NvimTreeToggle<cr>')
 keymap('n', '<m-j>', '<cmd>resize +2<cr>')
-keymap('n', '∆', '<cmd>resize +2<cr>')
 keymap('n', '<m-h>', '<cmd>vertical resize -2<cr>')
-keymap('n', '˙', '<cmd>vertical resize -2<cr>')
 keymap('n', '<m-l>', '<cmd>vertical resize +2<cr>')
-keymap('n', '¬', '<cmd>vertical resize +2<cr>')
 keymap('n', '<m-k>', '<cmd>resize -2<cr>')
-keymap('n', '˚', '<cmd>resize -2<cr>')
 keymap('n', '<m-n>', '<cmd>cn<cr>')
-keymap('n', '˜', '<cmd>cn<cr>')
 
-keymap('n', '<m-p>', '<cmd>co<cr>')
-keymap('n', 'π', '<cmd>co<cr>')
-keymap('n', '<m-w>', '<cmd>lua ToggleTerminal()<cr>')
-keymap('n', '∑', '<cmd>lua ToggleTerminal()<cr>')
-keymap('t', '<m-w>', '<cmd>lua ToggleTerminal()<cr>')
-keymap('t', '∑', '<cmd>lua ToggleTerminal()<cr>')
-keymap('n', '<m-p>', '<cmd>lua ToggleIpython3()<cr>')
-keymap('n', 'π', '<cmd>lua ToggleIpython3()<cr>')
-keymap('t', '<m-p>', '<cmd>lua ToggleIpython3()<cr>')
-keymap('t', 'π', '<cmd>lua ToggleIpython3()<cr>')
+keymap('n', '<m-q>', '<cmd>lua require("genf.toggleshell").toggleqfwin()<cr>')
+keymap('t', '<m-q>', '<cmd>lua require("genf.toggleshell").toggleqfwin()<cr>')
+keymap('n', '<m-w>', '<cmd>lua require("genf.toggleshell").toggleterm()<cr>')
+keymap('t', '<m-w>', '<cmd>lua require("genf.toggleshell").toggleterm()<cr>')
+keymap('n', '<m-p>', '<cmd>lua require("genf.toggleshell").toggleipython3()<cr>')
+keymap('t', '<m-p>', '<cmd>lua require("genf.toggleshell").toggleipython3()<cr>')
 keymap('t', '<m-b>', [[<c-\><c-n>]])
-keymap('t', '∫', [[<c-\><c-n>]])
 
 keymap('n', '<leader>co', '<cmd>copen<cr><C-w>p')
 keymap('n', '<leader>tcb', '<cmd>Telescope current_buffer_fuzzy_find<cr>')
@@ -44,6 +34,7 @@ keymap('n', 'gj', 'j')
 keymap('n', 'k', 'gk')
 keymap('n', 'gk', 'k')
 keymap('v', '<leader>s', ':sort<cr>')
+keymap('x', '<leader>p', '\'_dP')
 keymap('n', 'q:', '<nop>')
 
 -- Dap
@@ -56,5 +47,6 @@ keymap('n', '<leader>dD', '<cmd>lua require"dap".set_breakpoint(vim.fn.input("Br
 keymap('n', '<leader>dp', '<cmd>lua require"dap".set_breakpoint(nil, nil, vim.fn.input("Log point message: "))<CR>')
 keymap('n', '<leader>dr', '<cmd>lua require"dap".repl.open()<CR>:wincmd h<cr>:set')
 keymap('n', '<leader>dl', '<cmd>lua require"dap".run_last()<CR>')
+
 
 -- stylua: ignore end

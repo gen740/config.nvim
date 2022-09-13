@@ -1,5 +1,6 @@
 local gitbranch = require('genf.gitbranch')
 
+-- Define Colors
 vim.api.nvim_create_namespace('StatusLeftContent')
 vim.api.nvim_create_namespace('StatusLeftSeparatorLeft')
 vim.api.nvim_create_namespace('StatusLeftSeparatorRight')
@@ -11,8 +12,7 @@ vim.api.nvim_set_hl(0, 'StatusLeftSeparatorRight', { fg = '#719cd6', bg = nil })
 vim.api.nvim_set_hl(0, 'StatusCenterContent', { fg = '#71839b', bg = nil })
 vim.api.nvim_set_hl(0, 'StatusCenterLSPStatus', { fg = '#41536b', bg = nil })
 
--- statusline
-
+-- statusline Components
 function Word_count()
     return ' ' .. vim.fn.wordcount()['chars']
 end
@@ -25,6 +25,7 @@ function Get_git_branch()
     return '  ' .. branch .. ' '
 end
 
+-- statusline
 local str = ''
 
 str = str .. '%#StatusLeftSeparatorLeft#%*'

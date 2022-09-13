@@ -44,6 +44,7 @@ local function change_color()
     end
 end
 
+-- auto Commands
 local autocmd = vim.api.nvim_create_autocmd
 local augroup = vim.api.nvim_create_augroup
 
@@ -56,8 +57,9 @@ autocmd({ 'ColorScheme' }, {
 
 autocmd({ 'TermOpen' }, {
     callback = function()
-        vim.opt.number = false
-        vim.opt.relativenumber = false
+        vim.opt_local.number = false
+        vim.opt_local.relativenumber = false
+        vim.opt_local.signcolumn = "no"
     end
 })
 
@@ -66,17 +68,3 @@ autocmd({ 'TextYankPost' }, {
         return (not vim.v.event.visual) and require 'vim.highlight'.on_yank()
     end
 })
-
--- autocmd({ 'BufWritePre' }, {
---     callback = function()
---         local current_view = vim.fn.winsaveview()
---         vim.lsp.buf.format { async = true }
---         vim.fn.winrestview(current_view)
---     end
--- })
-
-vim.cmd [[
-    autocmd BufEnter,WinEnter,BufWinEnter toggleterm setlocal signcolumn=no
-]]
-
--- aucmd({ '' })

@@ -1,15 +1,4 @@
--- Search for python3
-local function dir_exists(path)
-    if type(path) ~= 'string' then
-        error('input error')
-        return false
-    end
-    local response = os.execute('cd ' .. path .. ' 2> /dev/null')
-    if response == 0 or response == true then
-        return true
-    end
-    return false
-end
+local dir_exists = require("genf.utils").dir_exists
 
 if dir_exists("~/.pyenv/versions/neovim-3/bin") then
     vim.g.python3_host_prog = "~/.pyenv/versions/neovim-3/bin/python3"
@@ -24,11 +13,4 @@ require("genf.plugins")
 require("genf.statusline")
 require("genf.foldingtxt")
 
-vim.cmd([[
-    try
-        colo nightfox
-    catch
-        echo "there is on colorscheme nightfox"
-    endtry
-    let JpFormatCursorMovedI = 1
-]])
+vim.g.JpFormatCursorMovedI = 1

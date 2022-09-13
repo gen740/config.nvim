@@ -1,5 +1,7 @@
+local M = {}
 local winsize = 15
-local function close_if_exists()
+
+local close_if_exists = function()
     for idx, val in ipairs(vim.fn.getbufinfo()) do
         if vim.fn.get(vim.fn.split(val.name, '/'), 0, "") == "term:" then
             if (val.variables.ToggleTerm == true) and val.windows[1] ~= nil then
@@ -21,7 +23,7 @@ local function close_if_exists()
     return ""
 end
 
-function ToggleTerminal()
+M.toggleterm = function()
     -- local cur_winheight = vim.fn.getwininfo()[vim.fn.winnr()].height
     local exits_window = close_if_exists()
     if exits_window == "terminal" then
@@ -51,7 +53,7 @@ function ToggleTerminal()
     end
 end
 
-function ToggleIpython3()
+M.toggleipython3 = function()
     -- local cur_winheight = vim.fn.getwininfo()[vim.fn.winnr()].height
     local exits_window = close_if_exists()
     if exits_window == "ipython" then
@@ -81,7 +83,7 @@ function ToggleIpython3()
     end
 end
 
-function ToggleQuickfix()
+M.toggleqfwin = function()
     -- local cur_winheight = vim.fn.getwininfo()[vim.fn.winnr()].height
     local exits_window = close_if_exists()
     if exits_window == "qflist" then
@@ -94,3 +96,5 @@ function ToggleQuickfix()
     vim.fn.execute("setlocal nonumber")
     vim.fn.execute("setlocal signcolumn=no")
 end
+
+return M

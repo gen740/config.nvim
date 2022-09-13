@@ -18,7 +18,7 @@ function M.asyncrun(cmd)
 
     local efm = vim.api.nvim_buf_get_option(bufnr, "efm")
     if efm == nil or efm == "" then
-        print("Plese set error format")
+        efm = '%f:%l:%c:%m,%f:%l:%m'
     end
 
     vim.fn.setqflist({}, " ", {
@@ -41,12 +41,7 @@ function M.asyncrun(cmd)
                     lines = lines,
                     efm = efm
                 })
-                -- vim.api.nvim_win_call(qfwinid,
-                --     function()
-                --         vim.cmd [[:norm G]]
-                --     end
-                -- )
-                vim.api.nvim_command("doautocmd QuickFixCmdPost")
+                -- vim.api.nvim_command("doautocmd QuickFixCmdPost")
             end
         end
         if event == "exit" then
@@ -89,7 +84,6 @@ local function dump(o)
 end
 
 local function get_quickfix_buf()
-
     local winnr = vim.fn.win_getid()
     local bufnr = vim.api.nvim_win_get_buf(winnr)
     local qfwinid = vim.fn.getqflist({ winid = winnr }).winid

@@ -67,7 +67,7 @@ require('packer').startup {
         ---- Appearance ----------------------------------------------------------------------------
         --------------------------------------------------------------------------------------------
         ---- Color Scheme
-        use { 'EdenEast/nightfox.nvim' }
+        use { 'EdenEast/nightfox.nvim', config = function() vim.cmd.colo("nightfox") end }
         -- use { 'marko-cerovac/material.nvim' }
         -- use { 'kyazdani42/blue-moon' }
         -- use { 'mhartington/oceanic-next' }
@@ -106,8 +106,16 @@ require('packer').startup {
         use { 'rhysd/vim-grammarous', ft = { 'markdown', 'markdown', 'text' } }
         use { 'chrisbra/csv.vim', ft = { 'csv', 'tsv' } }
         use { 'mattn/emmet-vim', ft = { 'html', 'markdown', 'markdown' } }
+        use { 'JoosepAlviste/nvim-ts-context-commentstring', config = function()
+            require 'nvim-treesitter.configs'.setup {
+                context_commentstring = {
+                    enable = true
+                }
+            }
+        end }
         use { 'windwp/nvim-ts-autotag', config = function() require('nvim-ts-autotag').setup {} end,
-            ft = { 'html', 'js', 'ts' } }
+            ft = { 'html', 'js', 'ts' }
+        }
         use { 'lervag/vimtex', ft = { 'markdown', 'tex' } }
         use { 'fuenor/JpFormat.vim', ft = { 'text', 'markdown' } }
         use { 'chikamichi/mediawiki.vim', ft = { 'mediawikix' } }
@@ -118,10 +126,20 @@ require('packer').startup {
         --------------------------------------------------------------------------------------------
         ---- LSP and Debugger ----------------------------------------------------------------------
         --------------------------------------------------------------------------------------------
-        use { 'neovim/nvim-lspconfig', config = require('genf.configs.lsp').nvim_lsp }
+        use {
+            'neovim/nvim-lspconfig',
+            requires = {
+                'williamboman/mason.nvim',
+                'williamboman/mason-lspconfig.nvim',
+            },
+            config = function()
+                require('genf.configs.lsp').mason()
+                require('genf.configs.lsp').nvim_lsp()
+            end
+        }
         use { 'lvimuser/lsp-inlayhints.nvim', config = require('genf.configs.lsp').inlay_hints }
         use { 'mfussenegger/nvim-dap', config = require('genf.configs.dap').nvim_dap }
-        use { 'rcarriga/nvim-dap-ui', config = require('genf.configs.dap').dap_ui }
+        use { 'mfussenegger/nvim-dap-ui', config = require('genf.configs.dap').dap_ui }
         use {
             'hrsh7th/nvim-cmp',
             requires = {
@@ -147,7 +165,7 @@ require('packer').startup {
         -- OBSOLETE --------------------------------------------------------------------------------
         --------------------------------------------------------------------------------------------
         -- use { 'tversteeg/registers.nvim' }
-        use { 'chentoast/marks.nvim', config = require('genf.configs.marks').marks }
+        -- use { 'chentoast/marks.nvim', config = require('genf.configs.marks').marks }
         -- use {
         --     'lewis6991/gitsigns.nvim',
         --     config = require('genf.configs.gitsigns').setup,
