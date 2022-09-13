@@ -67,7 +67,7 @@ require('packer').startup {
         ---- Appearance ----------------------------------------------------------------------------
         --------------------------------------------------------------------------------------------
         ---- Color Scheme
-        use { 'EdenEast/nightfox.nvim', config = function() vim.cmd.colo("nightfox") end }
+        use { 'EdenEast/nightfox.nvim', config = function() vim.cmd.colo("nordfox") end }
         -- use { 'marko-cerovac/material.nvim' }
         -- use { 'kyazdani42/blue-moon' }
         -- use { 'mhartington/oceanic-next' }
