@@ -30,7 +30,6 @@ local vim_options = {
     splitright = true,
     swapfile = true,
     termguicolors = true,
-    winbar = '%=%f%m%=',
 
     showtabline = 0,
     undodir = os.getenv('HOME') .. '/.vim/undo',
@@ -56,6 +55,10 @@ local vim_options = {
 if vim.fn.has('nvim-0.7') then
     vim.opt.laststatus = 3
     vim.opt.cmdheight = 1
+end
+
+if vim.fn.has('nvim-0.8') then
+    vim.opt.winbar = '%=%f%m%='
 end
 
 vim.g.loaded_2html_plugin      = true

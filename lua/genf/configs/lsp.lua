@@ -1,7 +1,5 @@
 M = {}
 
-
-
 function Lsp_on_attach(client, bufnr)
     require("lsp-inlayhints").on_attach(client, bufnr, true)
     local opts = { noremap = true, silent = true }
