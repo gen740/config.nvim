@@ -164,19 +164,20 @@ require('packer').startup {
         --------------------------------------------------------------------------------------------
         -- OBSOLETE --------------------------------------------------------------------------------
         --------------------------------------------------------------------------------------------
-        use {
-            'gen740/SmoothCursor.nvim', config = function()
-                require('smoothcursor').setup({
-                    autostart = true,
-                    cursor = "",
-                    intervals = 30,
-                    speed = 21,
-                    linehl = nil
-                })
-            end
-        }
+        -- use {
+        --     'gen740/SmoothCursor.nvim', config = function()
+        --         require('smoothcursor').setup({
+        --             autostart = true,
+        --             cursor = "",
+        --             intervals = 30,
+        --             speed = 21,
+        --             linehl = nil,
+        --             priority = -1,
+        --         })
+        --     end
+        -- }
         -- use { 'tversteeg/registers.nvim' }
-        -- use { 'chentoast/marks.nvim', config = require('genf.configs.marks').marks }
+        use { 'chentoast/marks.nvim', config = require('genf.configs.marks').marks }
         -- use {
         --     'lewis6991/gitsigns.nvim',
         --     config = require('genf.configs.gitsigns').setup,

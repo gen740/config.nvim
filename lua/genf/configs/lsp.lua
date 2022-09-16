@@ -65,7 +65,7 @@ end
 function M.mason()
     require "mason".setup({})
     require("mason-lspconfig").setup({
-        ensure_installed = { "sumneko_lua", "rust_analyzer" }
+        ensure_installed = { "sumneko_lua", "rust_analyzer", "pyright", "clangd" }
     })
 end
 
@@ -115,10 +115,6 @@ function M.nvim_lsp()
         },
     }
 
-    lspconfig.clangd.setup({
-        on_attach = Lsp_on_attach,
-        cmd = { "/Users/fujimotogen/.local/bin/clangd" }
-    })
 
     lspconfig.jsonls.setup {
         on_attach = Lsp_on_attach,

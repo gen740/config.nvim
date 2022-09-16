@@ -13,4 +13,30 @@ require("genf.plugins")
 require("genf.statusline")
 require("genf.foldingtxt")
 
+vim.opt.runtimepath:append("~/home/Labo/Project/SmoothCursor.nvim")
+
+
+require('smoothcursor').setup({
+    cursor = "▷ ",
+    priority = 1,
+    intervals = 35,
+    speed = 25,
+    type = "default",
+    fancy = {
+        enable = true,
+        head = { cursor = "▷", texthl = "SmoothCursorWhite" },
+        body = {
+            -- { cursor = "", texthl = "SmoothCursor" },
+            -- { cursor = "", texthl = "SmoothCursorOrange" },
+            -- { cursor = "●", texthl = "SmoothCursorYellow" },
+            -- { cursor = "●", texthl = "SmoothCursor" },
+            { cursor = "•", texthl = "SmoothCursor" },
+            -- { cursor = ".", texthl = "SmoothCursor" },
+            { cursor = ".", texthl = "SmoothCursor" },
+        },
+        -- tail = { cursor = "♡ " },
+    }
+})
+
+
 vim.g.JpFormatCursorMovedI = 1
