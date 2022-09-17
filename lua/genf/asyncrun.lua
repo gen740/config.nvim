@@ -2,8 +2,16 @@ local M = {}
 
 local running_jobid = nil
 local is_running = false
+local previous_cmd = nil
 
+---@param cmd any
 function M.asyncrun(cmd)
+    -- Repeat if argument is nil
+    if cmd == nil then
+        cmd = previous_cmd
+    end
+    previous_cmd = cmd
+
     local lines = {}
     local winnr = vim.fn.win_getid()
     local bufnr = vim.api.nvim_win_get_buf(winnr)
@@ -128,19 +136,6 @@ end
 function M.asyncstop()
     if running_jobid then
         vim.fn.jobstop(running_jobid)
-    end
-end
-
-local function dump(o)
-    if type(o) == 'table' then
-        local s = '{ '
-        for k, v in pairs(o) do
-            if type(k) ~= 'number' then k = '"' .. k .. '"' end
-            s = s .. '[' .. k .. '] = ' .. dump(v) .. ','
-        end
-        return s .. '} '
-    else
-        return tostring(o)
     end
 end
 

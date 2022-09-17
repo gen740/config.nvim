@@ -174,6 +174,7 @@ require('packer').startup {
                 require('smoothcursor').setup({
                     priority = 1,
                     autostart = true,
+                    threshold = 1,
                     fancy = {
                         enable = true,
                         head = { cursor = nil },
