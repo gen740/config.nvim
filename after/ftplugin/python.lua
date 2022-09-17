@@ -1,5 +1,5 @@
 vim.keymap.set('n', '<m-r>', function()
-    require('genf.asyncrun').asyncrun('make nvim_run')
+    require('genf.asyncrun').asyncrun(nil)
 end)
 
 vim.keymap.set('n', '<m-c>', function()

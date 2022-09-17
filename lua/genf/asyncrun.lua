@@ -4,7 +4,7 @@ local running_jobid = nil
 local is_running = false
 local previous_cmd = nil
 
----@param cmd any
+---@param cmd nil|string
 function M.asyncrun(cmd)
     -- Repeat if argument is nil
     if cmd == nil then
