@@ -175,6 +175,7 @@ require('packer').startup {
                     priority = 1,
                     autostart = true,
                     threshold = 1,
+                    type = "default",
                     fancy = {
                         enable = true,
                         head = { cursor = nil },

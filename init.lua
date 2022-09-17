@@ -6,10 +6,10 @@ elseif dir_exists("~/.config/nvim-venv/bin") then
     vim.g.python3_host_prog = "~/.config/nvim-venv/bin/python3"
 end
 
+require("genf.plugins")
 require("genf.options")
 require("genf.keymap")
 require("genf.autocmd")
-require("genf.plugins")
 require("genf.statusline")
 require("genf.foldingtxt")
 
