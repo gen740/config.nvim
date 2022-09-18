@@ -17,7 +17,7 @@ local function setup()
                 linehl = "GitSignsChangeLn",
             },
         },
-        numhl = false,
+        numhl = true,
         linehl = false,
         keymaps = {
             -- Default keymap options

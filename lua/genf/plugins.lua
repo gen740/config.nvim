@@ -175,11 +175,14 @@ require('packer').startup {
                     priority = 1,
                     autostart = true,
                     threshold = 1,
-                    type = "default",
+                    speed = 40,
+                    type = "exp",
                     fancy = {
                         enable = true,
                         head = { cursor = nil },
                         body = {
+                            { cursor = "", texthl = "SCWhite" },
+                            { cursor = "●", texthl = "SCWhite" },
                             { cursor = "•", texthl = "SCWhite" },
                             { cursor = ".", texthl = "SCWhite" },
                         },
@@ -192,7 +195,7 @@ require('packer').startup {
         -- use {
         --     'lewis6991/gitsigns.nvim',
         --     config = require('genf.configs.gitsigns').setup,
-        --     ft = { "cpp", "python", "go" }
+        --     ft = { "cpp", "python", "go", "lua" }
         -- }
         -- use {
         --     "https://git.sr.ht/~whynothugo/lsp_lines.nvim",
