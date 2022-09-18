@@ -14,12 +14,7 @@ require("genf.autocmd")
 require("genf.statusline")
 require("genf.foldingtxt")
 
--- vim.api.nvim_create_namespace('SCwhite')
--- vim.api.nvim_set_hl(0, 'SCWhite', { bg = nil, fg = '#dddddd' })
-
+vim.api.nvim_create_namespace('SCwhite')
+vim.api.nvim_set_hl(0, 'SCWhite', { bg = nil, fg = '#81749a' })
 
 vim.g.JpFormatCursorMovedI = 1
-
-
-
-vim.cmd([[:nmap <leader>ss :lua local buf=vim.api.nvim_create_buf(false, true); vim.api.nvim_open_win(buf, true, {relative='win', row=30, col=30, width=100, height=50})<CR>]])
