@@ -175,13 +175,13 @@ require('packer').startup {
                     priority = 1,
                     autostart = true,
                     threshold = 1,
-                    speed = 40,
+                    speed = 30,
                     type = "exp",
                     fancy = {
                         enable = true,
                         head = { cursor = nil },
                         body = {
-                            { cursor = "", texthl = "SCWhite" },
+                            -- { cursor = "", texthl = "SCWhite" },
                             { cursor = "●", texthl = "SCWhite" },
                             { cursor = "•", texthl = "SCWhite" },
                             { cursor = ".", texthl = "SCWhite" },
