@@ -11,6 +11,7 @@ vim.keymap.set('n', '<m-s>', function()
 end)
 
 vim.keymap.set('n', '<leader>f', function()
+    local has_indent_blankline = pcall(require, "indent_blankline")
     if vim.fn.executable("black") then
         vim.cmd [[
         silent w
@@ -21,6 +22,9 @@ vim.keymap.set('n', '<leader>f', function()
         silent e
         ]]
         vim.fn.winrestview(current_view)
+        if has_indent_blankline then
+            require("indent_blankline.commands").refresh(true, true)
+        end
     end
 end)
 
