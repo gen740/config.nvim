@@ -164,45 +164,31 @@ require('packer').startup {
         --------------------------------------------------------------------------------------------
         -- OBSOLETE --------------------------------------------------------------------------------
         --------------------------------------------------------------------------------------------
-        -- use { 'gen740/SmoothCursor.nvim',
-        --     config = function()
-        --         require('smoothcursor').setup()
-        --     end
-        -- }
         use {
             'gen740/SmoothCursor.nvim', config = function()
                 require('smoothcursor').setup({
                     priority = 1,
                     autostart = true,
                     threshold = 1,
-                    speed = 30,
+                    speed = 17,
                     type = "exp",
+                    intervals = 20,
                     fancy = {
                         enable = true,
-                        head = { cursor = nil },
+                        -- head = { cursor = ">>", texthl = "SCCursor" },
+                        head = { cursor = nil, texthl = "SCCursor" },
                         body = {
-                            -- { cursor = "", texthl = "SCWhite" },
-                            { cursor = "●", texthl = "SCWhite" },
-                            { cursor = "•", texthl = "SCWhite" },
-                            { cursor = ".", texthl = "SCWhite" },
+                            -- { cursor = "", texthl = "SCCursor" },
+                            { cursor = "●", texthl = "SCCursor" },
+                            { cursor = "•", texthl = "SCCursor" },
+                            { cursor = ".", texthl = "SCCursor" },
                         },
+                        -- tail = { cursor = ">>", texthl = "SCCursor" },
                     }
                 })
             end
         }
         -- use { 'tversteeg/registers.nvim' }
         -- use { 'chentoast/marks.nvim', config = require('genf.configs.marks').marks }
-        -- use {
-        --     'lewis6991/gitsigns.nvim',
-        --     config = require('genf.configs.gitsigns').setup,
-        --     ft = { "cpp", "python", "go", "lua" }
-        -- }
-        -- use {
-        --     "https://git.sr.ht/~whynothugo/lsp_lines.nvim",
-        --     config = function()
-        --         require("lsp_lines").setup()
-        --     end,
-        -- }
-        -- use { 'folke/zen-mode.nvim', config = require('genf.configs.zen').setup, cmd = { 'ZenMode' } }
     end,
 }

@@ -36,6 +36,7 @@ local hlcolors = {
     IndentBlanklineIndent1 = { bg = nil, fg = '#474364', blend = 0 },
     IndentBlanklineIndent2 = { bg = nil, fg = '#373354', blend = 0 },
     LspInlayHint = { bg = nil, fg = '#5b6282' },
+    SCCursor = { bg = nil, fg = '#858850' },
 }
 
 local function change_color()

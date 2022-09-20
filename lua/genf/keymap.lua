@@ -49,5 +49,8 @@ keymap('n', '<leader>dp', function() require "dap".set_breakpoint(nil, nil, vim.
 keymap('n', '<leader>dr', require "dap".repl.open)
 keymap('n', '<leader>dl', require "dap".run_last)
 
+keymap('n', '<leader>rr', require("genf.asyncrun").asyncrun)
+keymap('n', '<leader>rs', require("genf.asyncrun").asyncstop)
+
 
 -- stylua: ignore end

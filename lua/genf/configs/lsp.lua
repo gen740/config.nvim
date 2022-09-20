@@ -63,7 +63,7 @@ end
 function M.mason()
     require "mason".setup({})
     require("mason-lspconfig").setup({
-        ensure_installed = { "sumneko_lua", "rust_analyzer", "pyright", "clangd" }
+        ensure_installed = { "sumneko_lua", "rust_analyzer", "pyright", "clangd", "haskell-language-server" }
     })
 end
 
@@ -80,7 +80,8 @@ function M.nvim_lsp()
         "cmake",
         "julials",
         "yamlls",
-        "zls"
+        "zls",
+        "hls",
     }
 
     for _, lsp in pairs(servers) do
