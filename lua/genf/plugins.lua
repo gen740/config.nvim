@@ -137,6 +137,13 @@ require('packer').startup {
                 require('genf.configs.lsp').nvim_lsp()
             end
         }
+        use { 'jose-elias-alvarez/null-ls.nvim', config = function()
+            require("null-ls").setup({
+                sources = {
+                    require("null-ls").builtins.formatting.stylua
+                },
+            })
+        end }
         use { 'lvimuser/lsp-inlayhints.nvim', config = require('genf.configs.lsp').inlay_hints }
         use { 'mfussenegger/nvim-dap', config = require('genf.configs.dap').nvim_dap }
         use { 'mfussenegger/nvim-dap-ui', config = require('genf.configs.dap').dap_ui }
@@ -175,16 +182,13 @@ require('packer').startup {
                     intervals = 20,
                     fancy = {
                         enable = true,
-                        -- head = { cursor = ">>", texthl = "SCCursor" },
                         head = { cursor = nil, texthl = "SCCursor" },
                         body = {
-                            -- { cursor = "", texthl = "SCCursor" },
                             { cursor = "●", texthl = "SCCursor" },
                             { cursor = "•", texthl = "SCCursor" },
                             { cursor = ".", texthl = "SCCursor" },
                         },
-                        -- tail = { cursor = ">>", texthl = "SCCursor" },
-                    }
+                    },
                 })
             end
         }

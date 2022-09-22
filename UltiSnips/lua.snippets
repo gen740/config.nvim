@@ -1,13 +1,17 @@
 snippet dumpfunction "table dump function"
-local function dump(o)
+local function dump(o, level)
+    local tab = '    '
+    level = level or 0
     if type(o) == 'table' then
-        local s = '{ '
+        local s = '{\n'
         for k, v in pairs(o) do
-            if type(k) ~= 'number' then k = '"' .. k .. '"' end
-            s = s .. '[' .. k .. '] = ' .. dump(v) .. ','
+            s = s .. string.rep(tab, level + 1) .. tostring(k) .. ' = ' .. dump(v, level + 1) .. ',\n'
         end
-        return s .. '} '
+        return s .. '\n' .. string.rep(tab, level) .. '}'
     else
+        if type(o) == "string" then
+            return string.format('"%s"', o)
+        end
         return tostring(o)
     end
 end
