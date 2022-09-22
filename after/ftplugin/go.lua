@@ -1,13 +1,13 @@
 vim.keymap.set('n', '<m-r>', function()
-    vim.cmd('AsyncRun go run .')
+  vim.cmd('AsyncRun go run .')
 end)
 
 vim.keymap.set('n', '<m-c>', function()
-    vim.cmd('AsyncRun go build .')
+  vim.cmd('AsyncRun go build .')
 end)
 
 vim.keymap.set('n', '<m-s>', function()
-    vim.cmd('AsyncStop')
+  vim.cmd('AsyncStop')
 end)
 
 vim.opt_local.tabstop = 4

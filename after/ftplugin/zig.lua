@@ -1,17 +1,17 @@
 vim.keymap.set('n', '<m-r>', function()
-    vim.cmd('AsyncRun zig build run')
+  vim.cmd('AsyncRun zig build run')
 end)
 
 vim.keymap.set('n', '<m-t>', function()
-    vim.cmd('AsyncRun zig build test')
+  vim.cmd('AsyncRun zig build test')
 end)
 
 vim.keymap.set('n', '<m-c>', function()
-    vim.cmd('AsyncRun zig build')
+  vim.cmd('AsyncRun zig build')
 end)
 
 vim.keymap.set('n', '<m-s>', function()
-    vim.cmd('AsyncStop')
+  vim.cmd('AsyncStop')
 end)
 
 vim.opt_local.tabstop = 4

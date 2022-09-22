@@ -1,31 +1,31 @@
 vim.keymap.set('n', '<m-r>', function()
-    require('genf.asyncrun').asyncrun(nil)
+  require('genf.asyncrun').asyncrun(nil)
 end)
 
 vim.keymap.set('n', '<m-c>', function()
-    require('genf.asyncrun').asyncrun('make nvim_build')
+  require('genf.asyncrun').asyncrun('make nvim_build')
 end)
 
 vim.keymap.set('n', '<m-s>', function()
-    require('genf.asyncrun').asyncstop()
+  require('genf.asyncrun').asyncstop()
 end)
 
 vim.keymap.set('n', '<leader>f', function()
-    local has_indent_blankline = pcall(require, "indent_blankline")
-    if vim.fn.executable("black") then
-        vim.cmd [[
+  local has_indent_blankline = pcall(require, 'indent_blankline')
+  if vim.fn.executable('black') then
+    vim.cmd([[
         silent w
-        ]]
-        local current_view = vim.fn.winsaveview()
-        vim.cmd [[
+        ]])
+    local current_view = vim.fn.winsaveview()
+    vim.cmd([[
         silent !black -q %
         silent e
-        ]]
-        vim.fn.winrestview(current_view)
-        if has_indent_blankline then
-            require("indent_blankline.commands").refresh(true, true)
-        end
+        ]])
+    vim.fn.winrestview(current_view)
+    if has_indent_blankline then
+      require('indent_blankline.commands').refresh(true, true)
     end
+  end
 end)
 
 local shiftwidth = 4

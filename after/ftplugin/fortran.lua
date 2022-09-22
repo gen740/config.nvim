@@ -1,13 +1,13 @@
 vim.keymap.set('n', '<m-r>', function()
-    vim.cmd('AsyncRun make nvim_run')
+  vim.cmd('AsyncRun make nvim_run')
 end)
 
 vim.keymap.set('n', '<m-c>', function()
-    vim.cmd('AsyncRun make nvim_build')
+  vim.cmd('AsyncRun make nvim_build')
 end)
 
 vim.keymap.set('n', '<m-s>', function()
-    vim.cmd('AsyncStop')
+  vim.cmd('AsyncStop')
 end)
 
 local shiftwidth = 4

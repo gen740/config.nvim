@@ -1,1 +1,1 @@
-print("atoehuth")
+print('atoehuth')

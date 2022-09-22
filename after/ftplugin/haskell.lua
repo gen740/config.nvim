@@ -1,13 +1,13 @@
 vim.keymap.set('n', '<m-r>', function()
-    require('genf.asyncrun').asyncrun('make nvim_run')
+  require('genf.asyncrun').asyncrun('make nvim_run')
 end)
 
 vim.keymap.set('n', '<m-c>', function()
-    require('genf.asyncrun').asyncrun('make nvim_build')
+  require('genf.asyncrun').asyncrun('make nvim_build')
 end)
 
 vim.keymap.set('n', '<m-s>', function()
-    require('genf.asyncrun').asyncstop()
+  require('genf.asyncrun').asyncstop()
 end)
 
 vim.opt_local.tabstop = 4

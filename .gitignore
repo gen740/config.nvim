@@ -21,3 +21,6 @@ node_modules
 
 # Rust
 target
+
+# packer
+plugin/packer_compiled.lua 

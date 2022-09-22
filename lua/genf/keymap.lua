@@ -1,7 +1,7 @@
 vim.g.mapleader = [[ ]]
 local keymap = function(mode, key, cmd)
-    -- vim.api.nvim_set_keymap(mode, key, cmd, { noremap = true, silent = true })
-    vim.keymap.set(mode, key, cmd, { noremap = true, silent = true })
+  -- vim.api.nvim_set_keymap(mode, key, cmd, { noremap = true, silent = true })
+  vim.keymap.set(mode, key, cmd, { noremap = true, silent = true })
 end
 
 -- stylua: ignore start
@@ -51,6 +51,5 @@ keymap('n', '<leader>dl', require "dap".run_last)
 
 keymap('n', '<leader>rr', require("genf.asyncrun").asyncrun)
 keymap('n', '<leader>rs', require("genf.asyncrun").asyncstop)
-
 
 -- stylua: ignore end
