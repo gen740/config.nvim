@@ -31,6 +31,7 @@ require('smoothcursor').setup({
       { cursor = '.', texthl = 'SCCursor' },
     },
   },
+  disabled_filetypes = { 'lua' },
 })
 
 -- vim.keymap.set('n', 'n', function()
