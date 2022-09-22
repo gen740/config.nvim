@@ -13,4 +13,28 @@ require('genf.autocmd')
 require('genf.statusline')
 require('genf.foldingtxt')
 
+vim.opt.runtimepath:append('~/home/Labo/Project/SmoothCursor.nvim')
+
+require('smoothcursor').setup({
+  priority = 1,
+  autostart = true,
+  threshold = 1,
+  speed = 17,
+  type = 'exp',
+  intervals = 20,
+  fancy = {
+    enable = true,
+    head = { cursor = nil, texthl = 'SCCursor' },
+    body = {
+      { cursor = '●', texthl = 'SCCursor' },
+      { cursor = '•', texthl = 'SCCursor' },
+      { cursor = '.', texthl = 'SCCursor' },
+    },
+  },
+})
+
+-- vim.keymap.set('n', 'n', function()
+--   require('smoothcursor.utils').with_smoothcursor(pcall, vim.cmd, 'normal! n')
+-- end, { noremap = true, silent = true })
+
 vim.g.JpFormatCursorMovedI = 1
