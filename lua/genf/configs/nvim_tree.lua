@@ -7,7 +7,17 @@ local function setup()
     open_on_tab = false,
     hijack_cursor = true,
     update_cwd = false,
-    lsp_diagnostics = true,
+    diagnostics = {
+      enable = true,
+      show_on_dirs = false,
+      debounce_delay = 50,
+      icons = {
+        hint = '',
+        info = '',
+        warning = '',
+        error = '',
+      },
+    },
     update_focused_file = {
       enable = false,
       update_cwd = false,
@@ -20,7 +30,6 @@ local function setup()
     view = {
       width = 29,
       side = 'left',
-      auto_resize = false,
       mappings = {
         custom_only = false,
         list = {},

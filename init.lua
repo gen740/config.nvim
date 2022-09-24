@@ -19,19 +19,19 @@ require('smoothcursor').setup({
   priority = 1,
   autostart = true,
   threshold = 1,
-  speed = 17,
-  type = 'exp',
-  intervals = 20,
-  fancy = {
-    enable = true,
-    head = { cursor = nil, texthl = 'SCCursor' },
-    body = {
-      { cursor = '●', texthl = 'SCCursor' },
-      { cursor = '•', texthl = 'SCCursor' },
-      { cursor = '.', texthl = 'SCCursor' },
-    },
-  },
-  disabled_filetypes = { 'lua' },
+  -- speed = 17,
+  -- type = 'exp',
+  -- intervals = 20,
+  -- fancy = {
+  --   enable = true,
+  --   head = { cursor = nil, texthl = 'SCCursor' },
+  --   body = {
+  --     { cursor = '●', texthl = 'SCCursor' },
+  --     { cursor = '•', texthl = 'SCCursor' },
+  --     { cursor = '.', texthl = 'SCCursor' },
+  --   },
+  -- },
+  -- disabled_filetypes = { 'lua' },
 })
 
 -- vim.keymap.set('n', 'n', function()

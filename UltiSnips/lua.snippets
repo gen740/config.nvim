@@ -7,7 +7,7 @@ local function dump(o, level)
         for k, v in pairs(o) do
             s = s .. string.rep(tab, level + 1) .. tostring(k) .. ' = ' .. dump(v, level + 1) .. ',\n'
         end
-        return s .. '\n' .. string.rep(tab, level) .. '}'
+        return s .. string.rep(tab, level) .. '}'
     else
         if type(o) == "string" then
             return string.format('"%s"', o)

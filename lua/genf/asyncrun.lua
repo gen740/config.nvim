@@ -136,7 +136,6 @@ function M.ripgrep(cmd)
     stdout_buffered = false,
     stderr_buffered = false,
   })
-  vim.api.nvim_chan_send(running_jobid, 'Hoge')
 end
 
 function M.asyncstop()
@@ -147,7 +146,7 @@ end
 
 ---@param args string
 function M.input(args)
-  vim.fn.chansend(running_jobid, args)
+  vim.fn.chansend(running_jobid, args .. '\n')
 end
 
 return M

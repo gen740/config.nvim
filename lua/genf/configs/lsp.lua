@@ -6,7 +6,7 @@ function Lsp_on_attach(client, bufnr)
   vim.keymap.set('n', '<space>e', vim.diagnostic.open_float, opts)
   vim.keymap.set('n', '[d', vim.diagnostic.goto_prev, opts)
   vim.keymap.set('n', ']d', vim.diagnostic.goto_next, opts)
-  vim.keymap.set('n', '<space>q', vim.diagnostic.setloclist, opts)
+  vim.keymap.set('n', '<space>lc', vim.diagnostic.setloclist, opts)
 
   local bufopts = { noremap = true, silent = true, buffer = bufnr }
   -- vim.keymap.set('omnifunc', 'v:lua.vim.lsp.omnifunc')
@@ -83,6 +83,7 @@ function M.nvim_lsp()
     -- "sourcekit",
     'pyright',
     'clangd',
+    'perlnavigator',
     'cmake',
     'julials',
     'yamlls',

@@ -95,6 +95,7 @@ M.toggleqfwin = function()
   vim.fn.execute('setlocal winbar=%=QuickFix%=')
   vim.fn.execute('setlocal nonumber')
   vim.fn.execute('setlocal signcolumn=no')
+  vim.fn.execute('wincmd p')
 end
 
 return M
