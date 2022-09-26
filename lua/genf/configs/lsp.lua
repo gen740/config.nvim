@@ -68,6 +68,7 @@ function M.mason()
       'rust_analyzer',
       'pyright',
       'clangd',
+      'bashls',
       'haskell-language-server',
     },
   })

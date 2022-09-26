@@ -168,7 +168,7 @@ require('packer').startup({
           sources = {
             null_ls.builtins.formatting.stylua,
             null_ls.builtins.formatting.perltidy,
-            -- null_ls.builtins.formatting.perlimports,
+            null_ls.builtins.formatting.shfmt,
           },
         })
       end,

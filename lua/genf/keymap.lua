@@ -17,6 +17,8 @@ keymap('n', '<m-w>', require("genf.toggleshell").toggleterm)
 keymap('t', '<m-w>', require("genf.toggleshell").toggleterm)
 keymap('n', '<m-p>', require("genf.toggleshell").toggleipython3)
 keymap('t', '<m-p>', require("genf.toggleshell").toggleipython3)
+keymap('n', '<m-j>', require("genf.toggleshell").togglejulia)
+keymap('t', '<m-j>', require("genf.toggleshell").togglejulia)
 keymap('t', '<m-b>', [[<c-\><c-n>]])
 
 keymap('n', '<leader>co', '<cmd>copen<cr><C-w>p')

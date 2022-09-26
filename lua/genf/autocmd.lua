@@ -50,6 +50,7 @@ local autocmd = vim.api.nvim_create_autocmd
 local augroup = vim.api.nvim_create_augroup
 
 augroup('CustomColorScheme', { clear = true })
+augroup('CustomAutocommand', { clear = true })
 
 autocmd({ 'ColorScheme' }, {
   group = 'CustomColorScheme',
@@ -57,6 +58,7 @@ autocmd({ 'ColorScheme' }, {
 })
 
 autocmd({ 'TermOpen' }, {
+  group = 'CustomAutocommand',
   callback = function()
     vim.opt_local.number = false
     vim.opt_local.relativenumber = false
@@ -65,6 +67,7 @@ autocmd({ 'TermOpen' }, {
 })
 
 autocmd({ 'TextYankPost' }, {
+  group = 'CustomAutocommand',
   callback = function()
     return not vim.v.event.visual and require('vim.highlight').on_yank()
   end,
