@@ -37,6 +37,8 @@ local hlcolors = {
   IndentBlanklineIndent2 = { bg = nil, fg = '#373354', blend = 0 },
   LspInlayHint = { bg = nil, fg = '#5b6282' },
   SCCursor = { bg = nil, fg = '#858850' },
+  Comment = { fg = '#60728a', italic = true },
+  DiagnosticVirtualTextWarn = { fg = '#ebcb8b', bg = nil, italic = true, undercurl = true },
 }
 
 local function change_color()

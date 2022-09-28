@@ -79,6 +79,7 @@ function M.nvim_lsp()
   local servers = {
     'rust_analyzer',
     'tsserver',
+    'dockerls',
     'texlab',
     'gopls',
     -- "sourcekit",

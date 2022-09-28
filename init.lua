@@ -38,4 +38,11 @@ require('smoothcursor').setup({
 --   require('smoothcursor.utils').with_smoothcursor(pcall, vim.cmd, 'normal! n')
 -- end, { noremap = true, silent = true })
 
+vim.cmd([[
+" let &t_ZH="\e[3m"
+" let &t_ZR="\e[23m"
+"
+let &t_Cs = "\e[4:3m"
+let &t_Ce = "\e[4:0m"
+]])
 vim.g.JpFormatCursorMovedI = 1
