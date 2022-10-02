@@ -43,10 +43,11 @@ require('packer').startup({
     use({ 'andymass/vim-matchup' })
     use({ 'tpope/vim-fugitive', cmd = 'Git' })
     use({ 'nvim-lua/plenary.nvim' })
-    use({
-      'lukas-reineke/indent-blankline.nvim',
-      config = require('genf.configs.indent_blankline').setup,
-    })
+    -- use({
+    --   'lukas-reineke/indent-blankline.nvim',
+    --   config = require('genf.configs.indent_blankline').setup,
+    -- })
+    use({ 'lewis6991/gitsigns.nvim', config = require('genf.configs.gitsigns').setup })
     use({
       'SirVer/ultisnips',
       requires = { 'honza/vim-snippets' },

@@ -21,14 +21,14 @@ require('smoothcursor').setup({
   threshold = 1,
   speed = 18,
   type = 'exp',
-  intervals = 20,
+  intervals = 24,
   fancy = {
     enable = true,
     head = { cursor = nil, texthl = 'SCCursor' },
     body = {
       { cursor = '●', texthl = 'SCCursor' },
       { cursor = '•', texthl = 'SCCursor' },
-      { cursor = '.', texthl = 'SCCursor' },
+      { cursor = '∙', texthl = 'SCCursor' },
     },
   },
   -- disabled_filetypes = { 'lua' },
