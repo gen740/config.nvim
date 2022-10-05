@@ -69,6 +69,25 @@ require('packer').startup({
         require('colortils').setup({})
       end,
     })
+    -- use({
+    --   'folke/noice.nvim',
+    --   event = 'VimEnter',
+    --   config = function()
+    --     require('noice').setup()
+    --   end,
+    --   requires = {
+    --     -- if you lazy-load any plugin below, make sure to add proper `module="..."` entries
+    --     { 'MunifTanjim/nui.nvim' },
+    --     {
+    --       'rcarriga/nvim-notify',
+    --       config = function()
+    --         require('notify').setup({
+    --           background_colour = '#000000',
+    --         })
+    --       end,
+    --     },
+    --   },
+    -- })
 
     --------------------------------------------------------------------------------------------
     ---- Treesitter ----------------------------------------------------------------------------
@@ -202,7 +221,7 @@ require('packer').startup({
     })
     use({
       'nvim-lua/lsp-status.nvim',
-      config = require('genf.configs.statusline').lsp_status,
+      config = require('genf.configs.statusline').setup,
     })
 
     --------------------------------------------------------------------------------------------

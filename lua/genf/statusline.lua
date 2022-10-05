@@ -34,18 +34,28 @@ function Get_git_branch()
   if branch == '' then
     return ''
   end
-  return '  ' .. branch .. ' '
+  return '  ' .. branch -- .. ' '
 end
 
 -- statusline
 local str = ''
 
-str = str .. '%#StatusLeftSeparatorLeft#%*'
-str = str .. '%#StatusLeftContent# %t %M %*'
-str = str .. '%#StatusLeftSeparatorRight#%*'
-str = str .. [[%#StatusCenterContent#%{luaeval('Get_git_branch()')}%*]]
+-- str = str .. '%#StatusLeftSeparatorLeft#%*'
+-- str = str .. '%#StatusLeftContent# %t %M %*'
+-- str = str .. '%#StatusLeftSeparatorRight#%*'
+str = str .. [[%#StatusCenterContent#]]
+str = str .. '  %M '
+str = str .. [[%{luaeval('Get_git_branch()')}]]
+str = str .. [[%*]]
+
 str = str .. [[%.50(%#StatusCenterLSPStatus# %{luaeval('require("lsp-status").status()')}%*%)]]
-str = str .. [[%=%#StatusCenterContent#%{luaeval('Word_count()')}   %l:%L%* ]]
+-- str = str .. [[%=%#StatusCenterContent#%t%*]]
+str = str .. [[%=%#StatusCenterContent#%f%*]]
+
+str = str .. [[%=%#StatusCenterContent#]]
+-- str = str .. [[%{luaeval('Word_count()')}]]
+str = str .. [[  %l:%L ]]
+str = str .. [[%*]]
 
 vim.api.nvim_set_hl(0, 'StatusLine', { fg = '#ffffff', bg = nil })
 

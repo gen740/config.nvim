@@ -47,6 +47,7 @@ local vim_options = {
   mouse = '',
 
   expandtab = true,
+  ruler = false,
   tabstop = 4,
   shiftwidth = 4,
   softtabstop = 4,
@@ -57,9 +58,10 @@ if vim.fn.has('nvim-0.7') then
   vim.opt.cmdheight = 1
 end
 
--- if vim.fn.has('nvim-0.8') then
---   vim.opt.winbar = '%=%f%m%='
--- end
+if vim.fn.has('nvim-0.8') then
+  --   vim.opt.winbar = '%=%f%m%='
+  vim.opt.cmdheight = 0
+end
 
 vim.g.loaded_2html_plugin = true
 vim.g.loaded_logiPat = true

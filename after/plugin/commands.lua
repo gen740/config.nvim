@@ -11,6 +11,5 @@ vim.api.nvim_create_user_command('Stop', function()
 end, {})
 
 vim.api.nvim_create_user_command('IN', function(args)
-  print(args.fargs[1])
   require('genf.asyncrun').input(args.fargs[1])
 end, { nargs = 1 })

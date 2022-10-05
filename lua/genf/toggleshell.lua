@@ -45,7 +45,7 @@ M.toggleterm = function()
   end
   if not toggleterm_buf_found then
     vim.fn.execute('term')
-    vim.fn.execute('setlocal winbar=%=Terminal%=')
+    -- vim.fn.execute('setlocal winbar=%=Terminal%=')
   end
   vim.fn.execute('setlocal nonumber')
   vim.fn.execute('setlocal signcolumn=no')
@@ -75,7 +75,7 @@ M.toggleipython3 = function()
   end
   if not toggleterm_buf_found then
     vim.fn.execute('term ipython3')
-    vim.fn.execute('setlocal winbar=%=Ipython3%=')
+    -- vim.fn.execute('setlocal winbar=%=Ipython3%=')
   end
   vim.fn.execute('setlocal nonumber')
   vim.fn.execute('setlocal signcolumn=no')
@@ -104,7 +104,7 @@ M.togglejulia = function()
   end
   if not toggleterm_buf_found then
     vim.fn.execute('term julia')
-    vim.fn.execute('setlocal winbar=%=Julia%=')
+    -- vim.fn.execute('setlocal winbar=%=Julia%=')
   end
   vim.fn.execute('setlocal nonumber')
   vim.fn.execute('setlocal signcolumn=no')
@@ -124,7 +124,7 @@ M.toggleqfwin = function()
   vim.fn.execute('copen')
   vim.fn.execute('resize' .. tostring(winsize))
   local toggleterm_buf_found = false
-  vim.fn.execute('setlocal winbar=%=QuickFix%=')
+  -- vim.fn.execute('setlocal winbar=%=QuickFix%=')
   vim.fn.execute('setlocal nonumber')
   vim.fn.execute('setlocal signcolumn=no')
   vim.fn.execute('wincmd p')
