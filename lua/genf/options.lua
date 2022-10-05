@@ -41,7 +41,7 @@ local vim_options = {
   wrap = false,
   viewoptions = 'folds,cursor',
   -- vim.cmd([[set fillchars+=eob:\ ]])
-  fillchars = [[eob: ]],
+  fillchars = [[eob: ,stl: ,stlnc:─]],
 
   mousemodel = '',
   mouse = '',
@@ -55,11 +55,11 @@ local vim_options = {
 
 if vim.fn.has('nvim-0.7') then
   vim.opt.laststatus = 3
-  vim.opt.cmdheight = 1
+  -- vim.opt.cmdheight = 1
 end
 
 if vim.fn.has('nvim-0.8') then
-  --   vim.opt.winbar = '%=%f%m%='
+  vim.opt.winbar = ' %#WinBarFileName#%f%m%*%='
   vim.opt.cmdheight = 0
 end
 

@@ -27,11 +27,16 @@ local hlcolors = {
   Folded = { bg = nil, fg = '#71839b' },
   LineNrAbove = { bg = nil, fg = '#5b6282' },
   LineNrBelow = { bg = nil, fg = '#5b6282' },
-  WinBar = { bg = nil, fg = '#719cd6' },
+
+  WinBar = { bg = nil, fg = '#6e7790', bold = true },
   WinBarNC = { bg = nil, fg = '#393b44' },
+  WinBarFileName = { bg = nil, fg = '#6e7790', bold = true, underline = true },
+  -- WinBarFileName = { bg = nil, fg = '#6e7790', bold = true, underline = true },
+
   WinSeparator = { bg = nil, fg = '#81b29a' },
   VertSplit = { bg = nil, fg = '#81b29a' },
-  StatusLine = { bg = nil, fg = '#cdcecf' },
+  StatusLine = { bg = nil, fg = '#81b29a' },
+  -- StatusLineNC = { bg = nil, fg = '#81b29a' },
   QuickFixLine = { bg = '#333333', fg = '#cdcecf' },
   IndentBlanklineIndent1 = { bg = nil, fg = '#474364', blend = 0 },
   IndentBlanklineIndent2 = { bg = nil, fg = '#373354', blend = 0 },

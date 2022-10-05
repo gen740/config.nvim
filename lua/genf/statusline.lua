@@ -40,22 +40,24 @@ end
 -- statusline
 local str = ''
 
--- str = str .. '%#StatusLeftSeparatorLeft#%*'
--- str = str .. '%#StatusLeftContent# %t %M %*'
--- str = str .. '%#StatusLeftSeparatorRight#%*'
-str = str .. [[%#StatusCenterContent#]]
-str = str .. '  %M '
-str = str .. [[%{luaeval('Get_git_branch()')}]]
-str = str .. [[%*]]
+-- -- str = str .. '%#StatusLeftSeparatorLeft#%*'
+-- -- str = str .. '%#StatusLeftContent# %t %M %*'
+-- -- str = str .. '%#StatusLeftSeparatorRight#%*'
+-- str = str .. [[%#StatusCenterContent#]]
+-- str = str .. '  %M '
+-- str = str .. [[%{luaeval('Get_git_branch()')}]]
+-- str = str .. [[%*]]
+--
+-- str = str .. [[%.50(%#StatusCenterLSPStatus# %{luaeval('require("lsp-status").status()')}%*%)]]
+-- -- str = str .. [[%=%#StatusCenterContent#%t%*]]
+-- str = str .. [[%=%#StatusCenterContent#%f%*]]
+--
+-- str = str .. [[%=%#StatusCenterContent#]]
+-- -- str = str .. [[%{luaeval('Word_count()')}]]
+-- -- str = str .. [[  %l:%L ]]
+-- str = str .. [[%*]]
 
-str = str .. [[%.50(%#StatusCenterLSPStatus# %{luaeval('require("lsp-status").status()')}%*%)]]
--- str = str .. [[%=%#StatusCenterContent#%t%*]]
-str = str .. [[%=%#StatusCenterContent#%f%*]]
-
-str = str .. [[%=%#StatusCenterContent#]]
--- str = str .. [[%{luaeval('Word_count()')}]]
-str = str .. [[  %l:%L ]]
-str = str .. [[%*]]
+str = str .. [[%=%=]]
 
 vim.api.nvim_set_hl(0, 'StatusLine', { fg = '#ffffff', bg = nil })
 
