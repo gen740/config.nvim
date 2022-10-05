@@ -38,7 +38,11 @@ local hlcolors = {
   LspInlayHint = { bg = nil, fg = '#5b6282' },
   SCCursor = { bg = nil, fg = '#858850' },
   Comment = { fg = '#60728a', italic = true },
-  DiagnosticVirtualTextWarn = { fg = '#ebcb8b', bg = nil, italic = true, undercurl = true },
+
+  DiagnosticVirtualTextWarn = { fg = '#54524f', bg = nil, undercurl = true },
+  -- DiagnosticUnderlineWarn = { sp = '#54524f', undercurl = true },
+  DiagnosticVirtualTextError = { fg = '#4b3d48', bg = nil, undercurl = true },
+  -- DiagnosticUnderlineError = { sp = '#4b3d48', undercurl = true },
 }
 
 local function change_color()

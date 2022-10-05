@@ -31,6 +31,13 @@ require('packer').startup({
     use({ 'cohama/lexima.vim', config = require('genf.configs.lexima').setup })
     use({ 'junegunn/vim-easy-align' })
     use({ 'machakann/vim-sandwich', keys = { 'sa', 'sd', 'sr' } })
+    use({
+      'uga-rosa/ccc.nvim',
+      config = function()
+        local ccc = require('ccc')
+        ccc.setup({})
+      end,
+    })
 
     use({
       'numToStr/Comment.nvim',
@@ -140,7 +147,7 @@ require('packer').startup({
       end,
       ft = { 'html', 'js', 'ts' },
     })
-    use({ 'lervag/vimtex', ft = { 'markdown', 'tex' } })
+    -- use({ 'lervag/vimtex', ft = { 'markdown', 'tex' } })
     use({ 'fuenor/JpFormat.vim', ft = { 'text', 'markdown' } })
     use({ 'chikamichi/mediawiki.vim', ft = { 'mediawikix' } })
     -- use { 'rust-lang/rust.vim' }

@@ -3,7 +3,7 @@ local vim_options = {
 
   breakindent = true,
   clipboard = 'unnamed',
-  colorcolumn = '81',
+  -- colorcolumn = '81',
   foldenable = true,
   foldexpr = 'nvim_treesitter#foldexpr()',
   foldlevel = 99,
@@ -57,9 +57,9 @@ if vim.fn.has('nvim-0.7') then
   vim.opt.cmdheight = 1
 end
 
-if vim.fn.has('nvim-0.8') then
-  vim.opt.winbar = '%=%f%m%='
-end
+-- if vim.fn.has('nvim-0.8') then
+--   vim.opt.winbar = '%=%f%m%='
+-- end
 
 vim.g.loaded_2html_plugin = true
 vim.g.loaded_logiPat = true

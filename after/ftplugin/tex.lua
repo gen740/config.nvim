@@ -7,17 +7,26 @@
 -- hi Conceal guifg=#719cd6
 
 vim.keymap.set('n', '<m-r>', function()
-  vim.cmd('AsyncRun make nvim_run')
+  vim.fn.system('open -a /Applications/LivePDFviewer.app document.pdf')
+  -- vim.cmd('Run luatex document.tex')
 end)
 
 vim.keymap.set('n', '<m-c>', function()
-  vim.cmd('AsyncRun make nvim_build')
+  vim.cmd('Run lualatex document.tex')
 end)
 
 vim.keymap.set('n', '<m-s>', function()
-  vim.cmd('AsyncStop')
+  vim.cmd('Stop')
 end)
 
 vim.opt_local.tabstop = 2
 vim.opt_local.softtabstop = 2
 vim.opt_local.shiftwidth = 2
+
+vim.cmd.iab([[@a \alpha]])
+vim.cmd.iab([[@b \bete]])
+vim.cmd.iab([[@c \chi]])
+vim.cmd.iab([[@d \delta]])
+vim.cmd.iab([[@e \epsilon]])
+vim.cmd.iab([[@u \mu]])
+vim.cmd.iab([[@n \nu]])
