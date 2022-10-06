@@ -49,7 +49,7 @@ require('packer').startup({
       keys = 'gc',
     })
     use({ 'mbbill/undotree', cmd = 'UndotreeToggle' })
-    use({ 'tpope/vim-fugitive', cmd = 'Git' })
+    use({ 'tpope/vim-fugitive' })
     use({ 'nvim-lua/plenary.nvim' })
     -- use({
     --   'lukas-reineke/indent-blankline.nvim',
@@ -149,6 +149,7 @@ require('packer').startup({
     use({ 'rhysd/vim-grammarous', ft = { 'markdown', 'markdown', 'text' } })
     use({ 'chrisbra/csv.vim', ft = { 'csv', 'tsv' } })
     use({ 'mattn/emmet-vim', ft = { 'html', 'markdown', 'markdown' } })
+    use({ 'qnighy/satysfi.vim' })
     use({
       'JoosepAlviste/nvim-ts-context-commentstring',
       config = function()

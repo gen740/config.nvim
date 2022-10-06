@@ -53,13 +53,9 @@ local vim_options = {
   softtabstop = 4,
 }
 
-if vim.fn.has('nvim-0.7') then
-  vim.opt.laststatus = 3
-  -- vim.opt.cmdheight = 1
-end
-
 if vim.fn.has('nvim-0.8') then
-  vim.opt.winbar = ' %#WinBarFileName#%f%m%*%='
+  vim.opt.winbar = '%#WinBarFileName#%f%* %M%='
+  vim.opt.laststatus = 3
   vim.opt.cmdheight = 0
 end
 

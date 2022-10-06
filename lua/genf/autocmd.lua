@@ -33,10 +33,12 @@ local hlcolors = {
   WinBarFileName = { bg = nil, fg = '#6e7790', bold = true, underline = true },
   -- WinBarFileName = { bg = nil, fg = '#6e7790', bold = true, underline = true },
 
+  StatusLine = { bg = nil, fg = '#6e7790', bold = false },
+  StatusLineContent = { bg = nil, fg = '#6e7790', bold = false, underline = true },
+  -- StatusLineNC = { bg = nil, fg = '#81b29a' },
+
   WinSeparator = { bg = nil, fg = '#81b29a' },
   VertSplit = { bg = nil, fg = '#81b29a' },
-  StatusLine = { bg = nil, fg = '#81b29a' },
-  -- StatusLineNC = { bg = nil, fg = '#81b29a' },
   QuickFixLine = { bg = '#333333', fg = '#cdcecf' },
   IndentBlanklineIndent1 = { bg = nil, fg = '#474364', blend = 0 },
   IndentBlanklineIndent2 = { bg = nil, fg = '#373354', blend = 0 },
