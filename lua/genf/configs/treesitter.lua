@@ -1,4 +1,5 @@
 local function setup()
+  vim.g.matchup_matchparen_offscreen = {}
   require('nvim-treesitter.configs').setup({
     ensure_installed = {
       'c',

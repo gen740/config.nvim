@@ -12,7 +12,7 @@ vim.keymap.set('n', '<m-r>', function()
 end)
 
 vim.keymap.set('n', '<m-c>', function()
-  vim.cmd('Run lualatex document.tex')
+  vim.cmd('Run lualatex --file-line-error -interaction=batchmode document.tex')
 end)
 
 vim.keymap.set('n', '<m-s>', function()
@@ -23,10 +23,34 @@ vim.opt_local.tabstop = 2
 vim.opt_local.softtabstop = 2
 vim.opt_local.shiftwidth = 2
 
-vim.cmd.iab([[@a \alpha]])
-vim.cmd.iab([[@b \bete]])
-vim.cmd.iab([[@c \chi]])
-vim.cmd.iab([[@d \delta]])
-vim.cmd.iab([[@e \epsilon]])
-vim.cmd.iab([[@u \mu]])
-vim.cmd.iab([[@n \nu]])
+local autocmd = vim.api.nvim_create_autocmd
+
+autocmd({ 'FileType tex' }, {
+  callback = function()
+    vim.g.lexima_enable_basic_rules = 0
+    vim.g.lexima_enable_newline_rules = 0
+    vim.g.lexima_enable_endwise_rules = 0
+    vim.api.nvim_call_function('lexima#set_default_rules', {})
+  end,
+})
+
+--
+local special_key = {
+  a = [[\alpha]],
+  b = [[\bete]],
+  c = [[\chi]],
+  d = [[\delta]],
+  e = [[\epsilon]],
+  u = [[\mu]],
+  n = [[\nu]],
+  o = [[\omega]],
+  ph = [[\phi]],
+  ps = [[\psi]],
+  hb = [[\hbar]],
+}
+
+special_key['%'] = [[\%]]
+
+for name, val in pairs(special_key) do
+  vim.keymap.set('i', '%' .. name, val)
+end

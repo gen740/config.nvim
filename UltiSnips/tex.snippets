@@ -41,19 +41,19 @@ snippet (( "inline math environment"
 $$1$ $0
 endsnippet
 
-snippet [] "\left[ \right]"
+snippet [] "\left[ \right]" w
 \left[ $1 \right]$0
 endsnippet
 
-snippet () "\left( \right)"
+snippet () "\left( \right)" w
 \left( $1 \right)$0
 endsnippet
 
-snippet {} "\left{ \right}"
+snippet {} "\left{ \right}" w
 \left\\{ $1 \right\\}$0
 endsnippet
 
-snippet || "\left{ \right}"
+snippet || "\left{ \right}" w
 \left| $1 \right|$0
 endsnippet
 
@@ -61,7 +61,7 @@ snippet lr "left right"
 \left$1 $2 \right$1$0
 endsnippet
 
-snippet frac "\partial / \partial x"
+snippet fr "\partial / \partial x" w
 \frac{$1}{$2}$0
 endsnippet
 
@@ -163,4 +163,32 @@ snippet bib "the bibliography"
 \begin{thebibliography}{99}
 	\bibitem{${1}} ${0}
 \end{thebibliography}
+endsnippet
+
+snippet da "dagger" w
+{$0}^\dagger$0
+endsnippet
+
+snippet ha "hat" w
+\hat{$1}$0
+endsnippet
+
+snippet daha "dagger and hat" w
+{\hat{$1}}^\dagger
+endsnippet
+
+snippet sq "sqrt" w
+\sqrt{$1}$0
+endsnippet
+
+snippet br "sqrt" w
+\bra{$1}$0
+endsnippet
+
+snippet ke "sqrt" w
+\ket{$1}$0
+endsnippet
+
+snippet bk "sqrt" w
+\braket{$1}{$2}$0
 endsnippet

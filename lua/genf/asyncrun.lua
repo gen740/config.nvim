@@ -4,12 +4,22 @@ local running_jobid = nil
 local is_running = false
 local previous_cmd = nil
 
+local has_notify = pcall(require, 'notify')
+
+local function notify(message)
+  if has_notify then
+    require('notify')(message)
+  else
+    vim.notify(message)
+  end
+end
+
 ---@param cmd nil|string
 function M.asyncrun(cmd)
   -- Repeat if argument is nil
   if cmd == nil then
     if previous_cmd == nil then
-      print('No Previous Command')
+      notify('No Previous Command')
       return
     end
     cmd = previous_cmd
@@ -22,10 +32,11 @@ function M.asyncrun(cmd)
   local qfwinid = vim.fn.getqflist({ winid = winnr }).winid
 
   if is_running then
-    print('Command still runing')
+    notify('Command still runing')
     return
   else
     is_running = true
+    notify('AsyncRun Start')
   end
 
   local efm = vim.api.nvim_buf_get_option(bufnr, 'efm')
@@ -55,6 +66,7 @@ function M.asyncrun(cmd)
       end
     end
     if event == 'exit' then
+      notify('AsyncRun Done')
       table.insert(
         lines,
         '  ▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬ AsyncRun Done!! ▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬ '
@@ -86,7 +98,7 @@ function M.ripgrep(cmd)
   local qfwinid = vim.fn.getqflist({ winid = winnr }).winid
 
   if is_running then
-    print('Command still runing')
+    notify('Command still runing')
     return
   else
     is_running = true
@@ -107,7 +119,7 @@ function M.ripgrep(cmd)
     if event == 'stdout' or event == 'stderr' then
       if data then
         for idx, val in ipairs(data) do
-          print(val)
+          -- notify(val)
           if val ~= '' then
             vim.list_extend(lines, { val })
           end
@@ -122,7 +134,7 @@ function M.ripgrep(cmd)
     end
     if event == 'exit' then
       vim.api.nvim_command('doautocmd QuickFixCmdPost')
-      print('Done')
+      notify('Done')
       is_running = false
       running_jobid = nil
     end

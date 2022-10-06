@@ -28,7 +28,10 @@ require('packer').startup({
     --------------------------------------------------------------------------------------------
     ---- Utilities -----------------------------------------------------------------------------
     --------------------------------------------------------------------------------------------
-    use({ 'cohama/lexima.vim', config = require('genf.configs.lexima').setup })
+    use({
+      'cohama/lexima.vim',
+      config = require('genf.configs.lexima').setup,
+    })
     use({ 'junegunn/vim-easy-align' })
     use({ 'machakann/vim-sandwich', keys = { 'sa', 'sd', 'sr' } })
     use({
@@ -38,7 +41,6 @@ require('packer').startup({
         ccc.setup({})
       end,
     })
-
     use({
       'numToStr/Comment.nvim',
       config = function()
@@ -47,7 +49,6 @@ require('packer').startup({
       keys = 'gc',
     })
     use({ 'mbbill/undotree', cmd = 'UndotreeToggle' })
-    use({ 'andymass/vim-matchup' })
     use({ 'tpope/vim-fugitive', cmd = 'Git' })
     use({ 'nvim-lua/plenary.nvim' })
     -- use({
@@ -61,14 +62,6 @@ require('packer').startup({
       config = require('genf.configs.ultisnips').setup,
     })
     use({ 'wakatime/vim-wakatime' })
-    -- use { 'rrethy/vim-hexokinase', run = 'make hexokinase' }
-    use({
-      'max397574/colortils.nvim',
-      cmd = 'Colortils',
-      config = function()
-        require('colortils').setup({})
-      end,
-    })
     -- use({
     --   'folke/noice.nvim',
     --   event = 'VimEnter',
@@ -78,16 +71,20 @@ require('packer').startup({
     --   requires = {
     --     -- if you lazy-load any plugin below, make sure to add proper `module="..."` entries
     --     { 'MunifTanjim/nui.nvim' },
-    --     {
-    --       'rcarriga/nvim-notify',
-    --       config = function()
-    --         require('notify').setup({
-    --           background_colour = '#000000',
-    --         })
-    --       end,
-    --     },
     --   },
     -- })
+    use({
+      'rcarriga/nvim-notify',
+      config = function()
+        require('notify').setup({
+          background_colour = '#000000',
+          render = 'minimal',
+          stages = 'static',
+          minimum_width = 10,
+          timeout = 3000,
+        })
+      end,
+    })
 
     --------------------------------------------------------------------------------------------
     ---- Treesitter ----------------------------------------------------------------------------
@@ -95,6 +92,9 @@ require('packer').startup({
     use({
       'nvim-treesitter/nvim-treesitter',
       config = require('genf.configs.treesitter').setup,
+      requires = {
+        'andymass/vim-matchup',
+      },
     })
     use({
       'nvim-treesitter/playground',
@@ -196,6 +196,9 @@ require('packer').startup({
             null_ls.builtins.formatting.stylua,
             null_ls.builtins.formatting.perltidy,
             null_ls.builtins.formatting.shfmt,
+            null_ls.builtins.formatting.markdownlint,
+            null_ls.builtins.diagnostics.markdownlint,
+            null_ls.builtins.formatting.latexindent,
           },
         })
       end,
