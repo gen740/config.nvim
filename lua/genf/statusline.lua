@@ -35,7 +35,7 @@ function Get_git_branch()
   if branch == '' then
     return ''
   end
-  return ' ' .. branch -- .. ' '
+  return '' .. ' ' .. branch .. ' ' -- .. ' '
 end
 
 -- statusline
@@ -58,7 +58,7 @@ local str = ''
 -- -- str = str .. [[  %l:%L ]]
 -- str = str .. [[%*]]
 
-str = str .. [[ %#StatusLineContent#(%{luaeval('Get_git_branch()')}) %l:%L%* %=%=]]
+str = str .. [[ %#StatusLineContent#%{luaeval('Get_git_branch()')}%l:%L%* %=%=]]
 
 vim.api.nvim_set_hl(0, 'StatusLine', { fg = '#ffffff', bg = nil })
 

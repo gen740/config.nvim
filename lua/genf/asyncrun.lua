@@ -91,11 +91,18 @@ function M.asyncrun(cmd)
   })
 end
 
+--@param cmd string
 function M.ripgrep(cmd)
   local lines = {}
   local winnr = vim.fn.win_getid()
   local bufnr = vim.api.nvim_win_get_buf(winnr)
   local qfwinid = vim.fn.getqflist({ winid = winnr }).winid
+
+  if cmd:match('%s') then
+    cmd = 'rg --column ' .. cmd
+  else
+    cmd = 'rg --column ' .. cmd .. ' .'
+  end
 
   if is_running then
     notify('Command still runing')

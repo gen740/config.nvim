@@ -85,6 +85,7 @@ require('packer').startup({
         })
       end,
     })
+    use({ 'lewis6991/impatient.nvim' })
 
     --------------------------------------------------------------------------------------------
     ---- Treesitter ----------------------------------------------------------------------------
@@ -111,12 +112,6 @@ require('packer').startup({
         vim.cmd('colo nordfox')
       end,
     })
-    -- use { 'marko-cerovac/material.nvim' }
-    -- use { 'kyazdani42/blue-moon' }
-    -- use { 'mhartington/oceanic-next' }
-    -- use { 'sainnhe/everforest' }
-    -- use { 'kvrohit/substrata.nvim' }
-    -- use { 'ellisonleao/gruvbox.nvim', requires = { 'rktjmp/lush.nvim' } }
 
     --------------------------------------------------------------------------------------------
     ---- File Operations -----------------------------------------------------------------------
@@ -168,9 +163,14 @@ require('packer').startup({
       ft = { 'html', 'js', 'ts' },
     })
     -- use({ 'lervag/vimtex', ft = { 'markdown', 'tex' } })
-    use({ 'fuenor/JpFormat.vim', ft = { 'text', 'markdown' } })
+    use({
+      'fuenor/JpFormat.vim',
+      ft = { 'text', 'markdown' },
+      config = function()
+        vim.g.JpFormatCursorMovedI = 1
+      end,
+    })
     use({ 'chikamichi/mediawiki.vim', ft = { 'mediawikix' } })
-    -- use { 'rust-lang/rust.vim' }
     -- use { 'KeitaNakamura/tex-conceal.vim', config = function() vim.g.tex_conceal_frac = 1 end, ft = { 'latex' } }
     -- use { 'rbonvall/vim-textobj-latex', requires = { 'kana/vim-textobj-user' }, ft = { 'latex' } }
 
