@@ -182,6 +182,7 @@ require('packer').startup({
       requires = {
         'williamboman/mason.nvim',
         'williamboman/mason-lspconfig.nvim',
+        'hrsh7th/nvim-cmp',
       },
       config = function()
         require('genf.configs.lsp').mason()
