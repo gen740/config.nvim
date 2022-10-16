@@ -2,33 +2,6 @@ M = {}
 
 function Lsp_on_attach(client, bufnr)
   require('lsp-inlayhints').on_attach(client, bufnr, true)
-  local opts = { noremap = true, silent = true }
-  vim.keymap.set('n', '<space>e', vim.diagnostic.open_float, opts)
-  vim.keymap.set('n', '[d', vim.diagnostic.goto_prev, opts)
-  vim.keymap.set('n', ']d', vim.diagnostic.goto_next, opts)
-  vim.keymap.set('n', '<space>lc', vim.diagnostic.setloclist, opts)
-
-  local bufopts = { noremap = true, silent = true, buffer = bufnr }
-  -- vim.keymap.set('omnifunc', 'v:lua.vim.lsp.omnifunc')
-  vim.keymap.set('n', 'gD', vim.lsp.buf.declaration, bufopts)
-  vim.keymap.set('n', 'gd', vim.lsp.buf.definition, bufopts)
-  vim.keymap.set('n', 'K', vim.lsp.buf.hover, bufopts)
-  -- vim.keymap.set('n', 'gi', vim.lsp.buf.implementation, bufopts)
-  vim.keymap.set('n', '<C-k>', vim.lsp.buf.signature_help, bufopts)
-  vim.keymap.set('n', '<space>wa', vim.lsp.buf.add_workspace_folder, bufopts)
-  vim.keymap.set('n', '<space>wr', vim.lsp.buf.remove_workspace_folder, bufopts)
-  vim.keymap.set('n', '<space>wl', function()
-    print(vim.inspect(vim.lsp.buf.list_workspace_folders()))
-  end, bufopts)
-  vim.keymap.set('n', '<space>D', vim.lsp.buf.type_definition, bufopts)
-  vim.keymap.set('n', '<space>rn', vim.lsp.buf.rename, bufopts)
-  vim.keymap.set('n', '<space>ca', vim.lsp.buf.code_action, bufopts)
-  vim.keymap.set('n', 'gr', vim.lsp.buf.references, bufopts)
-  if client['server_capabilities']['documentFormattingProvider'] then
-    vim.keymap.set('n', '<space>f', function()
-      vim.lsp.buf.format({ async = true })
-    end, bufopts)
-  end
 end
 
 function M.inlay_hints()
@@ -101,6 +74,12 @@ function M.nvim_lsp()
       on_attach = Lsp_on_attach,
     })
   end
+
+  lspconfig.sourcekit.setup({
+    capabilities = capabilities,
+    on_attach = Lsp_on_attach,
+    filetype = { 'swift', 'objective-c', 'objective-cpp' },
+  })
 
   local runtime_path = vim.split(package.path, ';')
   table.insert(runtime_path, 'lua/?.lua')

@@ -42,6 +42,26 @@ map('n', 'q:', '<nop>')
 map('n', '<leader>rr', require("genf.asyncrun").asyncrun)
 map('n', '<leader>rs', require("genf.asyncrun").asyncstop)
 
+-- LSP
+map('n', '<space>f', function() vim.lsp.buf.format({ async = true }) end)
+map('n', '<space>e', vim.diagnostic.open_float)
+map('n', '[d', vim.diagnostic.goto_prev)
+map('n', ']d', vim.diagnostic.goto_next)
+map('n', '<space>lc', vim.diagnostic.setloclist)
+map('n', 'gD', vim.lsp.buf.declaration)
+map('n', 'gd', vim.lsp.buf.definition)
+map('n', 'K', vim.lsp.buf.hover)
+map('n', 'gi', vim.lsp.buf.implementation)
+map('n', '<C-k>', vim.lsp.buf.signature_help)
+map('n', '<space>wa', vim.lsp.buf.add_workspace_folder)
+map('n', '<space>wr', vim.lsp.buf.remove_workspace_folder)
+map('n', '<space>wl', function() print(vim.inspect(vim.lsp.buf.list_workspace_folders())) end)
+map('n', '<space>D', vim.lsp.buf.type_definition)
+map('n', '<space>rn', vim.lsp.buf.rename)
+map('n', '<space>ca', vim.lsp.buf.code_action)
+map('n', 'gr', vim.lsp.buf.references)
+-- map('omnifunc', 'v:lua.vim.lsp.omnifunc')
+
 -- Dap
 map('n', '<leader>db', require "dap".continue)
 map('n', '<leader>dn', require "dap".continue)
@@ -67,4 +87,4 @@ map('n', '<leader>hd', gs.diffthis)
 map('n', '<leader>hD', function() gs.diffthis('~') end)
 map('n', '<leader>td', gs.toggle_deleted)
 
--- stylua: ignore end
+--  tylua: ignore end
