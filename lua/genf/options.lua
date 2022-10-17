@@ -1,9 +1,8 @@
 local vim_options = {
   backspace = [[indent,eol,start]],
-
   breakindent = true,
   clipboard = 'unnamed',
-  -- colorcolumn = '81',
+  colorcolumn = '80',
   foldenable = true,
   foldexpr = 'nvim_treesitter#foldexpr()',
   foldlevel = 99,
@@ -28,7 +27,7 @@ local vim_options = {
   smartcase = true,
   splitbelow = true,
   splitright = true,
-  swapfile = true,
+  swapfile = false,
   termguicolors = true,
 
   showtabline = 0,
