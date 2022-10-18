@@ -42,7 +42,6 @@ function M.mason()
       'pyright',
       'clangd',
       'bashls',
-      'haskell-language-server',
     },
   })
 end
