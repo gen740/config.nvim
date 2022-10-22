@@ -1,5 +1,5 @@
 local function setup()
-  require('nvim-tree').setup({
+  require('nvim-tree').setup {
     disable_netrw = false,
     hijack_netrw = false,
     open_on_setup = false,
@@ -35,7 +35,7 @@ local function setup()
         list = {},
       },
     },
-  })
+  }
 end
 
 return {

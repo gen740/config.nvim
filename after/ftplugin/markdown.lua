@@ -7,7 +7,7 @@ vim.opt_local.listchars = [[tab:┈┈,trail:~]]
 vim.opt_local.colorcolumn = '0'
 
 vim.keymap.set('n', '<space>f', function()
-  vim.lsp.buf.format({ async = true })
+  vim.lsp.buf.format { async = true }
 end)
 
 vim.keymap.set('n', '<space>jf', '<cmd>silent JpFormatAll<cr>')

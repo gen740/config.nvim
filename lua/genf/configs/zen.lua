@@ -1,5 +1,5 @@
 local function setup()
-  require('zen-mode').setup({
+  require('zen-mode').setup {
     window = {
       backdrop = 1, -- shade the backdrop of the Zen window. Set to 1 to keep the same as Normal
       width = 100, -- width of the Zen window
@@ -21,7 +21,7 @@ local function setup()
     },
     on_open = function() end,
     on_close = function() end,
-  })
+  }
 end
 
 return {

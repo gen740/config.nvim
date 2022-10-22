@@ -1,7 +1,7 @@
 M = {}
 
 function M.marks()
-  require('marks').setup({
+  require('marks').setup {
     default_mappings = false,
     builtin_marks = { '.', '<', '>', '^' },
     cyclic = true,
@@ -15,7 +15,7 @@ function M.marks()
       annotate = false,
     },
     mappings = {},
-  })
+  }
 end
 
 return M

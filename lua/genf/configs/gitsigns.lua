@@ -1,5 +1,5 @@
 local function setup()
-  require('gitsigns').setup({
+  require('gitsigns').setup {
     signs = {
       add = {
         hl = 'GitSignsAdd',
@@ -43,7 +43,7 @@ local function setup()
     update_debounce = 1000,
     status_formatter = nil, -- Use default
     word_diff = false,
-  })
+  }
 end
 
 return {

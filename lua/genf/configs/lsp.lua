@@ -5,7 +5,7 @@ function Lsp_on_attach(client, bufnr)
 end
 
 function M.inlay_hints()
-  require('lsp-inlayhints').setup({
+  require('lsp-inlayhints').setup {
     inlay_hints = {
       parameter_hints = {
         show = true,
@@ -30,12 +30,12 @@ function M.inlay_hints()
     },
     enabled_at_startup = true,
     debug_mode = false,
-  })
+  }
 end
 
 function M.mason()
-  require('mason').setup({})
-  require('mason-lspconfig').setup({
+  require('mason').setup {}
+  require('mason-lspconfig').setup {
     ensure_installed = {
       'sumneko_lua',
       'rust_analyzer',
@@ -43,7 +43,7 @@ function M.mason()
       'clangd',
       'bashls',
     },
-  })
+  }
 end
 
 function M.nvim_lsp()
@@ -67,22 +67,22 @@ function M.nvim_lsp()
 
   local capabilities = require('cmp_nvim_lsp').default_capabilities()
   for _, lsp in pairs(servers) do
-    lspconfig[lsp].setup({
+    lspconfig[lsp].setup {
       capabilities = capabilities,
       on_attach = Lsp_on_attach,
-    })
+    }
   end
 
-  lspconfig.sourcekit.setup({
+  lspconfig.sourcekit.setup {
     capabilities = capabilities,
     on_attach = Lsp_on_attach,
     filetype = { 'swift', 'objective-c', 'objective-cpp' },
-  })
+  }
 
   local runtime_path = vim.split(package.path, ';')
   table.insert(runtime_path, 'lua/?.lua')
   table.insert(runtime_path, 'lua/?/init.lua')
-  lspconfig.sumneko_lua.setup({
+  lspconfig.sumneko_lua.setup {
     capabilities = capabilities,
     on_attach = Lsp_on_attach,
     settings = {
@@ -105,9 +105,9 @@ function M.nvim_lsp()
         },
       },
     },
-  })
+  }
 
-  lspconfig.jsonls.setup({
+  lspconfig.jsonls.setup {
     capabilities = capabilities,
     on_attach = Lsp_on_attach,
     filetypes = { 'json', 'jsonc' },
@@ -119,7 +119,7 @@ function M.nvim_lsp()
         },
       },
     },
-  })
+  }
 
   vim.lsp.for_each_buffer_client(0, function(client)
     if client.name ~= '' then

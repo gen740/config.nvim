@@ -1,7 +1,7 @@
 return {
   nvim_cmp = function()
     local cmp = require('cmp')
-    cmp.setup({
+    cmp.setup {
       snippet = {
         expand = function(args)
           vim.fn['UltiSnips#Anon'](args.body)
@@ -14,10 +14,10 @@ return {
         ['<C-f>'] = cmp.mapping.scroll_docs(4),
         -- ["<C-c>"] = cmp.mapping.complete(),
         ['<C-o>'] = cmp.mapping.close(),
-        ['<C-t>'] = cmp.mapping.confirm({
+        ['<C-t>'] = cmp.mapping.confirm {
           behavior = cmp.ConfirmBehavior.Replace,
           select = true,
-        }),
+        },
       },
       sources = {
         { name = 'nvim_lsp' },
@@ -29,7 +29,7 @@ return {
         { name = 'calc' },
       },
       formatting = {
-        format = require('lspkind').cmp_format({
+        format = require('lspkind').cmp_format {
           mode = 'symbol',
           maxwidth = 50,
           before = function(entry, vim_item)
@@ -42,7 +42,7 @@ return {
             })[entry.source.name]
             return vim_item
           end,
-        }),
+        },
       },
       sorting = {
         comparators = {
@@ -55,6 +55,6 @@ return {
           cmp.config.compare.order,
         },
       },
-    })
+    }
   end,
 }

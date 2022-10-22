@@ -1,9 +1,10 @@
 local function setup()
   vim.g.matchup_matchparen_offscreen = {}
-  require('nvim-treesitter.configs').setup({
+  require('nvim-treesitter.configs').setup {
     ensure_installed = {
       'c',
       'python',
+      'latex',
       'cpp',
       'lua',
       'rust',
@@ -16,17 +17,17 @@ local function setup()
     auto_install = true,
     highlight = { enable = true },
     indent = { enable = false },
-    refactor = {
-      highlight_definitions = { enable = true },
-      highlight_current_scope = { enable = false },
-    },
+    -- refactor = {
+    --   highlight_definitions = { enable = true },
+    --   highlight_current_scope = { enable = false },
+    -- },
     matchup = {
       enable = true,
     },
-    autotag = {
-      enable = true,
-    },
-  })
+    -- autotag = {
+    --   enable = true,
+    -- },
+  }
 end
 
 return {

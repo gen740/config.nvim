@@ -17,7 +17,7 @@ require('genf.foldingtxt')
 
 vim.opt.runtimepath:append('~/home/Labo/Project/SmoothCursor.nvim')
 if pcall(require, 'smoothcursor') then
-  require('smoothcursor').setup({
+  require('smoothcursor').setup {
     priority = 1,
     autostart = true,
     threshold = 1,
@@ -33,5 +33,5 @@ if pcall(require, 'smoothcursor') then
         { cursor = '∙', texthl = 'SCCursor' },
       },
     },
-  })
+  }
 end
