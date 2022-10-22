@@ -7,9 +7,7 @@ local vim_options = {
   foldexpr = 'nvim_treesitter#foldexpr()',
   foldlevel = 99,
   foldmethod = 'expr',
-  -- gdefault = true,
   guicursor = '',
-  -- hidden = true,
   ignorecase = true,
   inccommand = 'nosplit',
   incsearch = true,
@@ -57,26 +55,6 @@ if vim.fn.has('nvim-0.8') then
   vim.opt.laststatus = 3
   vim.opt.cmdheight = 0
 end
-
--- vim.g.loaded_2html_plugin = true
--- vim.g.loaded_logiPat = true
--- vim.g.loaded_getscriptPlugin = true
--- vim.g.loaded_gzip = true
--- vim.g.loaded_gtags = true
--- vim.g.loaded_gtags_cscope = true
--- vim.g.loaded_man = true
--- vim.g.loaded_matchit = true
--- vim.g.loaded_matchparen = true
--- vim.g.loaded_netrwFileHandlers = true
--- vim.g.loaded_netrwPlugin = true
--- vim.g.loaded_netrwSettings = true
--- vim.g.loaded_rrhelper = true
--- vim.g.loaded_shada_plugin = true
--- vim.g.loaded_spellfile_plugin = true
--- vim.g.loaded_tarPlugin = true
--- vim.g.loaded_tutor_mode_plugin = true
--- vim.g.loaded_vimballPlugin = true
--- vim.g.loaded_zipPlugin = true
 
 vim.g.netrw_silent = true
 vim.g.vimsyn_embed = 'lPr'
