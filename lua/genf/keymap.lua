@@ -1,6 +1,5 @@
 vim.g.mapleader = [[ ]]
 local map = function(mode, key, cmd)
-  -- vim.api.nvim_set_keymap(mode, key, cmd, { noremap = true, silent = true })
   vim.keymap.set(mode, key, cmd, { noremap = true, silent = true })
 end
 
@@ -42,7 +41,7 @@ map('n', '<leader>rr', require("genf.asyncrun").asyncrun)
 map('n', '<leader>rs', require("genf.asyncrun").asyncstop)
 
 -- LSP
-map('n', '<space>f', function() vim.lsp.buf.format({ async = true }) end)
+map('n', '<space>f', function() vim.lsp.buf.format { async = true } end)
 map('n', '<space>e', vim.diagnostic.open_float)
 map('n', '[d', vim.diagnostic.goto_prev)
 map('n', ']d', vim.diagnostic.goto_next)

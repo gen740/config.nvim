@@ -79,17 +79,17 @@ function M.nvim_lsp()
     filetype = { 'swift', 'objective-c', 'objective-cpp' },
   }
 
-  local runtime_path = vim.split(package.path, ';')
-  table.insert(runtime_path, 'lua/?.lua')
-  table.insert(runtime_path, 'lua/?/init.lua')
   lspconfig.sumneko_lua.setup {
     capabilities = capabilities,
-    on_attach = Lsp_on_attach,
+    on_attach = function(client, bufnr)
+      Lsp_on_attach(client, bufnr)
+      -- client.server_capabilities.documentFormattingProvider = false
+      -- client.server_capabilities.documentRangeFormattingProvider = false
+    end,
     settings = {
       Lua = {
         runtime = {
           version = 'LuaJIT',
-          path = runtime_path,
         },
         diagnostics = {
           globals = { 'vim' },
@@ -101,7 +101,7 @@ function M.nvim_lsp()
           enable = false,
         },
         format = {
-          enble = false,
+          enable = false,
         },
       },
     },
@@ -120,13 +120,6 @@ function M.nvim_lsp()
       },
     },
   }
-
-  vim.lsp.for_each_buffer_client(0, function(client)
-    if client.name ~= '' then
-      client.server_capabilities.document_formatting = true
-      client.server_capabilities.document_range_formatting = true
-    end
-  end)
 end
 
 return M

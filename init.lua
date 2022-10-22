@@ -16,6 +16,7 @@ require('genf.statusline')
 require('genf.foldingtxt')
 
 vim.opt.runtimepath:append('~/home/Labo/Project/SmoothCursor.nvim')
+
 if pcall(require, 'smoothcursor') then
   require('smoothcursor').setup {
     priority = 1,
