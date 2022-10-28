@@ -111,10 +111,7 @@ function M.ripgrep(cmd)
     is_running = true
   end
 
-  local efm = vim.api.nvim_buf_get_option(bufnr, 'efm')
-  if efm == nil or efm == '' then
-    efm = '%f:%l:%c:%m,%f:%l:%m'
-  end
+  local efm = '%f:%l:%c:%m,%f:%l:%m'
 
   vim.fn.setqflist({}, ' ', {
     title = cmd,

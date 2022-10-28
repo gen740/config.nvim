@@ -69,17 +69,17 @@ require('packer').startup {
       config = config('ultisnips'),
     }
     use { 'wakatime/vim-wakatime' }
-    -- use({
-    --   'folke/noice.nvim',
-    --   event = 'VimEnter',
-    --   config = function()
-    --     require('noice').setup()
-    --   end,
-    --   requires = {
-    --     -- if you lazy-load any plugin below, make sure to add proper `module="..."` entries
-    --     { 'MunifTanjim/nui.nvim' },
-    --   },
-    -- })
+    use {
+      'folke/noice.nvim',
+      event = 'VimEnter',
+      config = function()
+        require('noice').setup()
+      end,
+      requires = {
+        -- if you lazy-load any plugin below, make sure to add proper `module="..."` entries
+        { 'MunifTanjim/nui.nvim' },
+      },
+    }
     use {
       'rcarriga/nvim-notify',
       config = function()
@@ -93,7 +93,7 @@ require('packer').startup {
       end,
     }
     use { 'lewis6991/impatient.nvim' }
-    use { 'xiyaowong/virtcolumn.nvim' }
+    -- use { 'xiyaowong/virtcolumn.nvim' }
 
     --------------------------------------------------------------------------------------------
     ---- Treesitter ----------------------------------------------------------------------------
@@ -208,6 +208,8 @@ require('packer').startup {
             null_ls.builtins.formatting.shfmt,
             null_ls.builtins.formatting.markdownlint,
             null_ls.builtins.diagnostics.markdownlint,
+            -- null_ls.builtins.diagnostics.cspell,
+            -- null_ls.builtins.code_actions.cspell,
             null_ls.builtins.formatting.latexindent,
           },
         }
@@ -237,6 +239,15 @@ require('packer').startup {
       -- config = require('genf.configs.statusline').setup,
       config = require('genf.configs.lsp_status').setup,
     }
+    -- use {
+    --   '4513ECHO/denops-gitter.vim',
+    --   requires = {
+    --     'vim-denops/denops.vim',
+    --   },
+    --   config = function()
+    --     vim.cmd([[source ~/.config/token.vim]])
+    --   end,
+    -- }
 
     --------------------------------------------------------------------------------------------
     -- OBSOLETE --------------------------------------------------------------------------------

@@ -14,6 +14,13 @@ CompilerSet errorformat=
       \%*\\sFile\ \"%f\"\\,\ line\ %l,
       \%C\ %.%#,
       \%A\ \ File\ \"%f\"\\,\ line\ %l%.%#,
+      \%*[\ ]%f:%l:%c\ -\ %trror:\ %m,
+      \%*[\ ]%f:%l:%c\ -\ %tarning:\ %m,
+      \%*[\ ]%f:%l:%c\ -\ %tnformation:\ %m,
+      \%f:%l:\ %trror:\ %m,
+      \%f:%l:\ %tarning:\ %m,
+      \%f:%l:\ %tnformation:\ %m,
+      \%*[\ ]%f:%l:\ %m,
       \%Z%[%^\ ]%\\@=%m
 
 " vint: -ProhibitAbbreviationOption

@@ -1,6 +1,3 @@
-vim.api.nvim_create_namespace('IndentBlanklineIndent1')
-vim.api.nvim_create_namespace('IndentBlanklineIndent2')
-
 local hlcolors = {
   Normal = { bg = nil, fg = '#cdcecf' },
   CursorLine = { bg = '#222222' },
@@ -9,7 +6,6 @@ local hlcolors = {
   SignColumn = { bg = nil, fg = '#cdcecf' },
   EasyMotionTarget = { fg = 'yellow' },
   LineNr = { bg = nil, fg = '#5b6282' },
-  -- LineNr = { bg = nil, fg = 'yellow' },
   Search = { bg = '#333333', fg = '#ffe37e', bold = true },
   EndOfBuffer = { fg = '#222222' },
   GitSignsAdd = { bg = nil, fg = 'lightblue' },
@@ -31,17 +27,13 @@ local hlcolors = {
   WinBar = { bg = nil, fg = '#6e7790', bold = true },
   WinBarNC = { bg = nil, fg = '#393b44' },
   WinBarFileName = { bg = nil, fg = '#6e7790', bold = true, underline = true },
-  -- WinBarFileName = { bg = nil, fg = '#6e7790', bold = true, underline = true },
 
   StatusLine = { bg = nil, fg = '#6e7790', bold = false },
   StatusLineContent = { bg = nil, fg = '#6e7790', bold = false, underline = true },
-  -- StatusLineNC = { bg = nil, fg = '#81b29a' },
 
   WinSeparator = { bg = nil, fg = '#81b29a' },
   VertSplit = { bg = nil, fg = '#81b29a' },
   QuickFixLine = { bg = '#333333', fg = '#cdcecf' },
-  IndentBlanklineIndent1 = { bg = nil, fg = '#474364', blend = 0 },
-  IndentBlanklineIndent2 = { bg = nil, fg = '#373354', blend = 0 },
   LspInlayHint = { bg = nil, fg = '#5b6282' },
   SCCursor = { bg = nil, fg = '#858850' },
   Comment = { fg = '#60728a', italic = true },

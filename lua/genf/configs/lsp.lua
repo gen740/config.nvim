@@ -39,7 +39,6 @@ function M.mason()
     ensure_installed = {
       'sumneko_lua',
       'rust_analyzer',
-      'pyright',
       'clangd',
       'bashls',
     },

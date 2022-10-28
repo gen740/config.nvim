@@ -7,7 +7,6 @@ elseif dir_exists('~/.config/nvim-venv/bin') then
 end
 
 pcall(require, 'impatient')
-
 require('genf.plugins')
 require('genf.options')
 require('genf.keymap')
