@@ -1,5 +1,5 @@
 -- Auto Packer Install Start
-local packer_exists = pcall(vim.cmd, [[packadd packer.nvim]]) --@ignore
+local packer_exists = pcall(vim.cmd, [[packadd packer.nvim]])
 if not packer_exists then
   if vim.fn.input('Download Packer? (y for yes)') ~= 'y' then
     return
@@ -58,10 +58,6 @@ require('packer').startup {
     use { 'mbbill/undotree', cmd = 'UndotreeToggle' }
     use { 'tpope/vim-fugitive' }
     use { 'nvim-lua/plenary.nvim' }
-    -- use({
-    --   'lukas-reineke/indent-blankline.nvim',
-    --   config = require('genf.configs.indent_blankline').setup,
-    -- })
     use { 'lewis6991/gitsigns.nvim', config = require('genf.configs.gitsigns').setup }
     use {
       'SirVer/ultisnips',
@@ -206,6 +202,8 @@ require('packer').startup {
             null_ls.builtins.formatting.stylua,
             null_ls.builtins.formatting.perltidy,
             null_ls.builtins.formatting.shfmt,
+            null_ls.builtins.formatting.black,
+            null_ls.builtins.formatting.isort,
             null_ls.builtins.formatting.markdownlint,
             null_ls.builtins.diagnostics.markdownlint,
             -- null_ls.builtins.diagnostics.cspell,
@@ -234,20 +232,6 @@ require('packer').startup {
       },
       config = require('genf.configs.nvim_cmp').nvim_cmp,
     }
-    use {
-      'nvim-lua/lsp-status.nvim',
-      -- config = require('genf.configs.statusline').setup,
-      config = require('genf.configs.lsp_status').setup,
-    }
-    -- use {
-    --   '4513ECHO/denops-gitter.vim',
-    --   requires = {
-    --     'vim-denops/denops.vim',
-    --   },
-    --   config = function()
-    --     vim.cmd([[source ~/.config/token.vim]])
-    --   end,
-    -- }
 
     --------------------------------------------------------------------------------------------
     -- OBSOLETE --------------------------------------------------------------------------------

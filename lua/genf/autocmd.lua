@@ -23,21 +23,17 @@ local hlcolors = {
   Folded = { bg = nil, fg = '#71839b' },
   LineNrAbove = { bg = nil, fg = '#5b6282' },
   LineNrBelow = { bg = nil, fg = '#5b6282' },
-
   WinBar = { bg = nil, fg = '#6e7790', bold = true },
   WinBarNC = { bg = nil, fg = '#393b44' },
   WinBarFileName = { bg = nil, fg = '#6e7790', bold = true, underline = true },
-
   StatusLine = { bg = nil, fg = '#6e7790', bold = false },
   StatusLineContent = { bg = nil, fg = '#6e7790', bold = false, underline = true },
-
   WinSeparator = { bg = nil, fg = '#81b29a' },
   VertSplit = { bg = nil, fg = '#81b29a' },
   QuickFixLine = { bg = '#333333', fg = '#cdcecf' },
   LspInlayHint = { bg = nil, fg = '#5b6282' },
   SCCursor = { bg = nil, fg = '#858850' },
   Comment = { fg = '#60728a', italic = true },
-
   DiagnosticVirtualTextWarn = { fg = '#ebcb8b', bg = nil, undercurl = true },
   -- DiagnosticUnderlineWarn = { sp = '#54524f', undercurl = true },
   DiagnosticVirtualTextError = { fg = '#bf616a', bg = nil, undercurl = true },
