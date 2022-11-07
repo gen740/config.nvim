@@ -121,4 +121,10 @@ function M.nvim_lsp()
   }
 end
 
-return M
+return {
+  setup = function()
+    M.mason()
+    M.nvim_lsp()
+    M.inlay_hints()
+  end,
+}

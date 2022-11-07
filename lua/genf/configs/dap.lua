@@ -1,6 +1,4 @@
-M = {}
-
-function M.nvim_dap()
+local function nvim_dap()
   local dap = require('dap')
   dap.adapters.lldb = {
     type = 'executable',
@@ -47,7 +45,7 @@ function M.nvim_dap()
   }
 end
 
-function M.dap_ui()
+local function dap_ui()
   require('dapui').setup {
     icons = { expanded = '▾', collapsed = '▸' },
     mappings = {
@@ -104,4 +102,11 @@ function M.dap_ui()
   end
 end
 
-return M
+return {
+  nvim_dap = nvim_dap,
+  dap_ui = dap_ui,
+  setup = function()
+    nvim_dap()
+    dap_ui()
+  end,
+}
