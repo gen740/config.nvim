@@ -81,7 +81,7 @@ autocmd({ 'FileType tex' }, {
 --
 local special_key = {
   a = [[\alpha]],
-  b = [[\bete]],
+  b = [[\beta]],
   c = [[\chi]],
   d = [[\delta]],
   e = [[\epsilon]],

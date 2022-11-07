@@ -69,7 +69,15 @@ require('packer').startup {
       'folke/noice.nvim',
       event = 'VimEnter',
       config = function()
-        require('noice').setup()
+        require('noice').setup {
+          views = {
+            mini = {
+              win_options = {
+                winblend = 0,
+              },
+            },
+          },
+        }
       end,
       requires = {
         -- if you lazy-load any plugin below, make sure to add proper `module="..."` entries

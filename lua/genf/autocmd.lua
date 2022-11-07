@@ -34,10 +34,15 @@ local hlcolors = {
   LspInlayHint = { bg = nil, fg = '#5b6282' },
   SCCursor = { bg = nil, fg = '#858850' },
   Comment = { fg = '#60728a', italic = true },
+  NoiceLspProgressClient = { fg = '#8cabd2', bg = nil, undercurl = false },
+  NoiceLspProgressSpinner = { fg = '#d89079', bg = nil, undercurl = false },
+  NoiceLspProgressTitle = { fg = '#5a657d', bg = nil, undercurl = false },
+  NoiceFormatProgressDone = { fg = '#5a657d', bg = nil, undercurl = false },
+  NoiceFormatProgressTodo = { fg = '#5a657d', bg = nil, undercurl = false },
+  NoiceMini = { fg = '#60728a', bg = nil },
+  NoicePopup = { fg = '#60728a', bg = nil },
   DiagnosticVirtualTextWarn = { fg = '#ebcb8b', bg = nil, undercurl = true },
-  -- DiagnosticUnderlineWarn = { sp = '#54524f', undercurl = true },
   DiagnosticVirtualTextError = { fg = '#bf616a', bg = nil, undercurl = true },
-  -- DiagnosticUnderlineError = { sp = '#4b3d48', undercurl = true },
 }
 
 local function change_color()
