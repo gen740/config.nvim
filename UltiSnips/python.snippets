@@ -42,3 +42,7 @@ best_params = study.best_params
 found_x = best_params["x"]
 print("Found x: {}, (x - 2)^2: {}".format(found_x, (found_x - 2) ** 2))
 endsnippet
+
+snippet drop_first "drop_first element and convert to np array"
+data = np.array([[float(j) for j in i] for i in data[1 : len(data)]])
+endsnippet

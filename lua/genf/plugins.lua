@@ -180,9 +180,9 @@ require('packer').startup {
       end,
     }
     use {
-      'mfussenegger/nvim-dap',
+      'mfussenegger/nvim-dap-ui',
       requires = {
-        'mfussenegger/nvim-dap-ui',
+        'mfussenegger/nvim-dap',
       },
       config = function()
         require('genf.configs.dap').setup()

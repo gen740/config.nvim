@@ -72,11 +72,11 @@ function M.nvim_lsp()
     }
   end
 
-  lspconfig.sourcekit.setup {
-    capabilities = capabilities,
-    on_attach = Lsp_on_attach,
-    filetype = { 'swift', 'objective-c', 'objective-cpp' },
-  }
+  -- lspconfig.sourcekit.setup {
+  --   capabilities = capabilities,
+  --   on_attach = Lsp_on_attach,
+  --   filetype = { 'swift', 'objective-c', 'objective-cpp' },
+  -- }
 
   lspconfig.sumneko_lua.setup {
     capabilities = capabilities,

@@ -1,9 +1,9 @@
 vim.keymap.set('n', '<m-r>', function()
-  require('genf.asyncrun').asyncrun('task run')
+  require('genf.asyncrun').asyncrun('task execute')
 end)
 
 vim.keymap.set('n', '<m-c>', function()
-  require('genf.asyncrun').asyncrun('task build')
+  require('genf.asyncrun').asyncrun('task compile')
 end)
 
 vim.keymap.set('n', '<m-s>', function()
