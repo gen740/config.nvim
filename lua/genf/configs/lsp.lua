@@ -64,7 +64,11 @@ function M.nvim_lsp()
     'hls',
   }
 
-  local capabilities = require('cmp_nvim_lsp').default_capabilities()
+  local capabilities = nil
+  if pcall(require, 'cmp_nvim_lsp') then
+    capabilities = require('cmp_nvim_lsp').default_capabilities()
+  end
+
   for _, lsp in pairs(servers) do
     lspconfig[lsp].setup {
       capabilities = capabilities,

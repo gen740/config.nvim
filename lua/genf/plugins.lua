@@ -28,23 +28,9 @@ require('packer').startup {
     use { 'wbthomason/packer.nvim', opt = true }
 
     ---- Utilities -----------------------------------------------------------------------------
-    use {
-      'cohama/lexima.vim',
-      config = function()
-        vim.g.lexima_enable_basic_rules = 1
-        vim.g.lexima_enable_newline_rules = 1
-        vim.g.lexima_enable_endwise_rules = 1
-        vim.api.nvim_call_function('lexima#set_default_rules', {})
-      end,
-    }
+    use { 'cohama/lexima.vim', config = config('lexima') }
     use { 'junegunn/vim-easy-align' }
     use { 'machakann/vim-sandwich', keys = { 'sa', 'sd', 'sr' } }
-    use {
-      'uga-rosa/ccc.nvim',
-      config = function()
-        require('ccc').setup {}
-      end,
-    }
     use {
       'numToStr/Comment.nvim',
       config = function()
@@ -180,13 +166,11 @@ require('packer').startup {
       end,
     }
     use {
-      'mfussenegger/nvim-dap-ui',
+      'rcarriga/nvim-dap-ui',
       requires = {
         'mfussenegger/nvim-dap',
       },
-      config = function()
-        require('genf.configs.dap').setup()
-      end,
+      config = config('dap'),
     }
     use {
       'hrsh7th/nvim-cmp',
@@ -203,6 +187,12 @@ require('packer').startup {
         { 'neovim/nvim-lspconfig' },
       },
       config = config('nvim_cmp'),
+    }
+    use {
+      'uga-rosa/ccc.nvim',
+      config = function()
+        require('ccc').setup {}
+      end,
     }
   end,
 }

@@ -7,6 +7,11 @@ local function setup()
         },
       },
     },
+    lsp = {
+      signature = {
+        enabled = false,
+      },
+    },
   }
 end
 
