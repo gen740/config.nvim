@@ -63,6 +63,7 @@ function M.asyncrun(cmd)
           lines = lines,
           efm = efm,
         })
+        vim.fn.win_execute(qfwinid, ':norm G')
       end
     end
     if event == 'exit' then
@@ -79,6 +80,7 @@ function M.asyncrun(cmd)
       vim.api.nvim_command('doautocmd QuickFixCmdPost')
       is_running = false
       running_jobid = nil
+      vim.fn.win_execute(qfwinid, ':norm G')
     end
   end
 

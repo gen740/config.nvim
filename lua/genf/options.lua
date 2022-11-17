@@ -54,6 +54,7 @@ if vim.fn.has('nvim-0.8') then
   vim.opt.winbar = '%#WinBarFileName#%f%* %M%='
   vim.opt.laststatus = 3
   vim.opt.cmdheight = 0
+  vim.opt.formatoptions:append('M')
 end
 
 vim.g.netrw_silent = true
