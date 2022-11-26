@@ -3,9 +3,11 @@ local function setup()
   require('nvim-treesitter.configs').setup {
     ensure_installed = {
       'c',
-      'python',
-      'latex',
       'cpp',
+      'python',
+      'markdown',
+      'markdown_inline',
+      'latex',
       'lua',
       'rust',
       'vim',
@@ -27,6 +29,26 @@ local function setup()
     -- autotag = {
     --   enable = true,
     -- },
+    context_commentstring = {
+      enable = true,
+    },
+    disable = function(lang, bufnr)
+      local byte_size = vim.fn.getfsize(vim.api.nvim_buf_get_name(bufnr))
+      if byte_size > 512 * 1000 then
+        return true
+      end
+      local ok = true
+      ok = pcall(function()
+        vim.treesitter.get_parser(bufnr, lang):parse()
+      end) and ok
+      ok = pcall(function()
+        vim.treesitter.get_query(lang, 'highlights')
+      end) and ok
+      if not ok then
+        return true
+      end
+      return false
+    end,
   }
 end
 

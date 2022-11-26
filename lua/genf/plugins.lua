@@ -32,33 +32,15 @@ require('packer').startup {
     use { 'cohama/lexima.vim', config = config('lexima') }
     use { 'junegunn/vim-easy-align' }
     use { 'machakann/vim-sandwich', keys = { 'sa', 'sd', 'sr' } }
-    use {
-      'numToStr/Comment.nvim',
-      config = function()
-        require('Comment').setup {}
-      end,
-      keys = 'gc',
-    }
+    use { 'numToStr/Comment.nvim', config = config('comment'), keys = 'gc' }
     use { 'mbbill/undotree', cmd = 'UndotreeToggle' }
     use { 'tpope/vim-fugitive' }
     use { 'nvim-lua/plenary.nvim' }
     use { 'lewis6991/gitsigns.nvim', config = config('gitsigns') }
-    use {
-      'SirVer/ultisnips',
-      requires = { 'honza/vim-snippets' },
-      config = config('ultisnips'),
-    }
-    use { 'wakatime/vim-wakatime' }
-    use {
-      'folke/noice.nvim',
-      event = 'VimEnter',
-      config = config('noice'),
-      requires = {
-        { 'MunifTanjim/nui.nvim' },
-      },
-    }
+    use { 'SirVer/ultisnips', requires = { 'honza/vim-snippets' }, config = config('ultisnips') }
+    use { 'folke/noice.nvim', requires = { 'MunifTanjim/nui.nvim' }, config = config('noice') }
     use { 'rcarriga/nvim-notify', config = config('notify') }
-    use { 'lewis6991/impatient.nvim' }
+    -- use { 'wakatime/vim-wakatime' }
     -- use { 'xiyaowong/virtcolumn.nvim' }
 
     ---- Treesitter ----------------------------------------------------------------------------
@@ -66,10 +48,9 @@ require('packer').startup {
       'nvim-treesitter/nvim-treesitter',
       config = config('treesitter'),
       requires = {
-        {
-          'andymass/vim-matchup',
-        },
+        { 'andymass/vim-matchup' },
         { 'nvim-treesitter/playground', cmd = 'TSPlaygroundToggle' },
+        { 'JoosepAlviste/nvim-ts-context-commentstring' },
       },
     }
 
@@ -107,17 +88,6 @@ require('packer').startup {
     ---- FileType Plugins ----------------------------------------------------------------------
     use { 'rhysd/vim-grammarous', ft = { 'markdown', 'markdown', 'text' } }
     use { 'chrisbra/csv.vim', ft = { 'csv', 'tsv' } }
-    use { 'mattn/emmet-vim', ft = { 'html', 'markdown', 'markdown' } }
-    use {
-      'JoosepAlviste/nvim-ts-context-commentstring',
-      config = function()
-        require('nvim-treesitter.configs').setup {
-          context_commentstring = {
-            enable = true,
-          },
-        }
-      end,
-    }
     use {
       'windwp/nvim-ts-autotag',
       config = function()
@@ -125,7 +95,6 @@ require('packer').startup {
       end,
       ft = { 'html', 'js', 'ts' },
     }
-    -- use({ 'lervag/vimtex', ft = { 'markdown', 'tex' } })
     use {
       'fuenor/JpFormat.vim',
       ft = { 'text', 'markdown' },
@@ -134,7 +103,6 @@ require('packer').startup {
       end,
     }
     use { 'chikamichi/mediawiki.vim', ft = { 'mediawikix' } }
-    -- use { 'rbonvall/vim-textobj-latex', requires = { 'kana/vim-textobj-user' }, ft = { 'latex' } }
 
     ---- LSP and Debugger ----------------------------------------------------------------------
     use {
@@ -175,6 +143,7 @@ require('packer').startup {
       config = function()
         require('ccc').setup {}
       end,
+      cmd = { 'CccHighlighterEnable', 'CccHighlighterToggle' },
     }
   end,
 }

@@ -58,7 +58,9 @@ map('n', '<space>D', vim.lsp.buf.type_definition)
 map('n', '<space>rn', vim.lsp.buf.rename)
 map('n', '<space>ca', vim.lsp.buf.code_action)
 map('n', 'gr', vim.lsp.buf.references)
--- map('omnifunc', 'v:lua.vim.lsp.omnifunc')
+-- map('n', 'o', 'zzo')
+-- map('n', 'O', 'zzO')
+
 
 -- Dap
 map('n', '<leader>db', require "dap".continue)
@@ -70,6 +72,8 @@ map('n', '<leader>dD', function() require "dap".set_breakpoint(vim.fn.input("Bre
 map('n', '<leader>dp', function() require "dap".set_breakpoint(nil, nil, vim.fn.input("Log point message: ")) end)
 map('n', '<leader>dr', require "dap".repl.open)
 map('n', '<leader>dl', require "dap".run_last)
+
+map('n', '<leader>z', "<cmd>ZenMode<cr>")
 
 -- GitSigns
 local gs = require "gitsigns"

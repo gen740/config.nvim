@@ -1,5 +1,6 @@
 local function setup()
   local cmp = require('cmp')
+  ---@diagnostic disable-next-line
   cmp.setup {
     snippet = {
       expand = function(args)

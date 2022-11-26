@@ -37,7 +37,9 @@ vim.keymap.set('n', '<m-r>', function()
 end)
 
 vim.keymap.set('n', '<m-c>', function()
-  vim.cmd('Run lualatex --file-line-error -synctex=1 -interaction=batchmode document.tex')
+  vim.cmd(
+    'Run lualatex --shell-escape --file-line-error -synctex=1 -interaction=batchmode document.tex'
+  )
 end)
 
 vim.keymap.set('n', '<m-s>', function()

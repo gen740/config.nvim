@@ -4,6 +4,7 @@ local function setup()
   local new_maker = function(filepath, bufnr, opts)
     opts = opts or {}
     filepath = vim.fn.expand(filepath)
+    ---@diagnostic disable-next-line
     vim.loop.fs_stat(filepath, function(_, stat)
       if not stat then
         return
