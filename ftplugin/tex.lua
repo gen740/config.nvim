@@ -29,11 +29,15 @@ end
 local zathura_job = nil
 
 vim.keymap.set('n', '<m-r>', function()
-  vim.fn.system([[mkfifo /tmp/zathura_synctex]])
-  zathura_job = vim.fn.jobstart(
-    [[zathura -x 'zsh -c "echo \"%{line}\n%{input}\" > /tmp/zathura_synctex"' document.pdf]]
-  )
-  inverse_search_start()
+  if zathura_job == nil then
+    vim.fn.system([[mkfifo /tmp/zathura_synctex]])
+    zathura_job = vim.fn.jobstart(
+      [[zathura -x 'zsh -c "echo \"%{line}\n%{input}\" > /tmp/zathura_synctex"' document.pdf]]
+    )
+    inverse_search_start()
+  else
+    vim.notify('Window has been opened.')
+  end
 end)
 
 vim.keymap.set('n', '<m-c>', function()
@@ -46,6 +50,7 @@ vim.keymap.set('n', '<m-s>', function()
   if zathura_job ~= nil then
     Inverse_search_stop()
     vim.fn.jobstop(zathura_job)
+    zathura_job = nil
   end
 end)
 

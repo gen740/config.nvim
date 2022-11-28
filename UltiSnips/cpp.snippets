@@ -32,3 +32,10 @@ int main() {
 	return 0;
 }
 endsnippet
+
+snippet "(\w+).f" "postfix function" r
+auto `!p snip.rv = match.group(1)`($1) -> $2 {
+	$3
+}
+$0
+endsnippet

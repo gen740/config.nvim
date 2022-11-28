@@ -35,3 +35,28 @@ vim.opt_local.softtabstop = shiftwidth
 vim.opt_local.shiftwidth = shiftwidth
 
 vim.cmd('compiler python')
+
+local lsp_utils = require('genf.lsp_utils')
+
+if pcall(require, 'lspconfig') then
+  local config = require('lspconfig')['pyright']
+  config.setup {
+    capabilities = lsp_utils.capabilities,
+    on_attach = lsp_utils.on_attach,
+
+    settings = {
+      pyright = {
+        disableLanguageServices = true,
+        disableOrganizeImports = true,
+      },
+      python = {
+        analysis = {
+          diagnosticSeverityOverrides = {
+            reportGeneralTypeIssues = 'error',
+          },
+        },
+      },
+    },
+  }
+  config.launch()
+end
