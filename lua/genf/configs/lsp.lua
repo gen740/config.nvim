@@ -8,7 +8,7 @@ function M.setup()
     require('genf.language_services.' .. name).lsp_config()
   end
 
-  local languages = { 'python', 'cpp', 'go', 'lua' }
+  local languages = { 'python', 'cpp', 'go', 'lua', 'tex', 'json', 'yaml' }
 
   for _, lang in ipairs(languages) do
     load_config(lang)
