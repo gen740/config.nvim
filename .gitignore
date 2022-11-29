@@ -1,6 +1,6 @@
 # Mac
 .DS_Store
-/plugin
+# /plugin
 
 # Executables
 *.a

@@ -1,49 +1,5 @@
 local function setup()
   local dap, dapui = require('dap'), require('dapui')
-  dap.adapters.lldb = {
-    type = 'executable',
-    command = '/usr/local/opt/llvm/bin/lldb-vscode', -- adjust as needed
-    name = 'lldb',
-  }
-  dap.adapters.python = {
-    type = 'executable',
-    command = '/Users/fujimotogen/.pyenv/shims/python3',
-    args = { '-m', 'debugpy.adapter' },
-  }
-  dap.configurations.cpp = {
-    {
-      name = 'Launch',
-      type = 'lldb',
-      request = 'launch',
-      program = function()
-        return vim.fn.input('Path to executable: ', vim.fn.getcwd() .. '/', 'file')
-      end,
-      cwd = [[${workspaceFolder}]],
-      stopOnEntry = false,
-      runInTerminal = false,
-    },
-  }
-  dap.configurations.c = dap.configurations.cpp
-  dap.configurations.rust = dap.configurations.cpp
-  dap.configurations.python = {
-    {
-      type = 'python',
-      request = 'launch',
-      name = 'Launch file',
-      program = '${file}', -- This configuration will launch the current file if used.
-      pythonPath = function()
-        local cwd = vim.fn.getcwd()
-        if vim.fn.executable(cwd .. '/venv/bin/python') == 1 then
-          return cwd .. '/venv/bin/python'
-        elseif vim.fn.executable(cwd .. '/.venv/bin/python') == 1 then
-          return cwd .. '/.venv/bin/python'
-        else
-          return '/Users/fujimotogen/.pyenv/shims/python3'
-        end
-      end,
-    },
-  }
-
   dapui.setup {
     icons = { expanded = '▾', collapsed = '▸', current_frame = '▸' },
     mappings = {

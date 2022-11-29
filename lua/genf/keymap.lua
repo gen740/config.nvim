@@ -73,8 +73,6 @@ map('n', '<leader>dp', function() require "dap".set_breakpoint(nil, nil, vim.fn.
 map('n', '<leader>dr', require "dap".repl.open)
 map('n', '<leader>dl', require "dap".run_last)
 
-map('n', '<leader>z', "<cmd>ZenMode<cr>")
-
 -- GitSigns
 local gs = require "gitsigns"
 map({ 'n', 'v' }, '<leader>hs', ':Gitsigns stage_hunk<CR>')

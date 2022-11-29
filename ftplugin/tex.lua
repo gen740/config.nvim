@@ -114,3 +114,5 @@ end
 -- " let g:tex_conceal=''
 -- set concealcursor="invc"
 -- hi Conceal guifg=#719cd6
+
+require('genf.lsp_utils').lsp_setup('texlab', true)

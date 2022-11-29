@@ -1,10 +1,19 @@
 M = {}
 
-local function lsp_on_attach(client, bufnr)
-  require('lsp-inlayhints').on_attach(client, bufnr, true)
-end
+function M.setup()
+  require('mason').setup {}
+  require('mason-lspconfig').setup {}
 
-function M.inlay_hints()
+  local function load_config(name)
+    require('genf.language_services.' .. name).lsp_config()
+  end
+
+  local languages = { 'python', 'cpp', 'go', 'lua' }
+
+  for _, lang in ipairs(languages) do
+    load_config(lang)
+  end
+
   require('lsp-inlayhints').setup {
     inlay_hints = {
       parameter_hints = {
@@ -33,26 +42,4 @@ function M.inlay_hints()
   }
 end
 
-function M.mason()
-  require('mason').setup {}
-  require('mason-lspconfig').setup {}
-end
-
--- local servers = {
---   'tsserver',
---   'dockerls',
---   'texlab',
---   'gopls',
---   'perlnavigator',
---   'cmake',
---   'julials',
---   'zls',
---   'hls',
--- }
-
-return {
-  setup = function()
-    M.mason()
-    M.inlay_hints()
-  end,
-}
+return M

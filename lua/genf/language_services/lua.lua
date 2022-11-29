@@ -1,11 +1,15 @@
-vim.opt_local.tabstop = 2
-vim.opt_local.softtabstop = 2
-vim.opt_local.shiftwidth = 2
+local M = {}
 
-local lsp_utils = require('genf.lsp_utils')
-lsp_utils.mason_setup()
+function M.setup()
+  vim.opt_local.tabstop = 2
+  vim.opt_local.softtabstop = 2
+  vim.opt_local.shiftwidth = 2
+end
 
-if pcall(require, 'lspconfig') then
+function M.lsp_config()
+  -- require('genf.language_services.utils').lsp_setup('gopls', true)
+  local lsp_utils = require('genf.language_services.utils')
+
   local config = require('lspconfig')['sumneko_lua']
   config.setup {
     capabilities = lsp_utils.capabilities,
@@ -30,5 +34,6 @@ if pcall(require, 'lspconfig') then
       },
     },
   }
-  config.launch()
 end
+
+return M
