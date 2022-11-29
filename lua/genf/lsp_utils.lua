@@ -10,6 +10,20 @@ M.on_attach = function(client, bufnr)
   require('lsp-inlayhints').on_attach(client, bufnr, true)
 end
 
+M.mason_setup = function()
+  if pcall(require, 'mason') then
+    require('mason').setup {}
+    require('mason-lspconfig').setup {
+      ensure_installed = {
+        'sumneko_lua',
+        'rust_analyzer',
+        -- 'clangd',
+        'bashls',
+      },
+    }
+  end
+end
+
 ---@param name string
 ---@param autostart boolean
 function M.lsp_setup(name, autostart)

@@ -21,4 +21,6 @@ vim.opt_local.softtabstop = 4
 vim.opt_local.shiftwidth = 4
 vim.opt_local.makeprg = 'cargo'
 
+require('genf.lsp_utils').lsp_setup('rust_analyzer', true)
+
 vim.cmd('compiler cargo')

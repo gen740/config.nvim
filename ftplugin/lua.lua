@@ -3,6 +3,7 @@ vim.opt_local.softtabstop = 2
 vim.opt_local.shiftwidth = 2
 
 local lsp_utils = require('genf.lsp_utils')
+lsp_utils.mason_setup()
 
 if pcall(require, 'lspconfig') then
   local config = require('lspconfig')['sumneko_lua']

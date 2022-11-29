@@ -35,37 +35,24 @@ end
 
 function M.mason()
   require('mason').setup {}
-  require('mason-lspconfig').setup {
-    ensure_installed = {
-      'sumneko_lua',
-      'rust_analyzer',
-      -- 'clangd',
-      'bashls',
-    },
-  }
+  require('mason-lspconfig').setup {}
 end
 
-function M.nvim_lsp()
-  local lspconfig = require('lspconfig')
-  local servers = {
-    'rust_analyzer',
-    'tsserver',
-    'dockerls',
-    'texlab',
-    'gopls',
-    'perlnavigator',
-    'cmake',
-    'julials',
-    'yamlls',
-    'zls',
-    'hls',
-  }
-end
+-- local servers = {
+--   'tsserver',
+--   'dockerls',
+--   'texlab',
+--   'gopls',
+--   'perlnavigator',
+--   'cmake',
+--   'julials',
+--   'zls',
+--   'hls',
+-- }
 
 return {
   setup = function()
     M.mason()
-    M.nvim_lsp()
     M.inlay_hints()
   end,
 }

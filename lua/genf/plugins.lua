@@ -112,7 +112,7 @@ require('packer').startup {
         'williamboman/mason-lspconfig.nvim',
         'lvimuser/lsp-inlayhints.nvim',
       },
-      config = config('lsp'),
+      -- config = config('lsp'),
     }
     use { 'jose-elias-alvarez/null-ls.nvim', config = config('null-ls') }
     use {
