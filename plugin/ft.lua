@@ -6,16 +6,20 @@ augroup('CumtomFiletypeSetting', { clear = true })
 local function load_languageconfig(name)
   if
     pcall(require, 'genf.language_services.' .. name)
-    and pcall(require('genf.language_services.' .. name).ft_setup)
+    and pcall(require('genf.language_services.' .. name).setup)
   then
     require('genf.language_services.' .. name).setup()
   end
 end
 
-autocmd({ 'FileType' }, {
-  pattern = { '*' },
-  group = 'CumtomFiletypeSetting',
-  callback = function()
-    load_languageconfig(vim.api.nvim_buf_get_option(0, 'filetype'))
-  end,
-})
+local languages = { 'lua', 'tex', 'cpp', 'python' }
+
+for _, lang in ipairs(languages) do
+  autocmd('FileType', {
+    group = 'CumtomFiletypeSetting',
+    pattern = lang,
+    callback = function()
+      load_languageconfig(lang)
+    end,
+  })
+end

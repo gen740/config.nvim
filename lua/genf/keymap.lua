@@ -63,6 +63,7 @@ map('n', 'gr', vim.lsp.buf.references)
 
 
 -- Dap
+if pcall(require, 'dap') then
 map('n', '<leader>db', require "dap".continue)
 map('n', '<leader>dn', require "dap".continue)
 map('n', '<m-n>', require "dap".step_over)
@@ -72,8 +73,10 @@ map('n', '<leader>dD', function() require "dap".set_breakpoint(vim.fn.input("Bre
 map('n', '<leader>dp', function() require "dap".set_breakpoint(nil, nil, vim.fn.input("Log point message: ")) end)
 map('n', '<leader>dr', require "dap".repl.open)
 map('n', '<leader>dl', require "dap".run_last)
+end
 
 -- GitSigns
+if pcall(require, 'gitsigns') then
 local gs = require "gitsigns"
 map({ 'n', 'v' }, '<leader>hs', ':Gitsigns stage_hunk<CR>')
 map({ 'n', 'v' }, '<leader>hr', ':Gitsigns reset_hunk<CR>')
@@ -86,5 +89,6 @@ map('n', '<leader>hc', gs.toggle_current_line_blame)
 map('n', '<leader>hd', gs.diffthis)
 map('n', '<leader>hD', function() gs.diffthis('~') end)
 map('n', '<leader>td', gs.toggle_deleted)
+end
 
 --  tylua: ignore end
