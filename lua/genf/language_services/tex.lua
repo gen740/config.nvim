@@ -1,7 +1,6 @@
 local M = {}
 
 function M.setup()
-  print('Hoge')
   local function inverse_search_start()
     local uv = vim.loop
 
