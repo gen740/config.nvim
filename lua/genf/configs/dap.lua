@@ -1,5 +1,17 @@
-local function setup()
+local M = {}
+function M.setup()
   local dap, dapui = require('dap'), require('dapui')
+
+  local function load_config(name)
+    require('genf.language_services.' .. name).dap_config()
+  end
+
+  local languages = { 'python', 'cpp' }
+
+  for _, lang in ipairs(languages) do
+    load_config(lang)
+  end
+
   dapui.setup {
     icons = { expanded = '▾', collapsed = '▸', current_frame = '▸' },
     mappings = {
@@ -77,6 +89,4 @@ local function setup()
   end
 end
 
-return {
-  setup = setup,
-}
+return M
