@@ -7,7 +7,7 @@ function M.setup()
 end
 
 function M.lsp_config()
-  require('genf.language_services.utils').lsp_setup('yamlls', true)
+  require('genf.language_services.utils').lsp_setup('yamlls')
 end
 
 return M

@@ -14,12 +14,10 @@ end
 
 local languages = { 'lua', 'tex', 'cpp', 'python' }
 
-for _, lang in ipairs(languages) do
-  autocmd('FileType', {
-    group = 'CumtomFiletypeSetting',
-    pattern = '*',
-    callback = function(args)
-      load_languageconfig(args.match)
-    end,
-  })
-end
+autocmd('FileType', {
+  group = 'CumtomFiletypeSetting',
+  pattern = '*',
+  callback = function(args)
+    load_languageconfig(args.match)
+  end,
+})

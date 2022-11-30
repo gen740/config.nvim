@@ -9,6 +9,7 @@ local function null_ls_setup()
       null_ls.builtins.formatting.isort,
       null_ls.builtins.formatting.markdownlint,
       null_ls.builtins.diagnostics.markdownlint,
+      null_ls.builtins.formatting.cmake_format,
       -- null_ls.builtins.diagnostics.cspell,
       -- null_ls.builtins.code_actions.cspell,
       null_ls.builtins.formatting.latexindent,

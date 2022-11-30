@@ -13,13 +13,13 @@ function M.setup()
     require('genf.asyncrun').asyncstop()
   end)
 
-  vim.opt_local.tabstop = 8
-  vim.opt_local.softtabstop = 6
-  vim.opt_local.shiftwidth = 6
+  vim.opt_local.tabstop = 2
+  vim.opt_local.softtabstop = 2
+  vim.opt_local.shiftwidth = 2
 end
 
 function M.lsp_config()
-  require('genf.language_services.utils').lsp_setup('clangd', true)
+  require('genf.language_services.utils').lsp_setup('clangd')
 end
 
 function M.dap_config()

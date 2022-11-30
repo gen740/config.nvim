@@ -25,17 +25,13 @@ M.mason_setup = function()
 end
 
 ---@param name string
----@param autostart boolean
-function M.lsp_setup(name, autostart)
+function M.lsp_setup(name)
   if pcall(require, 'lspconfig') then
     local config = require('lspconfig')[name]
     config.setup {
       capabilities = M.capabilities,
       on_attach = M.on_attach,
     }
-    if autostart then
-      config.launch()
-    end
   end
 end
 

@@ -22,7 +22,7 @@ function M.setup()
 end
 
 function M.lsp_config()
-  require('genf.language_services.utils').lsp_setup('gopls', true)
+  require('genf.language_services.utils').lsp_setup('gopls')
 end
 
 return M

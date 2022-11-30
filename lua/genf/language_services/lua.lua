@@ -7,7 +7,6 @@ function M.setup()
 end
 
 function M.lsp_config()
-  -- require('genf.language_services.utils').lsp_setup('gopls', true)
   local lsp_utils = require('genf.language_services.utils')
 
   local config = require('lspconfig')['sumneko_lua']
