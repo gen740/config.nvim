@@ -13,6 +13,10 @@ function M.setup()
     require('genf.asyncrun').asyncstop()
   end)
 
+  vim.keymap.set('n', '<m-e>', function()
+    require('genf.asyncrun').asyncrun([[task ]] .. vim.fn.expand('%:t:r'))
+  end)
+
   vim.opt_local.tabstop = 2
   vim.opt_local.softtabstop = 2
   vim.opt_local.shiftwidth = 2

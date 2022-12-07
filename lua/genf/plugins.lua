@@ -30,7 +30,18 @@ require('packer').startup {
 
     ---- Utilities -----------------------------------------------------------------------------
     use { 'cohama/lexima.vim', config = config('lexima') }
-    use { 'junegunn/vim-easy-align' }
+    use {
+      'junegunn/vim-easy-align',
+      config = function()
+        vim.cmd([[
+        let g:easy_align_delimiters = {
+            \ '\': {
+            \     'pattern': '\\$',
+            \    },
+            \ }
+        ]])
+      end,
+    }
     use { 'machakann/vim-sandwich', keys = { 'sa', 'sd', 'sr' } }
     use { 'numToStr/Comment.nvim', config = config('comment'), keys = 'gc' }
     use { 'mbbill/undotree', cmd = 'UndotreeToggle' }

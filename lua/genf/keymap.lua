@@ -17,7 +17,8 @@ map('n', '<m-p>', require("genf.toggleshell").ToggleIpython3)
 map('t', '<m-p>', require("genf.toggleshell").ToggleIpython3)
 map('n', '<m-j>', require("genf.toggleshell").ToggleJulia)
 map('t', '<m-j>', require("genf.toggleshell").ToggleJulia)
-map('t', '<m-b>', [[<c-\><c-n>]])
+-- map('t', '<m-b>', [[<c-\><c-n>]])
+map('t', '<esc>', [[<c-\><c-n>]])
 
 map('n', '<leader>tcb', '<cmd>Telescope current_buffer_fuzzy_find<cr>')
 map('n', '<leader>tb', '<cmd>Telescope git_branches<cr>')
@@ -37,6 +38,9 @@ map('n', 'q:', '<nop>')
 
 map('n', '<leader>rr', require("genf.asyncrun").asyncrun)
 map('n', '<leader>rs', require("genf.asyncrun").asyncstop)
+
+-- map('n', '<leader>ul', vim.fn.system("open " .. vim.fn.expand('<cWORD>')))
+map('n', '<leader>ul', function() vim.fn.system("open " .. vim.fn.expand('<cWORD>')) end)
 
 -- LSP
 map('n', '<space>f', function() vim.lsp.buf.format { async = true } end)
@@ -64,31 +68,31 @@ map('n', 'gr', vim.lsp.buf.references)
 
 -- Dap
 if pcall(require, 'dap') then
-map('n', '<leader>db', require "dap".continue)
-map('n', '<leader>dn', require "dap".continue)
-map('n', '<m-n>', require "dap".step_over)
-map('n', '<m-i>', require "dap".step_into)
-map('n', '<leader>dd', require "dap".toggle_breakpoint)
-map('n', '<leader>dD', function() require "dap".set_breakpoint(vim.fn.input("Breakpoint condition: ")) end)
-map('n', '<leader>dp', function() require "dap".set_breakpoint(nil, nil, vim.fn.input("Log point message: ")) end)
-map('n', '<leader>dr', require "dap".repl.open)
-map('n', '<leader>dl', require "dap".run_last)
+  map('n', '<leader>db', require "dap".continue)
+  map('n', '<leader>dn', require "dap".continue)
+  map('n', '<m-n>', require "dap".step_over)
+  map('n', '<m-i>', require "dap".step_into)
+  map('n', '<leader>dd', require "dap".toggle_breakpoint)
+  map('n', '<leader>dD', function() require "dap".set_breakpoint(vim.fn.input("Breakpoint condition: ")) end)
+  map('n', '<leader>dp', function() require "dap".set_breakpoint(nil, nil, vim.fn.input("Log point message: ")) end)
+  map('n', '<leader>dr', require "dap".repl.open)
+  map('n', '<leader>dl', require "dap".run_last)
 end
 
 -- GitSigns
 if pcall(require, 'gitsigns') then
-local gs = require "gitsigns"
-map({ 'n', 'v' }, '<leader>hs', ':Gitsigns stage_hunk<CR>')
-map({ 'n', 'v' }, '<leader>hr', ':Gitsigns reset_hunk<CR>')
-map('n', '<leader>hS', gs.stage_buffer)
-map('n', '<leader>hu', gs.undo_stage_hunk)
-map('n', '<leader>hR', gs.reset_buffer)
-map('n', '<leader>hp', gs.preview_hunk)
-map('n', '<leader>hb', function() gs.blame_line { full = true } end)
-map('n', '<leader>hc', gs.toggle_current_line_blame)
-map('n', '<leader>hd', gs.diffthis)
-map('n', '<leader>hD', function() gs.diffthis('~') end)
-map('n', '<leader>td', gs.toggle_deleted)
+  local gs = require "gitsigns"
+  map({ 'n', 'v' }, '<leader>hs', ':Gitsigns stage_hunk<CR>')
+  map({ 'n', 'v' }, '<leader>hr', ':Gitsigns reset_hunk<CR>')
+  map('n', '<leader>hS', gs.stage_buffer)
+  map('n', '<leader>hu', gs.undo_stage_hunk)
+  map('n', '<leader>hR', gs.reset_buffer)
+  map('n', '<leader>hp', gs.preview_hunk)
+  map('n', '<leader>hb', function() gs.blame_line { full = true } end)
+  map('n', '<leader>hc', gs.toggle_current_line_blame)
+  map('n', '<leader>hd', gs.diffthis)
+  map('n', '<leader>hD', function() gs.diffthis('~') end)
+  map('n', '<leader>td', gs.toggle_deleted)
 end
 
 --  tylua: ignore end
