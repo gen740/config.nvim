@@ -1,6 +1,6 @@
 local hlcolors = {
   Normal = { bg = nil, fg = '#cdcecf' },
-  CursorLine = { bg = '#222222' },
+  CursorLine = { bg = '#333333' },
   NormalNC = { bg = nil, fg = '#cdcecf' },
   NormalSB = { bg = nil, fg = '#cdcecf' },
   SignColumn = { bg = nil, fg = '#cdcecf' },

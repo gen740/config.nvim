@@ -4,7 +4,7 @@ local map = function(mode, key, cmd)
 end
 
 -- stylua: ignore start
-map('n', '<c-q>', '<cmd>NvimTreeToggle<cr>')
+map('n', '<c-q>', '<cmd>Fern . -drawer -toggle<cr>')
 map('n', '<m-j>', '<cmd>resize +2<cr>')
 map('n', '<m-h>', '<cmd>vertical resize -2<cr>')
 map('n', '<m-l>', '<cmd>vertical resize +2<cr>')
@@ -38,9 +38,6 @@ map('n', 'q:', '<nop>')
 
 map('n', '<leader>rr', require("genf.asyncrun").asyncrun)
 map('n', '<leader>rs', require("genf.asyncrun").asyncstop)
-
--- map('n', '<leader>ul', vim.fn.system("open " .. vim.fn.expand('<cWORD>')))
-map('n', '<leader>ul', function() vim.fn.system("open " .. vim.fn.expand('<cWORD>')) end)
 
 -- LSP
 map('n', '<space>f', function() vim.lsp.buf.format { async = true } end)

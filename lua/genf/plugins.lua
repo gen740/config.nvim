@@ -74,11 +74,20 @@ require('packer').startup {
     }
 
     ---- File Operations -----------------------------------------------------------------------
+    -- use {
+    --   'kyazdani42/nvim-tree.lua',
+    --   requires = { 'kyazdani42/nvim-web-devicons' },
+    --   config = config('nvim_tree'),
+    --   cmd = { 'NvimTreeToggle' },
+    -- }
     use {
-      'kyazdani42/nvim-tree.lua',
-      requires = { 'kyazdani42/nvim-web-devicons' },
-      config = config('nvim_tree'),
-      cmd = { 'NvimTreeToggle' },
+      'lambdalisue/fern.vim',
+      requires = {
+        'lambdalisue/nerdfont.vim',
+        'lambdalisue/fern-renderer-nerdfont.vim',
+        'lambdalisue/fern-hijack.vim',
+      },
+      config = config('fern'),
     }
     use {
       'nvim-telescope/telescope.nvim',
