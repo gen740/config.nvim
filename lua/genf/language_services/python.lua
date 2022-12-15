@@ -13,24 +13,6 @@ function M.setup()
     require('genf.asyncrun').asyncstop()
   end)
 
-  vim.keymap.set('n', '<leader>f', function()
-    local has_indent_blankline = pcall(require, 'indent_blankline')
-    if vim.fn.executable('black') then
-      vim.cmd([[
-        silent w
-        ]])
-      local current_view = vim.fn.winsaveview()
-      vim.cmd([[
-        silent !black -q %
-        silent e
-        ]])
-      vim.fn.winrestview(current_view)
-      if has_indent_blankline then
-        require('indent_blankline.commands').refresh(true, true)
-      end
-    end
-  end)
-
   local shiftwidth = 4
 
   vim.opt_local.tabstop = shiftwidth
@@ -52,6 +34,9 @@ function M.lsp_config()
           diagnosticSeverityOverrides = {
             reportGeneralTypeIssues = 'error',
           },
+        },
+        format = {
+          enable = false,
         },
       },
     },
