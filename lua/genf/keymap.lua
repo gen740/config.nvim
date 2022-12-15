@@ -4,13 +4,12 @@ local map = function(mode, key, cmd)
 end
 
 -- stylua: ignore start
-map('n', '<c-q>', '<cmd>Fern . -drawer -toggle<cr>')
 map('n', '<m-j>', '<cmd>resize +2<cr>')
 map('n', '<m-h>', '<cmd>vertical resize -2<cr>')
 map('n', '<m-l>', '<cmd>vertical resize +2<cr>')
 map('n', '<m-k>', '<cmd>resize -2<cr>')
 
-map('n', '<leader>q', require("genf.toggleshell").ToggleQF)
+map('n', '<m-q>', require("genf.toggleshell").ToggleQF)
 map('n', '<m-w>', require("genf.toggleshell").ToggleTerm)
 map('t', '<m-w>', require("genf.toggleshell").ToggleTerm)
 map('n', '<m-p>', require("genf.toggleshell").ToggleIpython3)
@@ -35,6 +34,7 @@ map('n', 'gk', 'k')
 map('v', '<leader>s', ':sort<cr>')
 map('x', '<leader>p', '\"_dP')
 map('n', 'q:', '<nop>')
+map('n', '<c-q>', '<cmd>Fern . -drawer -toggle<cr>')
 
 map('n', '<leader>rr', require("genf.asyncrun").asyncrun)
 map('n', '<leader>rs', require("genf.asyncrun").asyncstop)

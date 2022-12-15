@@ -12,7 +12,18 @@ local function load_languageconfig(name)
   end
 end
 
-local languages = { 'lua', 'tex', 'cpp', 'python', 'fern' }
+local languages = {
+  'cmake', --
+  'cpp',
+  'fern',
+  'go',
+  'json',
+  'lua',
+  'python',
+  'tex',
+  'toml',
+  'yaml',
+}
 
 autocmd('FileType', {
   group = 'CumtomFiletypeSetting',

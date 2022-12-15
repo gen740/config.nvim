@@ -8,7 +8,7 @@ local function setup()
     intervals = 24,
     fancy = {
       enable = true,
-      head = { cursor = nil, texthl = 'SCCursor' },
+      head = { cursor = '', texthl = 'SCCursorHead' },
       body = {
         { cursor = '●', texthl = 'SCCursor' },
         { cursor = '•', texthl = 'SCCursor' },

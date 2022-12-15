@@ -7,7 +7,21 @@ function M.setup()
 end
 
 function M.lsp_config()
-  require('genf.language_services.utils').lsp_setup('yamlls')
+  local lsp_utils = require('genf.language_services.utils')
+  local config = require('lspconfig')['yamlls']
+  config.setup {
+    capabilities = lsp_utils.capabilities,
+    on_attach = lsp_utils.on_attach,
+    settings = {
+      yaml = {
+        schemas = {
+          ['https://json.schemastore.org/github-workflow.json'] = '/.github/workflows/*',
+          ['https://json.schemastore.org/clang-format.json'] = '.clang-format',
+          ['https://taskfile.dev/schema.json'] = 'Taskfile.yaml',
+        },
+      },
+    },
+  }
 end
 
 return M

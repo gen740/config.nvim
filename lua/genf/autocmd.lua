@@ -32,6 +32,7 @@ local hlcolors = {
   VertSplit = { bg = nil, fg = '#81b29a' },
   QuickFixLine = { bg = '#333333', fg = '#cdcecf' },
   LspInlayHint = { bg = nil, fg = '#5b6282' },
+  SCCursorHead = { bg = nil, fg = '#8588aa' },
   SCCursor = { bg = nil, fg = '#858850' },
   Comment = { fg = '#60728a', italic = true },
   NoiceLspProgressClient = { fg = '#8cabd2', bg = nil, undercurl = false },
