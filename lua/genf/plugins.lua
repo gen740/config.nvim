@@ -81,6 +81,15 @@ require('packer').startup {
     --   cmd = { 'NvimTreeToggle' },
     -- }
     use {
+      'nvim-tree/nvim-web-devicons',
+      config = function()
+        require('nvim-web-devicons').setup {
+          color_icons = true,
+          default = true,
+        }
+      end,
+    }
+    use {
       'lambdalisue/fern.vim',
       requires = {
         'lambdalisue/nerdfont.vim',
@@ -122,7 +131,7 @@ require('packer').startup {
         vim.g.JpFormatCursorMovedI = 1
       end,
     }
-    -- use { 'chikamichi/mediawiki.vim', ft = { 'mediawikix' } }
+    use { 'chikamichi/mediawiki.vim', ft = { 'mediawiki' } }
 
     ---- LSP and Debugger ----------------------------------------------------------------------
     use {

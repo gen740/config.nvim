@@ -38,7 +38,7 @@ local vim_options = {
   wrap = false,
   viewoptions = 'folds,cursor',
   -- vim.cmd([[set fillchars+=eob:\ ]])
-  fillchars = [[eob: ,stl: ,stlnc:─]],
+  fillchars = [[eob: ,stl: ,stlnc:─,diff: ]],
 
   mousemodel = '',
   mouse = '',
@@ -51,7 +51,8 @@ local vim_options = {
 }
 
 if vim.fn.has('nvim-0.8') then
-  vim.opt.winbar = '%#WinBarFileName#%f%* %M%='
+  vim.opt.winbar =
+    [[ %{luaeval('require("nvim-web-devicons").get_icon_by_filetype(vim.api.nvim_buf_get_option(0, "ft"))')} %#WinBarFileName#%f%* %M%=]]
   vim.opt.laststatus = 3
   vim.opt.cmdheight = 0
   vim.opt.formatoptions:append('M')

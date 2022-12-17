@@ -5,13 +5,16 @@ local function setup()
     threshold = 1,
     speed = 18,
     type = 'exp',
-    intervals = 24,
+    intervals = 22,
     fancy = {
       enable = true,
-      head = { cursor = '', texthl = 'SCCursorHead' },
+      head = { cursor = '', texthl = 'SCCursorHead' },
       body = {
         { cursor = '●', texthl = 'SCCursor' },
+        { cursor = '●', texthl = 'SCCursor' },
         { cursor = '•', texthl = 'SCCursor' },
+        { cursor = '•', texthl = 'SCCursor' },
+        { cursor = '∙', texthl = 'SCCursor' },
         { cursor = '∙', texthl = 'SCCursor' },
       },
     },
