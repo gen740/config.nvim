@@ -49,10 +49,11 @@ require('packer').startup {
     use { 'nvim-lua/plenary.nvim' }
     use { 'lewis6991/gitsigns.nvim', config = config('gitsigns') }
     use { 'SirVer/ultisnips', requires = { 'honza/vim-snippets' }, config = config('ultisnips') }
-    use { 'folke/noice.nvim', requires = { 'MunifTanjim/nui.nvim' }, config = config('noice') }
+    -- use { 'folke/noice.nvim', requires = { 'MunifTanjim/nui.nvim' }, config = config('noice') }
     use { 'rcarriga/nvim-notify', config = config('notify') }
     -- use { 'wakatime/vim-wakatime' }
     -- use { 'xiyaowong/virtcolumn.nvim' }
+    -- use { 'folke/lazy.nvim' }
 
     ---- Treesitter ----------------------------------------------------------------------------
     use {
@@ -144,6 +145,17 @@ require('packer').startup {
       config = require('genf.configs.lsp').setup,
       -- config('lsp'),
     }
+    -- use {
+    --   'glepnir/lspsaga.nvim',
+    --   branch = 'main',
+    --   config = function()
+    --     local saga = require('lspsaga')
+    --
+    --     saga.init_lsp_saga {
+    --       -- your configuration
+    --     }
+    --   end,
+    -- }
     use { 'jose-elias-alvarez/null-ls.nvim', config = config('null-ls') }
     use {
       'rcarriga/nvim-dap-ui',

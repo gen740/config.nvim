@@ -97,3 +97,14 @@ snippet ttp "template"
 template <class ${1:T}, class ${2:U}>
 $0
 endsnippet
+
+snippet cl "class"
+class ${1:Foo} {
+public:
+  $1() ${2:= default;}
+  virtual ~$1() ${3:= default;}
+
+private:
+  /* data */
+};
+endsnippet

@@ -1,6 +1,9 @@
 local function setup()
   require('smoothcursor').setup {
-    priority = 1,
+    disable_float_win = true,
+    -- enabled_filetypes = { 'fzf', 'lua' },
+    -- disabled_filetypes = { '' },
+    priority = 100,
     autostart = true,
     threshold = 1,
     speed = 18,
@@ -18,6 +21,7 @@ local function setup()
         { cursor = '∙', texthl = 'SCCursor' },
       },
     },
+    -- flyin_effect = 'bottom',
   }
 end
 
