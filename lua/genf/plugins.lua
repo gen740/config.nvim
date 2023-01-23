@@ -53,7 +53,7 @@ require('packer').startup {
     use { 'rcarriga/nvim-notify', config = config('notify') }
     -- use { 'wakatime/vim-wakatime' }
     -- use { 'xiyaowong/virtcolumn.nvim' }
-    -- use { 'folke/lazy.nvim' }
+    use { 'folke/lazy.nvim' }
 
     ---- Treesitter ----------------------------------------------------------------------------
     use {

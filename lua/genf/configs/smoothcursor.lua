@@ -1,8 +1,9 @@
 local function setup()
   require('smoothcursor').setup {
     disable_float_win = true,
+    disable_terminal = true, -- disable on terminal
     -- enabled_filetypes = { 'fzf', 'lua' },
-    -- disabled_filetypes = { '' },
+    disabled_filetypes = { '' },
     priority = 100,
     autostart = true,
     threshold = 1,
