@@ -46,3 +46,18 @@ endsnippet
 snippet drop_first "drop_first element and convert to np array"
 data = np.array([[float(j) for j in i] for i in data[1 : len(data)]])
 endsnippet
+
+snippet errorbar "errorbar"
+plt.errorbar(
+    x,
+    y,
+    yerr=yerr,
+    capsize=2,
+    fmt="o",
+    markersize=3,
+    ecolor="black",
+    markeredgecolor="black",
+    color="w",
+    label="測定値",
+)
+endsnippet
