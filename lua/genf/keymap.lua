@@ -1,4 +1,3 @@
-vim.g.mapleader = [[ ]]
 local map = function(mode, key, cmd)
   vim.keymap.set(mode, key, cmd, { noremap = true, silent = true })
 end
