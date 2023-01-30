@@ -22,5 +22,5 @@ node_modules
 # Rust
 target
 
-# packer
-plugin/packer_compiled.lua 
+# lazy.nvim
+lazy-lock.json
