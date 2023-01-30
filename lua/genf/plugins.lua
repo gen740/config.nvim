@@ -145,6 +145,12 @@ require('packer').startup {
       config = require('genf.configs.lsp').setup,
       -- config('lsp'),
     }
+    use {
+      'j-hui/fidget.nvim',
+      config = function()
+        require('fidget').setup {}
+      end,
+    }
     -- use {
     --   'glepnir/lspsaga.nvim',
     --   branch = 'main',
