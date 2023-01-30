@@ -12,13 +12,23 @@ return {
         ]])
     end,
   },
-  { 'machakann/vim-sandwich', keys = { 'sa', 'sd', 'sr' } },
+  {
+    'machakann/vim-sandwich',
+    keys = {
+      { 'sa', mode = 'n' },
+      { 'sd', mode = 'n' },
+      { 'sr', mode = 'n' },
+      { 'sa', mode = 'v' },
+      { 'sd', mode = 'v' },
+      { 'sr', mode = 'v' },
+    },
+  },
   {
     'numToStr/Comment.nvim',
     config = function()
       require('Comment').setup {}
     end,
-    keys = 'gc',
+    keys = { { 'gc', mode = 'n' }, { 'gc', mode = 'v' } },
   },
   { 'mbbill/undotree', cmd = 'UndotreeToggle' },
   { 'tpope/vim-fugitive' },

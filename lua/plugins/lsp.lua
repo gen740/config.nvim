@@ -66,17 +66,22 @@ return {
   --     require('fidget').setup {}
   --   end,
   -- }
-  -- use {
-  --   'glepnir/lspsaga.nvim',
-  --   branch = 'main',
-  --   config = function()
-  --     local saga = require('lspsaga')
-  --
-  --     saga.init_lsp_saga {
-  --       -- your configuration
-  --     }
-  --   end,
-  -- }
+  {
+    'glepnir/lspsaga.nvim',
+    branch = 'main',
+    config = function()
+      require('lspsaga').setup {
+        lightbulb = {
+          enable = false,
+          enable_in_insert = true,
+          sign = true,
+          sign_priority = 40,
+          virtual_text = true,
+        },
+      }
+    end,
+    dependencies = { { 'nvim-tree/nvim-web-devicons' } },
+  },
   {
     'jose-elias-alvarez/null-ls.nvim',
     config = function()
