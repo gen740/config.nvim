@@ -44,6 +44,10 @@ local hlcolors = {
   NoicePopup = { fg = '#60728a', bg = nil },
   DiagnosticVirtualTextWarn = { fg = '#ebcb8b', bg = nil, undercurl = true },
   DiagnosticVirtualTextError = { fg = '#bf616a', bg = nil, undercurl = true },
+  IndentBlanklineIndent1 = { bg = nil, fg = '#373354', blend = 0 },
+  -- IndentBlanklineIndent2 = { bg = nil, fg = '#373354', blend = 0 },
+  IndentBlanklineContextChar = { bg = nil, fg = '#cccc60', blend = 0 },
+  IndentBlanklineContextStart = { sp = '#cccc60', underline = true },
 }
 
 local function change_color()

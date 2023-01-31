@@ -78,6 +78,15 @@ return {
           sign_priority = 40,
           virtual_text = true,
         },
+        symbol_in_winbar = {
+          enable = false,
+          separator = ' ',
+          hide_keyword = true,
+          show_file = true,
+          folder_level = 2,
+          respect_root = false,
+          color_mode = true,
+        },
       }
     end,
     dependencies = { { 'nvim-tree/nvim-web-devicons' } },
