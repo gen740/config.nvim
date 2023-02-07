@@ -63,8 +63,8 @@ map('n', '<space>f', function() vim.lsp.buf.format { async = true, timeout_ms = 
 --
 map('n', 'gh', '<cmd>Lspsaga lsp_finder<CR>')
 map({'n','v'}, '<leader>ca', '<cmd>Lspsaga code_action<CR>')
--- map('n', 'gr', '<cmd>Lspsaga rename<CR>')
-map('n', 'rn', '<cmd>Lspsaga rename ++project<CR>')
+map('n', 'rn', '<cmd>Lspsaga rename<CR>')
+-- map('n', 'rn', '<cmd>Lspsaga rename ++project<CR>')
 -- map('n', 'gd', '<cmd>Lspsaga peek_definition<CR>')
 map('n','gd', '<cmd>Lspsaga goto_definition<CR>')
 map('n', '<leader>sl', '<cmd>Lspsaga show_line_diagnostics<CR>')

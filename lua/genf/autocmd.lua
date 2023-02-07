@@ -6,7 +6,7 @@ local hlcolors = {
   SignColumn = { bg = nil, fg = '#cdcecf' },
   EasyMotionTarget = { fg = 'yellow' },
   LineNr = { bg = nil, fg = '#5b6282' },
-  Search = { bg = '#333333', fg = '#ffe37e', bold = true },
+  Search = { bg = '#242424', fg = '#eeb75e', bold = true },
   EndOfBuffer = { fg = '#222222' },
   GitSignsAdd = { bg = nil, fg = 'lightblue' },
   GitSignsAddNr = { bg = nil, fg = 'lightblue' },
@@ -26,6 +26,7 @@ local hlcolors = {
   WinBar = { bg = nil, fg = '#6e7790', bold = true },
   WinBarNC = { bg = nil, fg = '#393b44' },
   WinBarFileName = { bg = nil, fg = '#6e7790', bold = true, underline = true },
+  WhiteSpace = { fg = '#444c53' },
   StatusLine = { bg = nil, fg = '#6e7790', bold = false },
   StatusLineContent = { bg = nil, fg = '#6e7790', bold = false, underline = true },
   WinSeparator = { bg = nil, fg = '#81b29a' },
@@ -44,10 +45,11 @@ local hlcolors = {
   NoicePopup = { fg = '#60728a', bg = nil },
   DiagnosticVirtualTextWarn = { fg = '#ebcb8b', bg = nil, undercurl = true },
   DiagnosticVirtualTextError = { fg = '#bf616a', bg = nil, undercurl = true },
-  IndentBlanklineIndent1 = { bg = nil, fg = '#373354', blend = 0 },
-  -- IndentBlanklineIndent2 = { bg = nil, fg = '#373354', blend = 0 },
-  IndentBlanklineContextChar = { bg = nil, fg = '#cccc60', blend = 0 },
-  IndentBlanklineContextStart = { sp = '#cccc60', underline = true },
+  IndentBlanklineContextSpaceChar = { fg = '#444c53', bg = nil },
+  IndentBlanklineSpaceChar = { fg = '#444c53', bg = nil },
+  IndentBlanklineIndent = { bg = nil, fg = '#272334', blend = 0 },
+  IndentBlanklineContextChar = { bg = nil, fg = '#555533', blend = 0 },
+  IndentBlanklineContextStart = { sp = '#606035', underline = true },
 }
 
 local function change_color()

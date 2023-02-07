@@ -21,7 +21,9 @@ vim.opt.rtp:prepend(lazypath)
 
 require('genf.autocmd')
 require('genf.options')
+
 require('lazy').setup('plugins')
+
 require('genf.keymap')
 require('genf.commands')
 require('genf.statusline')
