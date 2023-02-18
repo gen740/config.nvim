@@ -13,14 +13,7 @@ end
 M.mason_setup = function()
   if pcall(require, 'mason') then
     require('mason').setup {}
-    require('mason-lspconfig').setup {
-      ensure_installed = {
-        'sumneko_lua',
-        'rust_analyzer',
-        -- 'clangd',
-        'bashls',
-      },
-    }
+    require('mason-lspconfig').setup {}
   end
 end
 

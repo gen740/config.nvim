@@ -9,7 +9,7 @@ end
 function M.lsp_config()
   local lsp_utils = require('genf.language_services.utils')
 
-  local config = require('lspconfig')['sumneko_lua']
+  local config = require('lspconfig')['lua_ls']
   config.setup {
     capabilities = lsp_utils.capabilities,
     on_attach = lsp_utils.on_attach,

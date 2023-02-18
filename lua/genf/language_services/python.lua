@@ -25,6 +25,7 @@ local lsp_utils = require('genf.language_services.utils')
 
 function M.lsp_config()
   local config = require('lspconfig')['pyright']
+
   config.setup {
     capabilities = lsp_utils.capabilities,
     on_attach = lsp_utils.on_attach,
@@ -33,11 +34,14 @@ function M.lsp_config()
         analysis = {
           diagnosticSeverityOverrides = {
             reportGeneralTypeIssues = 'error',
+            autoSearchPaths = true,
+            -- useLibraryCodeForTypes = true
           },
         },
         format = {
           enable = false,
         },
+        venvPath = '~/.pyenv/versions',
       },
     },
   }
@@ -47,7 +51,7 @@ function M.dap_config()
   local dap = require('dap')
   dap.adapters.python = {
     type = 'executable',
-    command = '/Users/fujimotogen/.pyenv/shims/python3',
+    command = vim.fn.system('which python3'),
     args = { '-m', 'debugpy.adapter' },
   }
   dap.configurations.python = {

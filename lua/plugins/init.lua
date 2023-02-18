@@ -33,7 +33,7 @@ return {
   { 'mbbill/undotree', cmd = 'UndotreeToggle' },
   { 'tpope/vim-fugitive' },
   { 'nvim-lua/plenary.nvim' },
-  -- use { 'xiyaowong/virtcolumn.nvim' }
+  { 'xiyaowong/virtcolumn.nvim' },
 
   ---- Appearance ----------------------------------------------------------------------------
   {
@@ -42,7 +42,6 @@ return {
       vim.cmd('colo nordfox')
     end,
   },
-
   {
     'nvim-tree/nvim-web-devicons',
     config = function()
@@ -51,32 +50,5 @@ return {
         default = true,
       }
     end,
-  },
-
-  ---- FileType Plugins ----------------------------------------------------------------------
-  { 'rhysd/vim-grammarous', ft = { 'markdown', 'markdown', 'text' } },
-  { 'chrisbra/csv.vim', ft = { 'csv', 'tsv' } },
-  {
-    'windwp/nvim-ts-autotag',
-    config = function()
-      require('nvim-ts-autotag').setup {}
-    end,
-    ft = { 'html', 'js', 'ts' },
-  },
-  {
-    'fuenor/JpFormat.vim',
-    ft = { 'text', 'markdown' },
-    config = function()
-      vim.g.JpFormatCursorMovedI = 1
-    end,
-  },
-  { 'chikamichi/mediawiki.vim', ft = { 'mediawiki' } },
-
-  {
-    'uga-rosa/ccc.nvim',
-    config = function()
-      require('ccc').setup {}
-    end,
-    cmd = { 'CccHighlighterEnable', 'CccHighlighterToggle' },
   },
 }

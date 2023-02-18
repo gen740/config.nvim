@@ -58,7 +58,6 @@ return {
         debug_mode = false,
       }
     end,
-    -- config('lsp'),
   },
   -- use {
   --   'j-hui/fidget.nvim',

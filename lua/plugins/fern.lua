@@ -7,6 +7,6 @@ return {
   },
   config = function()
     vim.g['fern#renderer'] = 'nerdfont'
-    vim.g['fern#hide_cursor'] = 1
+    vim.g['fern#hide_cursor'] = 0
   end,
 }
