@@ -33,8 +33,6 @@ return {
   { 'mbbill/undotree', cmd = 'UndotreeToggle' },
   { 'tpope/vim-fugitive' },
   { 'nvim-lua/plenary.nvim' },
-  { 'xiyaowong/virtcolumn.nvim' },
-
   ---- Appearance ----------------------------------------------------------------------------
   {
     'EdenEast/nightfox.nvim',
