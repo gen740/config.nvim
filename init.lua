@@ -26,5 +26,5 @@ require('lazy').setup('plugins')
 
 require('genf.keymap')
 require('genf.commands')
-require('genf.statusline')
+-- require('genf.statusline')
 require('genf.foldingtxt')
