@@ -22,25 +22,26 @@ autocmd({ 'ColorScheme' }, {
   callback = set_statusline_hl,
 })
 
--- statusline Components
-function Word_count()
-  return ' ' .. vim.fn.wordcount()['chars']
-end
+-- -- statusline Components
+-- function Word_count()
+--   return ' ' .. vim.fn.wordcount()['chars']
+-- end
+--
+-- function Get_git_branch()
+--   -- local branch = gitbranch.get_branch(vim.api.nvim_get_current_buf())
+--   local branch = gitbranch.get_branch()
+--   if branch == '' then
+--     return ''
+--   end
+--   return '' .. ' ' .. branch .. ' '
+-- end
+--
+-- -- statusline
+local str = '%(%)'
 
-function Get_git_branch()
-  -- local branch = gitbranch.get_branch(vim.api.nvim_get_current_buf())
-  local branch = gitbranch.get_branch()
-  if branch == '' then
-    return ''
-  end
-  return '' .. ' ' .. branch .. ' '
-end
+-- str = str .. [[ %#StatusLineContent#%{luaeval('Get_git_branch()')}%l:%L%* %=%=]]
 
--- statusline
-local str = ''
-
-str = str .. [[ %#StatusLineContent#%{luaeval('Get_git_branch()')}%l:%L%* %=%=]]
-
-vim.api.nvim_set_hl(0, 'StatusLine', { fg = '#ffffff', bg = nil })
+vim.api.nvim_set_hl(0, 'StatusLine', { fg = '#668aab', bg = nil })
+vim.api.nvim_set_hl(0, 'StatusLineNC', { fg = '#81b29a', bg = nil })
 
 vim.opt.statusline = str

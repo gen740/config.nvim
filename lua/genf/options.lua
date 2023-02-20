@@ -37,8 +37,13 @@ local vim_options = {
   whichwrap = 'b,s,<,>,[,]',
   wrap = false,
   viewoptions = 'folds,cursor',
-  -- vim.cmd([[set fillchars+=eob:\ ]])
-  fillchars = [[eob: ,stl: ,stlnc:─,diff: ]],
+  -- fillchars = [[eob: ,stl:┈,stlnc:─,diff: ]],
+  fillchars = {
+    eob = ' ',
+    stl = '─',
+    stlnc = '─',
+    diff = ' ',
+  },
 
   mousemodel = '',
   mouse = '',
