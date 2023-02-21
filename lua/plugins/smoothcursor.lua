@@ -50,7 +50,7 @@ return {
         elseif current_mode == 'i' then
           vim.api.nvim_set_hl(0, 'SmoothCursor', { fg = '#668aab' })
           vim.api.nvim_set_hl(0, 'SmoothCursorBoby', { fg = '#668aab' })
-          vim.fn.sign_define('smoothcursor', { text = '' })
+          vim.fn.sign_define('smoothcursor', { text = '' })
         end
       end,
     })
