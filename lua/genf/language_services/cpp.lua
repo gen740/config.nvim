@@ -23,7 +23,14 @@ function M.setup()
 end
 
 function M.lsp_config()
-  require('genf.language_services.utils').lsp_setup('clangd')
+  if pcall(require, 'lspconfig') then
+    local config = require('lspconfig')['clangd']
+    config.setup {
+      capabilities = M.capabilities,
+      on_attach = M.on_attach,
+      filetypes = { 'c', 'cpp', 'objc', 'objcpp', 'cuda' },
+    }
+  end
 end
 
 function M.dap_config()
