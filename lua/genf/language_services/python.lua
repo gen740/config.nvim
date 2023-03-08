@@ -32,10 +32,11 @@ function M.lsp_config()
     settings = {
       python = {
         analysis = {
+          useLibraryCodeForTypes = true,
+          diagnosticMode = 'openFilesOnly',
           diagnosticSeverityOverrides = {
             reportGeneralTypeIssues = 'error',
-            autoSearchPaths = true,
-            -- useLibraryCodeForTypes = true
+            stubPath = '~/.local/tools/python-type-stubs',
           },
         },
         format = {
@@ -45,6 +46,24 @@ function M.lsp_config()
       },
     },
   }
+
+  -- local config = require('lspconfig')['pylsp']
+  --
+  -- config.setup {
+  --   capabilities = lsp_utils.capabilities,
+  --   on_attach = lsp_utils.on_attach,
+  --   settings = {
+  --     pylsp = {
+  --       plugins = {
+  --
+  --         autopep8 = {
+  --
+  --           enabled = false,
+  --         },
+  --       },
+  --     },
+  --   },
+  -- }
 end
 
 function M.dap_config()

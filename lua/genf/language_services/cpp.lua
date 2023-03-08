@@ -24,11 +24,20 @@ end
 
 function M.lsp_config()
   if pcall(require, 'lspconfig') then
+    local lsp_util = require('genf.language_services.utils')
     local config = require('lspconfig')['clangd']
     config.setup {
-      capabilities = M.capabilities,
-      on_attach = M.on_attach,
+      capabilities = lsp_util.capabilities,
+      on_attach = lsp_util.on_attach,
       filetypes = { 'c', 'cpp', 'objc', 'objcpp', 'cuda' },
+      cmd = {
+        'clangd',
+        '-j',
+        '16',
+        '--background-index',
+        '--header-insertion=iwyu',
+        '--suggest-missing-includes',
+      },
     }
   end
 end

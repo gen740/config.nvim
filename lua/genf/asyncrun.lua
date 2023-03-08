@@ -55,6 +55,7 @@ function M.asyncrun(cmd)
       if data then
         for idx, val in ipairs(data) do
           if val ~= '' then
+            val = vim.fn.substitute(val, [[\[[0-9;]*m]], [[]], 'g')
             vim.list_extend(lines, { val })
           end
         end
@@ -100,10 +101,11 @@ function M.ripgrep(cmd)
   local bufnr = vim.api.nvim_win_get_buf(winnr)
   local qfwinid = vim.fn.getqflist({ winid = winnr }).winid
 
+  cmd = vim.fn.substitute(cmd, ' ', [[\\s]], 'g')
   if cmd:match('%s') then
-    cmd = 'rg --column ' .. cmd
+    cmd = 'rg --column ' .. [["]] .. cmd .. [["]]
   else
-    cmd = 'rg --column ' .. cmd .. ' .'
+    cmd = 'rg --column ' .. [["]] .. cmd .. [["]] .. ' .'
   end
 
   if is_running then

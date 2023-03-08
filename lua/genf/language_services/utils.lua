@@ -1,13 +1,18 @@
 M = {}
 
+local lsp_status = require('lsp-status')
+
 M.capabilities = (function()
+  local capabilities = {}
   if pcall(require, 'cmp_nvim_lsp') then
-    return require('cmp_nvim_lsp').default_capabilities()
+    capabilities = require('cmp_nvim_lsp').default_capabilities()
   end
+  return vim.tbl_extend('keep', capabilities, lsp_status.capabilities)
 end)()
 
 M.on_attach = function(client, bufnr)
   require('lsp-inlayhints').on_attach(client, bufnr, true)
+  lsp_status.on_attach(client)
 end
 
 M.mason_setup = function()
