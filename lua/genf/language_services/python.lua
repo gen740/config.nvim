@@ -25,7 +25,6 @@ local lsp_utils = require('genf.language_services.utils')
 
 function M.lsp_config()
   local config = require('lspconfig')['pyright']
-
   config.setup {
     capabilities = lsp_utils.capabilities,
     on_attach = lsp_utils.on_attach,
@@ -33,10 +32,10 @@ function M.lsp_config()
       python = {
         analysis = {
           useLibraryCodeForTypes = true,
-          diagnosticMode = 'openFilesOnly',
+          -- diagnosticMode = 'openFilesOnly',
           diagnosticSeverityOverrides = {
-            reportGeneralTypeIssues = 'error',
-            stubPath = '~/.local/tools/python-type-stubs',
+            -- reportGeneralTypeIssues = 'none',
+            -- stubPath = '~/.local/tools/python-type-stubs',
           },
         },
         format = {
@@ -48,7 +47,6 @@ function M.lsp_config()
   }
 
   -- local config = require('lspconfig')['pylsp']
-  --
   -- config.setup {
   --   capabilities = lsp_utils.capabilities,
   --   on_attach = lsp_utils.on_attach,

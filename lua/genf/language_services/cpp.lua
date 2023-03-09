@@ -33,7 +33,7 @@ function M.lsp_config()
       cmd = {
         'clangd',
         '-j',
-        '16',
+        '8',
         '--background-index',
         '--header-insertion=iwyu',
         '--suggest-missing-includes',

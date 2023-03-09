@@ -66,31 +66,6 @@ return {
   --   end,
   -- }
   {
-    'glepnir/lspsaga.nvim',
-    branch = 'main',
-    config = function()
-      require('lspsaga').setup {
-        lightbulb = {
-          enable = false,
-          enable_in_insert = true,
-          sign = true,
-          sign_priority = 40,
-          virtual_text = true,
-        },
-        symbol_in_winbar = {
-          enable = false,
-          separator = ' ',
-          hide_keyword = true,
-          show_file = true,
-          folder_level = 2,
-          respect_root = false,
-          color_mode = true,
-        },
-      }
-    end,
-    dependencies = { { 'nvim-tree/nvim-web-devicons' } },
-  },
-  {
     'jose-elias-alvarez/null-ls.nvim',
     config = function()
       local null_ls = require('null-ls')
@@ -113,7 +88,7 @@ return {
     'nvim-lua/lsp-status.nvim',
     config = function()
       require('lsp-status').config {
-        status_symbol = ' ',
+        status_symbol = '',
         indicator_errors = '',
         indicator_warnings = '',
         indicator_info = '',
