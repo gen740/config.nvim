@@ -11,7 +11,7 @@ if vim.fn.has('nvim-0.8') then
 
   if pcall(require, 'lsp-status') then
     lsp_status_section =
-      [[%{luaeval('require("lsp-status").status()')} %{luaeval('require("lsp-status").messages().spinner or ""')} ]]
+      [[%{luaeval('require("lsp-status").status_progress().spinner or ""')} %{luaeval('require("lsp-status").status()')}  ]]
   end
   vim.opt.winbar = [[ %{luaeval('require("nvim-web-devicons").get_icon_by_filetype(vim.api.nvim_buf_get_option(0, "ft"))')} %#WinBarFileName#%f%* %M %=]]
     .. lsp_status_section

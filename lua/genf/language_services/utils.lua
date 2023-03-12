@@ -13,6 +13,7 @@ end)()
 M.on_attach = function(client, bufnr)
   require('lsp-inlayhints').on_attach(client, bufnr, true)
   lsp_status.on_attach(client)
+  vim.pretty_print(client.id, client.name)
 end
 
 M.mason_setup = function()

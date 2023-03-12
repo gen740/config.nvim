@@ -6,9 +6,9 @@ return {
       priority = 100,
       autostart = true,
       threshold = 1,
-      speed = 18,
-      type = 'exp',
-      intervals = 22,
+      speed = 30,
+      type = 'default',
+      intervals = 50,
       fancy = {
         enable = true,
         head = { cursor = '', texthl = 'SmoothCursor' },

@@ -87,7 +87,8 @@ return {
   {
     'nvim-lua/lsp-status.nvim',
     config = function()
-      require('lsp-status').config {
+      local lsp_status = require('lsp-status')
+      lsp_status.config {
         status_symbol = '',
         indicator_errors = '',
         indicator_warnings = '',
@@ -95,6 +96,7 @@ return {
         indicator_hint = '',
         indicator_ok = '',
       }
+      lsp_status.register_progress()
     end,
   },
 }
