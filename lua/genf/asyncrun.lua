@@ -101,12 +101,7 @@ function M.ripgrep(cmd)
   local bufnr = vim.api.nvim_win_get_buf(winnr)
   local qfwinid = vim.fn.getqflist({ winid = winnr }).winid
 
-  cmd = vim.fn.substitute(cmd, ' ', [[\\s]], 'g')
-  if cmd:match('%s') then
-    cmd = 'rg --column ' .. [["]] .. cmd .. [["]]
-  else
-    cmd = 'rg --column ' .. [["]] .. cmd .. [["]] .. ' .'
-  end
+  cmd = 'rg --column ' .. cmd .. ' .'
 
   if is_running then
     notify('Command still runing')
