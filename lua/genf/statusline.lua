@@ -37,11 +37,11 @@ autocmd({ 'ColorScheme' }, {
 -- end
 --
 -- -- statusline
-local str = '%(%)'
 
 -- str = str .. [[ %#StatusLineContent#%{luaeval('Get_git_branch()')}%l:%L%* %=%=]]
 
 vim.api.nvim_set_hl(0, 'StatusLine', { fg = '#668aab', bg = nil })
 vim.api.nvim_set_hl(0, 'StatusLineNC', { fg = '#81b29a', bg = nil })
 
+local str = [[%{luaeval('(function()return""end)()')}]]
 vim.opt.statusline = str
