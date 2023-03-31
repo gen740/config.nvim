@@ -31,7 +31,6 @@ return {
     keys = { { 'gc', mode = 'n' }, { 'gc', mode = 'v' } },
   },
   { 'mbbill/undotree', cmd = 'UndotreeToggle' },
-  { 'tpope/vim-fugitive' },
   { 'nvim-lua/plenary.nvim' },
   ---- Appearance ----------------------------------------------------------------------------
   {

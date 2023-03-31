@@ -28,7 +28,7 @@ function MyFoldText()
     vim.api.nvim_set_option_value('fillchars', fillchars .. 'fold:', { scope = 'local' })
   else
     foldtext = '┈ ' .. (get_vvar('foldend') - get_vvar('foldstart') + 1) .. ' ﲐ ┈'
-    local endofline = 78
+    local endofline = get_lopt('colorcolumn') - 3
     linetext = vim.fn.strpart(vim.fn.getline(get_vvar('foldstart')), 0, endofline + 4)
     align = endofline - vim.fn.strwidth(linetext)
   end

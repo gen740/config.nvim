@@ -36,6 +36,7 @@ return {
       sources = {
         { name = 'nvim_lsp' },
         { name = 'nvim_lsp_signature_help' },
+        { name = 'copilot' },
         { name = 'buffer', keyword_length = 3 },
         { name = 'nvim_lsp_document_symbol' },
         { name = 'path' },
