@@ -40,8 +40,12 @@ local vim_options = {
   -- fillchars = [[eob: ,stl:┈,stlnc:─,diff: ]],
   fillchars = {
     eob = ' ',
-    stl = '─',
-    stlnc = '─',
+    -- stl = '─',
+    -- stlnc = '─',
+    -- vert = ' ',
+    stl = '▓',
+    stlnc = '▓',
+    vert = '▓',
     diff = ' ',
   },
 

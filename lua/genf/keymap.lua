@@ -94,4 +94,10 @@ if pcall(require, 'gitsigns') then
   map('n', '<leader>td', gs.toggle_deleted)
 end
 
+-- copilot.lua
+if pcall(require, 'copilot') then
+  map('n', '<leader>cn', require("copilot.suggestion").next)
+  map('n', '<leader>cp', require("copilot.suggestion").prev)
+end
+
 --  tylua: ignore end

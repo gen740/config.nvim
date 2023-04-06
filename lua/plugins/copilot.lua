@@ -6,10 +6,10 @@ return {
     config = function()
       require('copilot').setup {
         suggestion = {
-          -- enabled = false,
-          auto_triggar = true,
+          enabled = false,
+          -- auto_triggar = true,
         },
-        -- panel = { enabled = false },
+        panel = { enabled = false },
       }
     end,
   },
