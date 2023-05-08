@@ -102,16 +102,16 @@ return {
       return col ~= 0
         and vim.api.nvim_buf_get_text(0, line - 1, 0, line - 1, col, {})[1]:match('^%s*$') == nil
     end
-    cmp.setup {
-      mapping = {
-        ['<Tab>'] = vim.schedule_wrap(function(fallback)
-          if cmp.visible() and has_words_before() then
-            cmp.select_next_item { behavior = cmp.SelectBehavior.Select }
-          else
-            fallback()
-          end
-        end),
-      },
-    }
+    -- cmp.setup {
+    --   mapping = {
+    --     ['<Tab>'] = vim.schedule_wrap(function(fallback)
+    --       if cmp.visible() and has_words_before() then
+    --         cmp.select_next_item { behavior = cmp.SelectBehavior.Select }
+    --       else
+    --         fallback()
+    --       end
+    --     end),
+    --   },
+    -- }
   end,
 }

@@ -44,3 +44,4 @@ local gitbranch = require('genf.gitbranch')
 -- vim.api.nvim_set_hl(0, 'StatusLineNC', { fg = '#81b29a', bg = nil })
 
 vim.opt.statusline = [[%{''}]]
+-- vim.opt.statusline = [[%{luaeval('(function()return""end)()')}]]

@@ -1,7 +1,7 @@
 local autocmd = vim.api.nvim_create_autocmd
 local augroup = vim.api.nvim_create_augroup
 
-augroup('CumtomFiletypeSetting', { clear = true })
+-- augroup('CumtomFiletypeSetting', { clear = true })
 
 local function load_languageconfig(name)
   if
@@ -26,7 +26,7 @@ local languages = {
 }
 
 autocmd('FileType', {
-  group = 'CumtomFiletypeSetting',
+  -- group = 'CumtomFiletypeSetting',
   pattern = '*',
   callback = function(args)
     load_languageconfig(args.match)

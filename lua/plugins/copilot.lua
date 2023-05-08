@@ -7,7 +7,6 @@ return {
       require('copilot').setup {
         suggestion = {
           enabled = false,
-          -- auto_triggar = true,
         },
         panel = { enabled = false },
       }
@@ -17,7 +16,7 @@ return {
     'zbirenbaum/copilot-cmp',
     dependencies = { 'copilot.lua' },
     config = function()
-      require('copilot_cmp').setup()
+      -- require('copilot_cmp').setup()
     end,
   },
 }
