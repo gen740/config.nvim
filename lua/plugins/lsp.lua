@@ -19,6 +19,7 @@ return {
         'cpp',
         'go',
         'json',
+        'javascript',
         'lua',
         'python',
         'rust',

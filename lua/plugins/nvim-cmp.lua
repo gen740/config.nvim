@@ -36,7 +36,7 @@ return {
       sources = {
         { name = 'nvim_lsp' },
         { name = 'nvim_lsp_signature_help' },
-        { name = 'copilot' },
+        -- { name = 'copilot' },
         { name = 'buffer', keyword_length = 3 },
         { name = 'nvim_lsp_document_symbol' },
         { name = 'path' },
@@ -47,9 +47,9 @@ return {
         format = require('lspkind').cmp_format {
           mode = 'symbol',
           maxwidth = 50,
-          symbol_map = {
-            Copilot = '',
-          },
+          -- symbol_map = {
+          --   Copilot = '',
+          -- },
           before = function(entry, vim_item)
             vim_item.menu = ({
               buffer = '[Buf]',
@@ -58,7 +58,7 @@ return {
               ultisnips = '[USnips]',
               nvim_lua = '[Lua]',
               latex_symbols = '[Latex]',
-              copilot = '[copilot]',
+              -- copilot = '[copilot]',
             })[entry.source.name]
 
             vim_item.dup = ({
