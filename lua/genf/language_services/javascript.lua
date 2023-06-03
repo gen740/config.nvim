@@ -7,7 +7,6 @@ function M.setup()
 end
 
 function M.lsp_config()
-  print('Foo')
   require('genf.language_services.utils').lsp_setup('tsserver')
 end
 

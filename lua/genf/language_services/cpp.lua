@@ -9,6 +9,10 @@ function M.setup()
     require('genf.asyncrun').asyncrun('task compile')
   end)
 
+  vim.keymap.set('n', '<m-g>', function()
+    require('genf.asyncrun').asyncrun('task cmake')
+  end)
+
   vim.keymap.set('n', '<m-s>', function()
     require('genf.asyncrun').asyncstop()
   end)
