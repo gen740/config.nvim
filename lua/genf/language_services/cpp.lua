@@ -30,6 +30,7 @@ function M.lsp_config()
   if pcall(require, 'lspconfig') then
     local lsp_util = require('genf.language_services.utils')
     local config = require('lspconfig')['clangd']
+
     config.setup {
       capabilities = lsp_util.capabilities,
       on_attach = lsp_util.on_attach,

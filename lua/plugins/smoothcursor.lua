@@ -1,5 +1,5 @@
 return {
-  dir = '~/home/Labo/Project/SmoothCursor.nvim',
+  'gen740/SmoothCursor.nvim',
   config = function()
     require('smoothcursor').setup {
       disable_float_win = true,

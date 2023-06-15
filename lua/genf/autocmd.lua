@@ -49,7 +49,7 @@ local hlcolors = {
   DiagnosticVirtualTextError = { fg = '#bf616a', bg = nil, undercurl = true },
   IndentBlanklineContextSpaceChar = { fg = '#444c53', bg = nil },
   IndentBlanklineSpaceChar = { fg = '#444c53', bg = nil },
-  IndentBlanklineIndent = { bg = nil, fg = '#272334', blend = 0 },
+  IndentBlanklineIndent = { bg = nil, fg = '#273344', blend = 0 },
   IndentBlanklineContextChar = { bg = nil, fg = '#555533', blend = 0 },
   IndentBlanklineContextStart = { sp = '#606035', underline = true },
 }
