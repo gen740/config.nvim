@@ -22,7 +22,10 @@ return {
       highlight = {
         enable = true,
         disable = function(lang, bufnr)
-          if lang == 'yaml' then
+          -- if lang == 'yaml' then
+          --   return true
+          -- end
+          if lang == 'gitcommit' then
             return true
           end
           local byte_size = vim.fn.getfsize(vim.api.nvim_buf_get_name(bufnr))
