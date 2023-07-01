@@ -33,6 +33,7 @@ map('n', 'gk', 'k')
 map('v', '<space>s', ':sort<cr>')
 map('x', '<space>p', '\"_dP')
 map('n', 'q:', '<nop>')
+map('n', '~', '<nop>')
 map('n', '<c-q>', '<cmd>Fern . -drawer -toggle<cr>')
 
 map('n', '<space>rr', require("genf.asyncrun").asyncrun)
