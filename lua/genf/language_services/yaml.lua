@@ -17,6 +17,7 @@ function M.lsp_config()
         schemas = {
           ['https://json.schemastore.org/github-workflow.json'] = '/.github/workflows/*',
           ['https://json.schemastore.org/clang-format.json'] = '.clang-format',
+          ['https://gitlab.com/gitlab-org/gitlab/-/raw/master/app/assets/javascripts/editor/schema/ci.json'] = '.gitlab-ci.y*ml',
           ['https://taskfile.dev/schema.json'] = 'Taskfile.yaml',
         },
       },
