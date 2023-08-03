@@ -3,7 +3,7 @@ local map = function(mode, key, cmd)
 end
 
 -- stylua: ignore start
-map('n', '<m-j>', '<cmd>resize +2<cr>')
+-- map('n', '<m-j>', '<cmd>resize +2<cr>')
 map('n', '<m-h>', '<cmd>vertical resize -2<cr>')
 map('n', '<m-l>', '<cmd>vertical resize +2<cr>')
 map('n', '<m-k>', '<cmd>resize -2<cr>')
@@ -95,4 +95,7 @@ if pcall(require, 'gitsigns') then
   map('n', '<leader>td', gs.toggle_deleted)
 end
 
+
+-- SKK
+map({'n', 'i'},'<m-u>', "<Plug>(skkeleton-enable)")
 -- stylua: ignore end
