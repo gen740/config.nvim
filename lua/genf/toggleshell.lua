@@ -3,7 +3,11 @@ local winsize = 15
 
 local win_kind = {
   ToggleTerm = { name = 'terminal', display_name = 'Terminal', cmd = nil },
-  ToggleIpython3 = { name = 'ipython', display_name = 'Ipython', cmd = 'ipython3' },
+  ToggleIpython3 = {
+    name = 'ipython',
+    display_name = 'Ipython',
+    cmd = [[ipython3 -i -c 'import numpy as np;import matplotlib.pyplot as plt']],
+  },
   ToggleJulia = { name = 'julia', display_name = 'Julia', cmd = 'julia' },
 }
 

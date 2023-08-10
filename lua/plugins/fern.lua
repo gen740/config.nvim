@@ -3,7 +3,7 @@ return {
   dependencies = {
     'lambdalisue/nerdfont.vim',
     'lambdalisue/fern-renderer-nerdfont.vim',
-    'lambdalisue/fern-hijack.vim',
+    -- 'lambdalisue/fern-hijack.vim',
   },
   config = function()
     vim.g['fern#renderer'] = 'nerdfont'

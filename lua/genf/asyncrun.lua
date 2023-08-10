@@ -4,6 +4,7 @@ local running_jobid = nil
 local is_running = false
 local previous_cmd = nil
 
+---@param message string
 local function notify(message)
   local has_notify = pcall(require, 'notify')
   if has_notify then

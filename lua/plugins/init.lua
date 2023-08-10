@@ -1,4 +1,5 @@
 return {
+
   ---- Utilities -----------------------------------------------------------------------------
   {
     'junegunn/vim-easy-align',
@@ -32,6 +33,7 @@ return {
   },
   { 'mbbill/undotree', cmd = 'UndotreeToggle' },
   { 'nvim-lua/plenary.nvim' },
+
   ---- Appearance ----------------------------------------------------------------------------
   {
     'EdenEast/nightfox.nvim',
