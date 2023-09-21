@@ -19,6 +19,8 @@ return {
         'cpp',
         'go',
         'javascript',
+        'typescript',
+        'typescriptreact',
         'json',
         'lua',
         'python',
@@ -67,25 +69,25 @@ return {
   --     require('fidget').setup {}
   --   end,
   -- }
-  {
-    'jose-elias-alvarez/null-ls.nvim',
-    config = function()
-      local null_ls = require('null-ls')
-      null_ls.setup {
-        sources = {
-          null_ls.builtins.formatting.stylua,
-          null_ls.builtins.formatting.swift_format,
-
-          null_ls.builtins.formatting.isort,
-          null_ls.builtins.formatting.black,
-          -- null_ls.builtins.diagnostics.flake8,
-
-          null_ls.builtins.formatting.cmake_format,
-          null_ls.builtins.formatting.latexindent,
-        },
-      }
-    end,
-  },
+  -- {
+  --   'jose-elias-alvarez/null-ls.nvim',
+  --   config = function()
+  --     local null_ls = require('null-ls')
+  --     null_ls.setup {
+  --       sources = {
+  --         null_ls.builtins.formatting.stylua,
+  --         null_ls.builtins.formatting.swift_format,
+  --
+  --         null_ls.builtins.formatting.isort,
+  --         null_ls.builtins.formatting.black,
+  --         -- null_ls.builtins.diagnostics.flake8,
+  --
+  --         null_ls.builtins.formatting.cmake_format,
+  --         null_ls.builtins.formatting.latexindent,
+  --       },
+  --     }
+  --   end,
+  -- },
 
   {
     'nvim-lua/lsp-status.nvim',

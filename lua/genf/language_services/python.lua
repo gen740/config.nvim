@@ -30,18 +30,18 @@ function M.lsp_config()
     on_attach = lsp_utils.on_attach,
     settings = {
       python = {
-        analysis = {
-          useLibraryCodeForTypes = true,
-          -- diagnosticMode = 'openFilesOnly',
-          diagnosticSeverityOverrides = {
-            -- reportGeneralTypeIssues = 'none',
-            -- stubPath = '~/.local/tools/python-type-stubs',
-          },
-        },
+    --     analysis = {
+    --       useLibraryCodeForTypes = true,
+    --       -- diagnosticMode = 'openFilesOnly',
+    --       diagnosticSeverityOverrides = {
+    --         -- reportGeneralTypeIssues = 'none',
+    --         -- stubPath = '~/.local/tools/python-type-stubs',
+    --       },
+    --     },
         format = {
           enable = false,
         },
-        venvPath = '~/.pyenv/versions',
+        venvPath = '/Users/gen/.pyenv/versions/3.10.13/envs/',
       },
     },
   }

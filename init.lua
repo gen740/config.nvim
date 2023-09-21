@@ -19,6 +19,10 @@ if not vim.loop.fs_stat(lazypath) then
 end
 vim.opt.rtp:prepend(lazypath)
 
+if vim.g.neovide then
+  require('genf.neovide')
+end
+
 require('genf.autocmd')
 require('genf.options')
 

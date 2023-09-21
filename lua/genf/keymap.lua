@@ -13,7 +13,7 @@ map('n', '<m-w>', require('genf.toggleshell').ToggleTerm)
 map('t', '<m-w>', require('genf.toggleshell').ToggleTerm)
 map('n', '<m-p>', require('genf.toggleshell').ToggleIpython3)
 map('t', '<m-p>', require('genf.toggleshell').ToggleIpython3)
-map('t', '<m-b>', [[<c-\><c-n>]])
+map('t', '<m-c>', [[<c-\><c-n>]])
 
 if pcall(require, 'telescope') then
   local tb = require('telescope.builtin')
@@ -40,7 +40,14 @@ map('n', '<space>rs', require('genf.asyncrun').asyncstop)
 -- LSP
 map('n', '[c', '<cmd>cp<cr>')
 map('n', ']c', '<cmd>cn<cr>')
-map('n', '<space>f', function() vim.lsp.buf.format { async = true, timeout_ms = 1000 } end)
+map('n', '<space>f', function() vim.lsp.buf.format {
+    async = true,
+    timeout_ms = 1000,
+    filter = function(client)
+      return client.name ~= "tsserver"
+    end
+  }
+end)
 map('n', '<space>e', vim.diagnostic.open_float)
 map('n', '[d', vim.diagnostic.goto_prev)
 map('n', ']d', vim.diagnostic.goto_next)
