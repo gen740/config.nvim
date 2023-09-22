@@ -1,6 +1,17 @@
 local M = {}
 
 function M.setup()
+  vim.keymap.set('n', '<space>f', function()
+    vim.cmd('w')
+    require('genf.asyncrun').asyncrun('stylua ' .. vim.fn.expand('%:p'), function()
+      local current_line = vim.fn.line('.')
+      local win_view = vim.fn.winsaveview()
+      vim.cmd('e!')
+      vim.fn.winrestview(win_view)
+      vim.fn.cursor(current_line, 0)
+    end)
+  end, true)
+
   vim.opt_local.tabstop = 2
   vim.opt_local.softtabstop = 2
   vim.opt_local.shiftwidth = 2

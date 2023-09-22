@@ -15,7 +15,9 @@ local function notify(message)
 end
 
 ---@param cmd nil|string
-function M.asyncrun(cmd)
+---@param on_exit nil|function
+---@param silent nil|boolean
+function M.asyncrun(cmd, on_exit, silent)
   -- Repeat if argument is nil
   if cmd == nil then
     if previous_cmd == nil then
@@ -24,6 +26,15 @@ function M.asyncrun(cmd)
     end
     cmd = previous_cmd
   end
+
+  if on_exit == nil then
+    on_exit = function() end
+  end
+
+  if silent == nil then
+    silent = false
+  end
+
   previous_cmd = cmd
 
   local lines = {}
@@ -31,12 +42,14 @@ function M.asyncrun(cmd)
   local bufnr = vim.api.nvim_win_get_buf(winnr)
   local qfwinid = vim.fn.getqflist({ winid = winnr }).winid
 
-  if is_running then
-    notify('Command still runing')
-    return
-  else
-    is_running = true
-    notify('AsyncRun Start')
+  if not silent then
+    if is_running then
+      notify('Command still runing')
+      return
+    else
+      is_running = true
+      notify('AsyncRun Start')
+    end
   end
 
   local efm = vim.api.nvim_buf_get_option(bufnr, 'efm')
@@ -59,26 +72,31 @@ function M.asyncrun(cmd)
             vim.list_extend(lines, { val })
           end
         end
+        if not silent then
+          vim.fn.setqflist({}, 'r', {
+            title = cmd,
+            lines = lines,
+            efm = efm,
+          })
+        end
+        vim.fn.win_execute(qfwinid, ':norm G')
+      end
+    end
+    if event == 'exit' then
+      on_exit()
+      if not silent then
+        notify('AsyncRun Done')
+        table.insert(
+          lines,
+          '  ▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬ AsyncRun Done!! ▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬ '
+        )
         vim.fn.setqflist({}, 'r', {
           title = cmd,
           lines = lines,
           efm = efm,
         })
-        vim.fn.win_execute(qfwinid, ':norm G')
+        vim.api.nvim_command('doautocmd QuickFixCmdPost')
       end
-    end
-    if event == 'exit' then
-      notify('AsyncRun Done')
-      table.insert(
-        lines,
-        '  ▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬ AsyncRun Done!! ▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬ '
-      )
-      vim.fn.setqflist({}, 'r', {
-        title = cmd,
-        lines = lines,
-        efm = efm,
-      })
-      vim.api.nvim_command('doautocmd QuickFixCmdPost')
       is_running = false
       running_jobid = nil
       vim.fn.win_execute(qfwinid, ':norm G')

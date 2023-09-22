@@ -1,3 +1,3 @@
 return {
-  'vim-denops/denops.vim'
+  'vim-denops/denops.vim',
 }

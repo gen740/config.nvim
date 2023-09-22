@@ -5,12 +5,23 @@ function M.setup()
     require('genf.asyncrun').asyncrun('task execute')
   end)
 
-  -- vim.keymap.set('n', '<m-c>', function()
-  --   require('genf.asyncrun').asyncrun('task compile')
-  -- end)
-
   vim.keymap.set('n', '<m-s>', function()
     require('genf.asyncrun').asyncstop()
+  end)
+
+  vim.keymap.set('n', '<space>f', function()
+    vim.cmd('w')
+    require('genf.asyncrun').asyncrun(
+      'black ' .. vim.fn.expand('%:p') .. ';' .. 'isort ' .. vim.fn.expand('%:p'),
+      function()
+        local current_line = vim.fn.line('.')
+        local win_view = vim.fn.winsaveview()
+        vim.cmd('e!')
+        vim.fn.winrestview(win_view)
+        vim.fn.cursor(current_line, 0)
+      end,
+      true
+    )
   end)
 
   local shiftwidth = 4
@@ -30,14 +41,6 @@ function M.lsp_config()
     on_attach = lsp_utils.on_attach,
     settings = {
       python = {
-    --     analysis = {
-    --       useLibraryCodeForTypes = true,
-    --       -- diagnosticMode = 'openFilesOnly',
-    --       diagnosticSeverityOverrides = {
-    --         -- reportGeneralTypeIssues = 'none',
-    --         -- stubPath = '~/.local/tools/python-type-stubs',
-    --       },
-    --     },
         format = {
           enable = false,
         },
@@ -45,23 +48,6 @@ function M.lsp_config()
       },
     },
   }
-
-  -- local config = require('lspconfig')['pylsp']
-  -- config.setup {
-  --   capabilities = lsp_utils.capabilities,
-  --   on_attach = lsp_utils.on_attach,
-  --   settings = {
-  --     pylsp = {
-  --       plugins = {
-  --
-  --         autopep8 = {
-  --
-  --           enabled = false,
-  --         },
-  --       },
-  --     },
-  --   },
-  -- }
 end
 
 function M.dap_config()
@@ -84,7 +70,7 @@ function M.dap_config()
         elseif vim.fn.executable(cwd .. '/.venv/bin/python') == 1 then
           return cwd .. '/.venv/bin/python'
         else
-          return '/Users/fujimotogen/.pyenv/shims/python3'
+          return '/Users/gen/.pyenv/shims/python3'
         end
       end,
     },
