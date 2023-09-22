@@ -18,6 +18,7 @@ end
 ---@param on_exit nil|function
 ---@param silent nil|boolean
 function M.asyncrun(cmd, on_exit, silent)
+  M.asyncstop()
   -- Repeat if argument is nil
   if cmd == nil then
     if previous_cmd == nil then
@@ -40,9 +41,15 @@ function M.asyncrun(cmd, on_exit, silent)
   local lines = {}
   local winnr = vim.fn.win_getid()
   local bufnr = vim.api.nvim_win_get_buf(winnr)
-  local qfwinid = vim.fn.getqflist({ winid = winnr }).winid
+  local qfwinid = nil
+
+  local efm = vim.api.nvim_buf_get_option(bufnr, 'efm')
+  if efm == nil or efm == '' then
+    efm = '%f:%l:%c:%m,%f:%l:%m'
+  end
 
   if not silent then
+    qfwinid = vim.fn.getqflist({ winid = winnr }).winid
     if is_running then
       notify('Command still runing')
       return
@@ -50,21 +57,16 @@ function M.asyncrun(cmd, on_exit, silent)
       is_running = true
       notify('AsyncRun Start')
     end
-  end
 
-  local efm = vim.api.nvim_buf_get_option(bufnr, 'efm')
-  if efm == nil or efm == '' then
-    efm = '%f:%l:%c:%m,%f:%l:%m'
+    vim.fn.setqflist({}, ' ', {
+      title = cmd,
+      lines = {},
+      efm = efm,
+    })
   end
-
-  vim.fn.setqflist({}, ' ', {
-    title = cmd,
-    lines = {},
-    efm = efm,
-  })
 
   local function on_event(job_id, data, event)
-    if event == 'stdout' or event == 'stderr' then
+    if event == 'stdout' or event == 'stderr' and not silent then
       if data then
         for idx, val in ipairs(data) do
           if val ~= '' then
@@ -72,13 +74,11 @@ function M.asyncrun(cmd, on_exit, silent)
             vim.list_extend(lines, { val })
           end
         end
-        if not silent then
-          vim.fn.setqflist({}, 'r', {
-            title = cmd,
-            lines = lines,
-            efm = efm,
-          })
-        end
+        vim.fn.setqflist({}, 'r', {
+          title = cmd,
+          lines = lines,
+          efm = efm,
+        })
         vim.fn.win_execute(qfwinid, ':norm G')
       end
     end
@@ -96,10 +96,10 @@ function M.asyncrun(cmd, on_exit, silent)
           efm = efm,
         })
         vim.api.nvim_command('doautocmd QuickFixCmdPost')
+        vim.fn.win_execute(qfwinid, ':norm G')
       end
       is_running = false
       running_jobid = nil
-      vim.fn.win_execute(qfwinid, ':norm G')
     end
   end
 
@@ -114,6 +114,7 @@ end
 
 --@param cmd string
 function M.ripgrep(cmd)
+  M.asyncstop()
   local lines = {}
   local winnr = vim.fn.win_getid()
   local bufnr = vim.api.nvim_win_get_buf(winnr)
