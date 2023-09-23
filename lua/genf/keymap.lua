@@ -1,5 +1,6 @@
-local map = function(mode, key, cmd)
-  vim.keymap.set(mode, key, cmd, { noremap = true, silent = true })
+local map = function(mode, key, cmd, opt)
+  opt = opt or { noremap = true, silent = true }
+  vim.keymap.set(mode, key, cmd, opt)
 end
 
 -- stylua: ignore start
@@ -94,6 +95,31 @@ if pcall(require, 'gitsigns') then -- GitSigns
   map('n', '<leader>hD', function() gs.diffthis('~') end)
   map('n', '<leader>td', gs.toggle_deleted)
 end
+
+-- vsnip
+map({ 'i', 's' }, '<tab>', function()
+  if vim.fn["vsnip#jumpable"](1) == 1 then
+    return '<Plug>(vsnip-jump-next)'
+  else
+    return '<tab>'
+  end
+end, { noremap = true, silent = true, expr = true })
+
+map({ 'i', 's' }, '<c-b>', function()
+  if vim.fn["vsnip#jumpable"](-1) == 1 then
+    return '<Plug>(vsnip-jump-prev)'
+  else
+    return '<c-b>'
+  end
+end, { noremap = true, silent = true, expr = true })
+
+map({ 'i', 's' }, '<c-t>', function()
+  if vim.fn["vsnip#available"]() == 1 then
+    return '<Plug>(vsnip-expand-or-jump)'
+  else
+    return '<c-t>'
+  end
+end, { noremap = true, silent = true, expr = true })
 
 -- SKK
 map({ 'n', 'i' }, '<m-u>', '<Plug>(skkeleton-enable)')
