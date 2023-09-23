@@ -9,12 +9,13 @@ function M.setup()
       vim.cmd('e!')
       vim.fn.winrestview(win_view)
       vim.fn.cursor(current_line, 0)
-    end)
-  end, true)
+    end, true)
+  end)
 
-  vim.opt_local.tabstop = 2
-  vim.opt_local.softtabstop = 2
-  vim.opt_local.shiftwidth = 2
+  local shiftwidth = 2
+  vim.opt_local.tabstop = shiftwidth
+  vim.opt_local.softtabstop = shiftwidth
+  vim.opt_local.shiftwidth = shiftwidth
 end
 
 function M.lsp_config()

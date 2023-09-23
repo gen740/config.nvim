@@ -9,6 +9,17 @@ function M.setup()
     require('genf.asyncrun').asyncstop()
   end)
 
+  vim.keymap.set('n', '<space>f', function()
+    vim.cmd('w')
+    require('genf.asyncrun').asyncrun('prettier --write ' .. vim.fn.expand('%:p'), function()
+      local current_line = vim.fn.line('.')
+      local win_view = vim.fn.winsaveview()
+      vim.cmd('e!')
+      vim.fn.winrestview(win_view)
+      vim.fn.cursor(current_line, 0)
+    end, true)
+  end)
+
   local shiftwidth = 2
 
   vim.opt_local.tabstop = shiftwidth

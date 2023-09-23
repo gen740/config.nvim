@@ -66,7 +66,7 @@ function M.asyncrun(cmd, on_exit, silent)
   end
 
   local function on_event(job_id, data, event)
-    if event == 'stdout' or event == 'stderr' and not silent then
+    if (event == 'stdout' or event == 'stderr') and not silent then
       if data then
         for idx, val in ipairs(data) do
           if val ~= '' then
