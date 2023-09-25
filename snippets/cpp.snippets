@@ -27,6 +27,44 @@ snippet fn
 snippet incc
 	#include <${1:iostream}>
 
+snippet fore
+	for (${1:auto} ${2:i} : ${3:container}) {
+		${0}
+	}
+
+snippet fori "for int i"
+	for (int ${2:i} = 0; $2 < ${1:count}; $2${3:++}) {
+		${0}
+	}
+
+snippet cout
+	std::cout << ${1} << '\n';
+
+#
+# snippet for "for"
+# for (${1:int} ${2:i} = 0; $2 < ${3:count}; ++$2){
+#   $0
+# }
+# endsnippet
+#
+# snippet fore "for int i"
+# for (int ${1:i} = 1; $1 <= ${2:count}; ++$1){
+#   $0
+# }
+# endsnippet
+#
+# # iterator
+# snippet iter
+# 	for (${1:std::vector}<${2:type}>::${3:const_iterator} ${4:i} = ${5:container}.begin(); $4 != $5.end(); ++$4) {
+# 		${6}
+# 	}
+#
+# # auto iterator
+# snippet itera
+# 	for (auto ${1:i} = ${2:container}.begin(); $1 != $2.end(); ++$1) {
+# 		${3:std::cout << *$1 << std::endl;}
+# 	}
+
 #==================================================================
 #                              STL
 #==================================================================
@@ -145,9 +183,6 @@ snippet amup
 # 	}
 # ##
 # ## Input/Output
-# # std::cout
-# snippet cout
-# 	std::cout << ${1} << std::endl;
 # # std::cin
 # snippet cin
 # 	std::cin >> ${1};
@@ -234,30 +269,6 @@ snippet amup
 # 	std::views::
 
 
-#
-# snippet fora "for auto"
-# for (auto&& ${1:i} : ${2:v}){
-#   $0
-# }
-# endsnippet
-#
-# snippet fori "for int i"
-# for (int ${1:i} = 0; $1 < ${2:count}; ++$1){
-#   $0
-# }
-# endsnippet
-#
-# snippet for "for"
-# for (${1:int} ${2:i} = 0; $2 < ${3:count}; ++$2){
-#   $0
-# }
-# endsnippet
-#
-# snippet fore "for int i"
-# for (int ${1:i} = 1; $1 <= ${2:count}; ++$1){
-#   $0
-# }
-# endsnippet
 #
 # snippet inc "#include <>"
 # #include <$1

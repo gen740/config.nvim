@@ -4,11 +4,6 @@ local map = function(mode, key, cmd, opt)
 end
 
 -- stylua: ignore start
-map('n', '<m-h>', '<cmd>vertical resize -2<cr>')
-map('n', '<m-l>', '<cmd>vertical resize +2<cr>')
-map('n', '<m-k>', '<cmd>resize -2<cr>')
-map('n', '<m-j>', '<cmd>resize +2<cr>')
-
 map('n', '<m-q>', require('genf.toggleshell').ToggleQF)
 map('n', '<m-w>', require('genf.toggleshell').ToggleTerm)
 map('t', '<m-w>', require('genf.toggleshell').ToggleTerm)
@@ -27,16 +22,10 @@ if pcall(require, 'telescope') then
 end
 
 map('n', '<space>ut', '<cmd>UndotreeToggle<cr>')
-map('v', '<space>s', ':sort<cr>')
 map('x', '<space>p', '"_dP')
-
 map('n', 'q:', '<nop>')
 map('n', '~', '<nop>')
-
 map('n', '<c-q>', '<cmd>Fern . -drawer -toggle<cr>')
-
-map('n', '<space>rr', require('genf.asyncrun').asyncrun)
-map('n', '<space>rs', require('genf.asyncrun').asyncstop)
 
 -- LSP
 map('n', '[c', '<cmd>cp<cr>')

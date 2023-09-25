@@ -9,30 +9,41 @@ return {
     { 'hrsh7th/cmp-path' },
     { 'hrsh7th/cmp-calc' },
     { 'hrsh7th/cmp-vsnip' },
-    -- { 'hrsh7th/cmp-cmdline' },
-    { 'quangnguyen30192/cmp-nvim-ultisnips' },
     { 'neovim/nvim-lspconfig' },
   },
   config = function()
+    local has_words_before = function()
+      unpack = unpack or table.unpack
+      local line, col = unpack(vim.api.nvim_win_get_cursor(0))
+      return col ~= 0
+        and vim.api.nvim_buf_get_lines(0, line - 1, line, true)[1]:sub(col, col):match('%s')
+          == nil
+    end
+    local feedkey = function(key, mode)
+      vim.api.nvim_feedkeys(vim.api.nvim_replace_termcodes(key, true, true, true), mode, true)
+    end
     local cmp = require('cmp')
-    ---@diagnostic disable-next-line
+
     cmp.setup {
       snippet = {
         expand = function(args)
-          vim.fn['UltiSnips#Anon'](args.body)
+          vim.fn['vsnip#anonymous'](args.body) -- For `vsnip` users.
         end,
       },
       mapping = {
-        ['<C-p>'] = cmp.mapping.select_prev_item(),
-        ['<C-n>'] = cmp.mapping.select_next_item(),
-        ['<C-d>'] = cmp.mapping.scroll_docs(-4),
-        ['<C-f>'] = cmp.mapping.scroll_docs(4),
-        -- ["<C-c>"] = cmp.mapping.complete(),
-        ['<C-o>'] = cmp.mapping.close(),
-        ['<C-t>'] = cmp.mapping.confirm {
-          behavior = cmp.ConfirmBehavior.Replace,
-          select = true,
-        },
+        ['<C-p>'] = cmp.mapping.select_prev_item {},
+        ['<C-n>'] = cmp.mapping.select_next_item {},
+        ['<C-c>'] = cmp.mapping.abort(),
+        ['<C-t>'] = cmp.mapping(function(fallback)
+          if vim.fn['vsnip#available'](1) == 1 then
+            feedkey('<Plug>(vsnip-expand-or-jump)', '')
+          else
+            cmp.confirm {
+              behavior = cmp.ConfirmBehavior.Replace,
+              select = true,
+            }
+          end
+        end, { 'i', 's' }),
       },
       sources = {
         { name = 'nvim_lsp' },
@@ -41,7 +52,6 @@ return {
         { name = 'nvim_lsp_document_symbol' },
         { name = 'path' },
         { name = 'vsnip' },
-        { name = 'ultisnips' },
         { name = 'calc' },
         { name = 'buffer', keyword_length = 5 },
       },
@@ -57,7 +67,7 @@ return {
               buffer = '[Buf]',
               path = '[PATH]',
               nvim_lsp = '[LSP]',
-              ultisnips = '[USnips]',
+              vsnip = '[VSnip]',
               nvim_lua = '[Lua]',
               latex_symbols = '[Latex]',
               copilot = '[copilot]',
@@ -95,25 +105,5 @@ return {
         },
       },
     }
-
-    local has_words_before = function()
-      if vim.api.nvim_buf_get_option(0, 'buftype') == 'prompt' then
-        return false
-      end
-      local line, col = unpack(vim.api.nvim_win_get_cursor(0))
-      return col ~= 0
-        and vim.api.nvim_buf_get_text(0, line - 1, 0, line - 1, col, {})[1]:match('^%s*$') == nil
-    end
-    -- cmp.setup {
-    --   mapping = {
-    --     ['<Tab>'] = vim.schedule_wrap(function(fallback)
-    --       if cmp.visible() and has_words_before() then
-    --         cmp.select_next_item { behavior = cmp.SelectBehavior.Select }
-    --       else
-    --         fallback()
-    --       end
-    --     end),
-    --   },
-    -- }
   end,
 }
