@@ -38,6 +38,7 @@ for key, value in pairs(win_kind) do
       return
     end
     vim.fn.execute('sp')
+    vim.fn.execute('wincmd J')
     vim.fn.execute('resize' .. tostring(winsize))
     local toggleterm_buf_found = false
     for idx, val in ipairs(vim.fn.getbufinfo()) do

@@ -2,7 +2,6 @@ local M = {}
 
 local running_jobid = nil
 local is_running = false
-local previous_cmd = nil
 
 ---@param message string
 local function notify(message)
@@ -18,25 +17,13 @@ end
 ---@param on_exit nil|function
 ---@param silent nil|boolean
 function M.asyncrun(cmd, on_exit, silent)
-  M.asyncstop()
   -- Repeat if argument is nil
   if cmd == nil then
-    if previous_cmd == nil then
-      notify('No Previous Command')
-      return
-    end
-    cmd = previous_cmd
+    notify('Error')
   end
 
-  if on_exit == nil then
-    on_exit = function() end
-  end
-
-  if silent == nil then
-    silent = false
-  end
-
-  previous_cmd = cmd
+  on_exit = on_exit or function() end
+  silent = silent or false
 
   local lines = {}
   local winnr = vim.fn.win_getid()
@@ -51,7 +38,7 @@ function M.asyncrun(cmd, on_exit, silent)
   if not silent then
     qfwinid = vim.fn.getqflist({ winid = winnr }).winid
     if is_running then
-      notify('Command still runing')
+      M.asyncstop()
       return
     else
       is_running = true
