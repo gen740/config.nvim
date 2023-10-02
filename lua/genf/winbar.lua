@@ -1,6 +1,5 @@
 if vim.fn.has('nvim-0.8') then
   function Get_git_branch()
-    -- local branch = gitbranch.get_branch(vim.api.nvim_get_current_buf())
     local branch = require('genf.gitbranch').get_branch()
     if branch == '' then
       return ''

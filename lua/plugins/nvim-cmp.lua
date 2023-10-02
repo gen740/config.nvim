@@ -10,15 +10,16 @@ return {
     { 'hrsh7th/cmp-calc' },
     { 'hrsh7th/cmp-vsnip' },
     { 'neovim/nvim-lspconfig' },
+    { 'zbirenbaum/copilot.lua' },
+    { 'zbirenbaum/copilot-cmp' },
   },
   config = function()
-    local has_words_before = function()
-      unpack = unpack or table.unpack
-      local line, col = unpack(vim.api.nvim_win_get_cursor(0))
-      return col ~= 0
-        and vim.api.nvim_buf_get_lines(0, line - 1, line, true)[1]:sub(col, col):match('%s')
-          == nil
-    end
+    require('copilot').setup {
+      suggestion = { enabled = false },
+      panel = { enabled = false },
+    }
+    require('copilot_cmp').setup()
+
     local feedkey = function(key, mode)
       vim.api.nvim_feedkeys(vim.api.nvim_replace_termcodes(key, true, true, true), mode, true)
     end
@@ -27,7 +28,7 @@ return {
     cmp.setup {
       snippet = {
         expand = function(args)
-          vim.fn['vsnip#anonymous'](args.body) -- For `vsnip` users.
+          vim.fn['vsnip#anonymous'](args.body)
         end,
       },
       mapping = {
@@ -46,9 +47,9 @@ return {
         end, { 'i', 's' }),
       },
       sources = {
+        { name = 'copilot' },
         { name = 'nvim_lsp' },
         { name = 'nvim_lsp_signature_help' },
-        { name = 'copilot' },
         { name = 'nvim_lsp_document_symbol' },
         { name = 'path' },
         { name = 'vsnip' },

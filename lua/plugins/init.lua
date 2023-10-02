@@ -32,7 +32,6 @@ return {
     keys = { { 'gc', mode = 'n' }, { 'gc', mode = 'v' } },
   },
   { 'mbbill/undotree', cmd = 'UndotreeToggle' },
-  { 'nvim-lua/plenary.nvim' },
 
   ---- Appearance ----------------------------------------------------------------------------
   {

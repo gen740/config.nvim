@@ -26,13 +26,6 @@ return {
         repl = 'r',
         toggle = 't',
       },
-      element_mappings = {
-        -- Example:
-        -- stacks = {
-        --   open = "<CR>",
-        --   expand = "o",
-        -- }
-      },
       expand_lines = vim.fn.has('nvim-0.7') == 1,
       layouts = {
         {

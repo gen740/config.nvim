@@ -1,6 +1,13 @@
 return {
   'gen740/SmoothCursor.nvim',
   config = function()
+    for key, val in pairs {
+      SmoothCursor = { bg = nil, fg = '#8aa872' },
+      SmoothCursorBody = { bg = nil, fg = '#8aa872' },
+    } do
+      vim.api.nvim_set_hl(0, key, val)
+    end
+
     require('smoothcursor').setup {
       disable_float_win = true,
       priority = 100,

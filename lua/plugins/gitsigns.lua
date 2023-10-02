@@ -1,6 +1,20 @@
 return {
   'lewis6991/gitsigns.nvim',
   config = function()
+    for key, val in pairs {
+      GitSignsAdd = { bg = nil, fg = 'lightblue' },
+      GitSignsAddNr = { bg = nil, fg = 'lightblue' },
+      GitSignsAddLn = { bg = nil, fg = 'lightblue' },
+      GitSignsChange = { bg = nil, fg = 'lightgreen' },
+      GitSignsChangeNr = { bg = nil, fg = 'lightgreen' },
+      GitSignsChangeLn = { bg = nil, fg = 'lightgreen' },
+      GitSignsDelete = { bg = nil, fg = 'red' },
+      GitSignsDeleteNr = { bg = nil, fg = 'red' },
+      GitSignsDeleteLn = { bg = nil, fg = 'red' },
+    } do
+      vim.api.nvim_set_hl(0, key, val)
+    end
+
     require('gitsigns').setup {
       signs = {
         add = {

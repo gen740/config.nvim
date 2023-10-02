@@ -39,7 +39,7 @@ for key, value in pairs(win_kind) do
     end
     vim.fn.execute('sp')
     vim.fn.execute('wincmd J')
-    vim.fn.execute('resize' .. tostring(winsize))
+    vim.api.nvim_win_set_height(0, winsize)
     local toggleterm_buf_found = false
     for idx, val in ipairs(vim.fn.getbufinfo()) do
       if vim.fn.get(vim.fn.split(val.name, '/'), 0, '') == 'term:' then
@@ -53,10 +53,12 @@ for key, value in pairs(win_kind) do
       vim.fn.execute('term ' .. (value.cmd or ''))
       vim.fn.execute('setlocal winbar=%#WinBarFileName#' .. value.display_name .. '%*%=')
     end
-    vim.fn.execute('setlocal nonumber')
-    vim.fn.execute('setlocal signcolumn=no')
-    vim.fn.execute('setlocal ft=' .. key)
-    vim.fn.execute('let b:' .. key .. '=v:true')
+    vim.opt_local.number = false
+    vim.opt_local.relativenumber = false
+    vim.opt_local.signcolumn = 'no'
+    vim.opt_local.wrap = false
+    vim.opt_local.ft = key
+    vim.api.nvim_buf_set_var(0, key, true)
     if vim.fn.mode() == 'n' then
       vim.fn.feedkeys('i')
     end
@@ -69,11 +71,12 @@ M.ToggleQF = function()
     return
   end
   vim.fn.execute('copen')
-  vim.fn.execute('resize' .. tostring(winsize))
+  vim.api.nvim_win_set_height(0, winsize)
   local toggleterm_buf_found = false
-  vim.fn.execute('setlocal winbar=%#WinBarFileName#QuickFix%*%=')
-  vim.fn.execute('setlocal nonumber')
-  vim.fn.execute('setlocal signcolumn=no')
+  vim.opt_local.number = false
+  vim.opt_local.relativenumber = false
+  vim.opt_local.signcolumn = 'no'
+  vim.opt_local.wrap = false
   vim.fn.execute('wincmd p')
 end
 
