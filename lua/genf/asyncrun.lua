@@ -128,7 +128,6 @@ function M.ripgrep(cmd)
     if event == 'stdout' or event == 'stderr' then
       if data then
         for idx, val in ipairs(data) do
-          -- notify(val)
           if val ~= '' then
             vim.list_extend(lines, { val })
           end
@@ -138,7 +137,6 @@ function M.ripgrep(cmd)
           lines = lines,
           efm = efm,
         })
-        -- vim.api.nvim_command("doautocmd QuickFixCmdPost")
       end
     end
     if event == 'exit' then

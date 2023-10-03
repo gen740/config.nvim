@@ -8,7 +8,6 @@ local win_kind = {
     display_name = 'Ipython',
     cmd = [[ipython3 -i -c 'import numpy as np;import matplotlib.pyplot as plt']],
   },
-  ToggleJulia = { name = 'julia', display_name = 'Julia', cmd = 'julia' },
 }
 
 local close_if_exist = function()

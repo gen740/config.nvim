@@ -1,6 +1,18 @@
-if require('genf.utils').dir_exists('~/.pyenv/versions/neovim-3/bin') then
+local dir_exists = function(path)
+  if type(path) ~= 'string' then
+    error('input error')
+    return false
+  end
+  local response = os.execute('cd ' .. path .. ' 2> /dev/null')
+  if response == 0 or response == true then
+    return true
+  end
+  return false
+end
+
+if dir_exists('~/.pyenv/versions/neovim-3/bin') then
   vim.g.python3_host_prog = '~/.pyenv/versions/neovim-3/bin/python3'
-elseif require('genf.utils').dir_exists('~/.config/nvim-venv/bin') then
+elseif dir_exists('~/.config/nvim-venv/bin') then
   vim.g.python3_host_prog = '~/.config/nvim-venv/bin/python3'
 end
 
