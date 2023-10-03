@@ -12,7 +12,8 @@ local vim_options = {
     diff = ' ',
   },
   foldenable = true,
-  foldexpr = 'nvim_treesitter#foldexpr()',
+  foldexpr = 'v:lua.vim.treesitter.foldexpr()',
+  -- foldtext = 'v:lua.vim.treesitter.foldtext()',
   foldlevel = 99,
   foldmethod = 'expr',
   guicursor = '',
@@ -52,10 +53,12 @@ local vim_options = {
   wrap = false,
 }
 
+---@diagnostic disable: inject-field
 vim.g.netrw_silent = true
 vim.g.vimsyn_embed = 'lPr'
 vim.g.loaded_perl_provider = 0
 vim.g.mapleader = [[ ]]
+---@diagnostic enable: inject-field
 
 for name, val in pairs(vim_options) do
   vim.opt[name] = val
@@ -73,14 +76,26 @@ _G.QfTextFunc = function(info)
         if val.bufnr == 0 and val.lnum == 0 then
           l[#l + 1] = ' כֿ  ⇒ ' .. val.text
         elseif val.type == 'e' then
-          l[#l + 1] =
-            string.format('  %s|%s| ⇒ %s', vim.fn.bufname(val.bufnr), val.lnum, val.text)
+          l[#l + 1] = string.format(
+            '  %s|%s| ⇒ %s',
+            vim.fn.bufname(val.bufnr),
+            val.lnum,
+            val.text
+          )
         elseif val.type == 'w' then
-          l[#l + 1] =
-            string.format('  %s|%s| ⇒ %s', vim.fn.bufname(val.bufnr), val.lnum, val.text)
+          l[#l + 1] = string.format(
+            '  %s|%s| ⇒ %s',
+            vim.fn.bufname(val.bufnr),
+            val.lnum,
+            val.text
+          )
         else
-          l[#l + 1] =
-            string.format(' כֿ %s|%s| ⇒ %s', vim.fn.bufname(val.bufnr), val.lnum, val.text)
+          l[#l + 1] = string.format(
+            ' כֿ %s|%s| ⇒ %s',
+            vim.fn.bufname(val.bufnr),
+            val.lnum,
+            val.text
+          )
         end
       end
     end
@@ -97,8 +112,12 @@ _G.QfTextFunc = function(info)
         if val.bufnr == 0 and val.lnum == 0 then
           l[#l + 1] = ' כֿ ' .. ' ⇒ ' .. val.text
         else
-          l[#l + 1] =
-            string.format('  %s|%s| ⇒ %s', vim.fn.bufname(val.bufnr), val.lnum, val.text)
+          l[#l + 1] = string.format(
+            '  %s|%s| ⇒ %s',
+            vim.fn.bufname(val.bufnr),
+            val.lnum,
+            val.text
+          )
         end
       end
     end

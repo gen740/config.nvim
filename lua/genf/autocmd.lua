@@ -18,7 +18,12 @@ vim.api.nvim_create_autocmd({ 'ColorScheme' }, {
       LineNrBelow = { bg = nil, fg = '#5b6282' },
       WinBar = { bg = nil, fg = '#6e7790', bold = true },
       WinBarNC = { bg = nil, fg = '#393b44' },
-      WinBarFileName = { bg = nil, fg = '#6e7790', bold = true, underline = true },
+      WinBarFileName = {
+        bg = nil,
+        fg = '#6e7790',
+        bold = true,
+        underline = true,
+      },
       StatusLine = { bg = '#2a2a2a', fg = '#2a2a2a', bold = false },
       StatusLineNC = { bg = '#2a2a2a', fg = '#2a2a2a', bold = false },
       WinSeparator = { bg = '#2a2a2a', fg = '#2a2a2a', bold = false },
@@ -26,21 +31,25 @@ vim.api.nvim_create_autocmd({ 'ColorScheme' }, {
       LspInlayHint = { bg = nil, fg = '#5b6282' },
       Comment = { fg = '#60728a', italic = false },
       DiagnosticVirtualTextWarn = { fg = '#ebcb8b', bg = nil, undercurl = true },
-      DiagnosticVirtualTextError = { fg = '#bf616a', bg = nil, undercurl = true },
+      DiagnosticVirtualTextError = {
+        fg = '#bf616a',
+        bg = nil,
+        undercurl = true,
+      },
     } do
       vim.api.nvim_set_hl(0, key, val)
     end
   end,
 })
 
--- vim.api.nvim_create_autocmd({ 'TermOpen' }, {
---   group = 'CustomAutocommand',
---   callback = function()
---     vim.opt_local.number = false
---     vim.opt_local.relativenumber = false
---     vim.opt_local.signcolumn = 'no'
---   end,
--- })
+vim.api.nvim_create_autocmd({ 'TermOpen' }, {
+  group = 'CustomAutocommand',
+  callback = function()
+    vim.opt_local.number = false
+    vim.opt_local.relativenumber = false
+    vim.opt_local.signcolumn = 'no'
+  end,
+})
 
 vim.api.nvim_create_autocmd({ 'TextYankPost' }, {
   group = 'CustomAutocommand',

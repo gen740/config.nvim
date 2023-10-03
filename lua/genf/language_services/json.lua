@@ -16,8 +16,14 @@ function M.lsp_config()
     settings = {
       json = {
         schemas = {
-          { fileMatch = { 'package.json' }, url = 'https://json.schemastore.org/package.json' },
-          { fileMatch = { 'tsconfig*.json' }, url = 'https://json.schemastore.org/tsconfig.json' },
+          {
+            fileMatch = { 'package.json' },
+            url = 'https://json.schemastore.org/package.json',
+          },
+          {
+            fileMatch = { 'tsconfig*.json' },
+            url = 'https://json.schemastore.org/tsconfig.json',
+          },
           {
             fileMatch = {
               'pyrightconfig.json',

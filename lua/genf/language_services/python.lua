@@ -12,7 +12,11 @@ function M.setup()
   vim.keymap.set('n', '<space>f', function()
     vim.cmd('w')
     require('genf.asyncrun').asyncrun(
-      'black ' .. vim.fn.expand('%:p') .. ';' .. 'isort ' .. vim.fn.expand('%:p'),
+      'black '
+        .. vim.fn.expand('%:p')
+        .. ';'
+        .. 'isort '
+        .. vim.fn.expand('%:p'),
       function()
         local current_line = vim.fn.line('.')
         local win_view = vim.fn.winsaveview()

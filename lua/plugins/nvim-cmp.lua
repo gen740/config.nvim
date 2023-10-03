@@ -21,7 +21,11 @@ return {
     require('copilot_cmp').setup()
 
     local feedkey = function(key, mode)
-      vim.api.nvim_feedkeys(vim.api.nvim_replace_termcodes(key, true, true, true), mode, true)
+      vim.api.nvim_feedkeys(
+        vim.api.nvim_replace_termcodes(key, true, true, true),
+        mode,
+        true
+      )
     end
     local cmp = require('cmp')
 

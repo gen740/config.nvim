@@ -10,40 +10,75 @@ local function get_vvar(opt)
   return vim.api.nvim_get_vvar(opt)
 end
 
-function MyFoldText()
+function GenfFoldText()
   local fillchars = get_lopt('fillchars')
   local numwidth = get_lopt('numberwidth')
   local linetext = ''
-  local foldtext = ''
+  local foldtext = {}
   local align = 0
+  local treesitter_text = vim.treesitter.foldtext()
+
   if get_lopt('foldmethod') == 'diff' then
-    linetext = ''
     foldtext = '---------- '
       .. (get_vvar('foldend') - get_vvar('foldstart') + 1)
       .. ' lines the same ----------'
     align = vim.fn.winwidth(0)
       - get_lopt('foldcolumn')
-      - (get_lopt('number') and math.max(vim.fn.strwidth(vim.fn.line('$')) + 1, numwidth) or 0)
+      - (
+        get_lopt('number')
+          and math.max(
+            vim.fn.strwidth(tostring(vim.fn.line('$'))) + 1,
+            numwidth
+          )
+        or 0
+      )
     align = (align / 2) + (vim.fn.strwidth(foldtext) / 2)
-    vim.api.nvim_set_option_value('fillchars', fillchars .. 'fold:', { scope = 'local' })
+    vim.api.nvim_set_option_value(
+      'fillchars',
+      fillchars .. 'fold:',
+      { scope = 'local' }
+    )
   else
-    foldtext = '┈ ' .. (get_vvar('foldend') - get_vvar('foldstart') + 1) .. ' ﲐ ┈'
+    foldtext = '┈ '
+      .. (get_vvar('foldend') - get_vvar('foldstart') + 1)
+      .. ' ﲐ ┈'
     local endofline = get_lopt('colorcolumn') - 3
-    linetext = vim.fn.strpart(vim.fn.getline(get_vvar('foldstart')), 0, endofline + 4)
-    align = endofline - vim.fn.strwidth(linetext)
+
+    local word_length = 0
+    -- count treesitter text word length
+    if type(treesitter_text) == 'string' then
+      word_length = vim.fn.strwidth(treesitter_text)
+    else
+      for _, word in ipairs(treesitter_text) do
+        word_length = word_length + vim.fn.strwidth(word[1])
+      end
+    end
+    align = endofline - word_length
   end
-  return linetext .. '  ' .. string.rep('┈', math.floor(align)) .. foldtext
+
+  treesitter_text[#treesitter_text + 1] =
+    { string.rep('┈', math.floor(align)) .. foldtext, {} }
+
+  return treesitter_text
 end
 
 if vim.fn.has('folding') then
-  vim.opt.foldtext = [[luaeval('MyFoldText()')]]
+  vim.opt.foldtext = [[luaeval('GenfFoldText()')]]
   local fillchars = get_gopt('fillchars')
   if fillchars ~= '' then
     fillchars = fillchars .. ','
   end
   if get_lopt('foldmethod') == 'diff' then
-    vim.api.nvim_set_option_value('fillchars', fillchars .. 'fold: ', { scope = 'local' })
+    vim.api.nvim_set_option_value(
+      'fillchars',
+      fillchars .. 'fold: ',
+      { scope = 'local' }
+    )
   else
-    vim.api.nvim_set_option_value('fillchars', fillchars .. 'fold:┈', { scope = 'local' })
+    vim.api.nvim_set_option_value(
+      'fillchars',
+      fillchars .. 'fold:┈',
+      { scope = 'local' }
+    )
   end
 end

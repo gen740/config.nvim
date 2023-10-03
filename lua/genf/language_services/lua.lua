@@ -3,13 +3,17 @@ local M = {}
 function M.setup()
   vim.keymap.set('n', '<space>f', function()
     vim.cmd('w')
-    require('genf.asyncrun').asyncrun('stylua ' .. vim.fn.expand('%:p'), function()
-      local current_line = vim.fn.line('.')
-      local win_view = vim.fn.winsaveview()
-      vim.cmd('e!')
-      vim.fn.winrestview(win_view)
-      vim.fn.cursor(current_line, 0)
-    end, true)
+    require('genf.asyncrun').asyncrun(
+      'stylua ' .. vim.fn.expand('%:p'),
+      function()
+        local current_line = vim.fn.line('.')
+        local win_view = vim.fn.winsaveview()
+        vim.cmd('e!')
+        vim.fn.winrestview(win_view)
+        vim.fn.cursor(current_line, 0)
+      end,
+      true
+    )
   end)
 
   local shiftwidth = 2
