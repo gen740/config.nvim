@@ -38,7 +38,7 @@ function M.lsp_config()
           globals = { 'vim' },
         },
         workspace = {
-          library = vim.api.nvim_get_runtime_file('', true),
+          library = vim.env.VIMRUNTIME,
           checkThirdParty = false,
         },
         telemetry = {

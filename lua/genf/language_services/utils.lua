@@ -15,13 +15,6 @@ M.on_attach = function(client, bufnr)
   lsp_status.on_attach(client)
 end
 
-M.mason_setup = function()
-  if pcall(require, 'mason') then
-    require('mason').setup {}
-    require('mason-lspconfig').setup {}
-  end
-end
-
 ---@param name string
 function M.lsp_setup(name)
   if pcall(require, 'lspconfig') then

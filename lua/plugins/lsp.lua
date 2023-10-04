@@ -2,14 +2,9 @@ return {
   {
     'neovim/nvim-lspconfig',
     dependencies = {
-      'williamboman/mason.nvim',
-      'williamboman/mason-lspconfig.nvim',
       'lvimuser/lsp-inlayhints.nvim',
     },
     config = function()
-      require('mason').setup {}
-      require('mason-lspconfig').setup {}
-
       local function load_config(name)
         require('genf.language_services.' .. name).lsp_config()
       end
