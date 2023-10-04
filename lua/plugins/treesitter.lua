@@ -36,16 +36,9 @@ return {
         end,
       },
       indent = { enable = false },
-      -- refactor = {
-      --   highlight_definitions = { enable = true },
-      --   highlight_current_scope = { enable = false },
-      -- },
       matchup = {
         enable = true,
       },
-      -- autotag = {
-      --   enable = true,
-      -- },
       context_commentstring = {
         enable = true,
       },

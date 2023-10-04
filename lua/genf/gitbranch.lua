@@ -43,7 +43,7 @@ local function update_branch()
   end
 end
 
-function M.find_git_dir()
+M.find_git_dir = function()
   local file_dir = vim.fn.expand('%:p:h')
   local root_dir = file_dir
   local git_dir ---@type  string |nil
@@ -87,7 +87,7 @@ function M.find_git_dir()
   return git_dir
 end
 
-function M.get_branch()
+M.get_branch = function()
   if vim.g.actual_curbuf ~= nil and active_bufnr ~= vim.g.actual_curbuf then
     M.find_git_dir()
   end

@@ -3,6 +3,7 @@ return {
   dependencies = {
     'mfussenegger/nvim-dap',
   },
+  cmd = { 'DapContinue' },
   config = function()
     local dap, dapui = require('dap'), require('dapui')
 

@@ -5,6 +5,7 @@ return {
     'lambdalisue/fern-renderer-nerdfont.vim',
     -- 'lambdalisue/fern-hijack.vim',
   },
+  cmd = "Fern",
   config = function()
     vim.g['fern#renderer'] = 'nerdfont'
     vim.g['fern#hide_cursor'] = 0

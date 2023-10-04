@@ -4,22 +4,22 @@ local map = function(mode, key, cmd, opt)
 end
 
 -- stylua: ignore start
-map('n', '<m-q>', require('genf.toggleshell').ToggleQF)
-map('n', '<m-w>', require('genf.toggleshell').ToggleTerm)
-map('t', '<m-w>', require('genf.toggleshell').ToggleTerm)
-map('n', '<m-p>', require('genf.toggleshell').ToggleIpython3)
-map('t', '<m-p>', require('genf.toggleshell').ToggleIpython3)
-map('t', '<m-c>', [[<c-\><c-n>]])
+map('n', '<space>co', require('genf.toggleshell').ToggleQF)
+map('n', '<space>sh', require('genf.toggleshell').ToggleTerm)
+map('t', '<space>sh', require('genf.toggleshell').ToggleTerm)
+map('n', '<space>py', require('genf.toggleshell').ToggleIpython3)
+map('t', '<space>py', require('genf.toggleshell').ToggleIpython3)
+map('t', '<space><space>', [[<c-\><c-n>]])
 
-if pcall(require, 'telescope') then
-  local tb = require('telescope.builtin')
-  map('n', '<space>tcb',tb.current_buffer_fuzzy_find)
-  map('n', '<space>tg', tb.git_files)
-  map('n', '<space>tf', tb.find_files)
-  map('n', '<space>tb', tb.buffers)
-  map('n', '<space>tl', tb.live_grep)
-  map('n', '<space>ts', tb.builtin)
-end
+-- local tb = require('telescope.builtin')
+map('n', '<space>tcb',function() require('telescope.builtin').current_buffer_fuzzy_find() end)
+map('n', '<space>tg', function() require('telescope.builtin').git_files() end)
+map('n', '<space>tf', function() require('telescope.builtin').find_files() end)
+map('n', '<space>tb', function() require('telescope.builtin').buffers() end)
+map('n', '<space>tl', function() require('telescope.builtin').live_grep() end)
+map('n', '<space>ts', function() require('telescope.builtin').builtin() end)
+
+  -- local tb = require('telescope.builtin')
 
 map('n', '<space>ut', '<cmd>UndotreeToggle<cr>')
 map('x', '<space>p', '"_dP')
@@ -28,16 +28,7 @@ map('n', '~', '<nop>')
 map('n', '<c-q>', '<cmd>Fern . -drawer -toggle<cr>')
 
 -- LSP
-map('n', '[c', '<cmd>cp<cr>')
-map('n', ']c', '<cmd>cn<cr>')
-map('n', '<space>f', function() vim.lsp.buf.format {
-    async = true,
-    timeout_ms = 1000,
-    filter = function(client)
-      return client.name ~= "tsserver"
-    end
-  }
-end)
+map('n', '<space>f', function() vim.lsp.buf.format { async = true, timeout_ms = 1000, filter = function(client) return client.name ~= "tsserver" end } end)
 map('n', '<space>e', vim.diagnostic.open_float)
 map('n', '[d', vim.diagnostic.goto_prev)
 map('n', ']d', vim.diagnostic.goto_next)
@@ -50,39 +41,32 @@ map('n', 'gr', vim.lsp.buf.references)
 map('n', 'K', vim.lsp.buf.hover)
 map('n', 'gi', vim.lsp.buf.implementation)
 map('n', '<C-k>', vim.lsp.buf.signature_help)
--- map('n', '<space>wa', vim.lsp.buf.add_workspace_folder)
--- map('n', '<space>wr', vim.lsp.buf.remove_workspace_folder)
--- map('n', '<space>wl', function() print(vim.inspect(vim.lsp.buf.list_workspace_folders())) end)
 map('n', '<space>D', vim.lsp.buf.type_definition)
 map('n', '<space>rn', vim.lsp.buf.rename)
 map('n', '<space>ca', function() vim.lsp.buf.code_action { apply = true } end)
 
-if pcall(require, 'dap') then -- Dap
-  local dap = require('dap')
-  map('n', '<leader>db', dap.continue)
-  map('n', '<leader>dn', dap.continue)
-  map('n', '<m-n>', dap.step_over)
-  map('n', '<m-i>', dap.step_into)
-  map('n', '<leader>dd', dap.toggle_breakpoint)
-  map('n', '<leader>dD', function() dap.set_breakpoint(vim.fn.input('Breakpoint condition: ')) end)
-  map('n', '<leader>dp', function() dap.set_breakpoint(nil, nil, vim.fn.input('Log point message: ')) end)
-  map('n', '<leader>dr', dap.repl.open)
-  map('n', '<leader>dl', dap.run_last)
-end
+map('n', '<space>dn', '<cmd>DapContinue<cr>')
+map('n', '<m-n>', '<cmd>DapStepOver<cr>')
+map('n', '<m-i>', '<cmd>DapStepInto<cr>')
+map('n', '<space>dd', '<cmd>DapToggleBreakpoint<cr>')
+map('n', '<space>dD', function() require'dap'.set_breakpoint(vim.fn.input('Breakpoint condition: ')) end)
+map('n', '<space>dp', function() require'dap'.set_breakpoint(nil, nil, vim.fn.input('Log point message: ')) end)
+map('n', '<space>dr', function() require'dap'.repl.open() end)
+map('n', '<space>dl', function() require'dap'.run_last() end)
 
 if pcall(require, 'gitsigns') then -- GitSigns
   local gs = require('gitsigns')
-  map({ 'n', 'v' }, '<leader>hs', ':Gitsigns stage_hunk<CR>')
-  map({ 'n', 'v' }, '<leader>hr', ':Gitsigns reset_hunk<CR>')
-  map('n', '<leader>hS', gs.stage_buffer)
-  map('n', '<leader>hu', gs.undo_stage_hunk)
-  map('n', '<leader>hR', gs.reset_buffer)
-  map('n', '<leader>hp', gs.preview_hunk)
-  map('n', '<leader>hb', function() gs.blame_line { full = true } end)
-  map('n', '<leader>hc', gs.toggle_current_line_blame)
-  map('n', '<leader>hd', gs.diffthis)
-  map('n', '<leader>hD', function() gs.diffthis('~') end)
-  map('n', '<leader>td', gs.toggle_deleted)
+  map({ 'n', 'v' }, '<space>hs', ':Gitsigns stage_hunk<CR>')
+  map({ 'n', 'v' }, '<space>hr', ':Gitsigns reset_hunk<CR>')
+  map('n', '<space>hS', gs.stage_buffer)
+  map('n', '<space>hu', gs.undo_stage_hunk)
+  map('n', '<space>hR', gs.reset_buffer)
+  map('n', '<space>hp', gs.preview_hunk)
+  map('n', '<space>hb', function() gs.blame_line { full = true } end)
+  map('n', '<space>hc', gs.toggle_current_line_blame)
+  map('n', '<space>hd', gs.diffthis)
+  map('n', '<space>hD', function() gs.diffthis('~') end)
+  map('n', '<space>td', gs.toggle_deleted)
 end
 
 -- vsnip
