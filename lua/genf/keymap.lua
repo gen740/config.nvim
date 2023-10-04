@@ -1,31 +1,28 @@
+-- stylua: ignore start
 local map = function(mode, key, cmd, opt)
   opt = opt or { noremap = true, silent = true }
   vim.keymap.set(mode, key, cmd, opt)
 end
 
--- stylua: ignore start
 map('n', '<space>co', require('genf.toggleshell').ToggleQF)
 map('n', '<space>sh', require('genf.toggleshell').ToggleTerm)
 map('t', '<space>sh', require('genf.toggleshell').ToggleTerm)
 map('n', '<space>py', require('genf.toggleshell').ToggleIpython3)
 map('t', '<space>py', require('genf.toggleshell').ToggleIpython3)
 map('t', '<space><space>', [[<c-\><c-n>]])
+map('n', '<space>ut', '<cmd>UndotreeToggle<cr>')
+map('x', '<space>p', '"_dP')
+map('n', 'q:', '<nop>')
+map('n', '~', '<nop>')
+map('n', '<c-q>', '<cmd>Fern . -drawer -toggle<cr>')
 
--- local tb = require('telescope.builtin')
+-- Telescope
 map('n', '<space>tcb',function() require('telescope.builtin').current_buffer_fuzzy_find() end)
 map('n', '<space>tg', function() require('telescope.builtin').git_files() end)
 map('n', '<space>tf', function() require('telescope.builtin').find_files() end)
 map('n', '<space>tb', function() require('telescope.builtin').buffers() end)
 map('n', '<space>tl', function() require('telescope.builtin').live_grep() end)
 map('n', '<space>ts', function() require('telescope.builtin').builtin() end)
-
-  -- local tb = require('telescope.builtin')
-
-map('n', '<space>ut', '<cmd>UndotreeToggle<cr>')
-map('x', '<space>p', '"_dP')
-map('n', 'q:', '<nop>')
-map('n', '~', '<nop>')
-map('n', '<c-q>', '<cmd>Fern . -drawer -toggle<cr>')
 
 -- LSP
 map('n', '<space>f', function() vim.lsp.buf.format { async = true, timeout_ms = 1000, filter = function(client) return client.name ~= "tsserver" end } end)
@@ -45,9 +42,9 @@ map('n', '<space>D', vim.lsp.buf.type_definition)
 map('n', '<space>rn', vim.lsp.buf.rename)
 map('n', '<space>ca', function() vim.lsp.buf.code_action { apply = true } end)
 
+-- map('n', '<m-n>', '<cmd>DapStepOver<cr>')
+-- map('n', '<m-i>', '<cmd>DapStepInto<cr>')
 map('n', '<space>dn', '<cmd>DapContinue<cr>')
-map('n', '<m-n>', '<cmd>DapStepOver<cr>')
-map('n', '<m-i>', '<cmd>DapStepInto<cr>')
 map('n', '<space>dd', '<cmd>DapToggleBreakpoint<cr>')
 map('n', '<space>dD', function() require'dap'.set_breakpoint(vim.fn.input('Breakpoint condition: ')) end)
 map('n', '<space>dp', function() require'dap'.set_breakpoint(nil, nil, vim.fn.input('Log point message: ')) end)

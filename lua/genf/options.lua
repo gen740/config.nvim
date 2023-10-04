@@ -1,4 +1,6 @@
-for name, val in pairs {
+_G.QfTextFunc = require('genf.qftextfunc')
+
+local vim_options = {
   backspace = [[indent,eol,start]],
   breakindent = true,
   clipboard = 'unnamed',
@@ -10,10 +12,11 @@ for name, val in pairs {
     stlnc = '▓',
     vert = '▓',
     diff = ' ',
+    fold = '┈',
   },
   foldenable = true,
   foldexpr = 'v:lua.vim.treesitter.foldexpr()',
-  -- foldtext = 'v:lua.vim.treesitter.foldtext()',
+  foldtext = [[luaeval("require('genf.foldingtxt')()")]],
   foldlevel = 99,
   foldmethod = 'expr',
   guicursor = '',
@@ -27,6 +30,7 @@ for name, val in pairs {
   mousemodel = '',
   number = true,
   pumheight = 10,
+  qftf = 'v:lua.QfTextFunc',
   relativenumber = true,
   ruler = false,
   scrolloff = 8,
@@ -51,21 +55,16 @@ for name, val in pairs {
   viewoptions = 'folds,cursor',
   whichwrap = 'b,s,<,>,[,]',
   wrap = false,
-} do
+}
+
+for name, val in pairs(vim_options) do
   vim.opt[name] = val
 end
 
+-- disable providers
 vim.g.netrw_silent = true
 vim.g.vimsyn_embed = 'lPr'
-vim.g.loaded_perl_provider = 0
-vim.g.mapleader = [[ ]]
-
--- disable providers
 vim.g.loaded_python3_provider = 0
 vim.g.loaded_perl_provider = 0
 vim.g.loaded_ruby_provider = 0
 vim.g.loaded_node_provider = 0
-
--- quickfix text function
-_G.QfTextFunc = require('genf.qftextfunc')
-vim.opt.qftf = 'v:lua.QfTextFunc'
