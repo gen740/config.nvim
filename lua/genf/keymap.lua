@@ -6,9 +6,7 @@ end
 
 map('n', '<space>co', require('genf.toggleshell').ToggleQF)
 map('n', '<space>sh', require('genf.toggleshell').ToggleTerm)
-map('t', '<space>sh', require('genf.toggleshell').ToggleTerm)
 map('n', '<space>py', require('genf.toggleshell').ToggleIpython3)
-map('t', '<space>py', require('genf.toggleshell').ToggleIpython3)
 map('t', '<space><space>', [[<c-\><c-n>]])
 map('n', '<space>ut', '<cmd>UndotreeToggle<cr>')
 map('x', '<space>p', '"_dP')
@@ -67,7 +65,7 @@ if pcall(require, 'gitsigns') then -- GitSigns
 end
 
 -- vsnip
-map({ 'i', 's' }, '<tab>', function()
+map({ 'i', 's' }, '<c-e>', function()
   if vim.fn["vsnip#jumpable"](1) == 1 then
     return '<Plug>(vsnip-jump-next)'
   else

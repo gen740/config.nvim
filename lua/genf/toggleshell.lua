@@ -55,14 +55,12 @@ for key, value in pairs(win_kind) do
       )
     end
     vim.opt_local.number = false
+    vim.opt_local.buflisted = false
     vim.opt_local.relativenumber = false
     vim.opt_local.signcolumn = 'no'
     vim.opt_local.wrap = false
     vim.opt_local.ft = key
     vim.api.nvim_buf_set_var(0, key, true)
-    if vim.fn.mode() == 'n' then
-      vim.fn.feedkeys('i')
-    end
   end
 end
 
@@ -77,6 +75,7 @@ M.ToggleQF = function()
   vim.opt_local.number = false
   vim.opt_local.relativenumber = false
   vim.opt_local.signcolumn = 'no'
+  vim.opt_local.buflisted = false
   vim.opt_local.wrap = false
   vim.fn.execute('wincmd p')
 end

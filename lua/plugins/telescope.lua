@@ -65,11 +65,12 @@ return {
         sorting_strategy = 'ascending',
         layout_strategy = 'horizontal',
         file_ignore_patterns = {
-          'node_modules/',
-          'third_parties/',
-          '__pycache__/',
-          '.cache/',
-          '.git/',
+          '^node_modules/',
+          '^third_parties/',
+          '^__pycache__/',
+          '^.cache/',
+          '^.mypy_cache/',
+          '^.git/',
           '.DS_Store',
         },
         borderchars = { '─', '│', '─', '│', '╭', '╮', '╯', '╰' },
@@ -79,7 +80,13 @@ return {
       },
       pickers = {
         find_files = {
-          find_command = { 'fd', '-H', '--type', 'f', '--strip-cwd-prefix' },
+          find_command = {
+            'fd',
+            '-H',
+            '--type',
+            'f',
+            '--strip-cwd-prefix',
+          },
         },
       },
       extensions = {

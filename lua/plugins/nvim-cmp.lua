@@ -20,13 +20,6 @@ return {
     }
     require('copilot_cmp').setup()
 
-    local feedkey = function(key, mode)
-      vim.api.nvim_feedkeys(
-        vim.api.nvim_replace_termcodes(key, true, true, true),
-        mode,
-        true
-      )
-    end
     local cmp = require('cmp')
 
     cmp.setup {
@@ -41,8 +34,6 @@ return {
         ['<C-c>'] = cmp.mapping.abort(),
         ['<C-t>'] = cmp.mapping(function(fallback)
           if vim.fn['vsnip#available'](1) == 1 then
-            feedkey('<Plug>(vsnip-expand-or-jump)', '')
-          else
             cmp.confirm {
               behavior = cmp.ConfirmBehavior.Replace,
               select = true,
@@ -51,12 +42,12 @@ return {
         end, { 'i', 's' }),
       },
       sources = {
-        { name = 'copilot' },
         { name = 'nvim_lsp' },
+        { name = 'vsnip' },
         { name = 'nvim_lsp_signature_help' },
         { name = 'nvim_lsp_document_symbol' },
+        { name = 'copilot' },
         { name = 'path' },
-        { name = 'vsnip' },
         { name = 'calc' },
         { name = 'buffer', keyword_length = 5 },
       },
@@ -87,11 +78,15 @@ return {
         },
       },
       sorting = {
+        priority_weight = 2,
         comparators = {
           cmp.config.compare.exact,
-          cmp.config.compare.recently_used,
+          cmp.config.compare.kind,
           cmp.config.compare.offset,
+          cmp.config.compare.recently_used,
+          cmp.config.compare.score,
           cmp.config.compare.locality,
+          require('copilot_cmp.comparators').prioritize,
           function(entry1, entry2)
             local _, entry1_under = entry1.completion_item.label:find('^_+')
             local _, entry2_under = entry2.completion_item.label:find('^_+')
@@ -103,9 +98,8 @@ return {
               return true
             end
           end, -- underline
-          -- cmp.config.compare.kind,
-          cmp.config.compare.length,
           cmp.config.compare.sort_text,
+          cmp.config.compare.length,
           cmp.config.compare.order,
         },
       },
