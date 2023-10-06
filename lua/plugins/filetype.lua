@@ -1,6 +1,5 @@
 return {
   ---- FileType Plugins ----------------------------------------------------------------------
-  { 'rhysd/vim-grammarous', ft = { 'markdown', 'markdown', 'text' } },
   { 'chrisbra/csv.vim', ft = { 'csv', 'tsv' } },
   {
     'windwp/nvim-ts-autotag',

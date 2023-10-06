@@ -4,6 +4,8 @@ local map = function(mode, key, cmd, opt)
   vim.keymap.set(mode, key, cmd, opt)
 end
 
+-- require("vsnip.")
+
 map('n', '<space>co', require('genf.toggleshell').ToggleQF)
 map('n', '<space>sh', require('genf.toggleshell').ToggleTerm)
 map('n', '<space>py', require('genf.toggleshell').ToggleIpython3)
@@ -13,6 +15,8 @@ map('x', '<space>p', '"_dP')
 map('n', 'q:', '<nop>')
 map('n', '~', '<nop>')
 map('n', '<c-q>', '<cmd>Fern . -drawer -toggle<cr>')
+
+map('n', '<space>sp', '<cmd>VsnipOpen -format snipmate<cr>')
 
 -- Telescope
 map('n', '<space>tcb',function() require('telescope.builtin').current_buffer_fuzzy_find() end)
@@ -90,6 +94,6 @@ map({ 'i', 's' }, '<c-t>', function()
 end, { noremap = true, silent = true, expr = true })
 
 -- SKK
-map({ 'n', 'i' }, '<m-u>', '<Plug>(skkeleton-enable)')
+-- map({ 'n', 'i' }, '<m-u>', '<Plug>(skkeleton-enable)')
 
 -- stylua: ignore end
