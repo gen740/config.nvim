@@ -22,12 +22,6 @@ return {
       highlight = {
         enable = true,
         disable = function(lang, bufnr)
-          -- if lang == 'yaml' then
-          --   return true
-          -- end
-          if lang == 'gitcommit' then
-            return true
-          end
           local byte_size = vim.fn.getfsize(vim.api.nvim_buf_get_name(bufnr))
           if byte_size > 512 * 1000 then
             return true
@@ -47,6 +41,6 @@ return {
   dependencies = {
     { 'andymass/vim-matchup' },
     { 'nvim-treesitter/playground', cmd = 'TSPlaygroundToggle' },
-    { 'JoosepAlviste/nvim-ts-context-commentstring' },
+    -- { 'JoosepAlviste/nvim-ts-context-commentstring' },
   },
 }
