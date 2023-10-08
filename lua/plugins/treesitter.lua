@@ -41,6 +41,6 @@ return {
   dependencies = {
     { 'andymass/vim-matchup' },
     { 'nvim-treesitter/playground', cmd = 'TSPlaygroundToggle' },
-    -- { 'JoosepAlviste/nvim-ts-context-commentstring' },
+    { 'JoosepAlviste/nvim-ts-context-commentstring' },
   },
 }

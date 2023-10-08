@@ -1,8 +1,3 @@
-" Vim compiler file
-" Compiler:	Zsh
-" Maintainer:	Doug Kearns <dougkearns@gmail.com>
-" Last Change:	2020 Sep 6
-
 if exists("current_compiler")
   finish
 endif
