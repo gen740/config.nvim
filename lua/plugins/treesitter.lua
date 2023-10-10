@@ -3,6 +3,9 @@ return {
   config = function()
     vim.g.matchup_matchparen_offscreen = {}
     require('nvim-treesitter.configs').setup {
+      autotag = {
+        enable = true,
+      },
       ensure_installed = {
         'c',
         'cpp',
@@ -42,5 +45,12 @@ return {
     { 'andymass/vim-matchup' },
     { 'nvim-treesitter/playground', cmd = 'TSPlaygroundToggle' },
     { 'JoosepAlviste/nvim-ts-context-commentstring' },
+    {
+      'windwp/nvim-ts-autotag',
+      config = function()
+        require('nvim-ts-autotag').setup {}
+      end,
+      ft = { 'html', 'js', 'ts' },
+    },
   },
 }
