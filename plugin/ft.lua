@@ -7,10 +7,10 @@ local function load_languageconfig(name)
   require('genf.language_services.' .. name).setup()
 end
 
-autocmd('FileType', {
+autocmd('BufEnter', {
   group = 'CumtomFiletypeSetting',
   pattern = '*',
   callback = function(args)
-    pcall(load_languageconfig, args.match)
+    pcall(load_languageconfig, vim.bo.filetype)
   end,
 })

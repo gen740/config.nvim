@@ -94,6 +94,6 @@ map({ 'i', 's' }, '<c-t>', function()
 end, { noremap = true, silent = true, expr = true })
 
 -- SKK
--- map({ 'n', 'i' }, '<m-u>', '<Plug>(skkeleton-enable)')
+map({ 'n', 'i' }, '<m-u>', '<Plug>(skkeleton-enable)')
 
 -- stylua: ignore end
