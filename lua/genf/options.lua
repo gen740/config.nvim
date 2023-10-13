@@ -19,7 +19,6 @@ local vim_options = {
   foldtext = [[luaeval("require('genf.foldingtxt')()")]],
   foldlevel = 99,
   foldmethod = 'expr',
-  guicursor = '',
   ignorecase = true,
   inccommand = 'nosplit',
   incsearch = true,

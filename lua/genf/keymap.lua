@@ -26,6 +26,8 @@ map('n', '<space>tb', function() require('telescope.builtin').buffers() end)
 map('n', '<space>tl', function() require('telescope.builtin').live_grep() end)
 map('n', '<space>ts', function() require('telescope.builtin').builtin() end)
 
+map('n', '<space>ng', '<cmd>Neogit<cr>')
+
 -- LSP
 map('n', '<space>f', function() vim.lsp.buf.format { async = true, timeout_ms = 1000, filter = function(client) return client.name ~= "tsserver" end } end)
 map('n', '<space>e', vim.diagnostic.open_float)

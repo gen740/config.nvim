@@ -10,6 +10,7 @@ return {
 
     require('smoothcursor').setup {
       disable_float_win = true,
+      disabled_filetypes = { 'NeogitStatus', 'NeogitPopup' },
       priority = 100,
       autostart = true,
       threshold = 1,
