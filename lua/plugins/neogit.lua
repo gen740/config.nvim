@@ -7,10 +7,5 @@ return {
     'ibhagwan/fzf-lua',
   },
   cmd = 'Neogit',
-  config = function()
-    require('neogit').setup {}
-    local config = require('neogit.config').values
-    config.mappings.status['<tab>'] = nil
-    config.mappings.status['l'] = 'Toggle'
-  end,
+  config = true,
 }
