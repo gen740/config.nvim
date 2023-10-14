@@ -1,5 +1,5 @@
 return {
-  'gen740/SmoothCursor.nvim',
+  dir = '/Users/gen/.local/tools/SmoothCursor.nvim',
   config = function()
     for key, val in pairs {
       SmoothCursor = { bg = nil, fg = '#8aa872' },
@@ -13,7 +13,7 @@ return {
       disabled_filetypes = { 'NeogitStatus', 'NeogitPopup' },
       priority = 100,
       autostart = true,
-      threshold = 1,
+      threshold = 0,
       speed = 30,
       type = 'default',
       intervals = 50,
@@ -33,7 +33,6 @@ return {
     }
 
     local autocmd = vim.api.nvim_create_autocmd
-    local augroup = vim.api.nvim_create_augroup
 
     autocmd({ 'ModeChanged' }, {
       group = 'CustomAutocommand',

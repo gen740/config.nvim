@@ -9,7 +9,7 @@ function M.setup()
         local current_line = vim.fn.line('.')
         local win_view = vim.fn.winsaveview()
         vim.cmd('e!')
-        vim.fn.winrestview(win_view)
+        vim.fn.winrestview(win_view) ---@diagnostic disable-line
         vim.fn.cursor(current_line, 0)
       end,
       true
@@ -38,8 +38,10 @@ function M.lsp_config()
           globals = { 'vim' },
         },
         workspace = {
-          library = vim.env.VIMRUNTIME,
-          checkThirdParty = false,
+          library = {
+            "/usr/local/share/nvim/runtime",
+          },
+          checkThirdParty = true,
         },
         telemetry = {
           enable = false,
