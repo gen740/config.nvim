@@ -12,6 +12,7 @@ return {
       local languages = {
         'cmake', --
         'cpp',
+        'dockerfile',
         'go',
         'javascript',
         'typescript',
