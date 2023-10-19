@@ -121,7 +121,7 @@ local config = {
 if vim.fn.isdirectory('/Users/gen/.local/tools/SmoothCursor.nvim') == 1 then
   config['dir'] = '/Users/gen/.local/tools/SmoothCursor.nvim'
 else
-  config['url'] = 'gen740/SmoothCursor.nvim'
+  config['url'] = 'https://github.com/gen740/SmoothCursor.nvim'
 end
 
 return config
