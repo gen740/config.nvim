@@ -97,14 +97,12 @@ M.asyncrun = function(cmd, on_exit, silent)
 end
 
 ---@param pattern string
-M.ripgrep = function(pattern)
+M.ripgrep = function(pattern, dir)
   M.asyncstop()
   local lines = {}
-  local winnr = vim.fn.win_getid()
-  local bufnr = vim.api.nvim_win_get_buf(winnr)
-  local qfwinid = vim.fn.getqflist({ winid = winnr }).winid
+  dir = dir or '.'
 
-  pattern = 'rg --column ' .. pattern .. ' .'
+  pattern = 'rg --column ' .. pattern .. " " .. dir
 
   if running_jobid then
     notify('Command still runing')

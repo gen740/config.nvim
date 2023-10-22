@@ -8,6 +8,9 @@ return {
       indent = {
         char = '▏',
       },
+      scope = {
+        enabled = false,
+      },
     }
   end,
 }
