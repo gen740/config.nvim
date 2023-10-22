@@ -14,7 +14,7 @@ local config = {
       autostart = true,
       threshold = 0,
       speed = 20,
-      type = 'matrix',
+      type = 'default',
       intervals = 50,
       fancy = {
         enable = true,
@@ -31,66 +31,6 @@ local config = {
           { cursor = '∙', texthl = 'SmoothCursorBody' },
           { cursor = '∙', texthl = 'SmoothCursorBody' },
         },
-      },
-      matrix = {
-        head = {
-          cursor = function(cycle)
-            local chars = {
-              -- '∙',
-              -- '∙',
-              -- '•',
-              -- '•',
-              -- '●',
-              -- '●',
-              -- '',
-              -- '',
-              -- '●',
-              -- '●',
-              -- '•',
-              -- '•',
-              --
-            '▁',
-            '▂',
-            '▃',
-            '▄',
-            '▅',
-            '▆',
-            '▇',
-            '█',
-            '▇',
-            '▆',
-            '▅',
-            '▄',
-            '▃',
-            '▁',
-            }
-            return chars[cycle % #chars + 1]
-          end,
-          texthl = {
-            'SmoothCursor',
-          },
-        },
-        body = {
-          length = 6,
-          -- cursor = {
-          --   '∙',
-          --   '∙',
-          --   '•',
-          --   '•',
-          --   '●',
-          --   '●',
-          --   '',
-          --   '',
-          --   '●',
-          --   '●',
-          --   '•',
-          --   '•',
-          -- },
-          texthl = {
-            'SmoothCursorGreen',
-          },
-        },
-        unstop = true,
       },
       -- flyin_effect = 'bottom',
     }
