@@ -1,47 +1,11 @@
 local M = {}
 
 function M.setup()
-  local function inverse_search_start()
-    local uv = vim.loop
-
-    local async_func = uv.new_async(vim.schedule_wrap(function(line, filename)
-      vim.cmd('e ' .. filename)
-      vim.cmd(line)
-    end))
-
-    uv.new_thread(function(async)
-      while true do
-        local file = io.open('/tmp/zathura_synctex')
-        assert(file ~= nil, 'cannot open /tmp/zathura_synctex')
-        local file_data = file:read('*a')
-        file:close()
-
-        file_data = vim.split(file_data, '\n')
-        if file_data[1] == 'close' and file_data[2] == '' then
-          return
-        end
-        async:send(file_data[1], file_data[2])
-      end
-    end, async_func)
-  end
-
   function Inverse_search_stop()
     vim.fn.jobstart([[echo "close" > /tmp/zathura_synctex]])
   end
 
   local zathura_job = nil
-
-  vim.keymap.set('n', '<m-r>', function()
-    if zathura_job == nil then
-      vim.fn.system([[mkfifo /tmp/zathura_synctex]])
-      zathura_job = vim.fn.jobstart(
-        [[zathura -x 'zsh -c "echo \"%{line}\n%{input}\" > /tmp/zathura_synctex"' document.pdf]]
-      )
-      inverse_search_start()
-    else
-      vim.notify('Window has been opened.')
-    end
-  end)
 
   vim.keymap.set('n', '<m-c>', function()
     vim.cmd(
