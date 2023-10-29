@@ -71,11 +71,11 @@ if pcall(require, 'gitsigns') then -- GitSigns
 end
 
 -- vsnip
-map({ 'i', 's' }, '<c-e>', function()
+map({ 'i', 's' }, '<c-f>', function()
   if vim.fn["vsnip#jumpable"](1) == 1 then
     return '<Plug>(vsnip-jump-next)'
   else
-    return '<tab>'
+    return '<c-f>'
   end
 end, { noremap = true, silent = true, expr = true })
 
@@ -87,11 +87,11 @@ map({ 'i', 's' }, '<c-b>', function()
   end
 end, { noremap = true, silent = true, expr = true })
 
-map({ 'i', 's' }, '<c-t>', function()
+map({ 'i', 's' }, '<c-e>', function()
   if vim.fn["vsnip#available"]() == 1 then
     return '<Plug>(vsnip-expand-or-jump)'
   else
-    return '<c-t>'
+    return '<c-e>'
   end
 end, { noremap = true, silent = true, expr = true })
 

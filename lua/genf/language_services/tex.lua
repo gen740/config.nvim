@@ -1,24 +1,60 @@
 local M = {}
 
 function M.setup()
-  function Inverse_search_stop()
-    vim.fn.jobstart([[echo "close" > /tmp/zathura_synctex]])
-  end
-
-  local zathura_job = nil
-
+  local skim_started = false
   vim.keymap.set('n', '<m-c>', function()
     vim.cmd(
       'Run lualatex --shell-escape --file-line-error -synctex=1 -interaction=batchmode document.tex'
     )
   end)
 
-  vim.keymap.set('n', '<m-s>', function()
-    if zathura_job ~= nil then
-      Inverse_search_stop()
-      vim.fn.jobstop(zathura_job)
-      zathura_job = nil
+  vim.api.nvim_create_augroup('LatexAutoCompile', { clear = true })
+  vim.api.nvim_create_autocmd({ 'BufWritePost' }, {
+    group = 'LatexAutoCompile',
+    pattern = '*.tex',
+    callback = function()
+      vim.cmd(
+        'Run lualatex --shell-escape --file-line-error -synctex=1 -interaction=batchmode document.tex'
+      )
+    end,
+  })
+
+  vim.keymap.set('n', '<space>ll', function()
+    if not skim_started then
+      vim.fn.serverstart('/Users/gen/.cache/nvim/synctex-server.pipe')
+      vim.cmd('silent !yabai -m window --grid 1:2:0:0:1:1')
     end
+    vim.cmd(
+      'silent !displayline -n -b -g'
+        .. ' '
+        .. vim.fn.line('.')
+        .. ' '
+        .. './document.pdf'
+        .. ' '
+        .. vim.fn.expand('%:p')
+    )
+    if not skim_started then
+      vim.cmd(
+        [[silent !yabai -m query --windows | jq -r 'map(select(.app == "Skim")) | .[0] | .id' | xargs -I{} yabai -m window {} --grid 1:2:1:0:1:1]]
+      )
+
+      vim.api.nvim_create_augroup('LatexSyncTex', { clear = true })
+      vim.api.nvim_create_autocmd({ 'UILeave' }, {
+        group = 'LatexSyncTex',
+        callback = function()
+          vim.cmd('silent !yabai -m window --grid 1:1:0:0:1:1')
+          vim.cmd('silent !pkill Skim')
+          skim_started = false
+        end,
+      })
+    end
+    skim_started = true
+  end)
+
+  vim.keymap.set('n', '<space>lc', function()
+    vim.fn.jobstart([[yabai -m window --grid 1:1:0:0:1:1]])
+    vim.fn.jobstart([[pkill Skim]])
+    skim_started = false
   end)
 
   vim.keymap.set('n', '<leader>s', function()
@@ -33,9 +69,6 @@ function M.setup()
         .. './document.pdf'
     )
   end)
-
-  -- vim.keymap.set('n', '<leader>ls', Inverse_search_start)
-  -- vim.keymap.set('n', '<leader>lt', Inverse_search_stop)
 
   vim.opt_local.tabstop = 2
   vim.opt_local.softtabstop = 2
@@ -73,14 +106,6 @@ function M.setup()
   for name, val in pairs(special_key) do
     vim.keymap.set('i', '%' .. name, val)
   end
-
-  -- set conceallevel=0
-  -- let g:tex_conceal='admgs'
-  -- let g:tex_fast= "MS"
-  -- " set conceallevel=0
-  -- " let g:tex_conceal=''
-  -- set concealcursor="invc"
-  -- hi Conceal guifg=#719cd6
 end
 
 function M.lsp_config()

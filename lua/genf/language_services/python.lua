@@ -20,7 +20,7 @@ function M.setup()
       function()
         local current_line = vim.fn.line('.')
         local win_view = vim.fn.winsaveview()
-        vim.cmd('e!')
+        vim.cmd('silent e!')
         vim.fn.winrestview(win_view)
         vim.fn.cursor(current_line, 0)
       end,

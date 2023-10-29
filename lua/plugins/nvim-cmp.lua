@@ -32,13 +32,15 @@ return {
         ['<C-p>'] = cmp.mapping.select_prev_item {},
         ['<C-n>'] = cmp.mapping.select_next_item {},
         ['<C-c>'] = cmp.mapping.abort(),
-        ['<C-t>'] = cmp.mapping(function(fallback)
-          -- if vim.fn['vsnip#available'](1) == 1 then
-          cmp.confirm {
-            behavior = cmp.ConfirmBehavior.Replace,
-            select = true,
-          }
-          -- end
+        ['<C-e>'] = cmp.mapping(function(fallback)
+          if cmp.visible() then
+            cmp.confirm {
+              behavior = cmp.ConfirmBehavior.Replace,
+              select = true,
+            }
+          else
+            fallback()
+          end
         end, { 'i', 's' }),
       },
       sources = {
