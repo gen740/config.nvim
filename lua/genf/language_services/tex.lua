@@ -4,7 +4,8 @@ function M.setup()
   local skim_started = false
   vim.keymap.set('n', '<m-c>', function()
     vim.cmd(
-      'Run lualatex --shell-escape --file-line-error -synctex=1 -interaction=batchmode document.tex'
+      'Run lualatex --shell-escape --file-line-error -synctex=1 -interaction=batchmode '
+        .. vim.fn.expand('%:p')
     )
   end)
 
@@ -14,7 +15,8 @@ function M.setup()
     pattern = '*.tex',
     callback = function()
       vim.cmd(
-        'Run lualatex --shell-escape --file-line-error -synctex=1 -interaction=batchmode document.tex'
+        'Run lualatex --shell-escape --file-line-error -synctex=1 -interaction=batchmode '
+          .. vim.fn.expand('%:p')
       )
     end,
   })
