@@ -4,7 +4,7 @@ return {
     'lambdalisue/nerdfont.vim',
     'lambdalisue/fern-renderer-nerdfont.vim',
     'lambdalisue/fern-git-status.vim',
-    -- 'lambdalisue/fern-hijack.vim',
+    'lambdalisue/fern-hijack.vim',
   },
   cmd = 'Fern',
   init = function()
