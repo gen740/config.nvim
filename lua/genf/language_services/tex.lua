@@ -1,8 +1,10 @@
 local M = {}
 
+local lmap = require('genf.language_services.utils').set_local_map
+
 function M.setup()
   local skim_started = false
-  vim.keymap.set('n', '<m-c>', function()
+  lmap('n', '<m-c>', function()
     vim.cmd(
       'Run lualatex --shell-escape --file-line-error -synctex=1 -interaction=batchmode '
         .. vim.fn.expand('%:p')
@@ -21,7 +23,7 @@ function M.setup()
     end,
   })
 
-  vim.keymap.set('n', '<space>ll', function()
+  lmap('n', '<space>ll', function()
     if not skim_started then
       vim.fn.serverstart('/Users/gen/.cache/nvim/synctex-server.pipe')
       vim.cmd('silent !yabai -m window --grid 1:2:0:0:1:1')
@@ -53,13 +55,13 @@ function M.setup()
     skim_started = true
   end)
 
-  vim.keymap.set('n', '<space>lc', function()
+  lmap('n', '<space>lc', function()
     vim.fn.jobstart([[yabai -m window --grid 1:1:0:0:1:1]])
     vim.fn.jobstart([[pkill Skim]])
     skim_started = false
   end)
 
-  vim.keymap.set('n', '<leader>s', function()
+  lmap('n', '<leader>s', function()
     vim.fn.jobstart(
       'zathura --synctex-forward '
         .. vim.fn.line('.')
@@ -106,7 +108,7 @@ function M.setup()
   special_key['%'] = [[\%]]
 
   for name, val in pairs(special_key) do
-    vim.keymap.set('i', '%' .. name, val)
+    lmap('i', '%' .. name, val)
   end
 end
 

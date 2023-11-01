@@ -3,7 +3,7 @@ local M = {}
 local lmap = require('genf.language_services.utils').set_local_map
 
 function M.setup()
-  lmap('n', '<buffer><space>f', function()
+  lmap('n', '<space>f', function()
     vim.cmd('w')
     require('genf.asyncrun').asyncrun(
       'stylua ' .. vim.fn.expand('%:p'),

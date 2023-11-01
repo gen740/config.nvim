@@ -1,21 +1,23 @@
 local M = {}
 
+local lmap = require('genf.language_services.utils').set_local_map
+
 function M.setup()
-  vim.keymap.set('n', '<m-r>', function()
+  lmap('n', '<m-r>', function()
     require('genf.asyncrun').asyncrun('cargo run')
   end)
 
-  vim.keymap.set('n', '<m-c>', function()
+  lmap('n', '<m-c>', function()
     require('genf.asyncrun').asyncrun('cargo build')
   end)
 
-  vim.keymap.set('n', '<m-t>', function()
+  lmap('n', '<m-t>', function()
     vim.cmd('copen')
     vim.cmd('wincmd k')
     require('genf.asyncrun').asyncrun('cargo test')
   end)
 
-  vim.keymap.set('n', '<m-s>', function()
+  lmap('n', '<m-s>', function()
     require('genf.asyncrun').asyncstop()
   end)
 

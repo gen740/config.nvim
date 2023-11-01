@@ -29,28 +29,19 @@ end
 ---@param map string
 ---@param callback string|function
 function M.set_local_map(mode, map, callback)
-  vim.keymap.set(mode, map, callback, { beffer = true, noremap = true })
+  vim.keymap.set(mode, map, callback, { buffer = true })
 end
 
 ---@param cmd string
 function M.async_format(cmd)
   vim.cmd('w')
-  require('genf.asyncrun').asyncrun(
-    cmd,
-    -- 'black '
-    --   .. vim.fn.expand('%:p')
-    --   .. ';'
-    --   .. 'isort '
-    --   .. vim.fn.expand('%:p'),
-    function()
-      local current_line = vim.fn.line('.')
-      local win_view = vim.fn.winsaveview()
-      vim.cmd('silent e!')
-      vim.fn.winrestview(win_view)
-      vim.fn.cursor(current_line, 0)
-    end,
-    true
-  )
+  require('genf.asyncrun').asyncrun(cmd, function()
+    local current_line = vim.fn.line('.')
+    local win_view = vim.fn.winsaveview()
+    vim.cmd('silent e!')
+    vim.fn.winrestview(win_view)
+    vim.fn.cursor(current_line, 0)
+  end, true)
 end
 
 return M

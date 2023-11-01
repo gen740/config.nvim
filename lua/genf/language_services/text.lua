@@ -1,5 +1,7 @@
 local M = {}
 
+local lmap = require('genf.language_services.utils').set_local_map
+
 function M.setup()
   local special_key = {
     l = [[…]],
@@ -9,7 +11,7 @@ function M.setup()
   special_key['%'] = [[\%]]
 
   for name, val in pairs(special_key) do
-    vim.keymap.set('i', '%' .. name, val)
+    lmap('i', '%' .. name, val)
   end
 
   -- /* /* …… */ */

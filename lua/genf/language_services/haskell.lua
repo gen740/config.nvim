@@ -1,15 +1,17 @@
 local M = {}
 
+local lmap = require('genf.language_services.utils').set_local_map
+
 function M.setup()
-  vim.keymap.set('n', '<m-r>', function()
+  lmap('n', '<m-r>', function()
     require('genf.asyncrun').asyncrun('make nvim_run')
   end)
 
-  vim.keymap.set('n', '<m-c>', function()
+  lmap('n', '<m-c>', function()
     require('genf.asyncrun').asyncrun('make nvim_build')
   end)
 
-  vim.keymap.set('n', '<m-s>', function()
+  lmap('n', '<m-s>', function()
     require('genf.asyncrun').asyncstop()
   end)
 

@@ -1,19 +1,21 @@
 local M = {}
 
+local lmap = require('genf.language_services.utils').set_local_map
+
 function M.setup()
-  vim.keymap.set('n', '<m-r>', function()
+  lmap('n', '<m-r>', function()
     require('genf.asyncrun').asyncrun('task execute')
   end)
 
-  vim.keymap.set('n', '<m-c>', function()
+  lmap('n', '<m-c>', function()
     require('genf.asyncrun').asyncrun('task compile')
   end)
 
-  vim.keymap.set('n', '<m-s>', function()
+  lmap('n', '<m-s>', function()
     require('genf.asyncrun').asyncstop()
   end)
 
-  vim.keymap.set('n', '<m-e>', function()
+  lmap('n', '<m-e>', function()
     require('genf.asyncrun').asyncrun([[task ]] .. vim.fn.expand('%:t:r'))
   end)
 
