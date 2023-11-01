@@ -1,21 +1,11 @@
 local M = {}
 
 local lmap = require('genf.language_services.utils').set_local_map
+local async_format = require('genf.language_services.utils').async_format
 
 function M.setup()
   lmap('n', '<space>f', function()
-    vim.cmd('w')
-    require('genf.asyncrun').asyncrun(
-      'stylua ' .. vim.fn.expand('%:p'),
-      function()
-        local current_line = vim.fn.line('.')
-        local win_view = vim.fn.winsaveview()
-        vim.cmd('e!')
-        vim.fn.winrestview(win_view) ---@diagnostic disable-line
-        vim.fn.cursor(current_line, 0)
-      end,
-      true
-    )
+    async_format('stylua ' .. vim.fn.expand('%:p'))
   end)
 
   local shiftwidth = 2

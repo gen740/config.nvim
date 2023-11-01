@@ -49,8 +49,6 @@ map('n', '<space>D', vim.lsp.buf.type_definition)
 map('n', '<space>rn', vim.lsp.buf.rename)
 map('n', '<space>ca', function() vim.lsp.buf.code_action { apply = true } end)
 
--- map('n', '<m-n>', '<cmd>DapStepOver<cr>')
--- map('n', '<m-i>', '<cmd>DapStepInto<cr>')
 map('n', '<space>dn', '<cmd>DapContinue<cr>')
 map('n', '<space>dd', '<cmd>DapToggleBreakpoint<cr>')
 map('n', '<space>dD', function() require'dap'.set_breakpoint(vim.fn.input('Breakpoint condition: ')) end)

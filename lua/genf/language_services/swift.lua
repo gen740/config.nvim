@@ -1,6 +1,7 @@
 local M = {}
 
 local lmap = require('genf.language_services.utils').set_local_map
+local async_format = require('genf.language_services.utils').async_format
 
 function M.setup()
   vim.opt_local.tabstop = 2
@@ -8,31 +9,10 @@ function M.setup()
   vim.opt_local.shiftwidth = 2
 
   lmap('n', '<space>f', function()
-    vim.cmd('w')
-    local current_line = vim.fn.line('.')
-    local win_view = vim.fn.winsaveview()
-    vim.cmd('silent! %!swift-format')
-    -- vim.cmd('e!')
-    vim.fn.winrestview(win_view)
-    vim.fn.cursor(current_line, 0)
-    -- require('genf.asyncrun').asyncrun(
-    --   'black '
-    --     .. vim.fn.expand('%:p')
-    --     .. ';'
-    --     .. 'isort '
-    --     .. vim.fn.expand('%:p'),
-    --   function()
-    --     local current_line = vim.fn.line('.')
-    --     local win_view = vim.fn.winsaveview()
-    --     vim.cmd('e!')
-    --     vim.fn.winrestview(win_view)
-    --     vim.fn.cursor(current_line, 0)
-    --   end,
-    --   true
-    -- )
+    async_format('silent! %!swift-format')
   end)
 
-  vim.keymap.set('n', '<space>rr', function()
+  lmap('n', '<space>rr', function()
     require('genf.asyncrun').asyncrun('swift run')
   end)
 end
@@ -45,13 +25,9 @@ function M.lsp_config()
       capabilities = lsp_util.capabilities,
       on_attach = lsp_util.on_attach,
       filetypes = { 'swift' },
-      -- cmd = { 'xcrun', '--toolchain', 'swift', 'sourcekit-lsp', '--log-level=warning' },
       cmd = { 'sourcekit-lsp' },
     }
   end
 end
-
--- function M.dap_config()
--- end
 
 return M
