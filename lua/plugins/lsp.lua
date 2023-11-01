@@ -1,9 +1,6 @@
 return {
   {
     'neovim/nvim-lspconfig',
-    dependencies = {
-      'lvimuser/lsp-inlayhints.nvim',
-    },
     config = function()
       local function load_config(name)
         require('genf.language_services.' .. name).lsp_config()

@@ -1,7 +1,9 @@
 local M = {}
 
+local lmap = require('genf.language_services.utils').set_local_map
+
 function M.setup()
-  vim.keymap.set('n', '<space>f', function()
+  lmap('n', '<buffer><space>f', function()
     vim.cmd('w')
     require('genf.asyncrun').asyncrun(
       'stylua ' .. vim.fn.expand('%:p'),
@@ -39,7 +41,7 @@ function M.lsp_config()
         },
         workspace = {
           library = {
-            "/usr/local/share/nvim/runtime",
+            '/usr/local/share/nvim/runtime',
           },
           checkThirdParty = true,
         },

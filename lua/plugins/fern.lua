@@ -6,7 +6,7 @@ return {
     'lambdalisue/fern-git-status.vim',
     'lambdalisue/fern-hijack.vim',
   },
-  cmd = 'Fern',
+  -- cmd = 'Fern',
   config = function()
     vim.fn['fern_git_status#init']()
     vim.g['fern#renderer'] = 'nerdfont'

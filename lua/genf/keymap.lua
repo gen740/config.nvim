@@ -16,6 +16,8 @@ map('x', '<space>p', '"_dP')
 map('n', 'q:', '<nop>')
 map('n', '~', '<nop>')
 map('n', '<c-q>', '<cmd>Fern . -drawer -toggle<cr>')
+map('n', '<space>tn', '<cmd>tabnext<cr>')
+map('n', '<space>tp', '<cmd>tabprevious<cr>')
 
 map('n', '<space>sp', '<cmd>VsnipOpen -format snipmate<cr>')
 

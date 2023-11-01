@@ -1,5 +1,5 @@
 local M = {}
-local winsize = 15
+local winsize = 18
 
 local win_kind = {
   ToggleTerm = { name = 'terminal', display_name = 'Terminal', cmd = nil },
@@ -11,7 +11,7 @@ local win_kind = {
 }
 
 local close_if_exist = function()
-  for idx, val in ipairs(vim.fn.getbufinfo()) do
+  for _, val in ipairs(vim.fn.getbufinfo()) do
     if vim.fn.get(vim.fn.split(val.name, '/'), 0, '') == 'term:' then
       for key, value in pairs(win_kind) do
         if (val.variables[key] == true) and val.windows[1] ~= nil then
@@ -40,7 +40,7 @@ for key, value in pairs(win_kind) do
     vim.fn.execute('wincmd J')
     vim.api.nvim_win_set_height(0, winsize)
     local toggleterm_buf_found = false
-    for idx, val in ipairs(vim.fn.getbufinfo()) do
+    for _, val in ipairs(vim.fn.getbufinfo()) do
       if vim.fn.get(vim.fn.split(val.name, '/'), 0, '') == 'term:' then
         if val.variables[key] == true then
           toggleterm_buf_found = true
@@ -71,7 +71,6 @@ M.ToggleQF = function()
   end
   vim.fn.execute('copen')
   vim.api.nvim_win_set_height(0, winsize)
-  local toggleterm_buf_found = false
   vim.opt_local.number = false
   vim.opt_local.relativenumber = false
   vim.opt_local.signcolumn = 'no'

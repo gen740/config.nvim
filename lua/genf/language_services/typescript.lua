@@ -1,15 +1,16 @@
 local M = {}
 
+local lmap = require('genf.language_services.utils').set_local_map
+
 function M.setup()
-  vim.keymap.set('n', '<m-r>', function()
+  lmap('n', '<m-r>', function()
     require('genf.asyncrun').asyncrun('task execute')
   end)
-
-  vim.keymap.set('n', '<m-s>', function()
+  lmap('n', '<m-s>', function()
     require('genf.asyncrun').asyncstop()
   end)
 
-  vim.keymap.set('n', '<space>f', function()
+  lmap('n', '<space>f', function()
     vim.cmd('w')
     require('genf.asyncrun').asyncrun(
       'prettier --write ' .. vim.fn.expand('%:p'),

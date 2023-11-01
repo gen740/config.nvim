@@ -1,30 +1,23 @@
 local M = {}
 
+local lmap = require('genf.language_services.utils').set_local_map
+
 function M.setup()
-  vim.keymap.set('n', '<m-r>', function()
+  lmap('n', '<m-r>', function()
     require('genf.asyncrun').asyncrun('task execute')
   end)
 
-  vim.keymap.set('n', '<m-s>', function()
+  lmap('n', '<m-s>', function()
     require('genf.asyncrun').asyncstop()
   end)
 
-  vim.keymap.set('n', '<space>f', function()
-    vim.cmd('w')
-    require('genf.asyncrun').asyncrun(
+  lmap('n', '<space>f', function()
+    require('genf.language_services.utils').async_format(
       'black '
         .. vim.fn.expand('%:p')
         .. ';'
         .. 'isort '
-        .. vim.fn.expand('%:p'),
-      function()
-        local current_line = vim.fn.line('.')
-        local win_view = vim.fn.winsaveview()
-        vim.cmd('silent e!')
-        vim.fn.winrestview(win_view)
-        vim.fn.cursor(current_line, 0)
-      end,
-      true
+        .. vim.fn.expand('%:p')
     )
   end)
 

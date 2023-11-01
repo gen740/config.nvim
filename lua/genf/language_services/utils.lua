@@ -10,8 +10,7 @@ M.capabilities = (function()
   return vim.tbl_extend('keep', capabilities, lsp_status.capabilities)
 end)()
 
-M.on_attach = function(client, bufnr)
-  require('lsp-inlayhints').on_attach(client, bufnr, true)
+M.on_attach = function(client, _)
   lsp_status.on_attach(client)
 end
 
@@ -24,6 +23,34 @@ function M.lsp_setup(name)
       on_attach = M.on_attach,
     }
   end
+end
+
+---@param mode string
+---@param map string
+---@param callback string|function
+function M.set_local_map(mode, map, callback)
+  vim.keymap.set(mode, map, callback, { beffer = true, noremap = true })
+end
+
+---@param cmd string
+function M.async_format(cmd)
+  vim.cmd('w')
+  require('genf.asyncrun').asyncrun(
+    cmd,
+    -- 'black '
+    --   .. vim.fn.expand('%:p')
+    --   .. ';'
+    --   .. 'isort '
+    --   .. vim.fn.expand('%:p'),
+    function()
+      local current_line = vim.fn.line('.')
+      local win_view = vim.fn.winsaveview()
+      vim.cmd('silent e!')
+      vim.fn.winrestview(win_view)
+      vim.fn.cursor(current_line, 0)
+    end,
+    true
+  )
 end
 
 return M

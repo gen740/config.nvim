@@ -102,7 +102,7 @@ M.ripgrep = function(pattern, dir)
   local lines = {}
   dir = dir or '.'
 
-  pattern = 'rg --column ' .. pattern .. " " .. dir
+  pattern = 'rg --column ' .. pattern .. ' ' .. dir
 
   if running_jobid then
     notify('Command still runing')
