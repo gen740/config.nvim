@@ -61,35 +61,10 @@ function M.setup()
     skim_started = false
   end)
 
-  lmap('n', '<leader>s', function()
-    vim.fn.jobstart(
-      'zathura --synctex-forward '
-        .. vim.fn.line('.')
-        .. ':'
-        .. vim.fn.col('.')
-        .. ':'
-        .. vim.fn.expand('%:p')
-        .. ' '
-        .. './document.pdf'
-    )
-  end)
-
   vim.opt_local.tabstop = 2
   vim.opt_local.softtabstop = 2
   vim.opt_local.shiftwidth = 2
 
-  local autocmd = vim.api.nvim_create_autocmd
-
-  autocmd({ 'FileType tex' }, {
-    callback = function()
-      vim.g.lexima_enable_basic_rules = 0
-      vim.g.lexima_enable_newline_rules = 0
-      vim.g.lexima_enable_endwise_rules = 0
-      vim.api.nvim_call_function('lexima#set_default_rules', {})
-    end,
-  })
-
-  --
   local special_key = {
     a = [[\alpha]],
     b = [[\beta]],
