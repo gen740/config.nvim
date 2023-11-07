@@ -1,6 +1,7 @@
 local M = {}
 
 local lmap = require('genf.language_services.utils').set_local_map
+local async_format = require('genf.language_services.utils').async_format
 
 function M.setup()
   local skim_started = false
@@ -61,29 +62,66 @@ function M.setup()
     skim_started = false
   end)
 
+  lmap('n', '<space>f', function()
+    vim.fn.timer_start(0, function()
+      local current_line = vim.fn.line('.')
+      local win_view = vim.fn.winsaveview()
+      vim.cmd([[%!latexindent -y="defaultIndent:'  '" ]])
+      ---@diagnostic disable-next-line
+      vim.fn.winrestview(win_view)
+      vim.fn.cursor(current_line, 0)
+      vim.cmd('w!')
+    end)
+  end)
+
   vim.opt_local.tabstop = 2
   vim.opt_local.softtabstop = 2
   vim.opt_local.shiftwidth = 2
 
-  local special_key = {
-    a = [[\alpha]],
-    b = [[\beta]],
-    c = [[\chi]],
-    d = [[\delta]],
-    e = [[\epsilon]],
-    ve = [[\varepsilon]],
-    m = [[\mu]],
-    n = [[\nu]],
-    o = [[\omega]],
-    ph = [[\phi]],
-    ps = [[\psi]],
-    hb = [[\hbar]],
-  }
+  if pcall(require, 'insx') then
+    local insx = require('insx')
+    local esc = require('insx').helper.regex.esc
+    insx.add(
+      '}',
+      insx.with(
+        require('insx.recipe.substitute') {
+          pattern = [[\\begin{\([^}]*\)\%#}]],
+          replace = [[\0\%#\end{\1}]],
+        },
+        {
+          insx.with.priority(10),
+        }
+      )
+    )
 
-  special_key['%'] = [[\%]]
-
-  for name, val in pairs(special_key) do
-    lmap('i', '%' .. name, val)
+    require('insx.preset.standard').set_pair('i', '$', '$')
+    -- insx.add(
+    --   '$',
+    --   insx.with(
+    --     require('insx.recipe.auto_pair') {
+    --       open = '$',
+    --       close = '$',
+    --     },
+    --     {
+    --       insx.with.priority(10),
+    --       insx.with.in_string(false),
+    --       insx.with.in_comment(false),
+    --     }
+    --   )
+    -- )
+    -- insx.add(
+    --   '$',
+    --   insx.with(
+    --     require('insx.recipe.jump_next') {
+    --       jump_pat = {
+    --         [[\%#]] .. esc('$') .. [[\zs]],
+    --       },
+    --     },
+    --     {
+    --       insx.with.priority(11),
+    --     }
+    --   )
+    -- )
   end
 end
 

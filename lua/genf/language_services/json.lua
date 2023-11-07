@@ -25,6 +25,10 @@ function M.lsp_config()
             url = 'https://json.schemastore.org/tsconfig.json',
           },
           {
+            fileMatch = { '.luarc.json' },
+            url = 'https://raw.githubusercontent.com/sumneko/vscode-lua/master/setting/schema.json',
+          },
+          {
             fileMatch = {
               'pyrightconfig.json',
             },
