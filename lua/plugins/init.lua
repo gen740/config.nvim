@@ -2,18 +2,6 @@ return {
 
   ---- Utilities -----------------------------------------------------------------------------
   {
-    'junegunn/vim-easy-align',
-    config = function()
-      vim.cmd([[
-        let g:easy_align_delimiters = {
-            \ '\': {
-            \     'pattern': '\\$',
-            \    },
-            \ }
-        ]])
-    end,
-  },
-  {
     'machakann/vim-sandwich',
     keys = {
       { 'sa', mode = 'n' },
@@ -49,14 +37,6 @@ return {
       }
     end,
   },
-  {
-    'uga-rosa/ccc.nvim',
-    config = function()
-      require('ccc').setup {}
-    end,
-    cmd = { 'CccHighlighterEnable', 'CccHighlighterToggle' },
-  },
-
   {
     'rcarriga/nvim-notify',
     config = function()

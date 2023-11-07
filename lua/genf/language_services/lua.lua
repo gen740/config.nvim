@@ -1,4 +1,4 @@
-local M = { }
+local M = {}
 
 local lmap = require('genf.language_services.utils').set_local_map
 local async_format = require('genf.language_services.utils').async_format
@@ -15,14 +15,9 @@ function M.setup()
 end
 
 function M.lsp_config()
+  local lazy_path = require('genf.lazy').lazy_plugin_path
   local lsp_utils = require('genf.language_services.utils')
-
   local config = require('lspconfig')['lua_ls']
-  --- sleep
-  local runtime_path = vim.api.nvim_get_runtime_file('', true)
-  table.insert(runtime_path, '/usr/local/share/nvim/runtime')
-  table.insert(runtime_path, '${3rd}/luv/library')
-  table.insert(runtime_path, '${3rd}/luassert/library')
 
   config.setup {
     capabilities = lsp_utils.capabilities,
@@ -36,7 +31,12 @@ function M.lsp_config()
           globals = { 'vim' },
         },
         workspace = {
-          library = runtime_path,
+          library = {
+            lazy_path .. '/nvim-insx',
+            '/usr/local/share/nvim/runtime',
+            '${3rd}/luv/library',
+            '${3rd}/luassert/library',
+          },
           checkThirdParty = true,
         },
         telemetry = {
