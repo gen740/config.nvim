@@ -34,16 +34,6 @@ return {
     require('telescope').setup {
       defaults = {
         border = false,
-        mappings = {
-          i = {
-            ['<cr>'] = actions.select_default,
-            ['<esc>'] = actions.close,
-          },
-          n = {
-            ['<esc>'] = actions.close,
-            ['<cr>'] = actions.select_default,
-          },
-        },
         vimgrep_arguments = {
           'rg',
           '--color=never',
@@ -54,13 +44,13 @@ return {
           '--smart-case',
           '--trim',
         },
-        prompt_prefix = '  ',
+        prompt_prefix = '  ',
         layout_config = {
           prompt_position = 'top',
-          width = 0.8,
+          width = 0.85,
         },
-        selection_caret = ' ▶ ',
-        entry_prefix = '   ',
+        selection_caret = '  ',
+        entry_prefix = '  ',
         initial_mode = 'insert',
         selection_strategy = 'reset',
         sorting_strategy = 'ascending',
