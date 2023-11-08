@@ -19,6 +19,7 @@ return {
         'julia',
         'typescript',
         'javascript',
+        'diff',
         'go',
       },
       auto_install = true,
