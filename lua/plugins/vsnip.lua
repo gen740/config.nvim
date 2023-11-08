@@ -1,7 +1,7 @@
 return {
   {
     'hrsh7th/vim-vsnip',
-    dependencies = { 'honza/vim-snippets', 'hrsh7th/vim-vsnip-integ' },
+    dependencies = { 'hrsh7th/vim-vsnip-integ' },
     event = 'InsertEnter',
     cmd = { 'VsnipOpen' },
     config = function()

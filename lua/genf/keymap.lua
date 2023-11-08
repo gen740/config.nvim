@@ -4,8 +4,6 @@ local map = function(mode, key, cmd, opt)
   vim.keymap.set(mode, key, cmd, opt)
 end
 
--- require("vsnip.")
-
 map('n', '<space>co', require('genf.toggleshell').ToggleQF)
 map('n', '<space>sh', require('genf.toggleshell').ToggleTerm)
 map('n', '<space>py', require('genf.toggleshell').ToggleIpython3)
@@ -19,8 +17,6 @@ map('n', '~', '<nop>')
 map('n', '<c-q>', '<cmd>Fern . -drawer -toggle<cr>')
 map('n', '<space>tn', '<cmd>tabnext<cr>')
 map('n', '<space>tp', '<cmd>tabprevious<cr>')
-
-map('n', '<space>sp', '<cmd>VsnipOpen -format snipmate<cr>')
 
 -- Telescope
 map('n', '<space>tcb',function() require('telescope.builtin').current_buffer_fuzzy_find() end)
@@ -73,6 +69,7 @@ if pcall(require, 'gitsigns') then -- GitSigns
 end
 
 -- vsnip
+map('n', '<space>sp', '<cmd>VsnipOpen -format snipmate<cr>')
 map({ 'i', 's' }, '<c-f>', function()
   if vim.fn["vsnip#jumpable"](1) == 1 then
     return '<Plug>(vsnip-jump-next)'
@@ -89,11 +86,11 @@ map({ 'i', 's' }, '<c-b>', function()
   end
 end, { noremap = true, silent = true, expr = true })
 
-map({ 'i', 's' }, '<c-e>', function()
+map({ 'i', 's' }, '<tab>', function()
   if vim.fn["vsnip#available"]() == 1 then
-    return '<Plug>(vsnip-expand-or-jump)'
+    return '<Plug>(vsnip-expand)'
   else
-    return '<c-e>'
+    return '<tab>'
   end
 end, { noremap = true, silent = true, expr = true })
 
