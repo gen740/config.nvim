@@ -16,12 +16,7 @@ return {
       callback = function()
         vim.opt_local.number = false
         vim.opt_local.relativenumber = false
-        vim.keymap.set(
-          'n',
-          'r',
-          '<Plug>(fern-action-reload:all)<cr>',
-          { buffer = true, noremap = true, silent = true }
-        )
+        vim.keymap.set('n', 'r', '<Plug>(fern-action-reload:all)<cr>', { buffer = true, noremap = true, silent = true })
       end,
     })
   end,

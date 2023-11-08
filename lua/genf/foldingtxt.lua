@@ -12,14 +12,10 @@ return function()
   local treesitter_text = vim.treesitter.foldtext()
 
   if get_lopt('foldmethod') == 'diff' then
-    foldtext = '┈┈┈┈┈┈┈┈┈┈  '
-      .. (get_vvar('foldend') - get_vvar('foldstart') + 1)
-      .. ' lines '
+    foldtext = '┈┈┈┈┈┈┈┈┈┈  ' .. (get_vvar('foldend') - get_vvar('foldstart') + 1) .. ' lines '
     return foldtext
   else
-    foldtext = '┈ '
-      .. (get_vvar('foldend') - get_vvar('foldstart') + 1)
-      .. ' ﲐ ┈'
+    foldtext = '┈ ' .. (get_vvar('foldend') - get_vvar('foldstart') + 1) .. ' ﲐ ┈'
     local endofline = get_lopt('colorcolumn') - 3
 
     local word_length = 0
@@ -34,8 +30,7 @@ return function()
     align = endofline - word_length
   end
 
-  treesitter_text[#treesitter_text + 1] =
-    { string.rep('┈', math.floor(align)) .. foldtext, {} }
+  treesitter_text[#treesitter_text + 1] = { string.rep('┈', math.floor(align)) .. foldtext, {} }
 
   return treesitter_text
 end

@@ -9,8 +9,7 @@ function MyTabLine()
       s = s .. '%#TabLine#'
     end
 
-    local bufname =
-      vim.fn.bufname(vim.fn.tabpagebuflist(i)[vim.fn.tabpagewinnr(i)])
+    local bufname = vim.fn.bufname(vim.fn.tabpagebuflist(i)[vim.fn.tabpagewinnr(i)])
     if bufname == '' then
       s = s .. ' ' .. '[No Name]' .. ' '
     else

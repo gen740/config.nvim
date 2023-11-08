@@ -9,26 +9,11 @@ return function(info)
         if val.bufnr == 0 and val.lnum == 0 then
           l[#l + 1] = ' כֿ  ⇒ ' .. val.text
         elseif val.type == 'e' then
-          l[#l + 1] = string.format(
-            '  %s|%s| ⇒ %s',
-            vim.fn.bufname(val.bufnr),
-            val.lnum,
-            val.text
-          )
+          l[#l + 1] = string.format('  %s|%s| ⇒ %s', vim.fn.bufname(val.bufnr), val.lnum, val.text)
         elseif val.type == 'w' then
-          l[#l + 1] = string.format(
-            '  %s|%s| ⇒ %s',
-            vim.fn.bufname(val.bufnr),
-            val.lnum,
-            val.text
-          )
+          l[#l + 1] = string.format('  %s|%s| ⇒ %s', vim.fn.bufname(val.bufnr), val.lnum, val.text)
         else
-          l[#l + 1] = string.format(
-            ' כֿ %s|%s| ⇒ %s',
-            vim.fn.bufname(val.bufnr),
-            val.lnum,
-            val.text
-          )
+          l[#l + 1] = string.format(' כֿ %s|%s| ⇒ %s', vim.fn.bufname(val.bufnr), val.lnum, val.text)
         end
       end
     end
@@ -45,12 +30,7 @@ return function(info)
         if val.bufnr == 0 and val.lnum == 0 then
           l[#l + 1] = ' כֿ ' .. ' ⇒ ' .. val.text
         else
-          l[#l + 1] = string.format(
-            '  %s|%s| ⇒ %s',
-            vim.fn.bufname(val.bufnr),
-            val.lnum,
-            val.text
-          )
+          l[#l + 1] = string.format('  %s|%s| ⇒ %s', vim.fn.bufname(val.bufnr), val.lnum, val.text)
         end
       end
     end

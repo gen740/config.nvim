@@ -33,6 +33,7 @@ return {
 
     require('telescope').setup {
       defaults = {
+        border = false,
         mappings = {
           i = {
             ['<cr>'] = actions.select_default,
@@ -73,7 +74,6 @@ return {
           '^.git/',
           '^.DS_Store',
         },
-        borderchars = { '─', '│', '─', '│', '╭', '╮', '╯', '╰' },
         color_devicons = true,
         use_less = true,
         buffer_previewer_maker = new_maker,

@@ -50,9 +50,7 @@ for key, value in pairs(win_kind) do
     end
     if not toggleterm_buf_found then
       vim.fn.execute('term ' .. (value.cmd or ''))
-      vim.fn.execute(
-        'setlocal winbar=%#WinBarFileName#' .. value.display_name .. '%*%='
-      )
+      vim.fn.execute('setlocal winbar=%#WinBarFileName#' .. value.display_name .. '%*%=')
     end
     vim.opt_local.number = false
     vim.opt_local.buflisted = false

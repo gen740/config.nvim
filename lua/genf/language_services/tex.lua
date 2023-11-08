@@ -6,10 +6,7 @@ local async_format = require('genf.language_services.utils').async_format
 function M.setup()
   local skim_started = false
   lmap('n', '<m-c>', function()
-    vim.cmd(
-      'Run lualatex --shell-escape --file-line-error -synctex=1 -interaction=batchmode '
-        .. vim.fn.expand('%:p')
-    )
+    vim.cmd('Run lualatex --shell-escape --file-line-error -synctex=1 -interaction=batchmode ' .. vim.fn.expand('%:p'))
   end)
 
   vim.api.nvim_create_augroup('LatexAutoCompile', { clear = true })
@@ -18,8 +15,7 @@ function M.setup()
     pattern = '*.tex',
     callback = function()
       vim.cmd(
-        'Run lualatex --shell-escape --file-line-error -synctex=1 -interaction=batchmode '
-          .. vim.fn.expand('%:p')
+        'Run lualatex --shell-escape --file-line-error -synctex=1 -interaction=batchmode ' .. vim.fn.expand('%:p')
       )
     end,
   })

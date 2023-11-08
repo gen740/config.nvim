@@ -4,8 +4,7 @@ local current_git_branch = ''
 local current_git_dir = '' ---@type string | nil
 local active_bufnr = '0'
 local sep = package.config:sub(1, 1)
-local file_changed = sep ~= '\\' and vim.loop.new_fs_event()
-  or vim.loop.new_fs_poll()
+local file_changed = sep ~= '\\' and vim.loop.new_fs_event() or vim.loop.new_fs_poll()
 
 local function get_git_head(head_file)
   local f_head = io.open(head_file)
@@ -60,11 +59,7 @@ M.find_git_dir = function()
           git_dir = git_dir and git_dir:match('gitdir: (.+)$')
           file:close()
         end
-        if
-          git_dir
-          and git_dir:sub(1, 1) ~= sep
-          and not git_dir:match('^%a:.*$')
-        then
+        if git_dir and git_dir:sub(1, 1) ~= sep and not git_dir:match('^%a:.*$') then
           git_dir = git_path:match('(.*).git') .. git_dir
         end
       end

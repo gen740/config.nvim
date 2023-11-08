@@ -13,13 +13,7 @@ function M.setup()
   end)
 
   lmap('n', '<space>f', function()
-    async_format(
-      'black '
-        .. vim.fn.expand('%:p')
-        .. ';'
-        .. 'isort '
-        .. vim.fn.expand('%:p')
-    )
+    async_format('black ' .. vim.fn.expand('%:p') .. ';' .. 'isort ' .. vim.fn.expand('%:p'))
   end)
 
   local shiftwidth = 4

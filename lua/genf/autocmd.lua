@@ -3,6 +3,8 @@ vim.api.nvim_create_augroup('CustomAutocommand', { clear = true })
 
 local color_schemes = {
   Normal = { bg = nil, fg = '#cdcecf' },
+  TelescopeNormal = { bg = '#242424', fg = '#cdcecf' },
+  TelescopeBorder = { bg = '#242424', fg = '#cdcecf' },
   CursorLine = { bg = '#333333' },
   NormalNC = { bg = nil, fg = '#cdcecf' },
   SignColumn = { bg = nil, fg = '#cdcecf' },
