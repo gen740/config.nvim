@@ -29,7 +29,7 @@ return {
           return false
         end,
       },
-      indent = { enable = false },
+      indent = { enable = true },
       matchup = {
         enable = true,
       },
