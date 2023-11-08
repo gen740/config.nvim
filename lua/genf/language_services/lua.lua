@@ -12,6 +12,7 @@ function M.setup()
   vim.opt_local.tabstop = shiftwidth
   vim.opt_local.softtabstop = shiftwidth
   vim.opt_local.shiftwidth = shiftwidth
+  vim.opt_local.colorcolumn = '120'
 end
 
 function M.lsp_config()

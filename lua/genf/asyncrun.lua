@@ -30,7 +30,7 @@ M.asyncrun = function(cmd, on_exit, silent)
   local bufnr = vim.api.nvim_win_get_buf(winnr)
   local qfwinid = vim.fn.getqflist({ winid = winnr }).winid
 
-  local efm = vim.api.nvim_buf_get_option(bufnr, 'efm')
+  local efm = vim.api.nvim_get_option_value('efm', { buf = bufnr })
   if efm == nil or efm == '' then
     efm = '%f:%l:%c:%m,%f:%l:%m'
   end
@@ -50,10 +50,10 @@ M.asyncrun = function(cmd, on_exit, silent)
     })
   end
 
-  local on_event = function(job_id, data, event)
+  local on_event = function(_, data, event)
     if (event == 'stdout' or event == 'stderr') and not silent then
       if data then
-        for idx, val in ipairs(data) do
+        for _, val in ipairs(data) do
           if val ~= '' then
             val = vim.fn.substitute(val, [[\[[0-9;]*m]], [[]], 'g')
             vim.list_extend(lines, { val })
@@ -117,10 +117,10 @@ M.ripgrep = function(pattern, dir)
     efm = efm,
   })
 
-  local on_event = function(job_id, data, event)
+  local on_event = function(_, data, event)
     if event == 'stdout' or event == 'stderr' then
       if data then
-        for idx, val in ipairs(data) do
+        for _, val in ipairs(data) do
           if val ~= '' then
             vim.list_extend(lines, { val })
           end

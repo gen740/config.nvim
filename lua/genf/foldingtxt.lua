@@ -2,18 +2,11 @@ local function get_lopt(opt)
   return vim.api.nvim_get_option_value(opt, { scope = 'local' })
 end
 
-local function get_gopt(opt)
-  return vim.api.nvim_get_option_value(opt, { scope = 'global' })
-end
-
 local function get_vvar(opt)
   return vim.api.nvim_get_vvar(opt)
 end
 
 return function()
-  local fillchars = get_lopt('fillchars')
-  local numwidth = get_lopt('numberwidth')
-  local linetext = ''
   local foldtext = {}
   local align = 0
   local treesitter_text = vim.treesitter.foldtext()
