@@ -15,7 +15,7 @@ local search_count = function()
     search_char = '/'
   end
 
-  if stats.incomplete == 1 then
+  if stats.incomplete == 1 or stats.total == nil then
     return
   elseif stats.incomplete == 2 then -- maxcount exceed
     if stats.total > stats.maxcount and stats.current > stats.maxcount then

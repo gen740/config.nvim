@@ -1,7 +1,34 @@
+local lsp_icons = {
+  Text = '󰉿',
+  Method = '󰆧',
+  Function = '󰊕',
+  Constructor = '',
+  Field = '󰜢',
+  Variable = '󰀫',
+  Class = '󰠱',
+  Interface = '',
+  Module = '',
+  Property = '󰜢',
+  Unit = '󰑭',
+  Value = '󰎠',
+  Enum = '',
+  Keyword = '󰌋',
+  Snippet = '',
+  Color = '󰏘',
+  File = '󰈙',
+  Reference = '󰈇',
+  Folder = '󰉋',
+  EnumMember = '',
+  Constant = '󰏿',
+  Struct = '󰙅',
+  Event = '',
+  Operator = '󰆕',
+  TypeParameter = '',
+}
+
 return {
   'hrsh7th/nvim-cmp',
   dependencies = {
-    { 'onsails/lspkind-nvim' },
     { 'hrsh7th/cmp-buffer' },
     { 'hrsh7th/cmp-nvim-lsp' },
     { 'hrsh7th/cmp-nvim-lsp-signature-help' },
@@ -9,17 +36,8 @@ return {
     { 'hrsh7th/cmp-path' },
     { 'hrsh7th/cmp-calc' },
     { 'hrsh7th/cmp-vsnip' },
-    { 'neovim/nvim-lspconfig' },
-    { 'zbirenbaum/copilot.lua' },
-    { 'zbirenbaum/copilot-cmp' },
   },
   config = function()
-    require('copilot').setup {
-      suggestion = { enabled = false },
-      panel = { enabled = false },
-    }
-    require('copilot_cmp').setup()
-
     local cmp = require('cmp')
 
     cmp.setup {
@@ -48,36 +66,26 @@ return {
         { name = 'vsnip' },
         { name = 'nvim_lsp_signature_help' },
         { name = 'nvim_lsp_document_symbol' },
-        { name = 'copilot' },
         { name = 'path' },
         { name = 'calc' },
         { name = 'buffer', keyword_length = 5 },
       },
       formatting = {
-        format = require('lspkind').cmp_format {
-          mode = 'symbol',
-          maxwidth = 50,
-          symbol_map = {
-            Copilot = '',
-          },
-          before = function(entry, vim_item)
-            vim_item.menu = ({
-              buffer = '[Buf]',
-              path = '[PATH]',
-              nvim_lsp = '[LSP]',
-              vsnip = '[VSnip]',
-              nvim_lua = '[Lua]',
-              latex_symbols = '[Latex]',
-              copilot = '[copilot]',
-            })[entry.source.name]
+        ---@param entry cmp.Entry
+        ---@param vim_item vim.CompletedItem
+        format = function(entry, vim_item)
+          vim_item.menu = ({
+            buffer = '[Buf]',
+            path = '[PATH]',
+            nvim_lsp = '[LSP]',
+            vsnip = '[VSnip]',
+            nvim_lua = '[Lua]',
+          })[entry.source.name]
 
-            vim_item.dup = ({
-              buffer = 0,
-            })[entry.source.name] or 0
+          vim_item.kind = lsp_icons[vim_item.kind] or vim_item.kind
 
-            return vim_item
-          end,
-        },
+          return vim_item
+        end,
       },
       sorting = {
         priority_weight = 2,
@@ -88,7 +96,6 @@ return {
           cmp.config.compare.recently_used,
           cmp.config.compare.score,
           cmp.config.compare.locality,
-          require('copilot_cmp.comparators').prioritize,
           function(entry1, entry2)
             local _, entry1_under = entry1.completion_item.label:find('^_+')
             local _, entry2_under = entry2.completion_item.label:find('^_+')
