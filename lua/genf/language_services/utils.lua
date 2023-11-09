@@ -2,17 +2,12 @@ M = {}
 
 M.capabilities = require('cmp_nvim_lsp').default_capabilities()
 
-M.on_attach = function(client, _)
-  -- require('lsp-status').on_attach(client)
-end
-
 ---@param name string
 function M.lsp_setup(name)
   if pcall(require, 'lspconfig') then
     local config = require('lspconfig')[name]
     config.setup {
       capabilities = M.capabilities,
-      on_attach = M.on_attach,
     }
   end
 end

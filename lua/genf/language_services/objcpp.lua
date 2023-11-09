@@ -31,7 +31,6 @@ function M.lsp_config()
     local config = require('lspconfig')['clangd']
     config.setup {
       capabilities = lsp_util.capabilities,
-      on_attach = lsp_util.on_attach,
       filetypes = { 'c', 'cpp', 'objc', 'objcpp', 'cuda' },
       cmd = {
         'clangd',

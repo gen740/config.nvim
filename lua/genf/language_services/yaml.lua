@@ -11,7 +11,6 @@ function M.lsp_config()
   local config = require('lspconfig')['yamlls']
   config.setup {
     capabilities = lsp_utils.capabilities,
-    on_attach = lsp_utils.on_attach,
     settings = {
       yaml = {
         schemas = {

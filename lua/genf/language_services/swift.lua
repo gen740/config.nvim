@@ -23,7 +23,6 @@ function M.lsp_config()
     local config = require('lspconfig')['sourcekit']
     config.setup {
       capabilities = lsp_util.capabilities,
-      on_attach = lsp_util.on_attach,
       filetypes = { 'swift' },
       cmd = { 'sourcekit-lsp' },
     }
