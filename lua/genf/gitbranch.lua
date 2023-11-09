@@ -83,7 +83,7 @@ M.find_git_dir = function()
 end
 
 M.get_branch = function()
-  if vim.g.actual_curbuf ~= nil and active_bufnr ~= vim.g.actual_curbuf then
+  if vim.fn.bufnr() ~= nil and active_bufnr ~= vim.fn.bufnr() then
     M.find_git_dir()
   end
   return current_git_branch
