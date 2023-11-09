@@ -48,8 +48,8 @@ local git_branch = function()
 end
 
 ---@class ProgressValue
----@field percentage uinteger
----@field message string
+---@field percentage? uinteger
+---@field message? string
 ---@field title? string
 
 ---@class LspProgress
@@ -72,6 +72,10 @@ end
 local format_progress = function()
   local width = 20
   local mes = ''
+
+  if current_progress.value.message == nil or current_progress.value.percentage == nil then
+    return ''
+  end
 
   for i = 1, width do
     if (100 * i / width) < current_progress.value.percentage then
