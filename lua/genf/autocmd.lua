@@ -63,12 +63,33 @@ vim.api.nvim_create_autocmd({ 'TextYankPost' }, {
 
 vim.api.nvim_create_autocmd({ 'LspProgress' }, {
   callback = function(event)
-    if event.data.result.value.kind == 'end' then
-      require('genf.winbar').set_current_progress('')
-      vim.cmd('redrawstatus')
-      return
+    if event.data.result.value.kind == 'begin' then
+      ---@type lsp.WorkDoneProgressBegin
+      local mes = event.data.result.value
+      require('genf.winbar').set_current_progress {
+        in_progress = true,
+        value = {
+          message = mes.message,
+          percentage = mes.percentage,
+          title = mes.title,
+        },
+      }
+    elseif event.data.result.value.kind == 'report' then
+      ---@type lsp.WorkDoneProgressReport
+      local mes = event.data.result.value
+      require('genf.winbar').set_current_progress {
+        in_progress = true,
+        value = {
+          message = mes.message,
+          percentage = mes.percentage,
+        },
+      }
+    elseif event.data.result.value.kind == 'end' then
+      ---@type lsp.WorkDoneProgressEnd
+      require('genf.winbar').set_current_progress {
+        in_progress = false,
+      }
     end
-    require('genf.winbar').set_current_progress(vim.lsp.status())
     vim.cmd('redrawstatus')
   end,
   group = 'WinBarLspProgress',

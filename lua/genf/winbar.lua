@@ -47,15 +47,35 @@ local git_branch = function()
   return ' ' .. branch
 end
 
-local current_progress = ''
----@param str string
-M.set_current_progress = function(str)
-  current_progress = str
+---@class ProgressValue
+---@field percentage uinteger
+---@field message string
+---@field title? string
+
+---@class LspProgress
+---@field in_progress boolean
+---@field value? ProgressValue
+local current_progress = {
+  in_progress = false,
+  value = {
+    percentage = 0,
+    message = '',
+    title = '',
+  },
+}
+
+---@param val LspProgress
+M.set_current_progress = function(val)
+  current_progress = vim.tbl_extend('force', current_progress, val)
+end
+
+local format_progress = function()
+  return string.format('%s[%d]', current_progress.value.message, current_progress.value.percentage)
 end
 
 local lsp_status = function()
-  if current_progress ~= '' then
-    return current_progress
+  if current_progress.in_progress then
+    return format_progress()
   end
 
   local ERROR = vim.diagnostic.severity.ERROR
@@ -78,10 +98,9 @@ local lsp_status = function()
   }
 
   for _, v in ipairs(diag) do
-    -- print(v.severity)
-    -- if diag_nr[v.severity] ~= nil then
-    diag_nr[v.severity] = diag_nr[v.severity] + 1
-    -- end
+    if diag_nr[v.severity] ~= nil then
+      diag_nr[v.severity] = diag_nr[v.severity] + 1
+    end
   end
 
   local msg = ''
