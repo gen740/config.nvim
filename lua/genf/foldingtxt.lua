@@ -1,3 +1,4 @@
+local M = {}
 local function get_lopt(opt)
   return vim.api.nvim_get_option_value(opt, { scope = 'local' })
 end
@@ -6,7 +7,7 @@ local function get_vvar(opt)
   return vim.api.nvim_get_vvar(opt)
 end
 
-return function()
+M.expr = function()
   local foldtext = {}
   local align = 0
   local treesitter_text = vim.treesitter.foldtext()
@@ -34,3 +35,5 @@ return function()
 
   return treesitter_text
 end
+
+return M

@@ -27,8 +27,10 @@ local search_count = function()
   return string.format('[%d/%d] %s%s', stats.current, stats.total, search_char, vim.fn.getreg('/'))
 end
 
+local gitbranch = require('genf.gitbranch')
+
 local git_branch = function()
-  local branch = require('genf.gitbranch').get_branch()
+  local branch = gitbranch.get_branch()
   if branch == '' then
     return ''
   end

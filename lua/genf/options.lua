@@ -1,4 +1,4 @@
-_G.QfTextFunc = require('genf.qftextfunc')
+QfTextFunc = require('genf.qftextfunc').expr
 
 local vim_options = {
   backspace = [[indent,eol,start]],
@@ -18,9 +18,9 @@ local vim_options = {
   },
   foldenable = true,
   foldexpr = 'v:lua.vim.treesitter.foldexpr()',
-  foldtext = [[luaeval("require('genf.foldingtxt')()")]],
   foldlevel = 99,
   foldmethod = 'expr',
+  foldtext = 'v:lua.require("genf.foldingtxt").expr()',
   ignorecase = true,
   inccommand = 'nosplit',
   incsearch = true,
@@ -32,7 +32,10 @@ local vim_options = {
   mousemodel = '',
   number = true,
   pumheight = 10,
-  qftf = 'v:lua.QfTextFunc',
+  -- qftf = 'v:lua.QfTextFunc',
+  qftf = 'v:lua.require"genf.qftextfunc".expr',
+  -- qftf = {v:lua.require('genf.qftextfunc').expr},
+  -- qftf = 'v:lua.function(info)require("genf.qftextfunc").expr(info)end',
   relativenumber = true,
   ruler = false,
   scrolloff = 8,
@@ -41,6 +44,7 @@ local vim_options = {
   shortmess = 'acOsTWFI',
   showmode = false,
   showtabline = 1,
+  statusline = [[%{''}]],
   signcolumn = 'yes',
   smartcase = true,
   softtabstop = 2,
@@ -48,6 +52,7 @@ local vim_options = {
   splitright = true,
   swapfile = false,
   tabstop = 2,
+  tabline = '%!v:lua.require("genf.tabline").expr()',
   termguicolors = true,
   undodir = os.getenv('HOME') .. '/.vim/undo',
   undofile = true,
@@ -56,7 +61,6 @@ local vim_options = {
   updatetime = 250,
   viewoptions = 'folds,cursor',
   whichwrap = 'b,s,<,>,[,]',
-
   winbar = [[%!v:lua.require("genf.winbar").expr()]],
   wrap = false,
 }
