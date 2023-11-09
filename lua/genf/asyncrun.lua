@@ -25,7 +25,6 @@ M.asyncrun = function(cmd, on_exit, silent)
   on_exit = on_exit or function() end
   silent = silent or false
 
-  local lines = {}
   local winnr = vim.fn.win_getid()
   local bufnr = vim.api.nvim_win_get_buf(winnr)
   local qfwinid = vim.fn.getqflist({ winid = winnr }).winid
@@ -42,12 +41,7 @@ M.asyncrun = function(cmd, on_exit, silent)
     else
       notify('AsyncRun Start')
     end
-
-    vim.fn.setqflist({}, ' ', {
-      title = cmd,
-      lines = {},
-      efm = efm,
-    })
+    vim.fn.setqflist {}
   end
 
   local on_event = function(_, data, event)
@@ -56,14 +50,13 @@ M.asyncrun = function(cmd, on_exit, silent)
         for _, val in ipairs(data) do
           if val ~= '' then
             val = vim.fn.substitute(val, [[\[[0-9;]*m]], [[]], 'g')
-            vim.list_extend(lines, { val })
+            vim.fn.setqflist({}, 'a', {
+              title = cmd,
+              lines = { val },
+              efm = efm,
+            })
           end
         end
-        vim.fn.setqflist({}, 'r', {
-          title = cmd,
-          lines = lines,
-          efm = efm,
-        })
         vim.fn.win_execute(qfwinid, ':norm G')
       end
     end
@@ -71,13 +64,11 @@ M.asyncrun = function(cmd, on_exit, silent)
       on_exit()
       if not silent then
         notify('AsyncRun Done')
-        table.insert(
-          lines,
-          '  ▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬ AsyncRun Done!! ▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬ '
-        )
-        vim.fn.setqflist({}, 'r', {
+        vim.fn.setqflist({}, 'a', {
           title = cmd,
-          lines = lines,
+          lines = {
+            '  ▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬ AsyncRun Done!! ▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬ ',
+          },
           efm = efm,
         })
         vim.api.nvim_command('doautocmd QuickFixCmdPost')
@@ -99,7 +90,6 @@ end
 ---@param pattern string
 M.ripgrep = function(pattern, dir)
   M.asyncstop()
-  local lines = {}
   dir = dir or '.'
 
   pattern = 'rg --column ' .. pattern .. ' ' .. dir
@@ -111,28 +101,26 @@ M.ripgrep = function(pattern, dir)
 
   local efm = '%f:%l:%c:%m,%f:%l:%m'
 
-  vim.fn.setqflist({}, ' ', {
-    title = pattern,
-    lines = {},
-    efm = efm,
-  })
+  vim.fn.setqflist {}
 
   local on_event = function(_, data, event)
     if event == 'stdout' or event == 'stderr' then
       if data then
         for _, val in ipairs(data) do
           if val ~= '' then
-            vim.list_extend(lines, { val })
+            vim.fn.setqflist({}, 'a', {
+              title = pattern,
+              lines = { val },
+              efm = efm,
+            })
           end
         end
-        vim.fn.setqflist({}, ' ', {
-          title = pattern,
-          lines = lines,
-          efm = efm,
-        })
       end
     end
     if event == 'exit' then
+      if #vim.fn.getqflist() == 0 then
+        vim.fn.setqflist({ { text = 'No Match' } }, 'a')
+      end
       vim.api.nvim_command('doautocmd QuickFixCmdPost')
       notify('Done')
       running_jobid = nil
