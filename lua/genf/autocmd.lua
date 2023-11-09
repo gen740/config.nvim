@@ -26,6 +26,10 @@ local color_schemes = {
   WinBarLspWarn = { bg = nil, fg = '#ebcb8b' },
   WinBarLspInfo = { bg = nil, fg = '#3f4a5a' },
   WinBarLspHint = { bg = nil, fg = '#a3be8c' },
+
+  WinBarLspProgressDone = { bg = nil, fg = '#ebcb8b' },
+  WinBarLspProgress = { bg = nil, fg = '#bf616a' },
+
   StatusLine = { bg = '#2a2a2a', fg = '#2a2a2a', bold = false },
   StatusLineNC = { bg = '#2a2a2a', fg = '#2a2a2a', bold = false },
   WinSeparator = { bg = '#2a2a2a', fg = '#2a2a2a', bold = false },
@@ -63,7 +67,8 @@ vim.api.nvim_create_autocmd({ 'TextYankPost' }, {
 
 vim.api.nvim_create_autocmd({ 'LspProgress' }, {
   callback = function(event)
-    if event.data.result.value.kind == 'begin' then
+    local kind = event.data.result.value.kind
+    if kind == 'begin' then
       ---@type lsp.WorkDoneProgressBegin
       local mes = event.data.result.value
       require('genf.winbar').set_current_progress {
@@ -74,7 +79,7 @@ vim.api.nvim_create_autocmd({ 'LspProgress' }, {
           title = mes.title,
         },
       }
-    elseif event.data.result.value.kind == 'report' then
+    elseif kind == 'report' then
       ---@type lsp.WorkDoneProgressReport
       local mes = event.data.result.value
       require('genf.winbar').set_current_progress {
@@ -84,7 +89,7 @@ vim.api.nvim_create_autocmd({ 'LspProgress' }, {
           percentage = mes.percentage,
         },
       }
-    elseif event.data.result.value.kind == 'end' then
+    elseif kind == 'end' then
       ---@type lsp.WorkDoneProgressEnd
       require('genf.winbar').set_current_progress {
         in_progress = false,

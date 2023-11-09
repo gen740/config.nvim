@@ -36,7 +36,7 @@ function M.lsp_config()
         format = {
           enable = false,
         },
-        venvPath = '/Users/gen/.pyenv/versions/3.10.13/envs/',
+        venvPath = '/Users/gen/.config/pyenv/versions',
       },
     },
   }

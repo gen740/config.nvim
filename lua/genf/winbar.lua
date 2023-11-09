@@ -70,7 +70,18 @@ M.set_current_progress = function(val)
 end
 
 local format_progress = function()
-  return string.format('%s[%d]', current_progress.value.message, current_progress.value.percentage)
+  local width = 20
+  local mes = ''
+
+  for i = 1, width do
+    if (100 * i / width) < current_progress.value.percentage then
+      mes = mes .. '%#WinBarLspProgressDone#━%*'
+    else
+      mes = mes .. '%#WinBarLspProgress#─%*'
+    end
+  end
+
+  return string.format('%s[%s]', current_progress.value.message, mes)
 end
 
 local lsp_status = function()

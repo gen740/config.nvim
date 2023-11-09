@@ -1,6 +1,11 @@
 M = {}
 
-M.capabilities = require('cmp_nvim_lsp').default_capabilities()
+---@type lsp.ClientCapabilities
+M.capabilities = vim.tbl_extend('keep', require('cmp_nvim_lsp').default_capabilities(), {
+  window = {
+    workDoneProgress = true,
+  },
+})
 
 ---@param name string
 function M.lsp_setup(name)
