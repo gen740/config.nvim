@@ -54,8 +54,12 @@ local lsp_status = function()
 end
 
 M.expr = function()
+  local filetype = vim.bo.filetype
+  if filetype == 'fern' then
+    return '   Fern '
+  end
   return string.format(
-    '%s %%#WinBarFileName#%%f%%* %%M %s%%=%s %s',
+    ' %s %%#WinBarFileName#%%f%%* %%M %s%%=%s %s',
     file_icon(),
     search_count(),
     lsp_status(),
