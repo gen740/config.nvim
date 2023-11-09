@@ -47,16 +47,69 @@ local git_branch = function()
   return ' ' .. branch
 end
 
+local current_progress = ''
+---@param str string
+M.set_current_progress = function(str)
+  current_progress = str
+end
+
 local lsp_status = function()
-  if not pcall(require, 'lsp-status') then
-    return ''
+  if current_progress ~= '' then
+    return current_progress
   end
-  return (require('lsp-status').status_progress().spinner or '') .. ' ' .. require('lsp-status').status()
+
+  local ERROR = vim.diagnostic.severity.ERROR
+  local WARN = vim.diagnostic.severity.WARN
+  local INFO = vim.diagnostic.severity.INFO
+  local HINT = vim.diagnostic.severity.HINT
+  local diag = vim.diagnostic.get(0, {
+    severity = {
+      ERROR,
+      WARN,
+      INFO,
+      HINT,
+    },
+  })
+  local diag_nr = {
+    [ERROR] = 0,
+    [WARN] = 0,
+    [INFO] = 0,
+    [HINT] = 0,
+  }
+
+  for _, v in ipairs(diag) do
+    -- print(v.severity)
+    -- if diag_nr[v.severity] ~= nil then
+    diag_nr[v.severity] = diag_nr[v.severity] + 1
+    -- end
+  end
+
+  local msg = ''
+  local highlight_wrap = function(hl, str)
+    return '%#' .. hl .. '#' .. str .. '%*'
+  end
+  if diag_nr[ERROR] ~= 0 then
+    msg = highlight_wrap('WinBarLspError', msg .. ' ' .. diag_nr[ERROR])
+  end
+  msg = msg .. ' '
+  if diag_nr[WARN] ~= 0 then
+    msg = highlight_wrap('WinBarLspWarn', msg .. ' ' .. diag_nr[WARN])
+  end
+  msg = msg .. ' '
+  if diag_nr[INFO] ~= 0 then
+    msg = highlight_wrap('WinBarLspInfo', msg .. ' ' .. diag_nr[INFO])
+  end
+  msg = msg .. ' '
+  if diag_nr[HINT] ~= 0 then
+    msg = highlight_wrap('WinBarLspHint', msg .. ' ' .. diag_nr[HINT])
+  end
+
+  return msg
 end
 
 M.expr = function()
   return string.format(
-    ' %s %%#WinBarFileName#%%f%%* %%M %s%%=%s %s',
+    ' %s %%#WinBarFileName#%%f%%* %%M %s%%= %s',
     file_icon(),
     search_count(),
     lsp_status(),

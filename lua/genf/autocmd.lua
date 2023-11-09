@@ -1,5 +1,6 @@
 vim.api.nvim_create_augroup('CustomColorScheme', { clear = true })
 vim.api.nvim_create_augroup('CustomAutocommand', { clear = true })
+vim.api.nvim_create_augroup('WinBarLspProgress', { clear = true })
 
 local color_schemes = {
   Normal = { bg = nil, fg = '#cdcecf' },
@@ -21,6 +22,10 @@ local color_schemes = {
   WinBar = { bg = nil, fg = '#6e7790', bold = true },
   WinBarNC = { bg = nil, fg = '#393b44' },
   WinBarFileName = { bg = nil, fg = '#6e7790', bold = true, underline = true },
+  WinBarLspError = { bg = nil, fg = '#bf616a' },
+  WinBarLspWarn = { bg = nil, fg = '#ebcb8b' },
+  WinBarLspInfo = { bg = nil, fg = '#3f4a5a' },
+  WinBarLspHint = { bg = nil, fg = '#a3be8c' },
   StatusLine = { bg = '#2a2a2a', fg = '#2a2a2a', bold = false },
   StatusLineNC = { bg = '#2a2a2a', fg = '#2a2a2a', bold = false },
   WinSeparator = { bg = '#2a2a2a', fg = '#2a2a2a', bold = false },
@@ -55,3 +60,18 @@ vim.api.nvim_create_autocmd({ 'TextYankPost' }, {
     return not vim.v.event.visual and require('vim.highlight').on_yank()
   end,
 })
+
+vim.api.nvim_create_autocmd({ 'LspProgress' }, {
+  callback = function(event)
+    if event.data.result.value.kind == 'end' then
+      require('genf.winbar').set_current_progress('')
+      vim.cmd('redrawstatus')
+      return
+    end
+    require('genf.winbar').set_current_progress(vim.lsp.status())
+    vim.cmd('redrawstatus')
+  end,
+  group = 'WinBarLspProgress',
+})
+
+-- vim.api.nvim_create_autocmd

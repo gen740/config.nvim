@@ -1,10 +1,9 @@
 M = {}
 
-M.capabilities =
-  vim.tbl_extend('keep', require('cmp_nvim_lsp').default_capabilities(), require('lsp-status').capabilities)
+M.capabilities = require('cmp_nvim_lsp').default_capabilities()
 
 M.on_attach = function(client, _)
-  require('lsp-status').on_attach(client)
+  -- require('lsp-status').on_attach(client)
 end
 
 ---@param name string
