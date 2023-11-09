@@ -4,6 +4,7 @@ local vim_options = {
   backspace = [[indent,eol,start]],
   breakindent = true,
   clipboard = 'unnamed',
+  cmdheight = 0,
   colorcolumn = '80',
   expandtab = true,
   equalalways = false,
@@ -23,6 +24,7 @@ local vim_options = {
   ignorecase = true,
   inccommand = 'nosplit',
   incsearch = true,
+  laststatus = 0,
   list = true,
   listchars = [[tab:»─,trail:─,extends:»,precedes:«,nbsp:%]], -- ,eol:↲│,conceal:◇
   modeline = true,
@@ -54,6 +56,8 @@ local vim_options = {
   updatetime = 250,
   viewoptions = 'folds,cursor',
   whichwrap = 'b,s,<,>,[,]',
+
+  winbar = [[%!v:lua.require("genf.winbar").expr()]],
   wrap = false,
 }
 

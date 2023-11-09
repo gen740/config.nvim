@@ -21,4 +21,5 @@ function MyTabLine()
   return s
 end
 
+
 vim.opt.tabline = '%!v:lua.MyTabLine()'
