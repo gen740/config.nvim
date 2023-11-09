@@ -10,7 +10,7 @@ return {
           jump_next = ']]',
           accept = '<CR>',
           refresh = 'gr',
-          open = '<M-CR>',
+          open = false,
         },
         layout = {
           position = 'bottom', -- | top | left | right
@@ -21,14 +21,7 @@ return {
         enabled = true,
         auto_trigger = false,
         debounce = 75,
-        keymap = {
-          accept = '<M-l>',
-          accept_word = false,
-          accept_line = false,
-          next = '<M-]>',
-          prev = '<M-[>',
-          dismiss = '<C-]>',
-        },
+        keymap = false,
       },
       filetypes = {
         yaml = false,

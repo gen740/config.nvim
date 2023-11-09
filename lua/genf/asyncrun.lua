@@ -49,7 +49,7 @@ M.asyncrun = function(cmd, on_exit, silent)
       if data then
         for _, val in ipairs(data) do
           if val ~= '' then
-            val = vim.fn.substitute(val, [[\[[0-9;]*m]], [[]], 'g')
+            val = vim.fn.substitute(val, [[\[[0-9;]*m]], [[]], 'g') --- Remove escope codes
             vim.fn.setqflist({}, 'a', {
               title = cmd,
               lines = { val },

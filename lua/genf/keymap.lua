@@ -21,7 +21,20 @@ local function require_wrap(module_name, func, ...)
 end
 
 local global_keymap = {
+  i = {
+    ['<m-c>'] = '<cmd>Copilot suggestion toggle_auto_trigger<cr>',
+    ['<m-]>'] = '<cmd>Copilot suggestion next<cr>',
+    ['<m-[>'] = '<cmd>Copilot suggestion prev<cr>',
+    ['<m-f>'] = '<cmd>Copilot suggestion accept<cr>',
+    ['<m-p>'] = '<cmd>Copilot panel open<cr>',
+  },
   n = {
+    ['<space>ao'] = '<cmd>Copilot panel<cr>',
+    ['<space>an'] = '<cmd>Copilot panel jump_next<cr>',
+    ['<space>ap'] = '<cmd>Copilot panel jump_prev<cr>',
+    ['<space>aa'] = '<cmd>Copilot panel accept<cr>',
+    ['<space>ar'] = '<cmd>Copilot panel refresh<cr>',
+
     ['<space>co'] = require_wrap('genf.toggleshell', 'ToggleQF'),
     ['<space>sh'] = require_wrap('genf.toggleshell', 'ToggleTerm'),
     ['<space>py'] = require_wrap('genf.toggleshell', 'ToggleIpython3'),
