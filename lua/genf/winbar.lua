@@ -57,7 +57,7 @@ M.expr = function()
   return string.format(
     '%s %%#WinBarFileName#%%f%%* %%M %s%%=%s %s',
     file_icon(),
-    vim.print(search_count()),
+    search_count(),
     lsp_status(),
     git_branch()
   )
