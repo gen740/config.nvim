@@ -13,10 +13,6 @@ function M.setup()
   for name, val in pairs(special_key) do
     lmap('i', '%' .. name, val)
   end
-
-  -- /* /* …… */ */
-  -- /* /* —— */ */
-  -- /**/
 end
 
 return M

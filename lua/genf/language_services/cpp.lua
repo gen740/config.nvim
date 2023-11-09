@@ -49,7 +49,7 @@ function M.lsp_config()
 end
 
 function M.dap_config()
-  local dap, dapui = require('dap'), require('dapui')
+  local dap = require('dap')
 
   dap.adapters.lldb = {
     type = 'executable',

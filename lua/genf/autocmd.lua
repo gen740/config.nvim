@@ -99,5 +99,3 @@ vim.api.nvim_create_autocmd({ 'LspProgress' }, {
   end,
   group = 'WinBarLspProgress',
 })
-
--- vim.api.nvim_create_autocmd
