@@ -35,6 +35,7 @@ function M.lsp_config()
           library = {
             lazy_path .. '/nvim-insx',
             lazy_path .. '/nvim-cmp',
+            lazy_path .. '/cmp-nvim-lsp',
             '/usr/local/share/nvim/runtime',
             '${3rd}/luv/library',
             '${3rd}/luassert/library',

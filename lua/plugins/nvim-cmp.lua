@@ -39,7 +39,6 @@ return {
   },
   config = function()
     local cmp = require('cmp')
-
     cmp.setup {
       snippet = {
         expand = function(args)
@@ -75,15 +74,18 @@ return {
         ---@param vim_item vim.CompletedItem
         format = function(entry, vim_item)
           vim_item.menu = ({
-            buffer = '[Buf]',
-            path = '[PATH]',
-            nvim_lsp = '[LSP]',
-            vsnip = '[VSnip]',
-            nvim_lua = '[Lua]',
-          })[entry.source.name]
-
+            buffer = '[Buf',
+            path = '[PATH',
+            nvim_lsp = '[LSP',
+            vsnip = '[VSnip',
+            nvim_lua = '[Lua',
+          })[entry.source.name] .. (vim_item.menu and string.format('(%s)', vim_item.menu) or '') .. ']'
+          entry = entry or nil
           vim_item.kind = lsp_icons[vim_item.kind] or vim_item.kind
-
+          local max_length = 60
+          if #vim_item.abbr > max_length then
+            vim_item.abbr = string.sub(vim_item.abbr, 1, max_length - 1) .. '…'
+          end
           return vim_item
         end,
       },
