@@ -27,11 +27,11 @@ vim.api.nvim_create_user_command('In', function(args)
   require('genf.asyncrun').input(args.fargs[1])
 end, { nargs = 1 })
 
-vim.api.nvim_create_user_command('GitOpenPathInBrowser', function()
+vim.api.nvim_create_user_command('GitOpenPathInBrowser', function(opts)
   local git_url = io.popen('gh repo view --json url | jq ".url"'):read()
   git_url = string.gsub(git_url, '"', '')
-  local git_branch = io.popen('git rev-parse --abbrev-ref HEAD'):read()
-  git_url = git_url .. '/blob/' .. git_branch
+  local git_hash = io.popen('git rev-parse HEAD'):read()
+  git_url = git_url .. '/blob/' .. git_hash
 
   local function get_relative_path(absolute_path, base_path)
     if base_path:sub(-1) ~= '/' then
@@ -52,10 +52,10 @@ vim.api.nvim_create_user_command('GitOpenPathInBrowser', function()
     return
   end
 
-  local line_nr = vim.fn.line('.')
-  if line_nr > 0 then
-    rel_path = rel_path .. '#L' .. line_nr
+  if opts.line1 == opts.line2 then
+    rel_path = rel_path .. '#L' .. opts.line1
+  else
+    rel_path = rel_path .. '#L' .. opts.line1 .. '-L' .. opts.line2
   end
-
   os.execute('open ' .. git_url .. '/' .. rel_path)
-end, {})
+end, { range = true })

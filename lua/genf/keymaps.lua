@@ -93,12 +93,12 @@ local global_keymap = {
     ['<space>hc'] = require_wrap('gitsigns', 'toggle_current_line_blame'),
     ['<space>hd'] = require_wrap('gitsigns', 'diffthis'),
     ['<space>hD'] = require_wrap('gitsigns', 'diffthis', '~'),
-    ['<space>go'] = '<cmd>GitOpenPathInBrowser<cr>',
     ['<space>td'] = require_wrap('gitsigns', 'toggle_deleted'),
   },
   [{ 'n', 'v' }] = {
     ['<space>hs'] = '<cmd>Gitsigns stage_hunk<CR>',
     ['<space>hr'] = '<cmd>Gitsigns reset_hunk<CR>',
+    ['go'] = ":GitOpenPathInBrowser<cr>",
   },
   t = {
     ['<esc><space>'] = [[<c-\><c-n>]],
