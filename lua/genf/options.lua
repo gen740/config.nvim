@@ -11,7 +11,7 @@ local vim_options = {
   foldexpr = 'v:lua.vim.treesitter.foldexpr()',
   foldlevel = 99,
   foldmethod = 'expr',
-  foldtext = 'v:lua.require("genf.foldingtxt").expr()',
+  foldtext = 'v:lua.genf.foldingtxt()',
   ignorecase = true,
   inccommand = 'nosplit',
   incsearch = true,
@@ -40,7 +40,7 @@ local vim_options = {
   splitright = true,
   swapfile = false,
   tabstop = 2,
-  tabline = '%!v:lua.require("genf.tabline").expr()',
+  tabline = '%!v:lua.genf.tabline',
   termguicolors = true,
   undodir = os.getenv('HOME') .. '/.vim/undo',
   undofile = true,
@@ -49,7 +49,7 @@ local vim_options = {
   updatetime = 250,
   viewoptions = 'folds,cursor',
   whichwrap = 'b,s,<,>,[,]',
-  winbar = [[%!v:lua.require("genf.winbar").expr()]],
+  winbar = [[%!v:lua.genf.winbar()]],
   wrap = false,
 }
 
