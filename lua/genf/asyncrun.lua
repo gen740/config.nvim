@@ -1,12 +1,13 @@
 local M = {}
 
 local running_jobid = nil
+local api = vim.api
+local f = vim.fn
 
 -- Emit message with vim-notify plugin
 ---@param message string
 local notify = function(message)
-  local has_notify = pcall(require, 'notify')
-  if has_notify then
+  if pcall(require, 'notify') then
     require('notify')(message)
   else
     vim.notify(message)
@@ -25,14 +26,7 @@ M.asyncrun = function(cmd, on_exit, silent)
   on_exit = on_exit or function() end
   silent = silent or false
 
-  local winnr = vim.fn.win_getid()
-  local bufnr = vim.api.nvim_win_get_buf(winnr)
-  local qfwinid = vim.fn.getqflist({ winid = winnr }).winid
-
-  local efm = vim.api.nvim_get_option_value('efm', { buf = bufnr })
-  if efm == nil or efm == '' then
-    efm = '%f:%l:%c:%m,%f:%l:%m'
-  end
+  local efm = '' -- disable error format
 
   if not silent then
     if running_jobid then
@@ -41,44 +35,50 @@ M.asyncrun = function(cmd, on_exit, silent)
     else
       notify('AsyncRun Start')
     end
-    vim.fn.setqflist {}
   end
 
+  f.setqflist {} -- Reset qflist
+
   local on_event = function(_, data, event)
+    local qfwinid = f.getqflist({ winid = 0 }).winid
     if (event == 'stdout' or event == 'stderr') and not silent then
       if data then
         for _, val in ipairs(data) do
           if val ~= '' then
-            val = vim.fn.substitute(val, [[\[[0-9;]*m]], [[]], 'g') --- Remove escope codes
-            vim.fn.setqflist({}, 'a', {
+            val = f.substitute(val, [[\[[0-9;]*m]], [[]], 'g') -- Remove escope codes
+            f.setqflist({}, 'a', {
               title = cmd,
               lines = { val },
               efm = efm,
             })
           end
         end
-        vim.fn.win_execute(qfwinid, ':norm G')
+        if qfwinid ~= nil then
+          api.nvim_win_set_cursor(qfwinid, { api.nvim_buf_line_count(api.nvim_win_get_buf(qfwinid)), 0 })
+        end
       end
     end
     if event == 'exit' then
       on_exit()
       if not silent then
         notify('AsyncRun Done')
-        vim.fn.setqflist({}, 'a', {
+        f.setqflist({}, 'a', {
           title = cmd,
           lines = {
-            '  ▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬ AsyncRun Done!! ▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬ ',
+            '<<<EOC',
           },
           efm = efm,
         })
-        vim.api.nvim_command('doautocmd QuickFixCmdPost')
-        vim.fn.win_execute(qfwinid, ':norm G')
+        api.nvim_command('doautocmd QuickFixCmdPost')
+        if qfwinid ~= nil then
+          api.nvim_win_set_cursor(qfwinid, { api.nvim_buf_line_count(api.nvim_win_get_buf(qfwinid)), 0 })
+        end
       end
       running_jobid = nil
     end
   end
 
-  running_jobid = vim.fn.jobstart(cmd, {
+  running_jobid = f.jobstart(cmd, {
     on_stderr = on_event,
     on_stdout = on_event,
     on_exit = on_event,
@@ -101,14 +101,14 @@ M.ripgrep = function(pattern, dir)
 
   local efm = '%f:%l:%c:%m,%f:%l:%m'
 
-  vim.fn.setqflist {}
+  f.setqflist {}
 
   local on_event = function(_, data, event)
     if event == 'stdout' or event == 'stderr' then
       if data then
         for _, val in ipairs(data) do
           if val ~= '' then
-            vim.fn.setqflist({}, 'a', {
+            f.setqflist({}, 'a', {
               title = pattern,
               lines = { val },
               efm = efm,
@@ -118,16 +118,16 @@ M.ripgrep = function(pattern, dir)
       end
     end
     if event == 'exit' then
-      if #vim.fn.getqflist() == 0 then
-        vim.fn.setqflist({ { text = 'No Match' } }, 'a')
+      if #f.getqflist() == 0 then
+        f.setqflist({ { text = 'No Match' } }, 'a')
       end
-      vim.api.nvim_command('doautocmd QuickFixCmdPost')
+      api.nvim_command('doautocmd QuickFixCmdPost')
       notify('Done')
       running_jobid = nil
     end
   end
 
-  running_jobid = vim.fn.jobstart(pattern, {
+  running_jobid = f.jobstart(pattern, {
     on_stderr = on_event,
     on_stdout = on_event,
     on_exit = on_event,
@@ -140,7 +140,7 @@ end
 -- Stop async job
 M.asyncstop = function()
   if running_jobid then
-    vim.fn.jobstop(running_jobid)
+    f.jobstop(running_jobid)
     running_jobid = nil
   end
 end
@@ -148,7 +148,7 @@ end
 -- Send input to async job
 ---@param args string
 M.input = function(args)
-  vim.fn.chansend(running_jobid, args .. '\n')
+  f.chansend(running_jobid, args .. '\n')
 end
 
 return M

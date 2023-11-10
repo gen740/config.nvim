@@ -1,4 +1,4 @@
-QfTextFunc = require('genf.qftextfunc').expr
+_G.QfTextFunc = require('genf.qftextfunc').expr
 
 local vim_options = {
   backspace = [[indent,eol,start]],
@@ -32,7 +32,7 @@ local vim_options = {
   mousemodel = '',
   number = true,
   pumheight = 10,
-  qftf = 'v:lua.require"genf.qftextfunc".expr',
+  qftf = 'v:lua.QfTextFunc',
   relativenumber = true,
   ruler = false,
   scrolloff = 8,

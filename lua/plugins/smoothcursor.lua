@@ -9,7 +9,7 @@ local config = {
 
     require('smoothcursor').setup {
       disable_float_win = true,
-      disabled_filetypes = { 'NeogitStatus', 'NeogitPopup' },
+      disabled_filetypes = { 'NeogitStatus', 'NeogitPopup', 'NeogitCommitMessage' },
       priority = 100,
       autostart = true,
       threshold = 3,
