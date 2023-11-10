@@ -10,6 +10,14 @@ local win_kind = {
   },
 }
 
+local set_options = function()
+  vim.opt_local.number = false
+  vim.opt_local.relativenumber = false
+  vim.opt_local.buflisted = false
+  vim.opt_local.signcolumn = 'no'
+  vim.opt_local.wrap = false
+end
+
 local close_if_exist = function()
   for _, val in ipairs(vim.fn.getbufinfo()) do
     if vim.fn.get(vim.fn.split(val.name, '/'), 0, '') == 'term:' then
@@ -32,8 +40,7 @@ end
 
 for key, value in pairs(win_kind) do
   M[key] = function()
-    local exist_window = close_if_exist()
-    if exist_window == value.name then
+    if close_if_exist() == value.name then
       return
     end
     vim.fn.execute('sp')
@@ -50,31 +57,21 @@ for key, value in pairs(win_kind) do
     end
     if not toggleterm_buf_found then
       vim.fn.execute('term ' .. (value.cmd or ''))
-      vim.fn.execute('setlocal winbar=%#WinBarFileName#' .. value.display_name .. '%*%=')
+      vim.opt_local.winbar = '%#WinBarFileName#' .. value.display_name .. '%*%='
     end
-    vim.opt_local.number = false
-    vim.opt_local.buflisted = false
-    vim.opt_local.relativenumber = false
-    vim.opt_local.signcolumn = 'no'
-    vim.opt_local.wrap = false
+    set_options()
     vim.opt_local.ft = key
     vim.api.nvim_buf_set_var(0, key, true)
   end
 end
 
 M.ToggleQF = function()
-  local exits_window = close_if_exist()
-  if exits_window == 'qflist' then
+  if close_if_exist() == 'qflist' then
     return
   end
   vim.fn.execute('copen')
   vim.api.nvim_win_set_height(0, winsize)
-  vim.opt_local.number = false
-  vim.opt_local.relativenumber = false
-  vim.opt_local.signcolumn = 'no'
-  vim.opt_local.buflisted = false
-  vim.opt_local.wrap = false
-  vim.fn.execute('wincmd p')
+  set_options()
 end
 
 return M
