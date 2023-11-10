@@ -1,5 +1,3 @@
-_G.QfTextFunc = require('genf.qftextfunc').expr
-
 local vim_options = {
   backspace = [[indent,eol,start]],
   breakindent = true,
@@ -8,14 +6,7 @@ local vim_options = {
   colorcolumn = '80',
   expandtab = true,
   equalalways = false,
-  fillchars = {
-    eob = ' ',
-    stl = '▓',
-    stlnc = '▓',
-    vert = '▓',
-    diff = ' ',
-    fold = '┈',
-  },
+  fillchars = { eob = ' ', stl = '▓', stlnc = '▓', vert = '▓', diff = ' ', fold = '┈' },
   foldenable = true,
   foldexpr = 'v:lua.vim.treesitter.foldexpr()',
   foldlevel = 99,
@@ -32,7 +23,7 @@ local vim_options = {
   mousemodel = '',
   number = true,
   pumheight = 10,
-  qftf = 'v:lua.QfTextFunc',
+  qftf = 'v:lua.genf.qftf',
   relativenumber = true,
   ruler = false,
   scrolloff = 8,

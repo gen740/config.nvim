@@ -1,5 +1,6 @@
-require('genf.autocmd')
+require('genf.globals')
+require('genf.autocmds')
 require('genf.options')
 require('genf.lazy').init()
-require('genf.keymap')
+require('genf.keymaps')
 require('genf.commands')

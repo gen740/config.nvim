@@ -9,13 +9,13 @@ local file_changed = sep ~= '\\' and vim.loop.new_fs_event() or vim.loop.new_fs_
 local function get_git_head(head_file)
   local f_head = io.open(head_file)
   if f_head then
-    local HEAD = f_head:read()
+    local head = f_head:read()
     f_head:close()
-    local branch = HEAD:match('ref: refs/heads/(.+)$')
+    local branch = head:match('ref: refs/heads/(.+)$')
     if branch then
       current_git_branch = branch
     else
-      current_git_branch = HEAD:sub(1, 6)
+      current_git_branch = head:sub(1, 6)
     end
   end
   return nil
@@ -23,6 +23,9 @@ end
 
 local function update_branch()
   active_bufnr = tostring(vim.api.nvim_get_current_buf())
+  if file_changed == nil then
+    return
+  end
   file_changed:stop()
   local git_dir = current_git_dir
   if git_dir and #git_dir > 0 then
@@ -43,7 +46,8 @@ local function update_branch()
 end
 
 M.find_git_dir = function()
-  local file_dir = vim.fn.expand('%:p:h')
+  ---@type string
+  local file_dir = vim.fn.expand('%:p:h') ---@diagnostic disable-line
   local root_dir = file_dir
   local git_dir ---@type  string |nil
   while root_dir do

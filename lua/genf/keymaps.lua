@@ -20,6 +20,7 @@ local function require_wrap(module_name, func, ...)
   end
 end
 
+--stylua: ignore start
 local global_keymap = {
   i = {
     ['<m-c>'] = '<cmd>Copilot suggestion toggle_auto_trigger<cr>',
@@ -54,12 +55,7 @@ local global_keymap = {
     ['<space>tl'] = require_wrap('telescope.builtin', 'live_grep'),
     ['<space>ts'] = require_wrap('telescope.builtin', 'builtin'),
     ['<space>ng'] = '<cmd>Neogit<cr>',
-    ['<space>f'] = wrap(vim.lsp.buf.format, {
-      async = true,
-      filter = function(client)
-        return client.name ~= 'tsserver' and client.name ~= 'texlab'
-      end,
-    }),
+    ['<space>f'] = wrap(vim.lsp.buf.format, { async = true, filter = function(client) return client.name ~= 'tsserver' and client.name ~= 'texlab' end, }),
 
     --- LSP
     ['<space>e'] = vim.diagnostic.open_float,
@@ -84,18 +80,10 @@ local global_keymap = {
     --- Dap
     ['<space>dn'] = '<cmd>DapContinue<cr>',
     ['<space>dd'] = '<cmd>DapToggleBreakpoint<cr>',
-    ['<space>dD'] = function()
-      require('dap').set_breakpoint(vim.fn.input('Breakpoint condition: '))
-    end,
-    ['<space>dp'] = function()
-      require('dap').set_breakpoint(nil, nil, vim.fn.input('Log point message: '))
-    end,
-    ['<space>dr'] = function()
-      require('dap').repl.open()
-    end,
-    ['<space>dl'] = function()
-      require('dap').run_last()
-    end,
+    ['<space>dD'] = function() require('dap').set_breakpoint(vim.fn.input('Breakpoint condition: ')) end,
+    ['<space>dp'] = function() require('dap').set_breakpoint(nil, nil, vim.fn.input('Log point message: ')) end,
+    ['<space>dr'] = function() require('dap').repl.open() end,
+    ['<space>dl'] = function() require('dap').run_last() end,
     --- GitSigns
     ['<space>hS'] = require_wrap('gitsigns', 'stage_buffer'),
     ['<space>hu'] = require_wrap('gitsigns', 'undo_stage_hunk'),

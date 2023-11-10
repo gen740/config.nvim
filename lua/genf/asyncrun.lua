@@ -15,18 +15,14 @@ local notify = function(message)
 end
 
 -- Run command in async mode
----@param cmd nil|string
+---@param cmd string
 ---@param on_exit nil|function
 ---@param silent nil|boolean
 M.asyncrun = function(cmd, on_exit, silent)
-  if cmd == nil then
-    error('AsyncRun: cmd is nil')
-  end
-
   on_exit = on_exit or function() end
   silent = silent or false
 
-  local efm = '' -- disable error format
+  local efm = '%-G' -- disable error format
 
   if not silent then
     if running_jobid then

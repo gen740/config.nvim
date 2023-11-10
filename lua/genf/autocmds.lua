@@ -49,19 +49,12 @@ vim.api.nvim_create_autocmd({ 'ColorScheme' }, {
   end,
 })
 
-vim.api.nvim_create_autocmd({ 'TermOpen' }, {
-  group = 'CustomAutocommand',
-  callback = function()
-    vim.opt_local.number = false
-    vim.opt_local.relativenumber = false
-    vim.opt_local.signcolumn = 'no'
-  end,
-})
-
 vim.api.nvim_create_autocmd({ 'TextYankPost' }, {
   group = 'CustomAutocommand',
   callback = function()
-    return not vim.v.event.visual and require('vim.highlight').on_yank()
+    vim.highlight.on_yank {
+      higroup = 'Search',
+    }
   end,
 })
 
