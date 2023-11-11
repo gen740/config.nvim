@@ -40,10 +40,11 @@ function M.lsp_config()
         'clangd',
         '-j',
         '8',
-        '--background-index',
-        '--header-insertion=iwyu',
-        '--suggest-missing-includes',
+        -- '--background-index',
+        -- '--header-insertion=iwyu',
+        -- '--suggest-missing-includes',
       },
+      offset_encoding = 'utf-16',
     }
   end
 end

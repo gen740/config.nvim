@@ -49,7 +49,7 @@ M.asyncrun = function(cmd, on_exit, silent)
             })
           end
         end
-        if qfwinid ~= nil then
+        if qfwinid ~= 0 and qfwinid ~= nil then
           api.nvim_win_set_cursor(qfwinid, { api.nvim_buf_line_count(api.nvim_win_get_buf(qfwinid)), 0 })
         end
       end
@@ -66,7 +66,7 @@ M.asyncrun = function(cmd, on_exit, silent)
           efm = efm,
         })
         api.nvim_command('doautocmd QuickFixCmdPost')
-        if qfwinid ~= nil then
+        if qfwinid ~= 0 and qfwinid ~= nil then
           api.nvim_win_set_cursor(qfwinid, { api.nvim_buf_line_count(api.nvim_win_get_buf(qfwinid)), 0 })
         end
       end

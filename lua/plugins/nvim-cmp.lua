@@ -81,7 +81,7 @@ return {
             nvim_lua = '[Lua',
           })[entry.source.name]
 
-          vim_item.menu = (name or "") .. (vim_item.menu and string.format('(%s)', vim_item.menu) or '') .. ']'
+          vim_item.menu = (name or '') .. (vim_item.menu and string.format('(%s)', vim_item.menu) or '') .. ']'
 
           entry = entry or nil
           vim_item.kind = lsp_icons[vim_item.kind] or vim_item.kind

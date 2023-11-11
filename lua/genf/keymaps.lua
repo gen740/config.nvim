@@ -37,6 +37,11 @@ local global_keymap = {
     ['<space>ar'] = '<cmd>Copilot panel refresh<cr>',
 
     ['<space>co'] = require_wrap('genf.toggleshell', 'ToggleQF'),
+    ['<space>cn'] = '<cmd>cn<cr>',
+    ['<space>cN'] = '<cmd>cnew<cr>',
+    ['<space>cp'] = '<cmd>cp<cr>',
+    ['<space>cP'] = '<cmd>col<cr>',
+
     ['<space>sh'] = require_wrap('genf.toggleshell', 'ToggleTerm'),
     ['<space>py'] = require_wrap('genf.toggleshell', 'ToggleIpython3'),
     ['<space>ut'] = '<cmd>UndotreeToggle<cr>',

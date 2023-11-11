@@ -23,7 +23,7 @@ function M.setup()
   lmap('n', '<space>ll', function()
     if not skim_started then
       vim.fn.serverstart('/Users/gen/.cache/nvim/synctex-server.pipe')
-      vim.cmd('silent !yabai -m window --grid 1:2:0:0:1:1')
+      vim.cmd('silent !yabai -m window --grid 1:7:0:0:4:1')
     end
     vim.cmd(
       'silent !displayline -n -b -g'
@@ -36,7 +36,7 @@ function M.setup()
     )
     if not skim_started then
       vim.cmd(
-        [[silent !yabai -m query --windows | jq -r 'map(select(.app == "Skim")) | .[0] | .id' | xargs -I{} yabai -m window {} --grid 1:2:1:0:1:1]]
+        [[silent !yabai -m query --windows | jq -r 'map(select(.app == "Skim")) | .[0] | .id' | xargs -I{} yabai -m window {} --grid 1:7:4:0:3:1]]
       )
 
       vim.api.nvim_create_augroup('LatexSyncTex', { clear = true })
@@ -73,6 +73,7 @@ function M.setup()
   vim.opt_local.tabstop = 2
   vim.opt_local.softtabstop = 2
   vim.opt_local.shiftwidth = 2
+  vim.opt_local.colorcolumn = '101'
 
   if pcall(require, 'insx') then
     local insx = require('insx')
