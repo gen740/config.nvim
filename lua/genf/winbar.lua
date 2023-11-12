@@ -9,7 +9,10 @@ local in_search = function()
 end
 
 local search_count = function()
-  local stats = vim.fn.searchcount { maxcount = 999 }
+  local status, stats = pcall(vim.fn.searchcount, { maxcount = 999 })
+  if status == 0 then
+    return ''
+  end
   if
     stats == nil
     or stats.total == nil
