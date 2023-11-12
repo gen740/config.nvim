@@ -13,7 +13,7 @@ M.expr = function()
     if bufname == '' then
       s = s .. ' ' .. '[No Name]' .. ' '
     else
-      s = s .. ' ' .. bufname .. ' '
+      s = s .. ' ' .. vim.fn.pathshorten(bufname) .. ' '
     end
   end
 
