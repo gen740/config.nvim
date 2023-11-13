@@ -39,8 +39,8 @@ function M.lsp_config()
       cmd = {
         'clangd',
         '-j',
-        '8',
-        -- '--background-index',
+        '16',
+        '--background-index',
         -- '--header-insertion=iwyu',
         -- '--suggest-missing-includes',
       },

@@ -14,8 +14,19 @@ function M.setup()
     group = 'LatexAutoCompile',
     pattern = '*.tex',
     callback = function()
-      vim.cmd(
-        'Run lualatex --shell-escape --file-line-error -synctex=1 -interaction=batchmode ' .. vim.fn.expand('%:p')
+      require('genf.asyncrun').asyncrun(
+        'lualatex --shell-escape --file-line-error -synctex=1 -interaction=batchmode ' .. vim.fn.expand('%:p'),
+        function()
+          vim.cmd(
+            'silent !displayline -n -b -g'
+              .. ' '
+              .. vim.fn.line('.')
+              .. ' '
+              .. './document.pdf'
+              .. ' '
+              .. vim.fn.expand('%:p')
+          )
+        end
       )
     end,
   })
