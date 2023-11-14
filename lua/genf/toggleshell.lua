@@ -43,8 +43,8 @@ for key, value in pairs(win_kind) do
     if close_if_exist() == value.name then
       return
     end
-    vim.fn.execute('sp')
-    vim.fn.execute('wincmd J')
+    vim.cmd('sp')
+    vim.cmd('wincmd J')
     vim.api.nvim_win_set_height(0, winsize)
     local toggleterm_buf_found = false
     for _, val in ipairs(vim.fn.getbufinfo()) do
@@ -56,7 +56,7 @@ for key, value in pairs(win_kind) do
       end
     end
     if not toggleterm_buf_found then
-      vim.fn.execute('term ' .. (value.cmd or ''))
+      vim.cmd('term ' .. (value.cmd or ''))
       vim.opt_local.winbar = '%#WinBarFileName#' .. value.display_name .. '%*%='
     end
     set_options()
@@ -69,7 +69,7 @@ M.ToggleQF = function()
   if close_if_exist() == 'qflist' then
     return
   end
-  vim.fn.execute('copen')
+  vim.cmd('copen')
   vim.api.nvim_win_set_height(0, winsize)
   set_options()
 end

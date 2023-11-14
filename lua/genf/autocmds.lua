@@ -1,6 +1,7 @@
 vim.api.nvim_create_augroup('CustomColorScheme', { clear = true })
 vim.api.nvim_create_augroup('CustomAutocommand', { clear = true })
 vim.api.nvim_create_augroup('WinBarLspProgress', { clear = true })
+vim.api.nvim_create_augroup('LazyGitTabClose', { clear = true })
 
 local color_schemes = {
   Normal = { bg = nil, fg = '#cdcecf' },
@@ -55,6 +56,14 @@ vim.api.nvim_create_autocmd({ 'TextYankPost' }, {
     vim.highlight.on_yank {
       higroup = 'Search',
     }
+  end,
+})
+
+vim.api.nvim_create_autocmd({ 'TermClose' }, {
+  group = 'LazyGitTabClose',
+  pattern = 'LazyGit',
+  callback = function()
+    vim.api.nvim_feedkeys('<enter>', 'n', true)
   end,
 })
 

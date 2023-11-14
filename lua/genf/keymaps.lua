@@ -60,6 +60,7 @@ local global_keymap = {
     ['<space>tl'] = require_wrap('telescope.builtin', 'live_grep'),
     ['<space>ts'] = require_wrap('telescope.builtin', 'builtin'),
     ['<space>ng'] = '<cmd>Neogit<cr>',
+    ['<space>lg'] = require("genf.lazygit").lazy_git_open,
     ['<space>f'] = wrap(vim.lsp.buf.format, { async = true, filter = function(client) return client.name ~= 'tsserver' and client.name ~= 'texlab' end, }),
 
     --- LSP
