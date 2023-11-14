@@ -3,7 +3,7 @@ return {
   config = function()
     local standard = require('insx.preset.standard')
 
-    local quate_list = { "'", '"', '``' }
+    local quate_list = { "'", '"', '`' }
     local pair_list = {
       ['('] = ')',
       ['['] = ']',
