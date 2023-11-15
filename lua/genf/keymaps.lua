@@ -89,20 +89,8 @@ local global_keymap = {
     ['<space>dp'] = function() require('dap').set_breakpoint(nil, nil, vim.fn.input('Log point message: ')) end,
     ['<space>dr'] = function() require('dap').repl.open() end,
     ['<space>dl'] = function() require('dap').run_last() end,
-    --- GitSigns
-    ['<space>hS'] = require_wrap('gitsigns', 'stage_buffer'),
-    ['<space>hu'] = require_wrap('gitsigns', 'undo_stage_hunk'),
-    ['<space>hR'] = require_wrap('gitsigns', 'reset_buffer'),
-    ['<space>hp'] = require_wrap('gitsigns', 'preview_hunk'),
-    ['<space>hb'] = require_wrap('gitsigns', 'blame_line', { full = true }),
-    ['<space>hc'] = require_wrap('gitsigns', 'toggle_current_line_blame'),
-    ['<space>hd'] = require_wrap('gitsigns', 'diffthis'),
-    ['<space>hD'] = require_wrap('gitsigns', 'diffthis', '~'),
-    ['<space>td'] = require_wrap('gitsigns', 'toggle_deleted'),
   },
   [{ 'n', 'v' }] = {
-    ['<space>hs'] = '<cmd>Gitsigns stage_hunk<CR>',
-    ['<space>hr'] = '<cmd>Gitsigns reset_hunk<CR>',
     ['go'] = ":GitOpenPathInBrowser<cr>",
   },
   x = {
