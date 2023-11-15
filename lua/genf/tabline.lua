@@ -9,11 +9,21 @@ M.expr = function()
       s = s .. '%#TabLine#'
     end
 
-    local bufname = 'Lazygit'
+    local bufname = ''
     if
       vim.api.nvim_get_option_value('filetype', { buf = vim.fn.tabpagebuflist(i)[vim.fn.tabpagewinnr(i)] }) == 'lazygit'
     then
       bufname = 'Lazygit'
+    elseif
+      vim.api.nvim_get_option_value('filetype', { buf = vim.fn.tabpagebuflist(i)[vim.fn.tabpagewinnr(i)] })
+      == 'ToggleTerm'
+    then
+      bufname = 'Terminal'
+    elseif
+      vim.api.nvim_get_option_value('filetype', { buf = vim.fn.tabpagebuflist(i)[vim.fn.tabpagewinnr(i)] })
+      == 'ToggleIpython3'
+    then
+      bufname = 'IPython'
     else
       bufname = vim.fn.bufname(vim.fn.tabpagebuflist(i)[vim.fn.tabpagewinnr(i)])
     end

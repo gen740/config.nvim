@@ -93,11 +93,6 @@ os:
   vim.opt_local.winbar = 'LazyGit'
   vim.opt_local.filetype = 'lazygit'
   vim.cmd('normal i')
-  vim.keymap.set('t', '<esc>', '<esc>', { buffer = true, noremap = true, silent = true })
-  vim.keymap.set('t', '<esc><space>', '<nop>', { buffer = true, noremap = true, silent = true })
-  vim.keymap.set('t', '<esc>sh', '<nop>', { buffer = true, noremap = true, silent = true })
-  vim.keymap.set('t', '<esc>w', '<nop>', { buffer = true, noremap = true, silent = true })
-  vim.keymap.set('t', '<c-l>', '<esc>', { buffer = true, noremap = true, silent = true })
 end
 
 M.lazygit_server_stop = function()

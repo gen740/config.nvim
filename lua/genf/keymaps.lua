@@ -106,11 +106,6 @@ local global_keymap = {
     ['<space>hr'] = '<cmd>Gitsigns reset_hunk<CR>',
     ['go'] = ":GitOpenPathInBrowser<cr>",
   },
-  t = {
-    ['<esc><space>'] = [[<c-\><c-n>]],
-    ['<esc>w'] = [[<c-\><c-n><c-w>w]],
-    ['<esc>sh'] = require_wrap('genf.toggleshell', 'ToggleTerm'),
-  },
   x = {
     ['<space>p'] = '"_dP',
   },

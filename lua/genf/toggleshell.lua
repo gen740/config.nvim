@@ -5,17 +5,35 @@ local win_kind = {
   ToggleTerm = { name = 'terminal', display_name = 'Terminal', cmd = nil },
   ToggleIpython3 = {
     name = 'ipython',
-    display_name = 'Ipython',
+    display_name = 'IPython',
     cmd = [[ipython3 -i -c 'import numpy as np;import matplotlib.pyplot as plt']],
   },
 }
 
-local set_options = function()
+---@param ft_name string?
+local set_options = function(ft_name)
   vim.opt_local.number = false
   vim.opt_local.relativenumber = false
   vim.opt_local.buflisted = false
   vim.opt_local.signcolumn = 'no'
   vim.opt_local.wrap = false
+
+  if ft_name then
+    vim.opt_local.ft = ft_name
+  end
+  vim.keymap.set('t', '<esc><space>', [[<c-\><c-n>]], { buffer = true, noremap = true, silent = true })
+  vim.keymap.set(
+    't',
+    '<esc>sh',
+    require('genf.toggleshell').ToggleTerm,
+    { buffer = true, noremap = true, silent = true }
+  )
+  vim.keymap.set(
+    't',
+    '<esc>py',
+    require('genf.toggleshell').ToggleIpython3,
+    { buffer = true, noremap = true, silent = true }
+  )
 end
 
 local close_if_exist = function()
@@ -59,8 +77,7 @@ for key, value in pairs(win_kind) do
       vim.cmd('term ' .. (value.cmd or ''))
       vim.opt_local.winbar = '%#WinBarFileName#' .. value.display_name .. '%*%='
     end
-    set_options()
-    vim.opt_local.ft = key
+    set_options(key)
     vim.api.nvim_buf_set_var(0, key, true)
   end
 end
