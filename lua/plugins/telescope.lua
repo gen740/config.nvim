@@ -3,7 +3,6 @@ return {
   dependencies = {
     {
       'nvim-lua/plenary.nvim',
-      'nvim-lua/popup.nvim',
     },
     {
       'nvim-telescope/telescope-fzf-native.nvim',
@@ -13,7 +12,6 @@ return {
   },
   cmd = 'Telescope',
   config = function()
-    local actions = require('telescope.actions')
     local previewers = require('telescope.previewers')
     local new_maker = function(filepath, bufnr, opts)
       opts = opts or {}
