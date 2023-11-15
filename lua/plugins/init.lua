@@ -22,13 +22,6 @@ return {
     keys = { { 'gc', mode = 'n' }, { 'gc', mode = 'v' } },
   },
   {
-    'mbbill/undotree',
-    cmd = 'UndotreeToggle',
-    config = function()
-      vim.g.undotree_ShortIndicators = 1
-    end,
-  },
-  {
     'EdenEast/nightfox.nvim',
     config = function()
       vim.cmd('colo nordfox')

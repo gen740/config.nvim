@@ -44,7 +44,6 @@ local global_keymap = {
 
     ['<space>sh'] = require_wrap('genf.toggleshell', 'ToggleTerm'),
     ['<space>py'] = require_wrap('genf.toggleshell', 'ToggleIpython3'),
-    ['<space>ut'] = '<cmd>UndotreeToggle<cr>',
     ['<space>p'] = '"_dP',
     ['q:'] = '<nop>',
     ['~'] = '<nop>',
