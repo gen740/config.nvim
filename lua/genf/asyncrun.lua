@@ -4,40 +4,27 @@ local running_jobid = nil
 local api = vim.api
 local f = vim.fn
 
--- Emit message with vim-notify plugin
----@param message string
-local notify = function(message)
-  if pcall(require, 'notify') then
-    require('notify')(message)
-  else
-    vim.notify(message)
-  end
-end
-
 -- Run command in async mode
 ---@param cmd string
 ---@param on_exit nil|function
----@param silent nil|boolean
-M.asyncrun = function(cmd, on_exit, silent)
+---@param no_qflist nil|boolean
+M.asyncrun = function(cmd, on_exit, no_qflist)
   on_exit = on_exit or function() end
-  silent = silent or false
+  no_qflist = no_qflist or false
 
   local efm = '%-G' -- disable error format
 
-  if not silent then
+  if not no_qflist then
     if running_jobid then
-      notify('Command still runing')
+      vim.notify('Command still runing', vim.log.levels.WARN)
       return
-    else
-      notify('AsyncRun Start')
     end
+    f.setqflist {} -- Reset qflist
   end
-
-  f.setqflist {} -- Reset qflist
 
   local on_event = function(_, data, event)
     local qfwinid = f.getqflist({ winid = 0 }).winid
-    if (event == 'stdout' or event == 'stderr') and not silent then
+    if (event == 'stdout' or event == 'stderr') and not no_qflist then
       if data then
         for _, val in ipairs(data) do
           if val ~= '' then
@@ -56,8 +43,7 @@ M.asyncrun = function(cmd, on_exit, silent)
     end
     if event == 'exit' then
       on_exit()
-      if not silent then
-        notify('AsyncRun Done')
+      if not no_qflist then
         f.setqflist({}, 'a', {
           title = cmd,
           lines = {
@@ -69,8 +55,8 @@ M.asyncrun = function(cmd, on_exit, silent)
         if qfwinid ~= 0 and qfwinid ~= nil then
           api.nvim_win_set_cursor(qfwinid, { api.nvim_buf_line_count(api.nvim_win_get_buf(qfwinid)), 0 })
         end
+        running_jobid = nil
       end
-      running_jobid = nil
     end
   end
 
@@ -91,7 +77,7 @@ M.ripgrep = function(pattern, dir)
   pattern = 'rg --column ' .. pattern .. ' ' .. dir
 
   if running_jobid then
-    notify('Command still runing')
+    vim.notify('Command still runing', vim.log.levels.WARN)
     return
   end
 
@@ -118,7 +104,6 @@ M.ripgrep = function(pattern, dir)
         f.setqflist({ { text = 'No Match' } }, 'a')
       end
       api.nvim_command('doautocmd QuickFixCmdPost')
-      notify('Done')
       running_jobid = nil
     end
   end
