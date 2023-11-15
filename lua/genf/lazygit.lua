@@ -80,7 +80,13 @@ os:
   if lazygit_found_nr then
     vim.api.nvim_set_current_buf(lazygit_found_nr)
   else
-    vim.cmd(string.format('term lazygit -ucf <(echo "%s")', lazygit_config_yml))
+    vim.cmd(
+      string.format(
+        'term lazygit -ucf %s,<(echo "%s")',
+        os.getenv('XDG_CONFIG_HOME') .. '/lazygit/config.yml',
+        lazygit_config_yml
+      )
+    )
     vim.fn.serverstart(lazygit_pipe_name)
   end
 
