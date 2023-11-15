@@ -9,7 +9,15 @@ M.expr = function()
       s = s .. '%#TabLine#'
     end
 
-    local bufname = vim.fn.bufname(vim.fn.tabpagebuflist(i)[vim.fn.tabpagewinnr(i)])
+    local bufname = 'Lazygit'
+    if
+      vim.api.nvim_get_option_value('filetype', { buf = vim.fn.tabpagebuflist(i)[vim.fn.tabpagewinnr(i)] }) == 'lazygit'
+    then
+      bufname = 'Lazygit'
+    else
+      bufname = vim.fn.bufname(vim.fn.tabpagebuflist(i)[vim.fn.tabpagewinnr(i)])
+    end
+
     if bufname == '' then
       s = s .. ' ' .. '[No Name]' .. ' '
     else

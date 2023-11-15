@@ -61,9 +61,11 @@ vim.api.nvim_create_autocmd({ 'TextYankPost' }, {
 
 vim.api.nvim_create_autocmd({ 'TermClose' }, {
   group = 'LazyGitTabClose',
-  pattern = 'LazyGit',
-  callback = function()
-    vim.api.nvim_feedkeys('<enter>', 'n', true)
+  callback = function(arg)
+    if vim.api.nvim_get_option_value('filetype', { buf = arg.buf }) == 'lazygit' then
+      require('genf.lazygit').lazygit_server_stop()
+      vim.cmd('bd!')
+    end
   end,
 })
 

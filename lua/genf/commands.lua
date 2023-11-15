@@ -61,5 +61,5 @@ vim.api.nvim_create_user_command('GitOpenPathInBrowser', function(opts)
 end, { range = true })
 
 vim.api.nvim_create_user_command('LazyGit', function()
-  require('genf.lazygit').lazy_git_open()
+  require('genf.lazygit').lazygit_open()
 end, { nargs = 0 })
