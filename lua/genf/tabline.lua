@@ -9,30 +9,25 @@ M.expr = function()
       s = s .. '%#TabLine#'
     end
 
-    local bufname = ''
-    if
-      vim.api.nvim_get_option_value('filetype', { buf = vim.fn.tabpagebuflist(i)[vim.fn.tabpagewinnr(i)] }) == 'lazygit'
-    then
-      bufname = 'Lazygit'
-    elseif
-      vim.api.nvim_get_option_value('filetype', { buf = vim.fn.tabpagebuflist(i)[vim.fn.tabpagewinnr(i)] })
-      == 'ToggleTerm'
-    then
-      bufname = 'Terminal'
-    elseif
-      vim.api.nvim_get_option_value('filetype', { buf = vim.fn.tabpagebuflist(i)[vim.fn.tabpagewinnr(i)] })
-      == 'ToggleIpython3'
-    then
-      bufname = 'IPython'
+    local bufname = { icon = nil, name = nil }
+    local bufnr = vim.fn.tabpagebuflist(i)[vim.fn.tabpagewinnr(i)]
+    local ft = vim.api.nvim_get_option_value('filetype', { buf = bufnr })
+    if ft == 'lazygit' then
+      bufname = { icon = '', name = 'Lazygit' }
+    elseif ft == 'ToggleTerm' then
+      bufname = { icon = '', name = 'Terminal' }
+    elseif ft == 'ToggleIpython3' then
+      bufname = { icon = '', name = 'IPython' }
     else
-      bufname = vim.fn.bufname(vim.fn.tabpagebuflist(i)[vim.fn.tabpagewinnr(i)])
+      bufname.icon = require('nvim-web-devicons').get_icon_by_filetype(ft)
+      if vim.fn.bufname(bufnr) == '' then
+        bufname.name = '[No Name]'
+      else
+        bufname.name = vim.fn.pathshorten(vim.fn.bufname(bufnr))
+      end
     end
 
-    if bufname == '' then
-      s = s .. ' ' .. '[No Name]' .. ' '
-    else
-      s = s .. ' ' .. vim.fn.pathshorten(bufname) .. ' '
-    end
+    s = s .. ' ' .. bufname.icon .. ' ' .. bufname.name .. ' '
   end
 
   s = s .. '%#TabLineFill#%T'

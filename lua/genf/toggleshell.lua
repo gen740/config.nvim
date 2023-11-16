@@ -2,11 +2,12 @@ local M = {}
 local winsize = 18
 
 local win_kind = {
-  ToggleTerm = { name = 'terminal', display_name = 'Terminal', cmd = nil },
+  ToggleTerm = { name = 'terminal', display_name = 'Terminal', cmd = nil, icon = '' },
   ToggleIpython3 = {
     name = 'ipython',
     display_name = 'IPython',
     cmd = [[ipython3 -i -c 'import numpy as np;import matplotlib.pyplot as plt']],
+    icon = '',
   },
 }
 
@@ -75,7 +76,7 @@ for key, value in pairs(win_kind) do
     end
     if not toggleterm_buf_found then
       vim.cmd('term ' .. (value.cmd or ''))
-      vim.opt_local.winbar = '%#WinBarFileName#' .. value.display_name .. '%*%='
+      vim.opt_local.winbar = ' ' .. value.icon .. ' %#WinBarFileName#' .. value.display_name .. '%*%='
     end
     set_options(key)
     vim.api.nvim_buf_set_var(0, key, true)

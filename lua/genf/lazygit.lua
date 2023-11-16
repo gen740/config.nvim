@@ -90,7 +90,7 @@ os:
     vim.fn.serverstart(lazygit_pipe_name)
   end
 
-  vim.opt_local.winbar = 'LazyGit'
+  vim.opt_local.winbar =  ' LazyGit'
   vim.opt_local.filetype = 'lazygit'
   vim.cmd('normal i')
 end
