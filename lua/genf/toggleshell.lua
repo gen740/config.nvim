@@ -76,7 +76,8 @@ for key, value in pairs(win_kind) do
     end
     if not toggleterm_buf_found then
       vim.cmd('term ' .. (value.cmd or ''))
-      vim.opt_local.winbar = ' ' .. value.icon .. ' %#WinBarFileName#' .. value.display_name .. '%*%='
+      vim.opt_local.winbar =
+        string.format(' %%#WinBarFileIcon#%s%%* %%#WinBarFileName#%s%%*%%=', value.icon, value.display_name)
     end
     set_options(key)
     vim.api.nvim_buf_set_var(0, key, true)

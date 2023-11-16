@@ -3,26 +3,28 @@ vim.api.nvim_create_augroup('CustomAutocommand', { clear = true })
 vim.api.nvim_create_augroup('WinBarLspProgress', { clear = true })
 vim.api.nvim_create_augroup('LazyGitTabClose', { clear = true })
 
+local palette = require('nightfox.palette.nordfox').palette
+
 local color_schemes = {
-  Normal = { bg = nil, fg = '#cdcecf' },
-  TelescopeNormal = { bg = '#141718', fg = '#cdcecf' },
-  TelescopeBorder = { bg = '#141718', fg = '#cdcecf' },
-  CursorLine = { bg = '#333333' },
-  NormalNC = { bg = nil, fg = '#cdcecf' },
-  SignColumn = { bg = nil, fg = '#cdcecf' },
-  Search = { bg = '#242424', fg = '#eeb75e', bold = true },
-  EndOfBuffer = { fg = '#222222' },
-  Substitute = { bg = '#ffe37e', fg = '#192330' },
-  Folded = { bg = nil, fg = '#71839b' },
-  LineNr = { bg = nil, fg = '#5b6282' },
-  LineNrAbove = { bg = nil, fg = '#5b6282' },
-  LineNrBelow = { bg = nil, fg = '#5b6282' },
-  TabLine = { bg = nil, fg = '#6e7790' },
-  TabLineSel = { bg = '#303030', fg = '#6e7790', bold = true },
+  Normal = { bg = nil, fg = palette.fg1 },
+  TelescopeNormal = { bg = '#202020', fg = palette.fg1 },
+  TelescopeBorder = { bg = '#202020', fg = palette.fg1 },
+  CursorLine = { bg = palette.bg0 },
+  NormalNC = { bg = nil, fg = palette.fg1 },
+  Search = { bg = palette.bg0, fg = palette.yellow.dim, bold = true },
+  Folded = { bg = nil, fg = palette.fg3 },
+  LineNr = { bg = nil, fg = palette.fg3 },
+  LineNrAbove = { bg = nil, fg = palette.fg3 },
+  LineNrBelow = { bg = nil, fg = palette.fg3 },
+
+  TabLine = { bg = nil, fg = palette.fg2 },
+  TabLineSel = { bg = palette.bg0, fg = palette.orange.bright, bold = true },
   TabLineFill = { bg = nil, fg = nil },
+
   WinBar = { bg = nil, fg = '#6e7790', bold = true },
   WinBarNC = { bg = nil, fg = '#393b44' },
-  WinBarFileName = { bg = nil, fg = '#6e7790', bold = true, underline = true },
+  WinBarFileName = { bg = nil, fg = palette.orange.bright, bold = true, underline = true },
+  WinBarFileIcon = { bg = nil, fg = palette.orange.dim, bold = true },
   WinBarLspError = { bg = nil, fg = '#bf616a' },
   WinBarLspWarn = { bg = nil, fg = '#ebcb8b' },
   WinBarLspInfo = { bg = nil, fg = '#3f4a5a' },
@@ -31,12 +33,13 @@ local color_schemes = {
   WinBarLspProgressDone = { bg = nil, fg = '#ebcb8b' },
   WinBarLspProgress = { bg = nil, fg = '#bf616a' },
 
-  StatusLine = { bg = '#2a2a2a', fg = '#2a2a2a', bold = false },
-  StatusLineNC = { bg = '#2a2a2a', fg = '#2a2a2a', bold = false },
-  WinSeparator = { bg = '#2a2a2a', fg = '#2a2a2a', bold = false },
-  QuickFixLine = { bg = '#333333', fg = '#cdcecf' },
+  WinSeparator = { bg = palette.bg0, fg = palette.bg0 },
+  StatusLine = { bg = palette.bg0, fg = palette.bg0 },
+  StatusLineNC = { bg = palette.bg0, fg = palette.bg0 },
+
+  QuickFixLine = { bg = palette.bg0, fg = palette.fg1 },
   LspInlayHint = { bg = nil, fg = '#5b6282' },
-  Comment = { fg = '#60728a', italic = false },
+  Comment = { fg = palette.comment, italic = false },
   DiagnosticVirtualTextWarn = { fg = '#ebcb8b', bg = nil, undercurl = true },
   DiagnosticVirtualTextError = { fg = '#bf616a', bg = nil, undercurl = true },
 }

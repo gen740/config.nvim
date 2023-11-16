@@ -55,7 +55,6 @@ M.lazygit_open = function()
     vim.notify('Exceed Lazygit Server limit', vim.log.levels.ERROR)
     return
   end
-
   local lazygit_config_yml = string.format(
     ([[
 os:
@@ -90,7 +89,7 @@ os:
     vim.fn.serverstart(lazygit_pipe_name)
   end
 
-  vim.opt_local.winbar =  ' LazyGit'
+  vim.opt_local.winbar = '%#WinBarFileIcon#%* %#WinBarFileName#LazyGit%*'
   vim.opt_local.filetype = 'lazygit'
   vim.cmd('normal i')
 end

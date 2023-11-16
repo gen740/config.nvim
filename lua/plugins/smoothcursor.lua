@@ -1,10 +1,16 @@
 ---@diagnostic disable:missing-fields
 ---@type LazyPluginBase
 local config = {
+  name = 'SmoothCursor',
   config = function()
+    local palette = require('nightfox.palette.nordfox').palette
+    local n_body_fg = palette.orange.dim
+    local i_body_fg = palette.blue.dim
+    local v_body_fg = palette.green.dim
+
     for key, val in pairs {
-      SmoothCursor = { bg = nil, fg = '#8aa872' },
-      SmoothCursorBody = { bg = nil, fg = '#8aa872' },
+      SmoothCursor = { bg = nil, fg = n_body_fg },
+      SmoothCursorBody = { bg = nil, fg = n_body_fg },
     } do
       vim.api.nvim_set_hl(0, key, val)
     end
@@ -31,36 +37,36 @@ local config = {
       },
     }
 
-    local autocmd = vim.api.nvim_create_autocmd
-
-    autocmd({ 'ModeChanged' }, {
-      group = 'CustomAutocommand',
+    vim.api.nvim_create_augroup('SmoothCursorReactive', { clear = true })
+    vim.api.nvim_create_autocmd({ 'ModeChanged' }, {
+      group = 'SmoothCursorReactive',
       callback = function()
         local current_mode = vim.fn.mode()
         if current_mode == 'n' then
-          vim.api.nvim_set_hl(0, 'SmoothCursor', { fg = '#8aa872' })
-          vim.api.nvim_set_hl(0, 'SmoothCursorBody', { fg = '#8aa872' })
+          vim.api.nvim_set_hl(0, 'SmoothCursor', { fg = n_body_fg })
+          vim.api.nvim_set_hl(0, 'SmoothCursorBody', { fg = n_body_fg })
           vim.fn.sign_define('smoothcursor', { text = '●' })
         elseif current_mode == 'v' then
-          vim.api.nvim_set_hl(0, 'SmoothCursor', { fg = '#bf616a' })
-          vim.api.nvim_set_hl(0, 'SmoothCursorBody', { fg = '#bf616a' })
+          vim.api.nvim_set_hl(0, 'SmoothCursor', { fg = v_body_fg })
+          vim.api.nvim_set_hl(0, 'SmoothCursorBody', { fg = v_body_fg })
           vim.fn.sign_define('smoothcursor', { text = '' })
         elseif current_mode == 'V' then
-          vim.api.nvim_set_hl(0, 'SmoothCursor', { fg = '#bf616a' })
-          vim.api.nvim_set_hl(0, 'SmoothCursorBody', { fg = '#bf616a' })
+          vim.api.nvim_set_hl(0, 'SmoothCursor', { fg = v_body_fg })
+          vim.api.nvim_set_hl(0, 'SmoothCursorBody', { fg = v_body_fg })
           vim.fn.sign_define('smoothcursor', { text = '' })
         elseif current_mode == '' then
-          vim.api.nvim_set_hl(0, 'SmoothCursor', { fg = '#bf616a' })
-          vim.api.nvim_set_hl(0, 'SmoothCursorBody', { fg = '#bf616a' })
+          vim.api.nvim_set_hl(0, 'SmoothCursor', { fg = v_body_fg })
+          vim.api.nvim_set_hl(0, 'SmoothCursorBody', { fg = v_body_fg })
           vim.fn.sign_define('smoothcursor', { text = '' })
         elseif current_mode == 'i' then
-          vim.api.nvim_set_hl(0, 'SmoothCursor', { fg = '#668aab' })
-          vim.api.nvim_set_hl(0, 'SmoothCursorBoby', { fg = '#668aab' })
+          vim.api.nvim_set_hl(0, 'SmoothCursor', { fg = i_body_fg })
+          vim.api.nvim_set_hl(0, 'SmoothCursorBoby', { fg = i_body_fg })
           vim.fn.sign_define('smoothcursor', { text = '●' })
         end
       end,
     })
   end,
+  priority = 60,
 }
 
 if vim.fn.isdirectory('/Users/gen/.local/tools/SmoothCursor.nvim') == 1 then
