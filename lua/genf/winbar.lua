@@ -1,7 +1,7 @@
 local M = {}
 
 local file_icon = function()
-  return [[%{luaeval("require('nvim-web-devicons').get_icon_by_filetype(vim.api.nvim_buf_get_option(0, 'filetype'))")}]]
+  return [[%{nerdfont#find(bufname())}]]
 end
 
 local in_search = function()

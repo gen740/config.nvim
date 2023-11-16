@@ -9,25 +9,26 @@ M.expr = function()
       s = s .. '%#TabLine#'
     end
 
-    local bufname = { icon = nil, name = nil }
+    local title = { icon = nil, name = nil }
     local bufnr = vim.fn.tabpagebuflist(i)[vim.fn.tabpagewinnr(i)]
     local ft = vim.api.nvim_get_option_value('filetype', { buf = bufnr })
     if ft == 'lazygit' then
-      bufname = { icon = '', name = 'Lazygit' }
+      title = { icon = '', name = 'Lazygit' }
     elseif ft == 'ToggleTerm' then
-      bufname = { icon = '', name = 'Terminal' }
+      title = { icon = '', name = 'Terminal' }
     elseif ft == 'ToggleIpython3' then
-      bufname = { icon = '', name = 'IPython' }
+      title = { icon = '', name = 'IPython' }
     else
-      bufname.icon = require('nvim-web-devicons').get_icon_by_filetype(ft)
+      local bufname = vim.fn.bufname(bufnr)
+      title.icon = vim.fn['nerdfont#find'](bufname)
       if vim.fn.bufname(bufnr) == '' then
-        bufname.name = '[No Name]'
+        title.name = '[No Name]'
       else
-        bufname.name = vim.fn.pathshorten(vim.fn.bufname(bufnr))
+        title.name = vim.fn.pathshorten(bufname)
       end
     end
 
-    s = s .. ' ' .. bufname.icon .. ' ' .. bufname.name .. ' '
+    s = s .. ' ' .. title.icon .. ' ' .. title.name .. ' '
   end
 
   s = s .. '%#TabLineFill#%T'
