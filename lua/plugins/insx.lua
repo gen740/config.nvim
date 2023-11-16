@@ -1,3 +1,5 @@
+---@diagnostic disable:missing-fields
+---@type LazyPluginBase
 return {
   'hrsh7th/nvim-insx',
   config = function()

@@ -1,3 +1,5 @@
+---@diagnostic disable:missing-fields
+---@type LazyPluginBase[]
 return {
   {
     'lambdalisue/nerdfont.vim',

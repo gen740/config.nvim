@@ -2,6 +2,8 @@
 ---                           Utility Plugins                                ---
 --------------------------------------------------------------------------------
 
+---@diagnostic disable:missing-fields
+---@type LazyPluginBase[]
 return {
   {
     'machakann/vim-sandwich',

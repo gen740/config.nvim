@@ -1,3 +1,5 @@
+---@diagnostic disable:missing-fields
+---@type LazyPluginBase
 return {
   'nvim-telescope/telescope.nvim',
   dependencies = {

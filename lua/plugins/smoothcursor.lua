@@ -1,3 +1,5 @@
+---@diagnostic disable:missing-fields
+---@type LazyPluginBase
 local config = {
   config = function()
     for key, val in pairs {

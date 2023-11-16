@@ -26,6 +26,8 @@ local lsp_icons = {
   TypeParameter = '',
 }
 
+---@diagnostic disable:missing-fields
+---@type LazyPluginBase
 return {
   'hrsh7th/nvim-cmp',
   dependencies = {
