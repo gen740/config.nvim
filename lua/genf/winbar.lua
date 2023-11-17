@@ -146,7 +146,7 @@ end
 
 M.expr = function()
   return string.format(
-    ' %%#WinBarFileIcon#%s%%* %%#WinBarFileName#%%f%%* %%M %s%%= %s',
+    ' %%#WinBarFileIcon#%s%%* %%#WinBarFileName#%%f%%* %%M %s%%= %s %s',
     file_icon(),
     search_count(),
     lsp_status(),
