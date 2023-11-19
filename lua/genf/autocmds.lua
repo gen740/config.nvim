@@ -6,9 +6,15 @@ vim.api.nvim_create_augroup('LazyGitTabClose', { clear = true })
 local palette = require('nightfox.palette.nordfox').palette
 
 local color_schemes = {
+  -- Normal = { bg = nil, fg = palette.fg1 },
   Normal = { bg = nil, fg = palette.fg1 },
   TelescopeNormal = { bg = '#202020', fg = palette.fg1 },
   TelescopeBorder = { bg = '#202020', fg = palette.fg1 },
+
+  ChatGPTNormal = { bg = '#202020', fg = palette.fg1 },
+  ChatGPTPrompt = { bg = '#151515', fg = palette.fg1 },
+  ChatGPTBorder = { bg = palette.bg0, fg = palette.fg1 },
+
   CursorLine = { bg = palette.bg0 },
   NormalNC = { bg = nil, fg = palette.fg1 },
   Search = { bg = palette.bg0, fg = palette.yellow.dim, bold = true },

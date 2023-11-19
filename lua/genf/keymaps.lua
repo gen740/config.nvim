@@ -42,10 +42,11 @@ local global_keymap = {
     ['<space>cp'] = '<cmd>cp<cr>',
     ['<space>cP'] = '<cmd>col<cr>',
 
+    ['<space>ct'] = '<cmd>ChatGPT<cr>',
+
     ['<space>sh'] = require_wrap('genf.toggleshell', 'ToggleTerm'),
     ['<space>py'] = require_wrap('genf.toggleshell', 'ToggleIpython3'),
     ['<space>p'] = '"_dP',
-    ['q:'] = '<nop>',
     ['~'] = '<nop>',
     ['<c-q>'] = '<cmd>Fern . -drawer -toggle<cr>',
     ['<space>tn'] = '<cmd>tabnext<cr>',
@@ -96,6 +97,7 @@ local global_keymap = {
     ['<space>p'] = '"_dP',
   },
 }
+
 
 for mode, keys in pairs(global_keymap) do
   for key, callback in pairs(keys) do
