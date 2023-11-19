@@ -89,6 +89,7 @@ M.ToggleQF = function()
     return
   end
   vim.cmd('copen')
+  vim.cmd('wincmd J')
   vim.api.nvim_win_set_height(0, winsize)
   set_options()
 end
