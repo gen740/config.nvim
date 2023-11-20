@@ -40,14 +40,23 @@ local search_count = function()
   return string.format('%s%s [%d/%d]', search_char, vim.fn.getreg('/'), stats.current, stats.total)
 end
 
-local gitbranch = require('genf.gitbranch')
-
+local error_notified = false
 local git_branch = function()
-  local branch = gitbranch.get_branch()
-  if branch == '' then
+  local status, ret = pcall(function()
+    local branch = vim.system({ 'zsh_status', 'git_branch_nvim' }):wait()
+    if branch.signal ~= 0 then
+      return ''
+    end
+    return branch.stdout
+  end)
+  if not status then
+    if not error_notified then
+      vim.notify('cmd zsh_status not found', vim.log.levels.WARN)
+      error_notified = true
+    end
     return ''
   end
-  return ' ' .. branch
+  return ret
 end
 
 ---@class ProgressValue
