@@ -23,8 +23,12 @@ snippet fn
 snippet incc
 	#include <${1:iostream}>
 	$0
+snippet for
+	for ($1) {
+		$0
+	}
 snippet fore
-	for (${1:auto} ${2:i} : ${3:container}) {
+	for (${1:const auto&} ${2:i} : ${3:container}) {
 		${0}
 	}
 snippet fori "for int i"
@@ -35,6 +39,10 @@ snippet cout
 	std::cout << ${1} << '\n';
 snippet if
 	if ($1) {
+		$0
+	}
+snippet wh
+	while ($1) {
 		$0
 	}
 # vim: set sts=4 sw=4 ts=4 noet:
