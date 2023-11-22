@@ -17,15 +17,19 @@ function M.setup()
       require('genf.asyncrun').asyncrun(
         'lualatex --shell-escape --file-line-error -synctex=1 -interaction=batchmode ' .. vim.fn.expand('%:p'),
         function()
-          vim.cmd(
-            'silent !displayline -n -b -g'
-              .. ' '
-              .. vim.fn.line('.')
-              .. ' '
-              .. './document.pdf'
-              .. ' '
-              .. vim.fn.expand('%:p')
-          )
+          vim.defer_fn(function()
+            if skim_started then
+              vim.cmd(
+                'silent !displayline -n -g'
+                  .. ' '
+                  .. vim.fn.line('.')
+                  .. ' '
+                  .. './document.pdf'
+                  .. ' '
+                  .. vim.fn.expand('%:p')
+              )
+            end
+          end, 200)
         end
       )
     end,
@@ -37,13 +41,7 @@ function M.setup()
       vim.cmd('silent !yabai -m window --grid 1:7:0:0:4:1')
     end
     vim.cmd(
-      'silent !displayline -n -b -g'
-        .. ' '
-        .. vim.fn.line('.')
-        .. ' '
-        .. './document.pdf'
-        .. ' '
-        .. vim.fn.expand('%:p')
+      'silent !displayline -n -g' .. ' ' .. vim.fn.line('.') .. ' ' .. './document.pdf' .. ' ' .. vim.fn.expand('%:p')
     )
     if not skim_started then
       vim.cmd(
