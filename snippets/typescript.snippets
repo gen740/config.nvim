@@ -9,4 +9,14 @@ snippet if
 	if ($1) {
 	  $0
 	}
+snippet forl
+	for (let ${1:elem} of ${2:arr}) {
+		$0
+	}
+snippet sw
+	switch ($1) {
+		case $2:
+			$0
+			break
+	}
 # vim: set sts=4 sw=4 ts=4 noet:

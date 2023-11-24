@@ -12,6 +12,10 @@ function M.setup()
     async_format('cmake-format -i ' .. vim.fn.expand('%:p'))
   end)
 
+  lmap('n', '<m-c>', function()
+    require('genf.asyncrun').asyncrun('task cmake')
+  end)
+
   vim.cmd('compiler cmake')
 end
 
