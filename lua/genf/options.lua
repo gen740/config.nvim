@@ -3,7 +3,7 @@ local vim_options = {
   breakindent = true,
   clipboard = 'unnamed',
   cmdheight = 0,
-  colorcolumn = '101',
+  colorcolumn = '81',
   expandtab = true,
   equalalways = false,
   fillchars = { eob = ' ', stl = '▓', stlnc = '▓', vert = '▓', diff = ' ', fold = '┈' },
