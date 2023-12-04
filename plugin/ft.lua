@@ -11,6 +11,7 @@ autocmd('FileType', {
   group = 'CumtomFiletypeSetting',
   pattern = '*',
   callback = function(args)
+    vim.treesitter.stop()
     pcall(load_languageconfig, args.match)
   end,
 })
