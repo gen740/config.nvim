@@ -3,6 +3,9 @@
 return {
   {
     'lambdalisue/nerdfont.vim',
+    config = function()
+      vim.g['nerdfont#autofix_cellwidths'] = 0
+    end,
   },
   {
     'lambdalisue/fern.vim',
