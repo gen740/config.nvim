@@ -33,17 +33,17 @@ function M.lsp_config()
     local lsp_util = require('genf.language_services.utils')
     local config = require('lspconfig')['clangd']
 
-    print("Clangd setup")
+    print('Clangd setup')
     config.setup {
       capabilities = lsp_util.capabilities,
-      filetypes = { 'c', 'cpp', 'objc', 'objcpp', 'cuda' },
+      -- filetypes = { 'c', 'cpp', 'objc', 'objcpp', 'cuda' },
       cmd = {
         'clangd',
         '-j',
         '16',
-        -- '--enable-config',
+        '--enable-config',
+        '--offset-encoding=utf-16',
       },
-      -- offset_encoding = 'utf-16',
     }
   end
 end

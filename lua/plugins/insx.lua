@@ -2,6 +2,7 @@
 ---@type LazyPluginBase
 return {
   'hrsh7th/nvim-insx',
+  event = 'VeryLazy',
   config = function()
     local insx = require('insx')
     local esc = require('insx').helper.regex.esc

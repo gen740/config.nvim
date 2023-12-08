@@ -40,5 +40,5 @@ return {
       server_opts_overrides = {},
     }
   end,
-  event = 'InsertEnter',
+  event = 'VeryLazy',
 }
