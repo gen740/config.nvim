@@ -83,52 +83,6 @@ function M.setup()
   vim.opt_local.softtabstop = 2
   vim.opt_local.shiftwidth = 2
   vim.opt_local.colorcolumn = '101'
-
-  if pcall(require, 'insx') then
-    local insx = require('insx')
-    local esc = require('insx').helper.regex.esc
-    insx.add(
-      '}',
-      insx.with(
-        require('insx.recipe.substitute') {
-          pattern = [[\\begin{\([^}]*\)\%#}]],
-          replace = [[\0\%#\end{\1}]],
-        },
-        {
-          insx.with.priority(10),
-        }
-      )
-    )
-
-    require('insx.preset.standard').set_pair('i', '$', '$')
-    -- insx.add(
-    --   '$',
-    --   insx.with(
-    --     require('insx.recipe.auto_pair') {
-    --       open = '$',
-    --       close = '$',
-    --     },
-    --     {
-    --       insx.with.priority(10),
-    --       insx.with.in_string(false),
-    --       insx.with.in_comment(false),
-    --     }
-    --   )
-    -- )
-    -- insx.add(
-    --   '$',
-    --   insx.with(
-    --     require('insx.recipe.jump_next') {
-    --       jump_pat = {
-    --         [[\%#]] .. esc('$') .. [[\zs]],
-    --       },
-    --     },
-    --     {
-    --       insx.with.priority(11),
-    --     }
-    --   )
-    -- )
-  end
 end
 
 function M.lsp_config()

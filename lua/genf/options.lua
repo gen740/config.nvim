@@ -48,6 +48,7 @@ local vim_options = {
   undoreload = 10000,
   updatetime = 250,
   viewoptions = 'folds,cursor',
+  syntax = 'off',
   whichwrap = 'b,s,<,>,[,]',
   winbar = [[%!v:lua.genf.winbar()]],
   wrap = false,

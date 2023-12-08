@@ -25,5 +25,8 @@ return {
   },
   {
     'EdenEast/nightfox.nvim',
+    config = function()
+      -- vim.cmd([[colo nordfox]])
+    end,
   },
 }

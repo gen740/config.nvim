@@ -6,7 +6,6 @@ vim.api.nvim_create_augroup('LazyGitTabClose', { clear = true })
 local palette = require('nightfox.palette.nordfox').palette
 
 local color_schemes = {
-  -- Normal = { bg = nil, fg = palette.fg1 },
   Normal = { bg = nil, fg = palette.fg1 },
   TelescopeNormal = { bg = '#202020', fg = palette.fg1 },
   TelescopeBorder = { bg = '#202020', fg = palette.fg1 },

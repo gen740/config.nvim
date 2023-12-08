@@ -25,25 +25,6 @@ function M.setup()
   vim.opt.commentstring = '//%s'
 end
 
-function M.lsp_config()
-  if pcall(require, 'lspconfig') then
-    local lsp_util = require('genf.language_services.utils')
-    local config = require('lspconfig')['clangd']
-    config.setup {
-      capabilities = lsp_util.capabilities,
-      filetypes = { 'c', 'cpp', 'objc', 'objcpp', 'cuda' },
-      cmd = {
-        'clangd',
-        '-j',
-        '8',
-        '--background-index',
-        '--header-insertion=iwyu',
-        '--suggest-missing-includes',
-      },
-    }
-  end
-end
-
 function M.dap_config()
   local dap, dapui = require('dap'), require('dapui')
 
