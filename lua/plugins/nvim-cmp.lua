@@ -34,9 +34,7 @@ return {
     { 'hrsh7th/cmp-buffer' },
     { 'hrsh7th/cmp-nvim-lsp' },
     { 'hrsh7th/cmp-nvim-lsp-signature-help' },
-    { 'hrsh7th/cmp-nvim-lsp-document-symbol' },
     { 'hrsh7th/cmp-path' },
-    { 'hrsh7th/cmp-calc' },
     { 'hrsh7th/cmp-vsnip' },
   },
   config = function()
@@ -66,9 +64,7 @@ return {
         { name = 'nvim_lsp' },
         { name = 'vsnip' },
         { name = 'nvim_lsp_signature_help' },
-        { name = 'nvim_lsp_document_symbol' },
         { name = 'path' },
-        { name = 'calc' },
         { name = 'buffer', keyword_length = 5 },
       },
       formatting = {

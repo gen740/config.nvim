@@ -6,7 +6,6 @@ return {
   config = function()
     local insx = require('insx')
     local esc = require('insx').helper.regex.esc
-
     local wrap = function(left, right)
       return {
         action = function(ctx)
