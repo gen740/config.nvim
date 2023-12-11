@@ -23,7 +23,7 @@ function M.setup()
 end
 
 function M.lsp_config()
-  require('genf.language_services.utils').lsp_setup('tsserver')
+  require('genf.language_services.utils').lsp_setup('vtsls')
 end
 
 return M

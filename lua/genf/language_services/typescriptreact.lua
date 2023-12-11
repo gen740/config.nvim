@@ -23,8 +23,4 @@ function M.setup()
   vim.opt_local.shiftwidth = shiftwidth
 end
 
-function M.lsp_config()
-  require('genf.language_services.utils').lsp_setup('tsserver')
-end
-
 return M
