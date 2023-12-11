@@ -26,7 +26,7 @@ local global_keymap = {
     ['<m-c>'] = '<cmd>Copilot suggestion toggle_auto_trigger<cr>',
     ['<m-]>'] = '<cmd>Copilot suggestion next<cr>',
     ['<m-[>'] = '<cmd>Copilot suggestion prev<cr>',
-    ['<m-f>'] = '<cmd>Copilot suggestion accept<cr>',
+    ['<c-f>'] = '<cmd>Copilot suggestion accept<cr>',
     ['<m-p>'] = '<cmd>Copilot panel open<cr>',
   },
   n = {

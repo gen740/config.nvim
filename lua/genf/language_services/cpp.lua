@@ -33,7 +33,6 @@ function M.lsp_config()
     local lsp_util = require('genf.language_services.utils')
     local config = require('lspconfig')['clangd']
 
-    print('Clangd setup')
     config.setup {
       capabilities = lsp_util.capabilities,
       -- filetypes = { 'c', 'cpp', 'objc', 'objcpp', 'cuda' },
