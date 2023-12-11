@@ -38,7 +38,7 @@ function M.lsp_config()
       capabilities = lsp_util.capabilities,
       -- filetypes = { 'c', 'cpp', 'objc', 'objcpp', 'cuda' },
       cmd = {
-        'clangd',
+        '/usr/local/opt/llvm/bin/clangd',
         '-j',
         '16',
         '--enable-config',

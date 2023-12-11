@@ -72,8 +72,6 @@ os:
   )
 
   vim.cmd('tabnew')
-  vim.opt_local.number = false
-  vim.opt_local.relativenumber = false
 
   local lazygit_found_nr = search_lazygit_bufnr()
   if lazygit_found_nr then
@@ -91,7 +89,12 @@ os:
 
   vim.opt_local.winbar = '%#WinBarFileIcon#%* %#WinBarFileName#LazyGit%*'
   vim.opt_local.filetype = 'lazygit'
-  vim.cmd('normal i')
+
+  vim.opt_local.number = false
+  vim.opt_local.relativenumber = false
+  vim.defer_fn(function()
+    vim.cmd('normal i')
+  end, 0)
 end
 
 M.lazygit_server_stop = function()

@@ -3,10 +3,9 @@
 local config = {
   name = 'SmoothCursor',
   config = function()
-    local palette = require('nightfox.palette.nordfox').palette
-    local n_body_fg = palette.orange.dim
-    local i_body_fg = palette.blue.dim
-    local v_body_fg = palette.green.dim
+    local n_body_fg = '#b46950'
+    local i_body_fg = '#668aab'
+    local v_body_fg = '#8aa872'
 
     for key, val in pairs {
       SmoothCursor = { bg = nil, fg = n_body_fg },

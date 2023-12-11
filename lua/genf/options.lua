@@ -8,9 +8,9 @@ local vim_options = {
   equalalways = false,
   fillchars = { eob = ' ', stl = '▓', stlnc = '▓', vert = '▓', diff = ' ', fold = '┈' },
   foldenable = true,
-  foldexpr = 'v:lua.vim.treesitter.foldexpr()',
-  foldlevel = 99,
+  -- foldexpr = 'v:lua.vim.treesitter.foldexpr()',
   foldmethod = 'expr',
+  foldlevel = 99,
   foldtext = 'v:lua.genf.foldingtxt()',
   ignorecase = true,
   inccommand = 'nosplit',
@@ -65,5 +65,6 @@ vim.g.loaded_python3_provider = 0
 vim.g.loaded_perl_provider = 0
 vim.g.loaded_ruby_provider = 0
 vim.g.loaded_node_provider = 0
+--
 
 vim.cmd([[colo nordfox]])
