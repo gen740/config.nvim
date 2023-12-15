@@ -4,15 +4,19 @@ local running_jobid = nil
 local api = vim.api
 local f = vim.fn
 
+---@class AsyncRunOptions
+---@field on_exit? function
+---@field no_qflist? boolean
+---@field efm? string
+
 -- Run command in async mode
 ---@param cmd string
----@param on_exit nil|function
----@param no_qflist nil|boolean
-M.asyncrun = function(cmd, on_exit, no_qflist)
-  on_exit = on_exit or function() end
-  no_qflist = no_qflist or false
-
-  local efm = '%-G' -- disable error format
+---@param opt? AsyncRunOptions
+M.asyncrun = function(cmd, opt)
+  opt = opt or {}
+  local on_exit = opt.on_exit or function() end
+  local no_qflist = opt.no_qflist or false
+  local efm = opt.efm or '%-G'
 
   if not no_qflist then
     if running_jobid then

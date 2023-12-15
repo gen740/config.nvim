@@ -43,6 +43,7 @@ local color_schemes = {
   StatusLineNC = { bg = palette.bg0, fg = palette.bg0 },
 
   QuickFixLine = { bg = palette.bg0, fg = palette.fg1 },
+  QfFileName = { bg = nil, fg = palette.fg1 },
   LspInlayHint = { bg = nil, fg = '#5b6282' },
   Comment = { fg = palette.comment, italic = false },
   DiagnosticVirtualTextWarn = { fg = '#ebcb8b', bg = nil, undercurl = true },

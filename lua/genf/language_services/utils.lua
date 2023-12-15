@@ -27,13 +27,16 @@ end
 ---@param cmd string
 function M.async_format(cmd)
   vim.cmd('w')
-  require('genf.asyncrun').asyncrun(cmd, function()
-    local current_line = vim.fn.line('.')
-    local win_view = vim.fn.winsaveview()
-    vim.cmd('silent e!')
-    vim.fn.winrestview(win_view) ---@diagnostic disable-line
-    vim.fn.cursor(current_line, 0)
-  end, true)
+  require('genf.asyncrun').asyncrun(cmd, {
+    on_exit = function()
+      local current_line = vim.fn.line('.')
+      local win_view = vim.fn.winsaveview()
+      vim.cmd('silent e!')
+      vim.fn.winrestview(win_view) ---@diagnostic disable-line
+      vim.fn.cursor(current_line, 0)
+    end,
+    no_qflist = true,
+  })
 end
 
 return M

@@ -8,7 +8,9 @@ function M.setup()
   end)
 
   lmap('n', '<m-c>', function()
-    require('genf.asyncrun').asyncrun('task compile')
+    require('genf.asyncrun').asyncrun('task compile', {
+      efm = '%f:%l:%c: %trror: %m,%f:%l:%c: %tarning: %m',
+    })
   end)
 
   lmap('n', '<m-g>', function()
@@ -35,7 +37,6 @@ function M.lsp_config()
 
     config.setup {
       capabilities = lsp_util.capabilities,
-      -- filetypes = { 'c', 'cpp', 'objc', 'objcpp', 'cuda' },
       cmd = {
         '/usr/local/opt/llvm/bin/clangd',
         '-j',
