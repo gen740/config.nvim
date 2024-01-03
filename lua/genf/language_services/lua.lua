@@ -41,7 +41,7 @@ function M.lsp_config()
             '${3rd}/luv/library',
             '${3rd}/luassert/library',
           },
-          checkThirdParty = true,
+          checkThirdParty = 'Disabled',
         },
         telemetry = {
           enable = false,

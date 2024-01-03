@@ -16,21 +16,23 @@ function M.setup()
     callback = function()
       require('genf.asyncrun').asyncrun(
         'lualatex --shell-escape --file-line-error -synctex=1 -interaction=batchmode ' .. vim.fn.expand('%:p'),
-        function()
-          vim.defer_fn(function()
-            if skim_started then
-              vim.cmd(
-                'silent !displayline -n -g'
-                  .. ' '
-                  .. vim.fn.line('.')
-                  .. ' '
-                  .. './document.pdf'
-                  .. ' '
-                  .. vim.fn.expand('%:p')
-              )
-            end
-          end, 200)
-        end
+        {
+          on_exit = function()
+            vim.defer_fn(function()
+              if skim_started then
+                vim.cmd(
+                  'silent !displayline -n -g'
+                    .. ' '
+                    .. vim.fn.line('.')
+                    .. ' '
+                    .. './document.pdf'
+                    .. ' '
+                    .. vim.fn.expand('%:p')
+                )
+              end
+            end, 200)
+          end,
+        }
       )
     end,
   })

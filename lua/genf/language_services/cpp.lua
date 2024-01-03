@@ -4,11 +4,15 @@ local lmap = require('genf.language_services.utils').set_local_map
 
 function M.setup()
   lmap('n', '<m-r>', function()
-    require('genf.asyncrun').asyncrun('task execute')
+    require('genf.asyncrun').asyncrun('task run')
+  end)
+
+  lmap('n', '<m-t>', function()
+    require('genf.asyncrun').asyncrun('task test')
   end)
 
   lmap('n', '<m-c>', function()
-    require('genf.asyncrun').asyncrun('task compile', {
+    require('genf.asyncrun').asyncrun('task build', {
       efm = '%f:%l:%c: %trror: %m,%f:%l:%c: %tarning: %m',
     })
   end)
@@ -43,6 +47,7 @@ function M.lsp_config()
         '16',
         '--enable-config',
         '--offset-encoding=utf-16',
+        '-hidden-features',
       },
     }
   end

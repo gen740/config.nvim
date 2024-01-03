@@ -59,8 +59,8 @@ M.asyncrun = function(cmd, opt)
         if qfwinid ~= 0 and qfwinid ~= nil then
           api.nvim_win_set_cursor(qfwinid, { api.nvim_buf_line_count(api.nvim_win_get_buf(qfwinid)), 0 })
         end
-        running_jobid = nil
       end
+      running_jobid = nil
     end
   end
 

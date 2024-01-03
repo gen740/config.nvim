@@ -11,6 +11,10 @@ function M.setup()
     require('genf.asyncrun').asyncstop()
   end)
 
+  lmap('n', '<m-t>', function()
+    require('genf.asyncrun').asyncrun('npm run test')
+  end)
+
   lmap('n', '<space>f', function()
     async_format('prettier --write ' .. vim.fn.expand('%:p'))
   end)
