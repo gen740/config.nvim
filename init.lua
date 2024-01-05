@@ -1,3 +1,4 @@
+require('genf.disable_defaults')
 require('genf.globals')
 require('genf.lazy').init()
 require('genf.autocmds')
