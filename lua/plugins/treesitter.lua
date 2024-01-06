@@ -1,6 +1,9 @@
 ---@diagnostic disable:missing-fields
 ---@type LazyPluginBase
 return {
+  dependencies = {
+    'andymass/vim-matchup',
+  },
   'nvim-treesitter/nvim-treesitter',
   config = function()
     require('nvim-treesitter.configs').setup {
@@ -9,6 +12,9 @@ return {
         enable = true,
       },
       indent = { enable = false },
+      matchup = {
+        enable = true,
+      },
     }
   end,
 }
