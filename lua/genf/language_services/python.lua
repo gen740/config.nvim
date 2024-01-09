@@ -43,4 +43,22 @@ function M.lsp_config()
   }
 end
 
+function M.dap_config()
+  local dap = require('dap')
+  dap.adapters.python = {
+    type = 'executable',
+    command = '/Users/gen/.config/pyenv/shims/python3',
+    args = { '-m', 'debugpy.adapter' },
+  }
+  dap.configurations.python = {
+    {
+      type = 'python',
+      request = 'launch',
+      name = 'Launch file',
+      program = '${file}', -- This configuration will launch the current file if used.
+      pythonPath = '/Users/gen/.config/pyenv/shims/python3',
+    },
+  }
+end
+
 return M

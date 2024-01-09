@@ -34,6 +34,8 @@ function M.lsp_config()
           library = {
             lazy_path .. '/nvim-insx',
             lazy_path .. '/nvim-cmp',
+            lazy_path .. '/nvim-dap',
+            lazy_path .. '/nvim-dap-ui',
             lazy_path .. '/cmp-nvim-lsp',
             lazy_path .. '/nightfox.nvim',
             lazy_path .. '/lazy.nvim',

@@ -23,7 +23,7 @@ end
 --stylua: ignore start
 local global_keymap = {
   i = {
-    ['<m-c>'] = '<cmd>Copilot suggestion toggle_auto_trigger<cr>',
+    -- ['<m-c>'] = '<cmd>Copilot suggestion toggle_auto_trigger<cr>',
     ['<m-]>'] = '<cmd>Copilot suggestion next<cr>',
     ['<m-[>'] = '<cmd>Copilot suggestion prev<cr>',
     ['<m-f>'] = '<cmd>Copilot suggestion accept<cr>',
@@ -83,12 +83,13 @@ local global_keymap = {
     ['<space>sp'] = '<cmd>VsnipOpen -format snipmate<cr>',
 
     --- Dap
-    ['<space>dn'] = '<cmd>DapContinue<cr>',
-    ['<space>dd'] = '<cmd>DapToggleBreakpoint<cr>',
-    ['<space>dD'] = function() require('dap').set_breakpoint(vim.fn.input('Breakpoint condition: ')) end,
-    ['<space>dp'] = function() require('dap').set_breakpoint(nil, nil, vim.fn.input('Log point message: ')) end,
-    ['<space>dr'] = function() require('dap').repl.open() end,
-    ['<space>dl'] = function() require('dap').run_last() end,
+    ['<m-b>'] = require_wrap('dap', 'toggle_breakpoint'),
+    ['<m-c>'] = require_wrap('dap', 'continue'),
+    ['<m-i>'] = require_wrap('dap', 'step_into'),
+    ['<m-o>'] = require_wrap('dap', 'step_out'),
+    ['<m-n>'] = require_wrap('dap', 'step_over'),
+
+    ['<space>dl'] = require_wrap('dap', 'run_last'),
   },
   [{ 'n', 'v' }] = {
     ['go'] = ":GitOpenPathInBrowser<cr>",

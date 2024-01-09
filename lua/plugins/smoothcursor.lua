@@ -16,7 +16,17 @@ local config = {
 
     require('smoothcursor').setup {
       disable_float_win = true,
-      disabled_filetypes = { 'NeogitStatus', 'NeogitPopup', 'NeogitCommitMessage' },
+      disabled_filetypes = {
+        'NeogitStatus',
+        'NeogitPopup',
+        'NeogitCommitMessage',
+        'dapui_scopes',
+        'dapui_breakpoints',
+        'dapui_stacks',
+        'dapui_watches',
+        'dap-repl',
+        'dapui_console',
+      },
       priority = 1,
       autostart = true,
       threshold = 3,
