@@ -13,7 +13,6 @@ function M.setup()
   end)
 
   lmap('n', '<space>f', function()
-    -- async_format('black ' .. vim.fn.expand('%:p') .. ';' .. 'isort ' .. vim.fn.expand('%:p'))
     async_format('ruff format ' .. vim.fn.expand('%:p'))
   end)
 
@@ -55,7 +54,13 @@ function M.dap_config()
       type = 'python',
       request = 'launch',
       name = 'Launch file',
-      program = '${file}', -- This configuration will launch the current file if used.
+      program = function()
+        local program = vim.env.NVIM_DEBUG_PROGRAM
+        if program ~= nil then
+          return program
+        end
+        return vim.fn.input('Path to executable: ', vim.fn.getcwd() .. '/', 'file')
+      end,
       pythonPath = '/Users/gen/.config/pyenv/shims/python3',
     },
   }

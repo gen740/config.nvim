@@ -84,10 +84,10 @@ local global_keymap = {
 
     --- Dap
     ['<m-b>'] = require_wrap('dap', 'toggle_breakpoint'),
-    ['<m-c>'] = require_wrap('dap', 'continue'),
+    ['<m-n>'] = require_wrap('dap', 'continue'),
     ['<m-i>'] = require_wrap('dap', 'step_into'),
     ['<m-o>'] = require_wrap('dap', 'step_out'),
-    ['<m-n>'] = require_wrap('dap', 'step_over'),
+    ['<m-s>'] = require_wrap('dap', 'step_over'),
 
     ['<space>dl'] = require_wrap('dap', 'run_last'),
   },

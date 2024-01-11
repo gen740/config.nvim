@@ -14,7 +14,7 @@ return {
       require('genf.language_services.' .. name).dap_config()
     end
 
-    local languages = { 'python' }
+    local languages = { 'python', 'cpp' }
 
     for _, lang in ipairs(languages) do
       load_config(lang)
