@@ -30,7 +30,7 @@ local config = {
       priority = 1,
       autostart = true,
       threshold = 3,
-      speed = 40,
+      speed = 20,
       type = 'default',
       intervals = 50,
       fancy = {
@@ -44,6 +44,7 @@ local config = {
           { cursor = '∙', texthl = 'SmoothCursorBody' },
         },
       },
+      show_last_positions = 'enter',
     }
 
     vim.api.nvim_create_augroup('SmoothCursorReactive', { clear = true })
@@ -74,6 +75,11 @@ local config = {
         end
       end,
     })
+    vim.fn.sign_define('smoothcursor_v', { text = ' ' })
+    vim.fn.sign_define('smoothcursor_V', { text = '' })
+    vim.fn.sign_define('smoothcursor_i', { text = '' })
+    vim.fn.sign_define('smoothcursor_', { text = '' })
+    vim.fn.sign_define('smoothcursor_R', { text = '󰊄' })
   end,
   priority = 60,
 }

@@ -16,6 +16,10 @@ function M.setup()
     require('genf.asyncrun').asyncrun('task cmake')
   end)
 
+  lmap('n', '<m-r>', function()
+    require('genf.asyncrun').asyncrun('task build')
+  end)
+
   lmap('n', '<m-s>', function()
     require('genf.asyncrun').asyncstop()
   end)

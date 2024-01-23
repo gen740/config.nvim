@@ -1,12 +1,11 @@
 local M = {}
 
 local lmap = require('genf.language_services.utils').set_local_map
-local async_format = require('genf.language_services.utils').async_format
 
 function M.setup()
   local skim_started = false
   lmap('n', '<m-c>', function()
-    vim.cmd('Run lualatex --shell-escape --file-line-error -synctex=1 -interaction=batchmode ' .. vim.fn.expand('%:p'))
+    require('genf.asyncrun').asyncrun('task build')
   end)
 
   vim.api.nvim_create_augroup('LatexAutoCompile', { clear = true })
@@ -14,26 +13,23 @@ function M.setup()
     group = 'LatexAutoCompile',
     pattern = '*.tex',
     callback = function()
-      require('genf.asyncrun').asyncrun(
-        'lualatex --shell-escape --file-line-error -synctex=1 -interaction=batchmode ' .. vim.fn.expand('%:p'),
-        {
-          on_exit = function()
-            vim.defer_fn(function()
-              if skim_started then
-                vim.cmd(
-                  'silent !displayline -n -g'
-                    .. ' '
-                    .. vim.fn.line('.')
-                    .. ' '
-                    .. './document.pdf'
-                    .. ' '
-                    .. vim.fn.expand('%:p')
-                )
-              end
-            end, 200)
-          end,
-        }
-      )
+      require('genf.asyncrun').asyncrun('task build', {
+        on_exit = function()
+          vim.defer_fn(function()
+            if skim_started then
+              vim.cmd(
+                'silent !displayline -n -g'
+                  .. ' '
+                  .. vim.fn.line('.')
+                  .. ' '
+                  .. './document.pdf'
+                  .. ' '
+                  .. vim.fn.expand('%:p')
+              )
+            end
+          end, 200)
+        end,
+      })
     end,
   })
 
@@ -69,17 +65,17 @@ function M.setup()
     skim_started = false
   end)
 
-  lmap('n', '<space>f', function()
-    vim.fn.timer_start(0, function()
-      local current_line = vim.fn.line('.')
-      local win_view = vim.fn.winsaveview()
-      vim.cmd([[%!latexindent -y="defaultIndent:'  '" ]])
-      ---@diagnostic disable-next-line
-      vim.fn.winrestview(win_view)
-      vim.fn.cursor(current_line, 0)
-      vim.cmd('w!')
-    end)
-  end)
+  -- lmap('n', '<space>f', function()
+  --   vim.fn.timer_start(0, function()
+  --     local current_line = vim.fn.line('.')
+  --     local win_view = vim.fn.winsaveview()
+  --     vim.cmd([[%!latexindent -l $XDG_CONFIG_HOME/latexindent/config.yaml %]])
+  --     ---@diagnostic disable-next-line
+  --     vim.fn.winrestview(win_view)
+  --     vim.fn.cursor(current_line, 0)
+  --     vim.cmd('w!')
+  --   end)
+  -- end)
 
   vim.opt_local.tabstop = 2
   vim.opt_local.softtabstop = 2

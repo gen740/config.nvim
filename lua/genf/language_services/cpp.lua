@@ -21,10 +21,6 @@ function M.setup()
     require('genf.asyncrun').asyncrun('task cmake')
   end)
 
-  lmap('n', '<m-s>', function()
-    require('genf.asyncrun').asyncstop()
-  end)
-
   lmap('n', '<m-e>', function()
     require('genf.asyncrun').asyncrun([[task ]] .. vim.fn.expand('%:t:r'))
   end)

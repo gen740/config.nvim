@@ -35,7 +35,12 @@ snippet ()
 snippet sum
 	\sum_{$1}^{$2}$0
 snippet image
-	\includegraphics[width=0.98\textwidth,keepaspectratio]{$1}
+	\begin{figure}[H]
+		\centering
+		\includegraphics[width=0.80\textwidth,keepaspectratio]{$1}
+		\caption{$2}
+		\label{fig:$3}
+	\end{figure}
 snippet itb
 	\begin{itembox}[l]{$1}
 		$0
