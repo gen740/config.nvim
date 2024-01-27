@@ -58,11 +58,11 @@ function M.lsp_config()
 end
 
 function M.dap_config()
-  local lldb_path = 'clangd'
+  local lldb_path = 'lldb'
 
   if vim.fn.filereadable('/usr/local/opt/llvm/bin/lldb-vscode') then
-    lldb_path = '/usr/local/opt/llvm/bin/clangd'
-  elseif vim.fn.filereadable('/usr/bin/lldb-dap-18 ') then
+    lldb_path = '/usr/local/opt/llvm/bin/lldb-vscode'
+  elseif vim.fn.filereadable('/usr/bin/lldb-dap-18') then
     lldb_path = '/usr/bin/lldb-dap-18'
   end
 
