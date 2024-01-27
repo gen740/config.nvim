@@ -37,9 +37,9 @@ function M.lsp_config()
 
     local clangd_path = 'clangd'
 
-    if vim.fn.filereadable('/usr/local/opt/llvm/bin/clangd') then
+    if vim.fn.filereadable('/usr/local/opt/llvm/bin/clangd') == 1 then
       clangd_path = '/usr/local/opt/llvm/bin/clangd'
-    elseif vim.fn.filereadable('/usr/bin/clangd-18') then
+    elseif vim.fn.filereadable('/usr/bin/clangd-18') == 1 then
       clangd_path = '/usr/bin/clangd-18'
     end
 
@@ -60,9 +60,9 @@ end
 function M.dap_config()
   local lldb_path = 'lldb'
 
-  if vim.fn.filereadable('/usr/local/opt/llvm/bin/lldb-vscode') then
+  if vim.fn.filereadable('/usr/local/opt/llvm/bin/lldb-vscode') == 1 then
     lldb_path = '/usr/local/opt/llvm/bin/lldb-vscode'
-  elseif vim.fn.filereadable('/usr/bin/lldb-dap-18') then
+  elseif vim.fn.filereadable('/usr/bin/lldb-dap-18') == 1 then
     lldb_path = '/usr/bin/lldb-dap-18'
   end
 
