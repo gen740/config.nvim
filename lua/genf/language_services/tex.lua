@@ -22,7 +22,7 @@ function M.setup()
                   .. ' '
                   .. vim.fn.line('.')
                   .. ' '
-                  .. './document.pdf'
+                  .. './build/document.pdf'
                   .. ' '
                   .. vim.fn.expand('%:p')
               )
@@ -32,14 +32,14 @@ function M.setup()
       })
     end,
   })
-
+  -- --server ~/.cache/nvim/synctex-server.pipe --remote-send  "<cmd>%line<cr>"
   lmap('n', '<space>ll', function()
     if not skim_started then
       vim.fn.serverstart('/Users/gen/.cache/nvim/synctex-server.pipe')
       vim.cmd('silent !yabai -m window --grid 1:7:0:0:4:1')
     end
     vim.cmd(
-      'silent !displayline -n -g' .. ' ' .. vim.fn.line('.') .. ' ' .. './document.pdf' .. ' ' .. vim.fn.expand('%:p')
+      'silent !displayline -n -g' .. ' ' .. vim.fn.line('.') .. ' ' .. './build/document.pdf' .. ' ' .. vim.fn.expand('%:p')
     )
     if not skim_started then
       vim.cmd(
