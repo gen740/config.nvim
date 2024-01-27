@@ -35,10 +35,18 @@ function M.lsp_config()
     local lsp_util = require('genf.language_services.utils')
     local config = require('lspconfig')['clangd']
 
+    local clangd_path = 'clangd'
+
+    if vim.fn.filereadable('/usr/local/opt/llvm/bin/clangd') then
+      clangd_path = '/usr/local/opt/llvm/bin/clangd'
+    elseif vim.fn.filereadable('/usr/bin/clangd-18') then
+      clangd_path = '/usr/bin/clangd-18'
+    end
+
     config.setup {
       capabilities = lsp_util.capabilities,
       cmd = {
-        '/usr/local/opt/llvm/bin/clangd',
+        clangd_path,
         '-j',
         '16',
         '--enable-config',
@@ -50,10 +58,18 @@ function M.lsp_config()
 end
 
 function M.dap_config()
+  local lldb_path = 'clangd'
+
+  if vim.fn.filereadable('/usr/local/opt/llvm/bin/lldb-vscode') then
+    lldb_path = '/usr/local/opt/llvm/bin/clangd'
+  elseif vim.fn.filereadable('/usr/bin/lldb-dap-18 ') then
+    lldb_path = '/usr/bin/lldb-dap-18'
+  end
+
   local dap = require('dap')
   dap.adapters.lldb = {
     type = 'executable',
-    command = '/usr/local/opt/llvm/bin/lldb-vscode', -- adjust as needed
+    command = lldb_path, -- adjust as needed
     name = 'lldb',
   }
   dap.configurations.cpp = {
