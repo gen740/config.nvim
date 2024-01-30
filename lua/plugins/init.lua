@@ -24,9 +24,6 @@ return {
     keys = { { 'gc', mode = 'n' }, { 'gc', mode = 'v' } },
   },
   {
-    'EdenEast/nightfox.nvim',
+    'folke/tokyonight.nvim',
   },
-  {
-    'ellisonleao/gruvbox.nvim',
-  }
 }

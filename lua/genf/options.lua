@@ -58,4 +58,4 @@ for name, val in pairs(vim_options) do
 end
 
 
-vim.cmd([[colo nordfox]])
+vim.cmd([[colo tokyonight-night]])

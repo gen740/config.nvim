@@ -3,51 +3,33 @@ vim.api.nvim_create_augroup('CustomAutocommand', { clear = true })
 vim.api.nvim_create_augroup('WinBarLspProgress', { clear = true })
 vim.api.nvim_create_augroup('LazyGitTabClose', { clear = true })
 
-local palette = require('nightfox.palette.nordfox').palette
+local colors = require('tokyonight.colors')
 
 local color_schemes = {
-  Normal = { bg = nil, fg = palette.fg1 },
-  TelescopeNormal = { bg = '#202020', fg = palette.fg1 },
-  TelescopeBorder = { bg = '#202020', fg = palette.fg1 },
+  Normal = { bg = nil, fg = colors.default.fg },
+  Folded = { bg = nil, fg = colors.default.fg },
+  LineNr = { bg = nil, fg = colors.default.fg_dark },
+  LineNrAbove = { bg = nil, fg = colors.default.fg_gutter },
+  LineNrBelow = { bg = nil, fg = colors.default.fg_gutter },
+  TabLine = { bg = nil, fg = colors.default.fg_dark },
 
-  ChatGPTNormal = { bg = '#202020', fg = palette.fg1 },
-  ChatGPTPrompt = { bg = '#151515', fg = palette.fg1 },
-  ChatGPTBorder = { bg = palette.bg0, fg = palette.fg1 },
+  WinBar = { bg = nil, fg = colors.default.fg, bold = true },
+  WinBarNC = { bg = nil, fg = colors.default.fg_gutter },
+  WinBarFileName = { bg = nil, fg = colors.default.blue, bold = true, underline = true },
+  WinBarFileIcon = { bg = nil, fg = colors.default.orange, bold = true },
+  WinBarLspError = { bg = nil, fg = colors.default.red },
+  WinBarLspWarn = { bg = nil, fg = colors.default.yellow },
+  WinBarLspInfo = { bg = nil, fg = colors.default.blue },
+  WinBarLspHint = { bg = nil, fg = colors.default.green },
 
-  CursorLine = { bg = palette.bg0 },
-  NormalNC = { bg = nil, fg = palette.fg1 },
-  Search = { bg = palette.bg0, fg = palette.yellow.dim, bold = true },
-  Folded = { bg = nil, fg = palette.fg3 },
-  LineNr = { bg = nil, fg = palette.fg3 },
-  LineNrAbove = { bg = nil, fg = palette.fg3 },
-  LineNrBelow = { bg = nil, fg = palette.fg3 },
+  WinBarLspProgressDone = { bg = nil, fg = colors.default.green },
+  WinBarLspProgress = { bg = nil, fg = colors.default.blue },
+  WinSeparator = { bg = colors.default.bg_dark, fg = colors.default.bg_dark },
+  StatusLine = { bg = colors.default.bg_dark, fg = colors.default.bg_dark },
+  StatusLineNC = { bg = colors.default.bg_dark, fg = colors.default.bg_dark },
 
-  TabLine = { bg = nil, fg = palette.fg2 },
-  TabLineSel = { bg = palette.bg0, fg = palette.orange.bright, bold = true },
-  TabLineFill = { bg = nil, fg = nil },
-
-  WinBar = { bg = nil, fg = '#6e7790', bold = true },
-  WinBarNC = { bg = nil, fg = '#393b44' },
-  WinBarFileName = { bg = nil, fg = palette.orange.bright, bold = true, underline = true },
-  WinBarFileIcon = { bg = nil, fg = palette.orange.dim, bold = true },
-  WinBarLspError = { bg = nil, fg = '#bf616a' },
-  WinBarLspWarn = { bg = nil, fg = '#ebcb8b' },
-  WinBarLspInfo = { bg = nil, fg = '#3f4a5a' },
-  WinBarLspHint = { bg = nil, fg = '#a3be8c' },
-
-  WinBarLspProgressDone = { bg = nil, fg = '#ebcb8b' },
-  WinBarLspProgress = { bg = nil, fg = '#bf616a' },
-
-  WinSeparator = { bg = palette.bg0, fg = palette.bg0 },
-  StatusLine = { bg = palette.bg0, fg = palette.bg0 },
-  StatusLineNC = { bg = palette.bg0, fg = palette.bg0 },
-
-  QuickFixLine = { bg = palette.bg0, fg = palette.fg1 },
-  QfFileName = { bg = nil, fg = palette.fg1 },
-  LspInlayHint = { bg = nil, fg = '#5b6282' },
-  Comment = { fg = palette.comment, italic = false },
-  DiagnosticVirtualTextWarn = { fg = '#ebcb8b', bg = nil, undercurl = true },
-  DiagnosticVirtualTextError = { fg = '#bf616a', bg = nil, undercurl = true },
+  QuickFixLine = { bg = colors.default.bg_dark, fg = colors.default.fg },
+  QfFileName = { bg = nil, fg = colors.default.fg },
 }
 
 vim.api.nvim_create_autocmd({ 'ColorScheme' }, {

@@ -12,7 +12,6 @@ function M.setup()
   vim.opt_local.tabstop = shiftwidth
   vim.opt_local.softtabstop = shiftwidth
   vim.opt_local.shiftwidth = shiftwidth
-  vim.opt_local.colorcolumn = '120'
 end
 
 function M.lsp_config()
@@ -37,9 +36,9 @@ function M.lsp_config()
             lazy_path .. '/nvim-dap',
             lazy_path .. '/nvim-dap-ui',
             lazy_path .. '/cmp-nvim-lsp',
-            lazy_path .. '/nightfox.nvim',
+            lazy_path .. '/tokyonight.nvim',
             lazy_path .. '/lazy.nvim',
-            '/usr/local/share/nvim/runtime',
+            '~/.local/share/nvim/runtime',
             '${3rd}/luv/library',
             '${3rd}/luassert/library',
           },

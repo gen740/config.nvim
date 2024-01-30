@@ -6,6 +6,8 @@ local function get_vvar(opt)
   return vim.api.nvim_get_vvar(opt)
 end
 
+local color_column = 80
+
 M.expr = function()
   local foldtext = {}
   local align = 0
@@ -16,7 +18,7 @@ M.expr = function()
     return foldtext
   else
     foldtext = '┈ ' .. (get_vvar('foldend') - get_vvar('foldstart') + 1) .. ' ﲐ ┈'
-    local endofline = get_lopt('colorcolumn') - 3
+    local endofline = color_column - 3
 
     local word_length = 0
     if type(treesitter_text) == 'string' then -- count treesitter text word length
