@@ -32,14 +32,20 @@ function M.setup()
       })
     end,
   })
-  -- --server ~/.cache/nvim/synctex-server.pipe --remote-send  "<cmd>%line<cr>"
+  -- nvim --server ~/.cache/nvim/synctex-server.pipe --remote-send  "<cmd>%line<cr>"
   lmap('n', '<space>ll', function()
     if not skim_started then
       vim.fn.serverstart('/Users/gen/.cache/nvim/synctex-server.pipe')
       vim.cmd('silent !yabai -m window --grid 1:7:0:0:4:1')
     end
     vim.cmd(
-      'silent !displayline -n -g' .. ' ' .. vim.fn.line('.') .. ' ' .. './build/document.pdf' .. ' ' .. vim.fn.expand('%:p')
+      'silent !displayline -n -g'
+        .. ' '
+        .. vim.fn.line('.')
+        .. ' '
+        .. './build/document.pdf'
+        .. ' '
+        .. vim.fn.expand('%:p')
     )
     if not skim_started then
       vim.cmd(
@@ -65,22 +71,9 @@ function M.setup()
     skim_started = false
   end)
 
-  -- lmap('n', '<space>f', function()
-  --   vim.fn.timer_start(0, function()
-  --     local current_line = vim.fn.line('.')
-  --     local win_view = vim.fn.winsaveview()
-  --     vim.cmd([[%!latexindent -l $XDG_CONFIG_HOME/latexindent/config.yaml %]])
-  --     ---@diagnostic disable-next-line
-  --     vim.fn.winrestview(win_view)
-  --     vim.fn.cursor(current_line, 0)
-  --     vim.cmd('w!')
-  --   end)
-  -- end)
-
   vim.opt_local.tabstop = 2
   vim.opt_local.softtabstop = 2
   vim.opt_local.shiftwidth = 2
-  vim.opt_local.colorcolumn = '101'
 end
 
 function M.lsp_config()
