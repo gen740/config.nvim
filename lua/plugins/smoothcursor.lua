@@ -47,7 +47,7 @@ local config = {
       show_last_positions = nil,
     }
 
-    sc = require('smoothcursor.utils')
+    local sc = require('smoothcursor.utils')
     vim.api.nvim_create_augroup('SmoothCursorReactive', { clear = true })
     vim.api.nvim_create_autocmd({ 'ModeChanged' }, {
       group = 'SmoothCursorReactive',

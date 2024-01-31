@@ -19,7 +19,6 @@ return {
       vim.fn['fern_git_status#init']()
       vim.g['fern#renderer'] = 'nerdfont'
       vim.g['fern#hide_cursor'] = 1
-      vim.g['fern#renderer#nerdfont#padding'] = ' '
       vim.api.nvim_create_autocmd({ 'Filetype' }, {
         pattern = 'fern',
         callback = function()
