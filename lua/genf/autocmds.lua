@@ -7,6 +7,7 @@ local colors = require('tokyonight.colors')
 
 local color_schemes = {
   Normal = { bg = nil, fg = colors.default.fg },
+  NormalSB = { bg = nil, fg = colors.default.fg },
   Folded = { bg = nil, fg = colors.default.fg },
   LineNr = { bg = nil, fg = colors.default.fg_dark },
   LineNrAbove = { bg = nil, fg = colors.default.fg_gutter },
