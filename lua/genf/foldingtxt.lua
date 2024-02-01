@@ -14,7 +14,7 @@ M.expr = function()
     foldtext = '┈┈┈┈┈┈┈┈┈┈  ' .. (get_vvar('foldend') - get_vvar('foldstart') + 1) .. ' lines '
     return foldtext
   else
-    foldtext =  '   ' .. (get_vvar('foldend') - get_vvar('foldstart') + 1) .. ' '
+    foldtext = '   ' .. (get_vvar('foldend') - get_vvar('foldstart') + 1) .. ' '
     local word_length = 0
     if type(treesitter_text) == 'string' then -- count treesitter text word length
       word_length = vim.fn.strwidth(treesitter_text)

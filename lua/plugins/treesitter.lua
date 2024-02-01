@@ -31,7 +31,10 @@ return {
       sync_install = true,
       highlight = {
         enable = true,
-        disable = function(_, bufnr)
+        disable = function(ft, bufnr)
+          if ft == 'gitcommit' then
+            return true
+          end
           return vim.api.nvim_buf_line_count(bufnr) > 20000
         end,
       },
