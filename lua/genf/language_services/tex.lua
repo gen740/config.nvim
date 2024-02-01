@@ -16,21 +16,6 @@ function M.setup()
     pattern = '*.tex',
     callback = function()
       require('genf.asyncrun').asyncrun('task build', {
-        on_exit = function()
-          vim.defer_fn(function()
-            if skim_started then
-              vim.cmd(
-                'silent !displayline -n -g'
-                  .. ' '
-                  .. vim.fn.line('.')
-                  .. ' '
-                  .. './build/document.pdf'
-                  .. ' '
-                  .. vim.fn.expand('%:p')
-              )
-            end
-          end, 200)
-        end,
         efm = '%f:%l:%m',
       })
     end,
