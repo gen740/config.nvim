@@ -5,7 +5,9 @@ local lmap = require('genf.language_services.utils').set_local_map
 function M.setup()
   local skim_started = false
   lmap('n', '<m-c>', function()
-    require('genf.asyncrun').asyncrun('task build')
+    require('genf.asyncrun').asyncrun('task build', {
+      efm = '%f:%l:%m',
+    })
   end)
 
   vim.api.nvim_create_augroup('LatexAutoCompile', { clear = true })
@@ -29,6 +31,7 @@ function M.setup()
             end
           end, 200)
         end,
+        efm = '%f:%l:%m',
       })
     end,
   })
