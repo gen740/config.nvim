@@ -15,7 +15,6 @@ local color_schemes = {
   LineNr = { bg = nil, fg = colors.default.fg_dark },
   LineNrAbove = { bg = nil, fg = colors.default.fg_gutter },
   LineNrBelow = { bg = nil, fg = colors.default.fg_gutter },
-  TabLine = { bg = nil, fg = colors.default.fg_dark },
 
   WinBar = { bg = nil, fg = colors.default.fg, bold = true },
   WinBarNC = { bg = nil, fg = colors.default.fg_gutter },
@@ -25,10 +24,13 @@ local color_schemes = {
   WinBarLspWarn = { bg = nil, fg = colors.default.yellow },
   WinBarLspInfo = { bg = nil, fg = colors.default.blue },
   WinBarLspHint = { bg = nil, fg = colors.default.green },
-
   WinBarLspProgressDone = { bg = nil, fg = colors.default.green },
   WinBarLspProgress = { bg = nil, fg = colors.default.blue },
   WinSeparator = { bg = colors.default.bg_dark, fg = colors.default.bg_dark },
+
+  TabLine = { bg = nil, fg = colors.default.fg_dark },
+  TabLineFill = { bg = nil, fg = colors.default.fg_dark },
+
   StatusLine = { bg = colors.default.bg_dark, fg = colors.default.bg_dark },
   StatusLineNC = { bg = colors.default.bg_dark, fg = colors.default.bg_dark },
 

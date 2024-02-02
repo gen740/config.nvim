@@ -13,7 +13,9 @@ return {
         'c',
         'cmake',
         'cpp',
+        'diff',
         'dockerfile',
+        'gitcommit',
         'go',
         'javascript',
         'json',
@@ -31,10 +33,7 @@ return {
       sync_install = true,
       highlight = {
         enable = true,
-        disable = function(ft, bufnr)
-          if ft == 'gitcommit' then
-            return true
-          end
+        disable = function(_, bufnr)
           return vim.api.nvim_buf_line_count(bufnr) > 20000
         end,
       },
