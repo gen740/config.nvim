@@ -30,7 +30,7 @@ end, { nargs = 1 })
 vim.api.nvim_create_user_command('GitOpenPathInBrowser', function(opts)
   local git_url = io.popen('gh repo view --json url | jq ".url"'):read()
   git_url = string.gsub(git_url, '"', '')
-  git_url = git_url .. '/blob/' .. io.popen('git rev-parse HEAD'):read()
+  git_url = git_url .. '/blob/' .. io.popen('git rev-parse origin/$(git branch --show-current)'):read()
 
   local function get_relative_path(absolute_path, base_path)
     if base_path:sub(-1) ~= '/' then
