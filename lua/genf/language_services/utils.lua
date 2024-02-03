@@ -9,12 +9,10 @@ M.capabilities = vim.tbl_extend('keep', require('cmp_nvim_lsp').default_capabili
 
 ---@param name string
 function M.lsp_setup(name)
-  if pcall(require, 'lspconfig') then
-    local config = require('lspconfig')[name]
-    config.setup {
-      capabilities = M.capabilities,
-    }
-  end
+  local config = require('lspconfig')[name]
+  config.setup {
+    capabilities = M.capabilities,
+  }
 end
 
 ---@param mode string

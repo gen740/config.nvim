@@ -18,15 +18,13 @@ function M.setup()
 end
 
 function M.lsp_config()
-  if pcall(require, 'lspconfig') then
-    local lsp_util = require('genf.language_services.utils')
-    local config = require('lspconfig')['sourcekit']
-    config.setup {
-      capabilities = lsp_util.capabilities,
-      filetypes = { 'swift' },
-      cmd = { 'sourcekit-lsp' },
-    }
-  end
+  local lsp_util = require('genf.language_services.utils')
+  local config = require('lspconfig')['sourcekit']
+  config.setup {
+    capabilities = lsp_util.capabilities,
+    filetypes = { 'swift' },
+    cmd = { 'sourcekit-lsp' },
+  }
 end
 
 return M

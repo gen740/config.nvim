@@ -31,30 +31,28 @@ function M.setup()
 end
 
 function M.lsp_config()
-  if pcall(require, 'lspconfig') then
-    local lsp_util = require('genf.language_services.utils')
-    local config = require('lspconfig')['clangd']
+  local lsp_util = require('genf.language_services.utils')
+  local config = require('lspconfig')['clangd']
 
-    local clangd_path = 'clangd'
+  local clangd_path = 'clangd'
 
-    if vim.fn.filereadable('/usr/local/opt/llvm/bin/clangd') == 1 then
-      clangd_path = '/usr/local/opt/llvm/bin/clangd'
-    elseif vim.fn.filereadable('/usr/bin/clangd-18') == 1 then
-      clangd_path = '/usr/bin/clangd-18'
-    end
-
-    config.setup {
-      capabilities = lsp_util.capabilities,
-      cmd = {
-        clangd_path,
-        '-j',
-        '16',
-        '--enable-config',
-        '--offset-encoding=utf-16',
-        '-hidden-features',
-      },
-    }
+  if vim.fn.filereadable('/usr/local/opt/llvm/bin/clangd') == 1 then
+    clangd_path = '/usr/local/opt/llvm/bin/clangd'
+  elseif vim.fn.filereadable('/usr/bin/clangd-18') == 1 then
+    clangd_path = '/usr/bin/clangd-18'
   end
+
+  config.setup {
+    capabilities = lsp_util.capabilities,
+    cmd = {
+      clangd_path,
+      '-j',
+      '16',
+      '--enable-config',
+      '--offset-encoding=utf-16',
+      '-hidden-features',
+    },
+  }
 end
 
 function M.dap_config()

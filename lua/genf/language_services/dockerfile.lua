@@ -7,9 +7,7 @@ function M.setup()
 end
 
 function M.lsp_config()
-  if pcall(require, 'lspconfig') then
-    require('genf.language_services.utils').lsp_setup('dockerls')
-  end
+  require('genf.language_services.utils').lsp_setup('dockerls')
 end
 
 return M
