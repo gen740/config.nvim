@@ -89,9 +89,9 @@ os:
 
   vim.opt_local.winbar = '%#WinBarFileIcon#%* %#WinBarFileName#LazyGit%*'
   vim.opt_local.filetype = 'lazygit'
-
   vim.opt_local.number = false
   vim.opt_local.relativenumber = false
+
   vim.defer_fn(function()
     vim.cmd('normal i')
   end, 0)
@@ -104,14 +104,11 @@ end
 ---@param filename string
 ---@param line string?
 M.lazygit_file_open = function(filename, line)
+  vim.cmd('tabclose')
   vim.cmd('e ' .. filename)
   if line then
     vim.cmd(tostring(line))
   end
-end
-
-Test = function()
-  vim.print(search_lazygit_bufnr())
 end
 
 return M
