@@ -26,7 +26,7 @@ function M.setup()
 end
 
 function M.dap_config()
-  local dap, dapui = require('dap'), require('dapui')
+  local dap, _ = require('dap'), require('dapui')
 
   dap.adapters.lldb = {
     type = 'executable',
