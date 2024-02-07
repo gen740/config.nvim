@@ -30,18 +30,19 @@ local config = {
       priority = 1,
       autostart = true,
       threshold = 3,
-      speed = 20,
+      speed = 10,
       type = 'default',
-      intervals = 50,
+      intervals = 30,
       fancy = {
         enable = true,
         head = {
-          cursor = '●',
+          cursor = ' ',
           texthl = 'SmoothCursor',
         },
         body = {
-          { cursor = '•', texthl = 'SmoothCursorBody' },
-          { cursor = '∙', texthl = 'SmoothCursorBody' },
+          { cursor = '', texthl = 'SmoothCursorBody' },
+          { cursor = '󰧞', texthl = 'SmoothCursorBody' },
+          { cursor = '󰧟', texthl = 'SmoothCursorBody' },
         },
       },
       show_last_positions = nil,
@@ -56,7 +57,7 @@ local config = {
         if current_mode == 'n' then
           vim.api.nvim_set_hl(0, 'SmoothCursor', { fg = n_body_fg })
           vim.api.nvim_set_hl(0, 'SmoothCursorBody', { fg = n_body_fg })
-          vim.fn.sign_define('smoothcursor', { text = '●' })
+          vim.fn.sign_define('smoothcursor', { text = ' ' })
         elseif current_mode == 'v' then
           vim.api.nvim_set_hl(0, 'SmoothCursor', { fg = v_body_fg })
           vim.api.nvim_set_hl(0, 'SmoothCursorBody', { fg = v_body_fg })
@@ -72,7 +73,7 @@ local config = {
         elseif current_mode == 'i' then
           vim.api.nvim_set_hl(0, 'SmoothCursor', { fg = i_body_fg })
           vim.api.nvim_set_hl(0, 'SmoothCursorBoby', { fg = i_body_fg })
-          vim.fn.sign_define('smoothcursor', { text = '●' })
+          vim.fn.sign_define('smoothcursor', { text = '' })
         end
         sc.smoothcursor_redraw()
       end,
