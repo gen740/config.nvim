@@ -31,7 +31,6 @@ function M.lsp_config()
         format = {
           enable = false,
         },
-        venvPath = '/Users/gen/.config/pyenv/versions',
       },
     },
   }
@@ -41,7 +40,7 @@ function M.dap_config()
   local dap = require('dap')
   dap.adapters.python = {
     type = 'executable',
-    command = '/Users/gen/.config/pyenv/shims/python3',
+    command = '/Users/gen/.rye/shims/python3',
     args = { '-m', 'debugpy.adapter' },
   }
   dap.configurations.python = {
@@ -56,7 +55,7 @@ function M.dap_config()
         end
         return vim.fn.input('Path to executable: ', vim.fn.getcwd() .. '/', 'file')
       end,
-      pythonPath = '/Users/gen/.config/pyenv/shims/python3',
+      pythonPath = '/Users/gen/.rye/shims/python3',
     },
   }
 end
