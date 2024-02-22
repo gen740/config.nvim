@@ -8,6 +8,8 @@ local colors = require('tokyonight.colors')
 local color_schemes = {
   Normal = { bg = nil, fg = colors.default.fg },
   NormalSB = { bg = nil, fg = colors.default.fg },
+  PreProc = { bg = nil, fg = colors.default.blue },
+
   SignColumn = { bg = nil, fg = colors.default.fg },
   SignColumnSB = { bg = nil, fg = colors.default.fg },
 
