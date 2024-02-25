@@ -9,7 +9,7 @@ M.expr = function(info)
     for i = info.start_idx, info.end_idx do
       local val = qflist[i]
       if not (val.valid == 1) then
-        table.insert(res, '' .. string.gsub(val.text, '|', ' '))
+        table.insert(res, '' .. string.gsub(val.text, '||', '  '))
       else
         if val.bufnr == 0 and val.lnum == 0 then
           table.insert(res, '   ⇒ ' .. val.text)

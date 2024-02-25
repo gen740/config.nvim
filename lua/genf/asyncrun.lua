@@ -17,6 +17,7 @@ M.asyncrun = function(cmd, opt)
   local on_exit = opt.on_exit or function() end
   local no_qflist = opt.no_qflist or false
   local efm = opt.efm or '%-G'
+  local command_output = {}
 
   if not no_qflist then
     if running_jobid then
@@ -30,12 +31,13 @@ M.asyncrun = function(cmd, opt)
     local qfwinid = f.getqflist({ winid = 0 }).winid
     if (event == 'stdout' or event == 'stderr') and not no_qflist then
       if data then
-        for _, val in ipairs(data) do
-          if val ~= '' then
-            val = f.substitute(val, [[\[[0-9;]*m]], [[]], 'g') -- Remove escope codes
-            f.setqflist({}, 'a', {
+        for _, line in ipairs(data) do
+          if line ~= '' then
+            line = f.substitute(line, [[\[[0-9;]*m]], [[]], 'g') -- Remove escope codes
+            table.insert(command_output, line)
+            f.setqflist({}, 'r', {
               title = cmd,
-              lines = { val },
+              lines = command_output,
               efm = efm,
             })
           end
