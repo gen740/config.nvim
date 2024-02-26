@@ -9,7 +9,7 @@ function M.setup()
   vim.opt_local.shiftwidth = 2
 
   lmap('n', '<space>f', function()
-    async_format('cmake-format -i ' .. vim.fn.expand('%:p'))
+    async_format { 'cmake-format', '-i', vim.fn.expand('%:p') }
   end)
 
   lmap('n', '<m-c>', function()

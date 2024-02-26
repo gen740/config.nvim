@@ -5,7 +5,7 @@ local async_format = require('genf.language_services.utils').async_format
 
 function M.setup()
   lmap('n', '<space>f', function()
-    async_format('stylua ' .. vim.fn.expand('%:p'))
+    async_format { 'stylua ', vim.fn.expand('%:p') }
   end)
 
   local shiftwidth = 2

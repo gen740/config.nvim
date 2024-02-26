@@ -22,19 +22,20 @@ function M.set_local_map(mode, map, callback)
   vim.keymap.set(mode, map, callback, { buffer = true })
 end
 
----@param cmd string
+---@param cmd string[]
 function M.async_format(cmd)
   vim.cmd('w')
-  require('genf.asyncrun').asyncrun(cmd, {
-    on_exit = function()
+  vim.system(
+    cmd,
+    {},
+    vim.schedule_wrap(function()
       local current_line = vim.fn.line('.')
       local win_view = vim.fn.winsaveview()
       vim.cmd('silent e!')
       vim.fn.winrestview(win_view) ---@diagnostic disable-line
       vim.fn.cursor(current_line, 0)
-    end,
-    no_qflist = true,
-  })
+    end)
+  )
 end
 
 return M

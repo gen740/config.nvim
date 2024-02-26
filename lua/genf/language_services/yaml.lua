@@ -9,7 +9,7 @@ function M.setup()
   vim.opt_local.shiftwidth = 2
 
   lmap('n', '<space>f', function()
-    async_format('yamlfmt ' .. vim.fn.expand('%:p'))
+    async_format { 'yamlfmt', vim.fn.expand('%:p') }
   end)
 end
 
