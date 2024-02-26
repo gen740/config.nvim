@@ -12,7 +12,7 @@ M.expr = function(info)
         table.insert(res, '' .. string.gsub(val.text, '||', '  '))
       else
         if val.bufnr == 0 and val.lnum == 0 then
-          table.insert(res, '   ⇒ ' .. val.text)
+          table.insert(res, '  ⇒ ' .. val.text)
         elseif val.type == 'e' then
           table.insert(res, string.format(' %s|%s| ⇒ %s', f.bufname(val.bufnr), val.lnum, val.text))
         elseif val.type == 'w' then

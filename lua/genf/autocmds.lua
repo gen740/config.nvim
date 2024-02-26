@@ -38,6 +38,7 @@ local color_schemes = {
 
   QuickFixLine = { bg = colors.default.bg_dark, fg = colors.default.fg },
   QfFileName = { bg = nil, fg = colors.default.fg },
+  QfLineNr = { bg = nil, fg = colors.default.fg },
 }
 
 vim.api.nvim_create_autocmd({ 'ColorScheme' }, {
