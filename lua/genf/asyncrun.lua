@@ -60,6 +60,7 @@ M.asyncrun = function(cmd, opt)
       stderr = vim.schedule_wrap(function(_, data)
         on_event(nil, data)
       end),
+      stdin = true,
     },
     -- on_exit
     vim.schedule_wrap(function(status)
@@ -91,9 +92,7 @@ end
 M.ripgrep = function(pattern, dir)
   dir = dir or '.'
   pattern = 'rg --column ' .. pattern .. ' ' .. dir
-
   local efm = '%f:%l:%c:%m,%f:%l:%m'
-
   M.asyncrun(pattern, { efm = efm })
 end
 
