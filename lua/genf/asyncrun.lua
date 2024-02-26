@@ -16,7 +16,7 @@ M.asyncrun = function(cmd, opt)
   opt = opt or {}
   local on_exit = opt.on_exit or function() end
   local efm = opt.efm or '%-G'
-  local command_output = {}
+  local command_output = ''
   local cmd_list = {}
   for i, v in ipairs(vim.split(cmd, ' ')) do
     if v ~= '' then
@@ -30,22 +30,17 @@ M.asyncrun = function(cmd, opt)
   end
   f.setqflist {} -- Reset qflist
 
-  local on_event = function(_, data)
+  local on_event = function(data)
     local qfwinid = f.getqflist({ winid = 0 }).winid
     if data == nil then
       return
     end
-    for _, line in ipairs(vim.split(data, '\n')) do
-      line = f.substitute(line, [[\[[0-9;]*m]], [[]], 'g') -- Remove escope codes
-      if line ~= '' then
-        table.insert(command_output, line)
-        f.setqflist({}, 'r', {
-          title = cmd,
-          lines = command_output,
-          efm = efm,
-        })
-      end
-    end
+    command_output = f.substitute(command_output .. data, [[\[[0-9;]*m]], [[]], 'g')
+    f.setqflist({}, 'r', {
+      title = cmd,
+      lines = vim.split(f.substitute(command_output, '\n*$', '', 'g'), '\n'),
+      efm = efm,
+    })
     if qfwinid ~= 0 and qfwinid ~= nil then
       api.nvim_win_set_cursor(qfwinid, { api.nvim_buf_line_count(api.nvim_win_get_buf(qfwinid)), 0 })
     end
@@ -55,10 +50,10 @@ M.asyncrun = function(cmd, opt)
     cmd_list,
     {
       stdout = vim.schedule_wrap(function(_, data)
-        on_event(nil, data)
+        on_event(data)
       end),
       stderr = vim.schedule_wrap(function(_, data)
-        on_event(nil, data)
+        on_event(data)
       end),
       stdin = true,
     },

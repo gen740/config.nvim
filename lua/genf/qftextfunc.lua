@@ -9,16 +9,20 @@ M.expr = function(info)
     for i = info.start_idx, info.end_idx do
       local val = qflist[i]
       if not (val.valid == 1) then
-        table.insert(res, '' .. string.gsub(val.text, '||', '  '))
+        if val.text == '' then
+          table.insert(res, ' ')
+        else
+          table.insert(res, '' .. f.substitute(val.text, '||', '  ', 'g'))
+        end
       else
         if val.bufnr == 0 and val.lnum == 0 then
           table.insert(res, '  ⇒ ' .. val.text)
         elseif val.type == 'e' then
-          table.insert(res, string.format(' %s|%s| ⇒ %s', f.bufname(val.bufnr), val.lnum, val.text))
+          table.insert(res, string.format(' %s|%s:%s| ⇒ %s', f.bufname(val.bufnr), val.lnum, val.col, val.text))
         elseif val.type == 'w' then
-          table.insert(res, string.format(' %s|%s| ⇒ %s', f.bufname(val.bufnr), val.lnum, val.text))
+          table.insert(res, string.format(' %s|%s:%s| ⇒ %s', f.bufname(val.bufnr), val.lnum, val.col, val.text))
         else
-          table.insert(res, string.format(' %s|%s| ⇒ %s', f.bufname(val.bufnr), val.lnum, val.text))
+          table.insert(res, string.format(' %s|%s:%s| ⇒ %s', f.bufname(val.bufnr), val.lnum, val.col, val.text))
         end
       end
     end
