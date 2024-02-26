@@ -7,7 +7,6 @@ local f = vim.fn
 
 ---@class AsyncRunOptions
 ---@field on_exit? function
----@field no_qflist? boolean
 ---@field efm? string
 
 -- Run command in async mode
@@ -16,7 +15,6 @@ local f = vim.fn
 M.asyncrun = function(cmd, opt)
   opt = opt or {}
   local on_exit = opt.on_exit or function() end
-  local no_qflist = opt.no_qflist or false
   local efm = opt.efm or '%-G'
   local command_output = {}
   local cmd_list = {}
@@ -26,13 +24,11 @@ M.asyncrun = function(cmd, opt)
     end
   end
 
-  if not no_qflist then
-    if running_job then
-      vim.notify('Command still runing', vim.log.levels.WARN)
-      return
-    end
-    f.setqflist {} -- Reset qflist
+  if running_job then
+    vim.notify('Command still runing', vim.log.levels.WARN)
+    return
   end
+  f.setqflist {} -- Reset qflist
 
   local on_event = function(_, data)
     local qfwinid = f.getqflist({ winid = 0 }).winid
@@ -69,24 +65,22 @@ M.asyncrun = function(cmd, opt)
     vim.schedule_wrap(function(status)
       local qfwinid = f.getqflist({ winid = 0 }).winid
       on_exit()
-      if not no_qflist then
-        local end_msg = ''
-        if status.signal == 0 then
-          end_msg = '<<< successfully exited with code ' .. status.code
-        else
-          end_msg = '<<< exit with signal ' .. status.signal
-        end
-        f.setqflist({}, 'a', {
-          title = cmd,
-          lines = {
-            end_msg,
-          },
-          efm = efm,
-        })
-        api.nvim_command('doautocmd QuickFixCmdPost')
-        if qfwinid ~= 0 and qfwinid ~= nil then
-          api.nvim_win_set_cursor(qfwinid, { api.nvim_buf_line_count(api.nvim_win_get_buf(qfwinid)), 0 })
-        end
+      local end_msg = ''
+      if status.signal == 0 then
+        end_msg = '<<< successfully exited with code ' .. status.code
+      else
+        end_msg = '<<< exit with signal ' .. status.signal
+      end
+      f.setqflist({}, 'a', {
+        title = cmd,
+        lines = {
+          end_msg,
+        },
+        efm = efm,
+      })
+      api.nvim_command('doautocmd QuickFixCmdPost')
+      if qfwinid ~= 0 and qfwinid ~= nil then
+        api.nvim_win_set_cursor(qfwinid, { api.nvim_buf_line_count(api.nvim_win_get_buf(qfwinid)), 0 })
       end
       running_job = nil
     end)
