@@ -41,6 +41,7 @@ local global_keymap = {
     ['<space>cN'] = '<cmd>cnew<cr>',
     ['<space>cp'] = '<cmd>cp<cr>',
     ['<space>cP'] = '<cmd>col<cr>',
+    ['<space>cc'] = '<cmd>cc<cr>',
 
     ['<space>ct'] = '<cmd>ChatGPT<cr>',
 

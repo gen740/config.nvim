@@ -31,11 +31,8 @@ local color_schemes = {
   StatusLine = { bg = colors.default.bg_dark, fg = colors.default.bg_dark },
   StatusLineNC = { bg = colors.default.bg_dark, fg = colors.default.bg_dark },
 
-  QfFileName = { bg = nil, fg = colors.default.fg },
-  QfLineNr = { bg = nil, fg = colors.default.fg },
-
-  QuickFixFileName = { bg = nil, fg = colors.default.orange, bold = true },
-  QuickFixNr = { bg = nil, fg = colors.default.blue, bold = true },
+  QfFileName = { bg = nil, fg = colors.default.orange, bold = true },
+  QfLineNr = { bg = nil, fg = colors.default.blue },
 }
 
 vim.api.nvim_create_augroup('CustomColorScheme', { clear = true })
@@ -112,12 +109,13 @@ vim.api.nvim_create_autocmd({ 'QuickFixCmdPost', 'BufRead' }, {
   callback = function(ft)
     if ft.file == 'quickfix' or ft.event == 'QuickFixCmdPost' then
       local qfwinid = vim.fn.getqflist({ winid = 0 }).winid
+      vim.fn.win_execute(qfwinid, 'syntax clear')
       vim.fn.win_execute(qfwinid, 'syntax match ErrorMsg //')
       vim.fn.win_execute(qfwinid, 'syntax match WarningMsg //')
       vim.fn.win_execute(qfwinid, 'syntax match MoreMsg //')
 
-      vim.fn.win_execute(qfwinid, [[syntax match QuickFixFileName /▏\zs[0-9a-zA-Z.\/]*\ze|/]])
-      vim.fn.win_execute(qfwinid, [[syntax match QuickFixNr /|\zs[0-9:]*\ze|/]])
+      vim.fn.win_execute(qfwinid, [[syntax match QfFileName /▏\zs[0-9a-zA-Z.\/]*\ze|/]])
+      vim.fn.win_execute(qfwinid, [[syntax match QfLineNr /|\zs[0-9:]*\ze|/]])
     end
   end,
   group = 'QfSyntax',
