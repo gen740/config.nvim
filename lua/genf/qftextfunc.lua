@@ -1,51 +1,54 @@
 local M = {}
 
-local f = vim.fn
+local bufname = vim.fn.bufname
 
 M.expr = function(info)
   local res = {}
   if info.quickfix == 1 then
-    local qflist = f.getqflist({ id = info.id, items = 1 }).items
+    local qf_list = vim.fn.getqflist({ id = info.id, items = 1 }).items
     for i = info.start_idx, info.end_idx do
-      local val = qflist[i]
-      if not (val.valid == 1) then
-        if val.text == '' then
-          table.insert(res, ' ')
+      local qf = qf_list[i]
+      if not (qf.valid == 1) then
+        if qf.text == '' then
+          table.insert(res, '  ┊')
         else
-          table.insert(res, '' .. f.substitute(val.text, '||', '  ', 'g'))
+          table.insert(res, '  ┊' .. qf.text)
         end
       else
-        if val.bufnr == 0 and val.lnum == 0 then
-          table.insert(res, '  ⇒ ' .. val.text)
-        elseif val.type == 'e' then
-          table.insert(res, string.format(' %s|%s:%s| ⇒ %s', f.bufname(val.bufnr), val.lnum, val.col, val.text))
-        elseif val.type == 'w' then
-          table.insert(res, string.format(' %s|%s:%s| ⇒ %s', f.bufname(val.bufnr), val.lnum, val.col, val.text))
+        if qf.bufnr == 0 and qf.lnum == 0 then
+          table.insert(res, ' ┊ ' .. qf.text)
+        elseif qf.type == 'e' then
+          if qf.nr ~= -1 then
+            table.insert(
+              res,
+              string.format(' ┊ %s|%s:%s| [E%s] ⇒ %s', bufname(qf.bufnr), qf.lnum, qf.col, qf.nr, qf.text)
+            )
+          else
+            table.insert(res, string.format(' ┊ %s|%s:%s| ⇒ %s', bufname(qf.bufnr), qf.lnum, qf.col, qf.text))
+          end
+        elseif qf.type == 'w' then
+          table.insert(res, string.format(' ┊ %s|%s:%s| ⇒ %s', bufname(qf.bufnr), qf.lnum, qf.col, qf.text))
         else
-          table.insert(res, string.format(' %s|%s:%s| ⇒ %s', f.bufname(val.bufnr), val.lnum, val.col, val.text))
+          table.insert(res, string.format(' ┊ %s|%s:%s| ⇒ %s', bufname(qf.bufnr), qf.lnum, qf.col, qf.text))
         end
       end
     end
-    return res
   else
-    local loclist = f.getloclist(0, { all = 0 }).items
+    local loc_list = vim.fn.getloclist(0, { all = 0 }).items
     for i = info.start_idx, info.end_idx do
-      local val = loclist[i]
-      if not (val.valid == 1) then
-        table.insert(res, '' .. val.text)
+      local loc = loc_list[i]
+      if not (loc.valid == 1) then
+        table.insert(res, '' .. loc.text)
       else
-        if val.bufnr == 0 and val.lnum == 0 then
-          table.insert(res, '  ' .. ' ⇒ ' .. val.text)
+        if loc.bufnr == 0 and loc.lnum == 0 then
+          table.insert(res, '  ' .. ' ⇒ ' .. loc.text)
         else
-          table.insert(res, string.format('  %s|%s| ⇒ %s', f.bufname(val.bufnr), val.lnum, val.text))
+          table.insert(res, string.format('  %s|%s| ⇒ %s', bufname(loc.bufnr), loc.lnum, loc.text))
         end
       end
     end
-    if #res == 0 then
-      return {}
-    end
-    return res
   end
+  return res
 end
 
 return M

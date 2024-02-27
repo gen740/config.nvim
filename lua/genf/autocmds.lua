@@ -1,8 +1,3 @@
-vim.api.nvim_create_augroup('CustomColorScheme', { clear = true })
-vim.api.nvim_create_augroup('CustomAutocommand', { clear = true })
-vim.api.nvim_create_augroup('WinBarLspProgress', { clear = true })
-vim.api.nvim_create_augroup('LazyGitTabClose', { clear = true })
-
 local colors = require('tokyonight.colors')
 
 local color_schemes = {
@@ -36,11 +31,11 @@ local color_schemes = {
   StatusLine = { bg = colors.default.bg_dark, fg = colors.default.bg_dark },
   StatusLineNC = { bg = colors.default.bg_dark, fg = colors.default.bg_dark },
 
-  QuickFixLine = { bg = colors.default.bg_dark, fg = colors.default.fg },
   QfFileName = { bg = nil, fg = colors.default.fg },
   QfLineNr = { bg = nil, fg = colors.default.fg },
 }
 
+vim.api.nvim_create_augroup('CustomColorScheme', { clear = true })
 vim.api.nvim_create_autocmd({ 'ColorScheme' }, {
   group = 'CustomColorScheme',
   callback = function()
@@ -50,6 +45,7 @@ vim.api.nvim_create_autocmd({ 'ColorScheme' }, {
   end,
 })
 
+vim.api.nvim_create_augroup('CustomAutocommand', { clear = true })
 vim.api.nvim_create_autocmd({ 'TextYankPost' }, {
   group = 'CustomAutocommand',
   callback = function()
@@ -59,6 +55,7 @@ vim.api.nvim_create_autocmd({ 'TextYankPost' }, {
   end,
 })
 
+vim.api.nvim_create_augroup('LazyGitTabClose', { clear = true })
 vim.api.nvim_create_autocmd({ 'TermClose' }, {
   group = 'LazyGitTabClose',
   callback = function(arg)
@@ -71,6 +68,7 @@ vim.api.nvim_create_autocmd({ 'TermClose' }, {
   end,
 })
 
+vim.api.nvim_create_augroup('WinBarLspProgress', { clear = true })
 vim.api.nvim_create_autocmd({ 'LspProgress' }, {
   callback = function(event)
     local kind = event.data.result.value.kind
@@ -104,4 +102,17 @@ vim.api.nvim_create_autocmd({ 'LspProgress' }, {
     vim.cmd('redrawstatus')
   end,
   group = 'WinBarLspProgress',
+})
+
+vim.api.nvim_create_augroup('QfSyntax', { clear = true })
+vim.api.nvim_create_autocmd({ 'QuickFixCmdPost', 'BufRead' }, {
+  callback = function(ft)
+    if ft.file == 'quickfix' or ft.event == 'QuickFixCmdPost' then
+      local qfwinid = vim.fn.getqflist({ winid = 0 }).winid
+      vim.fn.win_execute(qfwinid, 'syntax match ErrorMsg //')
+      vim.fn.win_execute(qfwinid, 'syntax match WarningMsg //')
+      vim.fn.win_execute(qfwinid, 'syntax match MoreMsg //')
+    end
+  end,
+  group = 'QfSyntax',
 })

@@ -2,8 +2,6 @@ local M = {}
 
 ---@type vim.SystemObj | nil
 local running_job = nil
-local api = vim.api
-local f = vim.fn
 
 ---@class AsyncRunOptions
 ---@field on_exit? function
@@ -28,21 +26,21 @@ M.asyncrun = function(cmd, opt)
     vim.notify('Command still runing', vim.log.levels.WARN)
     return
   end
-  f.setqflist {} -- Reset qflist
+  vim.fn.setqflist {} -- Reset qflist
 
   local on_event = function(data)
-    local qfwinid = f.getqflist({ winid = 0 }).winid
+    local qfwinid = vim.fn.getqflist({ winid = 0 }).winid
     if data == nil then
       return
     end
-    command_output = f.substitute(command_output .. data, [[\[[0-9;]*m]], [[]], 'g')
-    f.setqflist({}, 'r', {
+    command_output = vim.fn.substitute(command_output .. data, [[\[[0-9;]*m]], [[]], 'g')
+    vim.fn.setqflist({}, 'r', {
       title = cmd,
-      lines = vim.split(f.substitute(command_output, '\n*$', '', 'g'), '\n'),
+      lines = vim.split(vim.fn.substitute(command_output, '\n*$', '', 'g'), '\n'),
       efm = efm,
     })
     if qfwinid ~= 0 and qfwinid ~= nil then
-      api.nvim_win_set_cursor(qfwinid, { api.nvim_buf_line_count(api.nvim_win_get_buf(qfwinid)), 0 })
+      vim.api.nvim_win_set_cursor(qfwinid, { vim.api.nvim_buf_line_count(vim.api.nvim_win_get_buf(qfwinid)), 0 })
     end
   end
 
@@ -59,7 +57,7 @@ M.asyncrun = function(cmd, opt)
     },
     -- on_exit
     vim.schedule_wrap(function(status)
-      local qfwinid = f.getqflist({ winid = 0 }).winid
+      local qfwinid = vim.fn.getqflist({ winid = 0 }).winid
       on_exit()
       local end_msg = ''
       if status.signal == 0 then
@@ -67,16 +65,16 @@ M.asyncrun = function(cmd, opt)
       else
         end_msg = '<<< exit with signal ' .. status.signal
       end
-      f.setqflist({}, 'a', {
+      vim.fn.setqflist({}, 'a', {
         title = cmd,
         lines = {
           end_msg,
         },
         efm = efm,
       })
-      api.nvim_command('doautocmd QuickFixCmdPost')
+      vim.api.nvim_command('doautocmd QuickFixCmdPost')
       if qfwinid ~= 0 and qfwinid ~= nil then
-        api.nvim_win_set_cursor(qfwinid, { api.nvim_buf_line_count(api.nvim_win_get_buf(qfwinid)), 0 })
+        vim.api.nvim_win_set_cursor(qfwinid, { vim.api.nvim_buf_line_count(vim.api.nvim_win_get_buf(qfwinid)), 0 })
       end
       running_job = nil
     end)

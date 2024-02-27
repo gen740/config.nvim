@@ -3,7 +3,10 @@ local M = {}
 local lmap = require('genf.language_services.utils').set_local_map
 
 function M.setup()
-  local efm = '%E%trror: %m,%C --> %f:%l:%c,%Z'
+  local efm = ''
+  efm = efm .. '%E%trror: %m,%C --> %f:%l:%c,%Z,'
+  efm = efm .. '%E%trror[E%n]: %m,%C --> %f:%l:%c,%Z,'
+  efm = efm .. '%W%tarning: %m,%C --> %f:%l:%c,%Z,'
 
   lmap('n', '<m-r>', function()
     require('genf.asyncrun').asyncrun('cargo run', {

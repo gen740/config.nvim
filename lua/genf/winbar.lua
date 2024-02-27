@@ -1,13 +1,5 @@
 local M = {}
 
-local file_icon = function()
-  return [[%{nerdfont#find(bufname())}]]
-end
-
-local in_search = function()
-  return vim.fn.getcmdtype() == '/' or vim.fn.getcmdtype() == '?'
-end
-
 local search_count = function()
   local status, stats = pcall(vim.fn.searchcount, { maxcount = 999 })
   if status == 0 then
@@ -18,7 +10,9 @@ local search_count = function()
     or stats.total == nil
     or stats.maxcount == nil
     or stats.current == nil
-    or ((stats.current == 0 or stats.exact_match ~= 1) and not in_search())
+    or (
+      (stats.current == 0 or stats.exact_match ~= 1) and not (vim.fn.getcmdtype() == '/' or vim.fn.getcmdtype() == '?')
+    )
   then
     return ''
   end
@@ -91,7 +85,7 @@ local format_progress = function()
   return string.format('%s[%s]', current_progress.value.message, mes)
 end
 
-local lsp_status = function()
+M.lsp_status = function()
   if current_progress.in_progress then
     return format_progress()
   end
@@ -100,6 +94,7 @@ local lsp_status = function()
   local WARN = vim.diagnostic.severity.WARN
   local INFO = vim.diagnostic.severity.INFO
   local HINT = vim.diagnostic.severity.HINT
+
   local diag = vim.diagnostic.get(0, {
     severity = {
       ERROR,
@@ -146,10 +141,10 @@ end
 
 M.expr = function()
   return string.format(
-    ' %%#WinBarFileIcon#%s%%* %%#WinBarFileName#%%f%%* %%M %s%%= %s %s',
-    file_icon(),
+    [[ %%#WinBarFileIcon#%%{nerdfont#find(bufname())}%%* %%#WinBarFileName#%%f%%* %%M %s]]
+      .. [[%%= ]]
+      .. [[%%{%%luaeval("require('genf.winbar').lsp_status()")%%} %s]],
     search_count(),
-    lsp_status(),
     git_branch()
   )
 end
