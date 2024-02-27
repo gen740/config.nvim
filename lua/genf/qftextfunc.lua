@@ -15,22 +15,37 @@ M.expr = function(info)
           table.insert(res, '  ▏' .. qf.text)
         end
       else
-        if qf.bufnr == 0 and qf.lnum == 0 then
-          table.insert(res, ' ▏ ' .. qf.text)
-        elseif qf.type == 'e' then
-          if qf.nr ~= -1 then
-            table.insert(
-              res,
-              string.format(' ▏ %s|%s:%s| [E%s] ⇒ %s', bufname(qf.bufnr), qf.lnum, qf.col, qf.nr, qf.text)
-            )
-          else
-            table.insert(res, string.format(' ▏ %s|%s:%s| ⇒ %s', bufname(qf.bufnr), qf.lnum, qf.col, qf.text))
-          end
+        local line = ''
+        if qf.type == 'e' then
+          line = ' ▏'
         elseif qf.type == 'w' then
-          table.insert(res, string.format(' ▏ %s|%s:%s| ⇒ %s', bufname(qf.bufnr), qf.lnum, qf.col, qf.text))
+          line = ' ▏'
         else
-          table.insert(res, string.format(' ▏ %s|%s:%s| ⇒ %s', bufname(qf.bufnr), qf.lnum, qf.col, qf.text))
+          line = ' ▏'
         end
+        if qf.lnum == 0 then
+          line = line .. qf.text
+        else
+          if qf.bufnr then
+            line = line .. bufname(qf.bufnr)
+          end
+          if qf.lnum ~= 0 then
+            line = line .. '|' .. qf.lnum
+          end
+          if qf.col ~= 0 then
+            line = line .. ':' .. qf.lnum
+          end
+          if qf.lnum ~= 0 then
+            line = line .. '|'
+          end
+          if qf.nr ~= -1 then
+            line = line .. ' [E' .. qf.nr .. ']'
+          end
+          if qf.text ~= '' then
+            line = line .. ' ⇒ ' .. qf.text
+          end
+        end
+        table.insert(res, line)
       end
     end
   else
