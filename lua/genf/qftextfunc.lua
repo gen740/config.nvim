@@ -10,26 +10,26 @@ M.expr = function(info)
       local qf = qf_list[i]
       if not (qf.valid == 1) then
         if qf.text == '' then
-          table.insert(res, '  ┊')
+          table.insert(res, '  ▏')
         else
-          table.insert(res, '  ┊' .. qf.text)
+          table.insert(res, '  ▏' .. qf.text)
         end
       else
         if qf.bufnr == 0 and qf.lnum == 0 then
-          table.insert(res, ' ┊ ' .. qf.text)
+          table.insert(res, ' ▏ ' .. qf.text)
         elseif qf.type == 'e' then
           if qf.nr ~= -1 then
             table.insert(
               res,
-              string.format(' ┊ %s|%s:%s| [E%s] ⇒ %s', bufname(qf.bufnr), qf.lnum, qf.col, qf.nr, qf.text)
+              string.format(' ▏ %s|%s:%s| [E%s] ⇒ %s', bufname(qf.bufnr), qf.lnum, qf.col, qf.nr, qf.text)
             )
           else
-            table.insert(res, string.format(' ┊ %s|%s:%s| ⇒ %s', bufname(qf.bufnr), qf.lnum, qf.col, qf.text))
+            table.insert(res, string.format(' ▏ %s|%s:%s| ⇒ %s', bufname(qf.bufnr), qf.lnum, qf.col, qf.text))
           end
         elseif qf.type == 'w' then
-          table.insert(res, string.format(' ┊ %s|%s:%s| ⇒ %s', bufname(qf.bufnr), qf.lnum, qf.col, qf.text))
+          table.insert(res, string.format(' ▏ %s|%s:%s| ⇒ %s', bufname(qf.bufnr), qf.lnum, qf.col, qf.text))
         else
-          table.insert(res, string.format(' ┊ %s|%s:%s| ⇒ %s', bufname(qf.bufnr), qf.lnum, qf.col, qf.text))
+          table.insert(res, string.format(' ▏ %s|%s:%s| ⇒ %s', bufname(qf.bufnr), qf.lnum, qf.col, qf.text))
         end
       end
     end
