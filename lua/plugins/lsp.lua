@@ -3,6 +3,7 @@
 return {
   'neovim/nvim-lspconfig',
   config = function()
+    vim.lsp.set_log_level('off')
     local function load_config(name)
       require('genf.language_services.' .. name).lsp_config()
     end

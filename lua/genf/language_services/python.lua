@@ -25,9 +25,8 @@ function M.setup()
   vim.cmd('compiler python')
 end
 
-local lsp_utils = require('genf.language_services.utils')
-
 function M.lsp_config()
+  local lsp_utils = require('genf.language_services.utils')
   lsp_utils.lsp_setup('ruff_lsp')
   require('lspconfig')['pyright'].setup {
     capabilities = lsp_utils.capabilities,

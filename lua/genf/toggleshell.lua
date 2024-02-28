@@ -63,7 +63,6 @@ for key, value in pairs(win_kind) do
       return
     end
     vim.cmd('sp')
-    vim.cmd('wincmd J')
     vim.api.nvim_win_set_height(0, winsize)
     local toggleterm_buf_found = false
     for _, val in ipairs(vim.fn.getbufinfo()) do
@@ -81,6 +80,7 @@ for key, value in pairs(win_kind) do
     end
     set_options(key)
     vim.api.nvim_buf_set_var(0, key, true)
+    vim.cmd('wincmd p')
   end
 end
 
@@ -89,9 +89,9 @@ M.ToggleQF = function()
     return
   end
   vim.cmd('copen')
-  vim.cmd('wincmd J')
   vim.api.nvim_win_set_height(0, winsize)
   set_options()
+  vim.cmd('wincmd p')
 end
 
 return M
