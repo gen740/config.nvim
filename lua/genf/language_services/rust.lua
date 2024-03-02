@@ -7,6 +7,7 @@ function M.setup()
   efm = efm .. '%E%trror: %m,%C --> %f:%l:%c,%Z,'
   efm = efm .. '%E%trror[E%n]: %m,%C --> %f:%l:%c,%Z,'
   efm = efm .. '%W%tarning: %m,%C  --> %f:%l:%c,%Z,'
+  efm = efm .. "thread 'main' %m at %f:%l:%c:,"
 
   lmap('n', '<m-r>', function()
     require('genf.asyncrun').asyncrun('cargo run', {
@@ -39,32 +40,7 @@ function M.setup()
 end
 
 function M.lsp_config()
-  local lsp_utils = require('genf.language_services.utils')
-  require('lspconfig')['rust_analyzer'].setup {
-    capabilities = lsp_utils.capabilities,
-    settings = {
-      ['rust-analyzer'] = {
-        cargo = {
-          allFeatures = true,
-          loadOutDirsFromCheck = true,
-          runBuildScripts = true,
-        },
-        checkOnSave = {
-          allFeatures = true,
-          command = 'clippy',
-          extraArgs = { '--no-deps' },
-        },
-        procMacro = {
-          enable = true,
-          ignored = {
-            ['async-trait'] = { 'async_trait' },
-            ['napi-derive'] = { 'napi' },
-            ['async-recursion'] = { 'async_recursion' },
-          },
-        },
-      },
-    },
-  }
+  require('genf.language_services.utils').lsp_setup('rust_analyzer')
 end
 
 return M

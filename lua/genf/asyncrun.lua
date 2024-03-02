@@ -6,20 +6,27 @@ local running_job = nil
 ---@class AsyncRunOptions
 ---@field on_exit? function
 ---@field efm? string
+---@field env? table<string, string>
+---@field header? string
 
 -- Run command in async mode
----@param cmd string
+---@param cmd string | string[]
 ---@param opt? AsyncRunOptions
 M.asyncrun = function(cmd, opt)
   opt = opt or {}
   local on_exit = opt.on_exit or function() end
   local efm = opt.efm or '%-G'
-  local command_output = ''
+  local command_output = (opt.header or '') or ''
   local cmd_list = {}
-  for i, v in ipairs(vim.split(cmd, ' ')) do
-    if v ~= '' then
-      cmd_list[i] = v
+
+  if type(cmd) == 'string' then
+    for i, v in ipairs(vim.split(cmd, ' ')) do
+      if v ~= '' then
+        cmd_list[i] = v
+      end
     end
+  else
+    cmd_list = cmd
   end
 
   if running_job then
@@ -54,6 +61,7 @@ M.asyncrun = function(cmd, opt)
         on_event(data)
       end),
       stdin = true,
+      env = opt.env,
     },
     -- on_exit
     vim.schedule_wrap(function(status)
@@ -81,12 +89,14 @@ M.asyncrun = function(cmd, opt)
   )
 end
 
----@param pattern string
-M.ripgrep = function(pattern, dir)
-  dir = dir or '.'
-  pattern = 'rg --column ' .. pattern .. ' ' .. dir
+---@param pattern string[]
+M.ripgrep = function(pattern)
+  -- dir = dir or '.'
+  -- pattern = 'rg --column ' .. pattern .. ' ' .. dir
+  table.insert(pattern, 1, 'rg')
+  table.insert(pattern, 2, '--column')
   local efm = '%f:%l:%c:%m,%f:%l:%m'
-  M.asyncrun(pattern, { efm = efm })
+  M.asyncrun(pattern, { efm = efm, header = '[Rg] ' .. vim.inspect(pattern) .. '\n' })
 end
 
 -- Stop async job

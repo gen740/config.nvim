@@ -114,7 +114,7 @@ vim.api.nvim_create_autocmd({ 'QuickFixCmdPost', 'BufRead' }, {
       vim.fn.win_execute(qfwinid, 'syntax match WarningMsg //')
       vim.fn.win_execute(qfwinid, 'syntax match MoreMsg //')
 
-      vim.fn.win_execute(qfwinid, [[syntax match QfFileName /▏\zs[0-9a-zA-Z.\/]*\ze|/]])
+      vim.fn.win_execute(qfwinid, [[syntax match QfFileName /▏\zs.*\ze|[0-9:]*|/]])
       vim.fn.win_execute(qfwinid, [[syntax match QfLineNr /|\zs[0-9:]*\ze|/]])
     end
   end,

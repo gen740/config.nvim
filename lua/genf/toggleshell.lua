@@ -80,6 +80,7 @@ for key, value in pairs(win_kind) do
     end
     set_options(key)
     vim.api.nvim_buf_set_var(0, key, true)
+    vim.cmd('wincmd J')
     vim.cmd('wincmd p')
   end
 end
@@ -91,6 +92,7 @@ M.ToggleQF = function()
   vim.cmd('copen')
   vim.api.nvim_win_set_height(0, winsize)
   set_options()
+  vim.cmd('wincmd J')
   vim.cmd('wincmd p')
 end
 
