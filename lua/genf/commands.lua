@@ -15,9 +15,25 @@ vim.api.nvim_create_user_command('In', function(args)
 end, { nargs = 1 })
 
 vim.api.nvim_create_user_command('GitOpenPathInBrowser', function(opts)
-  local git_url = io.popen('gh repo view --json url | jq ".url"'):read()
-  git_url = string.gsub(git_url, '"', '')
-  git_url = git_url .. '/blob/' .. io.popen('git rev-parse origin/$(git branch --show-current)'):read()
+  local git_url = vim.system({ 'git', 'remote', 'get-url', 'origin' }):wait().stdout:gsub('\n', '')
+  if git_url == '' or git_url == nil then
+    vim.notify('Not in git repo')
+    return
+  end
+  if git_url:find('github') then
+    git_url = git_url:gsub('git@', 'https://'):gsub('github.com:', 'github.com/'):gsub('.git$', '')
+  end
+
+  git_url = git_url
+    .. '/blob/'
+    .. vim
+      .system({
+        'git',
+        'rev-parse',
+        'origin/' .. vim.system({ 'git', 'branch', '--show-current' }):wait().stdout:gsub('\n', ''),
+      })
+      :wait().stdout
+      :gsub('\n', '')
 
   local function get_relative_path(absolute_path, base_path)
     if base_path:sub(-1) ~= '/' then
@@ -32,7 +48,10 @@ vim.api.nvim_create_user_command('GitOpenPathInBrowser', function(opts)
     end
   end
 
-  local rel_path = get_relative_path(vim.fn.expand('%:p'), io.popen('git rev-parse --show-toplevel'):read())
+  local rel_path = get_relative_path(
+    vim.fn.expand('%:p'),
+    vim.system({ 'git', 'rev-parse', '--show-toplevel' }):wait().stdout:gsub('\n', '')
+  )
   if rel_path == nil then
     vim.notify('Not in git repo')
     return
