@@ -36,7 +36,11 @@ function M.lsp_config()
 
   local clangd_path = 'clangd'
 
-  if vim.fn.filereadable('/usr/local/opt/llvm/bin/clangd') == 1 then
+  if vim.fn.filereadable(vim.env.HOME .. '/.local/bin/clangd') == 1 then
+    clangd_path = vim.env.HOME .. '/.local/bin/clangd'
+  elseif vim.fn.filereadable('/opt/homebrew/opt/llvm/bin/clangd') == 1 then
+    clangd_path = '/opt/homebrew/opt/llvm/bin/clangd'
+  elseif vim.fn.filereadable('/usr/local/opt/llvm/bin/clangd') == 1 then
     clangd_path = '/usr/local/opt/llvm/bin/clangd'
   elseif vim.fn.filereadable('/usr/bin/clangd-18') == 1 then
     clangd_path = '/usr/bin/clangd-18'
@@ -58,7 +62,11 @@ end
 function M.dap_config()
   local lldb_path = 'lldb'
 
-  if vim.fn.filereadable('/usr/local/opt/llvm/bin/lldb-vscode') == 1 then
+  if vim.fn.filereadable(vim.env.HOME .. '/.local/bin/lldb-dap') then
+    lldb_path = vim.env.HOME .. '/.local/bin/lldb-dap'
+  elseif vim.fn.filereadable('/opt/homebrew/opt/llvm/bin/lldb-vscode') == 1 then
+    lldb_path = '/opt/homebrew/opt/llvm/bin/lldb-vscode'
+  elseif vim.fn.filereadable('/usr/local/opt/llvm/bin/lldb-vscode') == 1 then
     lldb_path = '/usr/local/opt/llvm/bin/lldb-vscode'
   elseif vim.fn.filereadable('/usr/bin/lldb-dap-18') == 1 then
     lldb_path = '/usr/bin/lldb-dap-18'
