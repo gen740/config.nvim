@@ -23,7 +23,7 @@ function M.setup()
   -- nvim --server ~/.cache/nvim/synctex-server.pipe --remote-send  "<cmd>%line<cr>"
   lmap('n', '<space>ll', function()
     if not skim_started then
-      vim.fn.serverstart('/Users/gen/.cache/nvim/synctex-server.pipe')
+      vim.fn.serverstart(vim.env.HOME .. '/.cache/nvim/synctex-server.pipe')
       vim.cmd('silent !yabai -m window --grid 1:7:0:0:4:1')
     end
     vim.cmd(
