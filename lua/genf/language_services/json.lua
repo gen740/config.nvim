@@ -28,10 +28,12 @@ function M.lsp_config()
             url = 'https://raw.githubusercontent.com/sumneko/vscode-lua/master/setting/schema.json',
           },
           {
-            fileMatch = {
-              'pyrightconfig.json',
-            },
+            fileMatch = { 'pyrightconfig.json' },
             url = 'https://raw.githubusercontent.com/microsoft/pyright/main/packages/vscode-pyright/schemas/pyrightconfig.schema.json',
+          },
+          {
+            fileMatch = { 'biome.json' },
+            url = 'https://biomejs.dev/schemas/1.6.1/schema.json',
           },
         },
       },

@@ -9,7 +9,6 @@ function M.setup()
   lmap('n', '<m-s>', function()
     require('genf.asyncrun').asyncstop()
   end)
-
   lmap('n', '<m-t>', function()
     require('genf.asyncrun').asyncrun('npm run test')
   end)
@@ -23,6 +22,7 @@ end
 
 function M.lsp_config()
   require('genf.language_services.utils').lsp_setup('vtsls')
+  require('genf.language_services.utils').lsp_setup('biome')
 end
 
 return M
