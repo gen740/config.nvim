@@ -8,7 +8,8 @@ return {
       },
       on_highlights = function(hl, colors)
         hl.Normal = { bg = nil, fg = colors.fg }
-        hl.NormalSB = { bg = nil, fg = colors.fg }
+        hl.NormalNC = { bg = nil, fg = colors.fg }
+        hl.TelescopeNormal = { bg = colors.bg, fg = colors.fg }
         hl.PreProc = { bg = nil, fg = colors.blue }
         hl.SignColumn = { bg = nil, fg = colors.fg }
         hl.SignColumnSB = { bg = nil, fg = colors.fg }
@@ -26,11 +27,11 @@ return {
         hl.WinBarLspHint = { bg = nil, fg = colors.green }
         hl.WinBarLspProgressDone = { bg = nil, fg = colors.green }
         hl.WinBarLspProgress = { bg = nil, fg = colors.blue }
-        hl.WinSeparator = { bg = colors.bg_dark, fg = colors.bg_dark }
+        hl.WinSeparator = { bg = colors.fg_gutter, fg = colors.bg_dark }
         hl.TabLine = { bg = nil, fg = colors.fg_dark }
         hl.TabLineFill = { bg = nil, fg = colors.fg_dark }
-        hl.StatusLine = { bg = colors.bg_dark, fg = colors.bg_dark }
-        hl.StatusLineNC = { bg = colors.bg_dark, fg = colors.bg_dark }
+        hl.StatusLine = { bg = colors.fg_gutter, fg = colors.bg_dark }
+        hl.StatusLineNC = { bg = colors.fg_gutter, fg = colors.bg_dark }
         hl.QfFileName = { bg = nil, fg = colors.orange, bold = true }
         hl.QfLineNr = { bg = nil, fg = colors.blue }
       end,
