@@ -61,7 +61,13 @@ local global_keymap = {
     ['<space>tl'] = require_wrap('telescope.builtin', 'live_grep'),
     ['<space>ts'] = require_wrap('telescope.builtin', 'builtin'),
     ['<space>lg'] = require("genf.lazygit").lazygit_open,
-    ['<space>f'] = wrap(vim.lsp.buf.format, { async = true, filter = function(client) return client.name ~= 'tsserver' and client.name ~= 'texlab' end, }),
+
+    ['<space>f'] = wrap(vim.lsp.buf.format, {
+      async = true,
+      filter = function(client)
+        return (client.name ~= 'tsserver' and client.name ~= 'vtsls' and client.name ~= 'texlab')
+      end,
+    }),
     ['<space>mm'] = function()
       local cursor = vim.api.nvim_win_get_cursor(0)
       vim.print(vim.fn.synIDattr(vim.fn.synID(cursor[1], cursor[2] + 1, 0), 'name'))
