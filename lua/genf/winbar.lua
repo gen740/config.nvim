@@ -141,9 +141,7 @@ end
 
 M.expr = function()
   return string.format(
-    [[ %%#WinBarFileIcon#%%{nerdfont#find(bufname())}%%* %%#WinBarFileName#%%f%%* %%M %s]]
-      .. [[%%= ]]
-      .. [[%%{%%luaeval("require('genf.winbar').lsp_status()")%%} %s]],
+    [[  %%#WinBarFileName#%%f%%* %%M %s]] .. [[%%= ]] .. [[%%{%%luaeval("require('genf.winbar').lsp_status()")%%} %s]],
     search_count(),
     git_branch()
   )

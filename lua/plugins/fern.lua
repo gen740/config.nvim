@@ -2,22 +2,14 @@
 ---@type LazyPluginBase[]
 return {
   {
-    'lambdalisue/nerdfont.vim',
-    config = function()
-      vim.g['nerdfont#autofix_cellwidths'] = 0
-    end,
-  },
-  {
     'lambdalisue/fern.vim',
     dependencies = {
-      'lambdalisue/fern-renderer-nerdfont.vim',
       'lambdalisue/fern-git-status.vim',
       'lambdalisue/fern-hijack.vim',
     },
     cmd = 'Fern',
     config = function()
       vim.fn['fern_git_status#init']()
-      vim.g['fern#renderer'] = 'nerdfont'
       vim.g['fern#hide_cursor'] = 1
       vim.api.nvim_create_autocmd({ 'Filetype' }, {
         pattern = 'fern',

@@ -20,7 +20,6 @@ M.expr = function()
       title = { icon = '', name = 'IPython' }
     else
       local bufname = vim.fn.bufname(bufnr)
-      title.icon = vim.fn['nerdfont#find'](bufname)
       if vim.fn.bufname(bufnr) == '' then
         title.name = '[No Name]'
       else
@@ -28,7 +27,7 @@ M.expr = function()
       end
     end
 
-    s = s .. ' ' .. title.icon .. ' ' .. title.name .. ' '
+    s = s .. ' ' .. title.name .. ' '
   end
 
   s = s .. '%#TabLineFill#%T'
