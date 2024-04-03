@@ -6,6 +6,7 @@ autocmd('FileType', {
   group = 'CustomFiletypeSetting',
   pattern = '*',
   callback = function(args)
+    require('genf.language_services.utils').init()
     pcall(function(name)
       require('genf.language_services.' .. name).setup()
     end, args.match)
