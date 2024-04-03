@@ -14,7 +14,6 @@ rm -rf "${NVIM_RUNTIME}/lua/provider/perl"
 rm -rf "${NVIM_RUNTIME}/lua/provider/python"
 rm -rf "${NVIM_RUNTIME}/lua/provider/ruby"
 
-
 # delete zip plugins
 rm -f "${NVIM_RUNTIME}/doc/pi_gzip.txt"
 rm -f "${NVIM_RUNTIME}/plugin/gzip.vim"
