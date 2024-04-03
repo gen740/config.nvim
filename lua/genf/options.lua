@@ -24,7 +24,6 @@ local vim_options = {
   relativenumber = true,
   ruler = false,
   scrolloff = 8,
-  shada = [['1000,f1,<500,:500,@500,/500]],
   shortmess = 'acOsTWFI',
   showmode = false,
   showtabline = 1,
@@ -50,7 +49,6 @@ for name, val in pairs(vim_options) do
 end
 
 vim.api.nvim_create_augroup('LazyFoldExpr', { clear = true })
-
 vim.api.nvim_create_autocmd({ 'BufRead' }, {
   group = 'LazyFoldExpr',
   callback = function()
