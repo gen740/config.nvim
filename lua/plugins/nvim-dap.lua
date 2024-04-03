@@ -6,7 +6,7 @@ return {
     'mfussenegger/nvim-dap',
     'nvim-neotest/nvim-nio',
   },
-  -- lazy = true,
+  keys = { '<m-b>', '<m-n>', '<m-i>', '<m-o>', '<m-s>', '<space>dl' },
   config = function()
     local dap = require('dap')
     local dapui = require('dapui')

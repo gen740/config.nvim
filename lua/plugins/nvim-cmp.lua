@@ -36,7 +36,9 @@ return {
     { 'hrsh7th/cmp-path' },
     { 'hrsh7th/cmp-vsnip' },
   },
+  event = 'InsertEnter',
   config = function()
+    print('Hey')
     local cmp = require('cmp')
     cmp.setup {
       snippet = {
