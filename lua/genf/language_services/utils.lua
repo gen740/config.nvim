@@ -38,4 +38,12 @@ function M.async_format(cmd)
   )
 end
 
+function M.init()
+  vim.opt_local.expandtab = true
+  vim.opt_local.modeline = true
+  vim.opt_local.swapfile = false
+  vim.opt_local.undofile = true
+  vim.opt_local.syntax = 'off'
+end
+
 return M

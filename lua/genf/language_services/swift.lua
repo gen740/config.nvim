@@ -1,14 +1,19 @@
 local M = {}
 
 local lmap = require('genf.language_services.utils').set_local_map
+local async_format = require('genf.language_services.utils').async_format
 
 function M.setup()
   vim.opt_local.tabstop = 2
   vim.opt_local.softtabstop = 2
   vim.opt_local.shiftwidth = 2
 
-  lmap('n', '<space>rr', function()
+  lmap('n', '<m-r>', function()
     require('genf.asyncrun').asyncrun('swift run')
+  end)
+
+  lmap('n', '<space>f', function()
+    async_format { 'swift-format', 'format', '-i', vim.fn.expand('%:p') }
   end)
 end
 
