@@ -1,5 +1,6 @@
 return {
   'folke/tokyonight.nvim',
+  event = 'ColorSchemePre',
   config = function()
     require('tokyonight').setup {
       styles = {

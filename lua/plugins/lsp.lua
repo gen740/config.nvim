@@ -10,6 +10,7 @@ return {
       'julia',
       'lua',
       'python',
+      'toml',
       'rust',
       'swift',
       'yaml',
