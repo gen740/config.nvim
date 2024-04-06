@@ -23,8 +23,18 @@ function M.setup()
 end
 
 function M.lsp_config()
-  require('genf.language_services.utils').lsp_setup('vtsls')
+  local lsp_utils = require('genf.language_services.utils')
   require('genf.language_services.utils').lsp_setup('biome')
+  require('lspconfig')['denols'].setup {
+    capabilities = lsp_utils.capabilities,
+    root_dir = require('lspconfig/util').root_pattern('deno.json', 'deno.jsonc'),
+    single_file_support = true,
+  }
+  require('lspconfig')['vtsls'].setup {
+    capabilities = lsp_utils.capabilities,
+    root_dir = require('lspconfig/util').root_pattern('tsconfig.json', 'package.json', 'jsconfig.json'),
+    single_file_support = false,
+  }
 end
 
 return M
