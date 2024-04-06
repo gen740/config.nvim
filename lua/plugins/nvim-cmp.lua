@@ -38,7 +38,6 @@ return {
   },
   event = 'InsertEnter',
   config = function()
-    print('Hey')
     local cmp = require('cmp')
     cmp.setup {
       snippet = {

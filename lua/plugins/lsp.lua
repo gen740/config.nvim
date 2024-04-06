@@ -9,6 +9,7 @@ return {
       'json',
       'julia',
       'lua',
+      'nix',
       'python',
       'toml',
       'rust',
