@@ -4,6 +4,8 @@ set -e
 
 NVIM_RUNTIME="$(nvim --headless -c 'echon $VIMRUNTIME' -c 'q' 2>&1)"
 
+echo $NVIM_RUNTIME
+
 # delete providers
 rm -f "${NVIM_RUNTIME}/autoload/provider/perl.vim"
 rm -f "${NVIM_RUNTIME}/autoload/provider/python3.vim"
@@ -70,3 +72,8 @@ rm -f "${NVIM_RUNTIME}/autoload/netrwSettings.vim"
 rm -f "${NVIM_RUNTIME}/plugin/netrwPlugin.vim"
 rm -f "${NVIM_RUNTIME}/autoload/netrw.vim"
 rm -f "${NVIM_RUNTIME}/syntax/netrw.vim"
+
+
+# delete osc52
+rm -f  "${NVIM_RUNTIME}/lua/vim/ui/clipboard/osc52.lua"
+rm -f  "${NVIM_RUNTIME}/plugin/osc52.lua"
