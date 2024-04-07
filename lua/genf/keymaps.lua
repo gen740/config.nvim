@@ -68,10 +68,6 @@ local global_keymap = {
         return (client.name ~= 'tsserver' and client.name ~= 'vtsls' and client.name ~= 'texlab')
       end,
     }),
-    ['<space>mm'] = function()
-      local cursor = vim.api.nvim_win_get_cursor(0)
-      vim.print(vim.fn.synIDattr(vim.fn.synID(cursor[1], cursor[2] + 1, 0), 'name'))
-    end,
 
     --- LSP
     ['<space>e'] = vim.diagnostic.open_float,

@@ -5,6 +5,7 @@ return {
   config = function()
     for _, lang in ipairs {
       'cpp',
+      'cmake',
       'go',
       'json',
       'julia',
