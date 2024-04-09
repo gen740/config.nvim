@@ -16,6 +16,7 @@ return {
       'rust',
       'swift',
       'yaml',
+      'typst',
       'typescript',
     } do
       require('genf.language_services.' .. lang).lsp_config()
