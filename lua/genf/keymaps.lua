@@ -30,6 +30,7 @@ local global_keymap = {
     ['<m-p>'] = '<cmd>Copilot panel open<cr>',
   },
   n = {
+    ['-'] = '<cmd>Oil<cr>',
     ['<space>ao'] = '<cmd>Copilot panel<cr>',
     ['<space>an'] = '<cmd>Copilot panel jump_next<cr>',
     ['<space>ap'] = '<cmd>Copilot panel jump_prev<cr>',
@@ -49,7 +50,6 @@ local global_keymap = {
     ['<space>py'] = require_wrap('genf.toggleshell', 'ToggleIpython3'),
     ['<space>p'] = '"_dP',
     ['~'] = '<nop>',
-    ['<c-q>'] = '<cmd>Fern . -drawer -toggle<cr>',
     ['<space>tn'] = '<cmd>tabnext<cr>',
     ['<space>tp'] = '<cmd>tabprevious<cr>',
 
