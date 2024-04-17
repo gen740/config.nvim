@@ -6,6 +6,7 @@ return {
     for _, lang in ipairs {
       'cpp',
       'cmake',
+      'dockerfile',
       'go',
       'json',
       'julia',

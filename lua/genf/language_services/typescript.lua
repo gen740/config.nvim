@@ -28,7 +28,7 @@ function M.lsp_config()
   require('lspconfig')['denols'].setup {
     capabilities = lsp_utils.capabilities,
     root_dir = require('lspconfig/util').root_pattern('deno.json', 'deno.jsonc'),
-    single_file_support = true,
+    single_file_support = false,
   }
   require('lspconfig')['vtsls'].setup {
     capabilities = lsp_utils.capabilities,
