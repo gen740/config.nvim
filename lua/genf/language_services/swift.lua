@@ -7,13 +7,32 @@ function M.setup()
   vim.opt_local.tabstop = 2
   vim.opt_local.softtabstop = 2
   vim.opt_local.shiftwidth = 2
+  vim.opt.commentstring = '// %s'
+
+  -- lmap('n', '<m-r>', function()
+  --   require('genf.asyncrun').asyncrun('swift run')
+  -- end)
 
   lmap('n', '<m-r>', function()
-    require('genf.asyncrun').asyncrun('swift run')
+    require('genf.asyncrun').asyncrun('task run')
+  end)
+
+  lmap('n', '<m-t>', function()
+    require('genf.asyncrun').asyncrun('task test')
+  end)
+
+  lmap('n', '<m-c>', function()
+    require('genf.asyncrun').asyncrun('task build', {
+      efm = '%f:%l:%c: %trror: %m,%f:%l:%c: %tarning: %m',
+    })
+  end)
+
+  lmap('n', '<m-g>', function()
+    require('genf.asyncrun').asyncrun('task cmake')
   end)
 
   lmap('n', '<space>f', function()
-    async_format { 'swift-format', 'format', '-i', vim.fn.expand('%:p') }
+    async_format({ 'swift-format', 'format', '-i', vim.fn.expand('%:p') }, true)
   end)
 end
 
@@ -23,7 +42,7 @@ function M.lsp_config()
   config.setup {
     capabilities = lsp_util.capabilities,
     filetypes = { 'swift' },
-    cmd = { 'sourcekit-lsp' },
+    cmd = { 'xcrun', 'sourcekit-lsp', '-index-store-path', './.build/index' },
   }
 end
 

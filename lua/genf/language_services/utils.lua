@@ -23,9 +23,9 @@ function M.set_local_map(mode, map, callback)
 end
 
 ---@param cmd string[]
-function M.async_format(cmd)
+function M.async_format(cmd, await)
   vim.cmd('w')
-  vim.system(
+  local handle = vim.system(
     cmd,
     {},
     vim.schedule_wrap(function()
@@ -36,6 +36,9 @@ function M.async_format(cmd)
       vim.fn.cursor(current_line, 0)
     end)
   )
+  if await then
+    handle:wait()
+  end
 end
 
 function M.init()
