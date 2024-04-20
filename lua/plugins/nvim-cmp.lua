@@ -44,16 +44,13 @@ return {
           vim.fn['vsnip#anonymous'](args.body)
         end,
       },
-      mapping = {
-        ['<C-p>'] = cmp.mapping.select_prev_item {},
-        ['<C-n>'] = cmp.mapping.select_next_item {},
-        ['<C-c>'] = cmp.mapping.abort(),
-        ['<C-e>'] = cmp.mapping(function()
-          cmp.confirm {
-            behavior = cmp.ConfirmBehavior.Replace,
-            select = true,
-          }
-        end, { 'i', 's' }),
+      mapping = cmp.mapping.preset.insert {
+        -- ['<C-e>'] = cmp.mapping(function()
+        --   cmp.confirm {
+        --     behavior = cmp.ConfirmBehavior.Replace,
+        --     select = true,
+        --   }
+        -- end, { 'i', 's' }),
       },
       sources = {
         { name = 'nvim_lsp' },
