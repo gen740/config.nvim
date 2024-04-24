@@ -26,18 +26,10 @@ local global_keymap = {
     ['-'] = '<cmd>Oil<cr>',
 
     ['<space>co'] = require_wrap('genf.toggleshell', 'ToggleQF'),
-    ['<space>cn'] = '<cmd>cn<cr>',
-    ['<space>cN'] = '<cmd>cnew<cr>',
-    ['<space>cp'] = '<cmd>cp<cr>',
-    ['<space>cP'] = '<cmd>col<cr>',
-    ['<space>cc'] = '<cmd>cc<cr>',
-
     ['<space>sh'] = require_wrap('genf.toggleshell', 'ToggleTerm'),
     ['<space>py'] = require_wrap('genf.toggleshell', 'ToggleIpython3'),
     ['<space>p'] = '"_dP',
     ['~'] = '<nop>',
-    ['<space>tn'] = '<cmd>tabnext<cr>',
-    ['<space>tp'] = '<cmd>tabprevious<cr>',
 
     --- Telescope
     ['<space>tcb'] = require_wrap('telescope.builtin', 'current_buffer_fuzzy_find'),
@@ -90,7 +82,6 @@ local global_keymap = {
     ['<space>p'] = '"_dP',
   },
 }
-
 
 for mode, keys in pairs(global_keymap) do
   for key, callback in pairs(keys) do
