@@ -25,10 +25,10 @@ rm -f "${NVIM_RUNTIME}/doc/pi_zip.txt"
 rm -f "${NVIM_RUNTIME}/plugin/zipPlugin.vim"
 rm -f "${NVIM_RUNTIME}/autoload/zip.vim"
 
- rm -f "${NVIM_RUNTIME}/doc/pi_tar.txt"
- rm -f "${NVIM_RUNTIME}/plugin/tarPlugin.vim"
- rm -f "${NVIM_RUNTIME}/autoload/tar.vim"
- rm -f "${NVIM_RUNTIME}/syntax/tar.vim"
+rm -f "${NVIM_RUNTIME}/doc/pi_tar.txt"
+rm -f "${NVIM_RUNTIME}/plugin/tarPlugin.vim"
+rm -f "${NVIM_RUNTIME}/autoload/tar.vim"
+rm -f "${NVIM_RUNTIME}/syntax/tar.vim"
 
 # delete matchit
 rm -rf "${NVIM_RUNTIME}/pack/dist/opt/matchit"
