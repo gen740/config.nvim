@@ -89,16 +89,6 @@ M.asyncrun = function(cmd, opt)
   )
 end
 
----@param pattern string[]
-M.ripgrep = function(pattern)
-  -- dir = dir or '.'
-  -- pattern = 'rg --column ' .. pattern .. ' ' .. dir
-  table.insert(pattern, 1, 'rg')
-  table.insert(pattern, 2, '--column')
-  local efm = '%f:%l:%c:%m,%f:%l:%m'
-  M.asyncrun(pattern, { efm = efm, header = '[Rg] ' .. vim.inspect(pattern) .. '\n' })
-end
-
 -- Stop async job
 M.asyncstop = function()
   if running_job then

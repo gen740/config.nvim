@@ -3,6 +3,7 @@ local vim_options = {
   breakindent = true,
   clipboard = 'unnamed',
   cmdheight = 0,
+  grepprg = 'rg --vimgrep',
   equalalways = false,
   fillchars = { eob = ' ', stl = '▓', stlnc = '▓', vert = '▓', diff = ' ', fold = '┈' },
   foldenable = true,

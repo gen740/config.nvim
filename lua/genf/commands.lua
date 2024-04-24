@@ -6,10 +6,6 @@ vim.api.nvim_create_user_command('Stop', function()
   require('genf.asyncrun').asyncstop()
 end, {})
 
-vim.api.nvim_create_user_command('Rg', function(args)
-  require('genf.asyncrun').ripgrep(args.fargs)
-end, { nargs = '+' })
-
 vim.api.nvim_create_user_command('In', function(args)
   require('genf.asyncrun').input(args.fargs[1])
 end, { nargs = 1 })
