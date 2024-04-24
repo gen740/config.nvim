@@ -3,7 +3,7 @@
 return {
   'neovim/nvim-lspconfig',
   config = function()
-    vim.lsp.set_log_level("DEBUG")
+    vim.lsp.set_log_level('DEBUG')
     for _, lang in ipairs {
       'cpp',
       'cmake',

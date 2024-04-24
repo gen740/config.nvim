@@ -14,23 +14,6 @@ return {
   },
   cmd = 'Telescope',
   config = function()
-    local previewers = require('telescope.previewers')
-    local new_maker = function(filepath, bufnr, opts)
-      opts = opts or {}
-      filepath = vim.fn.expand(filepath)
-      ---@diagnostic disable-next-line
-      vim.loop.fs_stat(filepath, function(_, stat)
-        if not stat then
-          return
-        end
-        if stat.size > 200000 then
-          return
-        else
-          previewers.buffer_previewer_maker(filepath, bufnr, opts)
-        end
-      end)
-    end
-
     require('telescope').setup {
       defaults = {
         border = false,
@@ -66,7 +49,21 @@ return {
         },
         color_devicons = true,
         use_less = true,
-        buffer_previewer_maker = new_maker,
+        buffer_previewer_maker = function(filepath, bufnr, opts)
+          opts = opts or {}
+          filepath = vim.fn.expand(filepath)
+          ---@diagnostic disable-next-line
+          vim.loop.fs_stat(filepath, function(_, stat)
+            if not stat then
+              return
+            end
+            if stat.size > 200000 then
+              return
+            else
+              require('telescope.previewers').buffer_previewer_maker(filepath, bufnr, opts)
+            end
+          end)
+        end,
       },
       pickers = {
         find_files = {

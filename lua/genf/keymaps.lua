@@ -38,7 +38,7 @@ local global_keymap = {
     ['<space>tb'] = require_wrap('telescope.builtin', 'buffers'),
     ['<space>tl'] = require_wrap('telescope.builtin', 'live_grep'),
     ['<space>ts'] = require_wrap('telescope.builtin', 'builtin'),
-    ['<space>lg'] = require("genf.lazygit").lazygit_open,
+    ['<space>lg'] = require('genf.lazygit').lazygit_open,
 
     ['<space>f'] = wrap(vim.lsp.buf.format, {
       async = false,
@@ -76,7 +76,39 @@ local global_keymap = {
     ['<space>dl'] = require_wrap('dap', 'run_last'),
   },
   [{ 'n', 'v' }] = {
-    ['go'] = "<cmd>GitOpenPathInBrowser<cr>",
+    ['go'] = '<cmd>GitOpenPathInBrowser<cr>',
+  },
+  [{ 'i', 's' }] = {
+    ['<c-f>'] = {
+      function()
+        if vim.fn['vsnip#jumpable'](1) == 1 then
+          return '<Plug>(vsnip-jump-next)'
+        else
+          return '<c-f>'
+        end
+      end,
+      { noremap = true, silent = true, expr = true },
+    },
+    ['<c-b>'] = {
+      function()
+        if vim.fn['vsnip#jumpable'](-1) == 1 then
+          return '<Plug>(vsnip-jump-prev)'
+        else
+          return '<c-b>'
+        end
+      end,
+      { noremap = true, silent = true, expr = true },
+    },
+    ['<tab>'] = {
+      function()
+        if vim.fn['vsnip#available']() == 1 then
+          return '<Plug>(vsnip-expand)'
+        else
+          return '<tab>'
+        end
+      end,
+      { noremap = true, silent = true, expr = true },
+    },
   },
   x = {
     ['<space>p'] = '"_dP',
@@ -85,6 +117,10 @@ local global_keymap = {
 
 for mode, keys in pairs(global_keymap) do
   for key, callback in pairs(keys) do
-    vim.keymap.set(mode, key, callback, { noremap = true, silent = true })
+    if type(callback) == 'table' then
+      vim.keymap.set(mode, key, callback[1], callback[2])
+    else
+      vim.keymap.set(mode, key, callback, { noremap = true, silent = true })
+    end
   end
 end

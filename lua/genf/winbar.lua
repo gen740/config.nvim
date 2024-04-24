@@ -140,11 +140,11 @@ M.lsp_status = function()
 end
 
 local macro = function()
-  local reg = vim.fn.reg_recording() or ""
-  if reg == "" then
-    return ""
+  local reg = vim.fn.reg_recording() or ''
+  if reg == '' then
+    return ''
   end
-  return " Recorging @" .. reg
+  return ' Recorging @' .. reg
 end
 
 M.expr = function()
