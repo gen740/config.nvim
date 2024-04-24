@@ -26,12 +26,12 @@ local search_count = function()
     return ''
   elseif stats.incomplete == 2 then -- maxcount exceed
     if stats.total > stats.maxcount and stats.current > stats.maxcount then
-      return string.format('%s%s [>%d/>%d]', search_char, vim.fn.getreg('/'), stats.current, stats.total)
+      return string.format(' %s%s [>%d/>%d]', search_char, vim.fn.getreg('/'), stats.current, stats.total)
     elseif stats.total > stats.maxcount then
-      return string.format('%s%s [%d/>%d]', search_char, vim.fn.getreg('/'), stats.current, stats.total)
+      return string.format(' %s%s [%d/>%d]', search_char, vim.fn.getreg('/'), stats.current, stats.total)
     end
   end
-  return string.format('%s%s [%d/%d]', search_char, vim.fn.getreg('/'), stats.current, stats.total)
+  return string.format(' %s%s [%d/%d]', search_char, vim.fn.getreg('/'), stats.current, stats.total)
 end
 
 local git_branch = function()
@@ -139,10 +139,19 @@ M.lsp_status = function()
   return msg
 end
 
+local macro = function()
+  local reg = vim.fn.reg_recording() or ""
+  if reg == "" then
+    return ""
+  end
+  return " Recorging @" .. reg
+end
+
 M.expr = function()
   return string.format(
-    [[  %%#WinBarFileName#%%f%%* %%M %s]] .. [[%%= ]] .. [[%%{%%luaeval("require('genf.winbar').lsp_status()")%%} %s]],
+    [[  %%#WinBarFileName#%%f%%* %%M%s%s]] .. [[%%= ]] .. [[%%{%%luaeval("require('genf.winbar').lsp_status()")%%} %s]],
     search_count(),
+    macro(),
     git_branch()
   )
 end
