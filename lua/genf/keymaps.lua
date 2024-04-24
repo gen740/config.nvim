@@ -22,20 +22,8 @@ end
 
 --stylua: ignore start
 local global_keymap = {
-  i = {
-    -- ['<m-c>'] = '<cmd>Copilot suggestion toggle_auto_trigger<cr>',
-    ['<m-]>'] = '<cmd>Copilot suggestion next<cr>',
-    ['<m-[>'] = '<cmd>Copilot suggestion prev<cr>',
-    ['<m-f>'] = '<cmd>Copilot suggestion accept<cr>',
-    ['<m-p>'] = '<cmd>Copilot panel open<cr>',
-  },
   n = {
     ['-'] = '<cmd>Oil<cr>',
-    ['<space>ao'] = '<cmd>Copilot panel<cr>',
-    ['<space>an'] = '<cmd>Copilot panel jump_next<cr>',
-    ['<space>ap'] = '<cmd>Copilot panel jump_prev<cr>',
-    ['<space>aa'] = '<cmd>Copilot panel accept<cr>',
-    ['<space>ar'] = '<cmd>Copilot panel refresh<cr>',
 
     ['<space>co'] = require_wrap('genf.toggleshell', 'ToggleQF'),
     ['<space>cn'] = '<cmd>cn<cr>',
@@ -43,8 +31,6 @@ local global_keymap = {
     ['<space>cp'] = '<cmd>cp<cr>',
     ['<space>cP'] = '<cmd>col<cr>',
     ['<space>cc'] = '<cmd>cc<cr>',
-
-    ['<space>ct'] = '<cmd>ChatGPT<cr>',
 
     ['<space>sh'] = require_wrap('genf.toggleshell', 'ToggleTerm'),
     ['<space>py'] = require_wrap('genf.toggleshell', 'ToggleIpython3'),
@@ -63,7 +49,7 @@ local global_keymap = {
     ['<space>lg'] = require("genf.lazygit").lazygit_open,
 
     ['<space>f'] = wrap(vim.lsp.buf.format, {
-      async = true,
+      async = false,
       filter = function(client)
         return (client.name ~= 'tsserver' and client.name ~= 'vtsls' and client.name ~= 'texlab')
       end,
@@ -95,11 +81,10 @@ local global_keymap = {
     ['<m-i>'] = require_wrap('dap', 'step_into'),
     ['<m-o>'] = require_wrap('dap', 'step_out'),
     ['<m-s>'] = require_wrap('dap', 'step_over'),
-
     ['<space>dl'] = require_wrap('dap', 'run_last'),
   },
   [{ 'n', 'v' }] = {
-    ['go'] = ":GitOpenPathInBrowser<cr>",
+    ['go'] = "<cmd>GitOpenPathInBrowser<cr>",
   },
   x = {
     ['<space>p'] = '"_dP',
