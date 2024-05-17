@@ -24,10 +24,10 @@ vim.api.nvim_create_autocmd({ 'TermClose' }, {
 vim.api.nvim_create_augroup('WinBarLspProgress', { clear = true })
 vim.api.nvim_create_autocmd({ 'LspProgress' }, {
   callback = function(event)
-    local kind = event.data.result.value.kind
+    local kind = event.data.params.value.kind
     if kind == 'begin' then
       ---@type lsp.WorkDoneProgressBegin
-      local mes = event.data.result.value
+      local mes = event.data.params.value
       require('genf.winbar').set_current_progress {
         in_progress = true,
         value = {
@@ -38,7 +38,7 @@ vim.api.nvim_create_autocmd({ 'LspProgress' }, {
       }
     elseif kind == 'report' then
       ---@type lsp.WorkDoneProgressReport
-      local mes = event.data.result.value
+      local mes = event.data.params.value
       require('genf.winbar').set_current_progress {
         in_progress = true,
         value = {

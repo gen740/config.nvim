@@ -38,7 +38,7 @@ function M.lsp_config()
             lazy_path .. '/cmp-nvim-lsp',
             lazy_path .. '/tokyonight.nvim',
             lazy_path .. '/lazy.nvim',
-            '~/.local/share/nvim/runtime',
+            '/opt/homebrew/share/nvim/runtime',
             '${3rd}/luv/library',
             '${3rd}/luassert/library',
           },
