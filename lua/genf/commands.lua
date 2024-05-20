@@ -64,3 +64,24 @@ end, { range = true })
 vim.api.nvim_create_user_command('LazyGit', function()
   require('genf.lazygit').lazygit_open()
 end, { nargs = 0 })
+
+vim.api.nvim_create_user_command('RaycastAICommit', function()
+  -- copy the git diff to clipboard
+  local diff = vim.system({ 'git', 'diff', 'HEAD' }):wait().stdout
+  vim.fn.setreg('+', diff)
+  vim
+    .system({
+      'osascript',
+      '-e',
+      [[tell application "System Events"
+    key down {command}
+    key code 49
+    key up {command}
+    delay 0.1
+    keystroke "AI Commit"
+    delay 0.1
+    key code 36
+end tell]],
+    })
+    :wait()
+end, { nargs = 0 })
