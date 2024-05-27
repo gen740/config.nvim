@@ -77,9 +77,9 @@ vim.api.nvim_create_user_command('RaycastAICommit', function()
     key down {command}
     key code 49
     key up {command}
-    delay 0.1
+    delay 0.3
     keystroke "AI Commit"
-    delay 0.1
+    delay 0.3
     key code 36
 end tell]],
     })

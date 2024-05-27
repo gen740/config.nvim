@@ -28,8 +28,8 @@ function M.setup()
 end
 
 function M.lsp_config()
-  -- require('genf.language_services.utils').lsp_setup('cmake')
-  require('genf.language_services.utils').lsp_setup('neocmake')
+  require('genf.language_services.utils').lsp_setup('cmake')
+  -- require('genf.language_services.utils').lsp_setup('neocmake')
 end
 
 return M
