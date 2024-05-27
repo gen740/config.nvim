@@ -29,15 +29,6 @@ function M.setup()
   lmap('n', '<space>tp', function()
     vim.system { 'osascript', vim.fn.stdpath('config') .. '/scripts/SkimPreviousPage.js' }
   end)
-
-  vim.api.nvim_create_augroup('TypstClose', { clear = true })
-  vim.api.nvim_create_autocmd({ 'UILeave' }, {
-    group = 'TypstClose',
-    callback = function()
-      vim.cmd('silent !yabai -m window --grid 1:1:0:0:1:1')
-      vim.cmd('silent !pkill Skim')
-    end,
-  })
 end
 
 function M.lsp_config()
