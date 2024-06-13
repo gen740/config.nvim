@@ -4,7 +4,7 @@ M.lazy_plugin_path = vim.fn.stdpath('data') .. '/lazy'
 M.lazy_path = M.lazy_plugin_path .. '/lazy.nvim'
 
 M.init = function()
-  if not vim.loop.fs_stat(M.lazy_path) then
+  if not (vim.uv or vim.loop).fs_stat(M.lazy_path) then
     vim.fn.system {
       'git',
       'clone',
