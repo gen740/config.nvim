@@ -43,8 +43,8 @@ function M.lsp_config()
     clangd_path = '/opt/homebrew/opt/llvm/bin/clangd'
   elseif vim.fn.filereadable('/usr/local/opt/llvm/bin/clangd') == 1 then
     clangd_path = '/usr/local/opt/llvm/bin/clangd'
-  elseif vim.fn.filereadable('/usr/bin/clangd-18') == 1 then
-    clangd_path = '/usr/bin/clangd-18'
+  elseif vim.fn.filereadable('/usr/bin/clangd-19') == 1 then
+    clangd_path = '/usr/bin/clangd-19'
   end
 
   config.setup {
