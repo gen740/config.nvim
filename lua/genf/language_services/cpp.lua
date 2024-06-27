@@ -26,7 +26,7 @@ function M.setup()
   vim.opt_local.tabstop = 2
   vim.opt_local.softtabstop = 2
   vim.opt_local.shiftwidth = 2
-  vim.opt_local.commentstring = "// %s"
+  vim.opt_local.commentstring = '// %s'
 end
 
 function M.lsp_config()
@@ -35,16 +35,20 @@ function M.lsp_config()
 
   local clangd_path = 'clangd'
 
-  if vim.fn.filereadable(vim.env.HOME .. '/.llvm/bin/clangd') == 1 then
-    clangd_path = vim.env.HOME .. '/.llvm/bin/clangd'
-  elseif vim.fn.filereadable(vim.env.HOME .. '/.local/bin/clangd') == 1 then
-    clangd_path = vim.env.HOME .. '/.local/bin/clangd'
-  elseif vim.fn.filereadable('/opt/homebrew/opt/llvm/bin/clangd') == 1 then
-    clangd_path = '/opt/homebrew/opt/llvm/bin/clangd'
-  elseif vim.fn.filereadable('/usr/local/opt/llvm/bin/clangd') == 1 then
-    clangd_path = '/usr/local/opt/llvm/bin/clangd'
-  elseif vim.fn.filereadable('/usr/bin/clangd-19') == 1 then
-    clangd_path = '/usr/bin/clangd-19'
+  if vim.env.NEOVIM_CLANGD ~= nil then
+    clangd_path = vim.env.NEOVIM_CLANGD
+  else
+    if vim.fn.filereadable(vim.env.HOME .. '/.llvm/bin/clangd') == 1 then
+      clangd_path = vim.env.HOME .. '/.llvm/bin/clangd'
+    elseif vim.fn.filereadable(vim.env.HOME .. '/.local/bin/clangd') == 1 then
+      clangd_path = vim.env.HOME .. '/.local/bin/clangd'
+    elseif vim.fn.filereadable('/opt/homebrew/opt/llvm/bin/clangd') == 1 then
+      clangd_path = '/opt/homebrew/opt/llvm/bin/clangd'
+    elseif vim.fn.filereadable('/usr/local/opt/llvm/bin/clangd') == 1 then
+      clangd_path = '/usr/local/opt/llvm/bin/clangd'
+    elseif vim.fn.filereadable('/usr/bin/clangd-19') == 1 then
+      clangd_path = '/usr/bin/clangd-19'
+    end
   end
 
   config.setup {
