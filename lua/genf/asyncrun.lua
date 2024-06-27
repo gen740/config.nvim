@@ -7,7 +7,6 @@ local running_job = nil
 ---@field on_exit? function
 ---@field efm? string
 ---@field env? table<string, string>
----@field header? string
 
 -- Run command in async mode
 ---@param cmd string | string[]
@@ -16,7 +15,7 @@ M.asyncrun = function(cmd, opt)
   opt = opt or {}
   local on_exit = opt.on_exit or function() end
   local efm = opt.efm or '%-G'
-  local command_output = (opt.header or '') or ''
+  local tail_text = ''
   local cmd_list = {}
 
   if type(cmd) == 'string' then
@@ -33,19 +32,34 @@ M.asyncrun = function(cmd, opt)
     vim.notify('Command still runing', vim.log.levels.WARN)
     return
   end
-  vim.fn.setqflist {} -- Reset qflist
+  vim.fn.setqflist({}, 'r', {
+    title = cmd,
+    lines = {},
+    efm = efm,
+  }) -- Reset qflist
 
   local on_event = function(data)
     local qfwinid = vim.fn.getqflist({ winid = 0 }).winid
     if data == nil then
       return
     end
-    command_output = vim.fn.substitute(command_output .. data, [[\[[0-9;]*m]], [[]], 'g')
-    vim.fn.setqflist({}, 'r', {
-      title = cmd,
-      lines = vim.split(vim.fn.substitute(command_output, '\n*$', '', 'g'), '\n'),
-      efm = efm,
+    local data_current = tail_text .. data
+    if data_current:sub(-1) == '\n' then
+      tail_text = ''
+    else
+      local last_line = vim.split(data_current, '\n')
+      tail_text = last_line[#last_line]
+      vim.print('tail_text: ' .. tail_text .. '$')
+      table.remove(last_line, #last_line)
+      data_current = table.concat(last_line, '\n')
+    end
+
+    vim.fn.setqflist({}, 'a', {
+      lines = vim.split(vim.fn.substitute(data_current, '\n*$', '', 'g'), '\n'),
+      efm = nil,
     })
+
+    vim.cmd('redraw!')
     if qfwinid ~= 0 and qfwinid ~= nil then
       vim.api.nvim_win_set_cursor(qfwinid, { vim.api.nvim_buf_line_count(vim.api.nvim_win_get_buf(qfwinid)), 0 })
     end
