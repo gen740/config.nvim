@@ -4,7 +4,7 @@ local lmap = require('genf.language_services.utils').set_local_map
 
 function M.setup()
   lmap('n', '<m-r>', function()
-    require('genf.asyncrun').asyncrun('task run')
+    require('genf.asyncrun').asyncbuild('task run')
   end)
 
   lmap('n', '<m-s>', function()
@@ -12,7 +12,7 @@ function M.setup()
   end)
 
   lmap('n', '<m-t>', function()
-    require('genf.asyncrun').asyncrun('npm run test')
+    require('genf.asyncrun').asyncbuild('npm run test')
   end)
 
   local shiftwidth = 2

@@ -13,11 +13,11 @@ function M.setup()
   end)
 
   lmap('n', '<m-c>', function()
-    require('genf.asyncrun').asyncrun('task cmake')
+    require('genf.asyncrun').asyncbuild('task cmake')
   end)
 
   lmap('n', '<m-r>', function()
-    require('genf.asyncrun').asyncrun('task build')
+    require('genf.asyncrun').asyncbuild('task build')
   end)
 
   lmap('n', '<m-s>', function()

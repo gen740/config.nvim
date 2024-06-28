@@ -5,7 +5,7 @@ local lmap = require('genf.language_services.utils').set_local_map
 function M.setup()
   local skim_started = false
   lmap('n', '<m-c>', function()
-    require('genf.asyncrun').asyncrun('task build', {
+    require('genf.asyncrun').asyncbuild('task build', {
       efm = '%f:%l:%m',
     })
   end)
@@ -15,7 +15,7 @@ function M.setup()
     group = 'LatexAutoCompile',
     pattern = '*.tex',
     callback = function()
-      require('genf.asyncrun').asyncrun('task build', {
+      require('genf.asyncrun').asyncbuild('task build', {
         efm = '%f:%l:%m',
       })
     end,

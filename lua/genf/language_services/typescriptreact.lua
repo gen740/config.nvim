@@ -4,7 +4,7 @@ local lmap = require('genf.language_services.utils').set_local_map
 
 function M.setup()
   lmap('n', '<m-r>', function()
-    require('genf.asyncrun').asyncrun('task execute')
+    require('genf.asyncrun').asyncbuild('task execute')
   end)
 
   lmap('n', '<m-s>', function()

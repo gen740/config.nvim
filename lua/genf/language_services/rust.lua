@@ -10,13 +10,13 @@ function M.setup()
   efm = efm .. "thread 'main' %m at %f:%l:%c:,"
 
   lmap('n', '<m-r>', function()
-    require('genf.asyncrun').asyncrun('cargo run', {
+    require('genf.asyncrun').asyncbuild('cargo run', {
       efm = efm,
     })
   end)
 
   lmap('n', '<m-c>', function()
-    require('genf.asyncrun').asyncrun('cargo build', {
+    require('genf.asyncrun').asyncbuild('cargo build', {
       efm = efm,
     })
   end)
@@ -24,7 +24,7 @@ function M.setup()
   lmap('n', '<m-t>', function()
     vim.cmd('copen')
     vim.cmd('wincmd k')
-    require('genf.asyncrun').asyncrun('cargo test')
+    require('genf.asyncrun').asyncbuild('cargo test')
   end)
 
   lmap('n', '<m-s>', function()

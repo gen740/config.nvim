@@ -14,21 +14,21 @@ function M.setup()
   -- end)
 
   lmap('n', '<m-r>', function()
-    require('genf.asyncrun').asyncrun('task run')
+    require('genf.asyncrun').asyncbuild('task run')
   end)
 
   lmap('n', '<m-t>', function()
-    require('genf.asyncrun').asyncrun('task test')
+    require('genf.asyncrun').asyncbuild('task test')
   end)
 
   lmap('n', '<m-c>', function()
-    require('genf.asyncrun').asyncrun('task build', {
+    require('genf.asyncrun').asyncbuild('task build', {
       efm = '%f:%l:%c: %trror: %m,%f:%l:%c: %tarning: %m',
     })
   end)
 
   lmap('n', '<m-g>', function()
-    require('genf.asyncrun').asyncrun('task cmake')
+    require('genf.asyncrun').asyncbuild('task cmake')
   end)
 
   lmap('n', '<space>f', function()

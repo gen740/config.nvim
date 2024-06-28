@@ -18,6 +18,7 @@ local set_options = function(ft_name)
   vim.opt_local.buflisted = false
   vim.opt_local.signcolumn = 'no'
   vim.opt_local.wrap = false
+  vim.opt_local.scrolloff = 0
 
   if ft_name then
     vim.opt_local.ft = ft_name

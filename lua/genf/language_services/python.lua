@@ -7,7 +7,7 @@ function M.setup()
   efm = efm .. '  File "%f"\\, line %l%.%#,'
 
   lmap('n', '<m-r>', function()
-    require('genf.asyncrun').asyncrun('task run', {
+    require('genf.asyncrun').asyncbuild('task run', {
       efm = efm,
     })
   end)

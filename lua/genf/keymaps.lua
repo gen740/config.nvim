@@ -34,6 +34,7 @@ local global_keymap = {
 
     ['<space>co'] = require_wrap('genf.toggleshell', 'ToggleQF'),
     ['<space>sh'] = require_wrap('genf.toggleshell', 'ToggleTerm'),
+    ['<space>gr'] = ':silent grep ',
     ['<space>py'] = require_wrap('genf.toggleshell', 'ToggleIpython3'),
     ['<space>p'] = '"_dP',
     ['~'] = '<nop>',
