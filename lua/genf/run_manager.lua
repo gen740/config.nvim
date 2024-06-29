@@ -30,6 +30,7 @@ M.run = function()
   end
   if file ~= nil then
     require('genf.asyncrun').runInConsole(file:read('*a'))
+    file:close()
   end
 end
 
@@ -40,6 +41,7 @@ M.showCmd = function()
   end
   if file ~= nil then
     vim.api.nvim_echo({ { file:read('*a') } }, true, {})
+    file:close()
   end
 end
 
