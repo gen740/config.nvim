@@ -27,15 +27,16 @@ local global_keymap = {
     ['<m-]>'] = '<cmd>Copilot suggestion next<cr>',
     ['<m-[>'] = '<cmd>Copilot suggestion prev<cr>',
     ['<m-f>'] = '<cmd>Copilot suggestion accept<cr>',
-    ['<m-p>'] = '<cmd>Copilot panel open<cr>',
+    -- ['<m-p>'] = '<cmd>Copilot panel open<cr>',
   },
   n = {
     ['-'] = '<cmd>Oil<cr>',
 
-    ['<space>co'] = require_wrap('genf.toggleshell', 'ToggleQF'),
-    ['<space>sh'] = require_wrap('genf.toggleshell', 'ToggleTerm'),
+    ['<space>co'] = require_wrap('genf.toggleshell', 'Quickfix'),
+    ['<space>sh'] = require_wrap('genf.toggleshell', 'Zsh'),
     ['<space>gr'] = ':silent grep ',
-    ['<space>py'] = require_wrap('genf.toggleshell', 'ToggleIpython3'),
+    ['<space>py'] = require_wrap('genf.toggleshell', 'Ipython'),
+    ['<space>cc'] = require_wrap('genf.toggleshell', 'Console'),
     ['<space>p'] = '"_dP',
     ['~'] = '<nop>',
 

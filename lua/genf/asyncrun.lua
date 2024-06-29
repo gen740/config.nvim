@@ -50,7 +50,6 @@ M.asyncbuild = function(cmd, opt)
     else
       local last_line = vim.split(data_current, '\n')
       tail_text = last_line[#last_line]
-      vim.print('tail_text: ' .. tail_text .. '$')
       table.remove(last_line, #last_line)
       data_current = table.concat(last_line, '\n')
     end
@@ -110,7 +109,7 @@ M.openConsole = function()
     return existing_bufnr
   end
 
-  vim.cmd('copen')
+  require('genf.toggleshell').ToggleQF(true)
 
   local bufnr = vim.api.nvim_create_buf(false, true)
 
@@ -133,83 +132,45 @@ M.openConsole = function()
 end
 
 ---@class ConsoleRunOptions
----@field on_exit? function
----@field efm? string
 ---@field env? table<string, string>
 
 ---@param cmd string
 ---@param opt ConsoleRunOptions
 M.runInConsole = function(cmd, opt)
-  local cmd_list = {}
+  local bufnr = require('genf.toggleshell').Console()
 
-  for i, v in ipairs(vim.split(cmd, ' ')) do
-    if v ~= '' then
-      cmd_list[i] = v
-    end
-  end
+  local jobid = -1
 
-  local bufnr = M.openConsole()
-  local windows = vim.api.nvim_list_wins()
-
-  -- 各ウィンドウをチェックして、対象のバッファ番号を持つウィンドウを探す
-  local console_win = nil
-  for _, win in ipairs(windows) do
-    if vim.api.nvim_win_get_buf(win) == bufnr then
-      console_win = win
-      break
-    end
-  end
-
-  local tail_text = ''
-
-  local on_event = function(data)
-    if data == nil then
-      return
-    end
-    local data_current = tail_text .. data
-    if data_current:sub(-1) == '\n' then
-      tail_text = ''
-    else
-      local last_line = vim.split(data_current, '\n')
-      tail_text = last_line[#last_line]
-      vim.print('tail_text: ' .. tail_text .. '$')
-      table.remove(last_line, #last_line)
-      data_current = table.concat(last_line, '\n')
-    end
-
-    vim.api.nvim_buf_set_lines(bufnr, -1, -1, false, vim.split(vim.fn.substitute(data_current, '\n*$', '', 'g'), '\n'))
-    if console_win then
-      vim.api.nvim_win_set_cursor(console_win, { vim.api.nvim_buf_line_count(bufnr), 0 })
-    end
-    vim.cmd('redraw')
-  end
-
-  running_job = vim.system(
-    cmd_list,
-    {
-      stdout = vim.schedule_wrap(function(_, data)
-        on_event(data)
-      end),
-      stderr = vim.schedule_wrap(function(_, data)
-        on_event(data)
-      end),
-      stdin = true,
-      env = opt.env,
-    },
-    vim.schedule_wrap(function(status)
-      local end_msg = ''
-      if status.signal == 0 then
-        end_msg = '<<< successfully exited with code ' .. status.code
-      else
-        end_msg = '<<< exit with signal ' .. status.signal
+  local chanid = vim.api.nvim_open_term(bufnr, {
+    on_input = function(_, _, _, data)
+      if jobid ~= -1 then
+        vim.fn.chansend(jobid, data)
       end
-      vim.api.nvim_buf_set_lines(bufnr, -1, -1, false, { end_msg })
-      if console_win then
-        vim.api.nvim_win_set_cursor(console_win, { vim.api.nvim_buf_line_count(bufnr), 0 })
+    end,
+  })
+
+  jobid = vim.fn.jobstart(cmd, {
+    pty = true,
+    env = opt.env,
+    on_stdout = function(_, data, _)
+      vim.api.nvim_chan_send(chanid, vim.fn.join(data, '\n'))
+      local winid = vim.fn.bufwinid(bufnr)
+      if vim.fn.bufwinid(bufnr) ~= -1 then
+        vim.api.nvim_win_set_cursor(winid, { vim.api.nvim_buf_line_count(bufnr), 0 })
       end
-      vim.cmd('redraw')
-    end)
-  )
+    end,
+    on_stderr = function(_, data, _)
+      vim.api.nvim_chan_send(chanid, vim.fn.join(data, '\n'))
+      local winid = vim.fn.bufwinid(bufnr)
+      if vim.fn.bufwinid(bufnr) ~= -1 then
+        vim.api.nvim_win_set_cursor(winid, { vim.api.nvim_buf_line_count(bufnr), 0 })
+      end
+    end,
+    on_exit = function(_, status, _)
+      vim.api.nvim_chan_send(chanid, '<<< Exit with code ' .. status)
+      jobid = -1
+    end,
+  })
 end
 
 -- Stop async job
