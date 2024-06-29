@@ -11,7 +11,9 @@ M.expr = function()
   local treesitter_text = vim.treesitter.foldtext()
 
   if get_lopt('foldmethod') == 'diff' then
-    foldtext = '┈┈┈┈┈┈┈┈┈┈  ' .. (get_vvar('foldend') - get_vvar('foldstart') + 1) .. ' lines '
+    foldtext = '┈┈┈┈┈┈┈┈┈┈  '
+      .. (get_vvar('foldend') - get_vvar('foldstart') + 1)
+      .. ' lines '
     return foldtext
   else
     foldtext = '   ' .. (get_vvar('foldend') - get_vvar('foldstart') + 1) .. ' '

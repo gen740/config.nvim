@@ -61,7 +61,10 @@ M.asyncbuild = function(cmd, opt)
 
     vim.cmd('redraw!')
     if qfwinid ~= 0 and qfwinid ~= nil then
-      vim.api.nvim_win_set_cursor(qfwinid, { vim.api.nvim_buf_line_count(vim.api.nvim_win_get_buf(qfwinid)), 0 })
+      vim.api.nvim_win_set_cursor(
+        qfwinid,
+        { vim.api.nvim_buf_line_count(vim.api.nvim_win_get_buf(qfwinid)), 0 }
+      )
     end
   end
 
@@ -96,7 +99,10 @@ M.asyncbuild = function(cmd, opt)
       })
       vim.api.nvim_command('doautocmd QuickFixCmdPost')
       if qfwinid ~= 0 and qfwinid ~= nil then
-        vim.api.nvim_win_set_cursor(qfwinid, { vim.api.nvim_buf_line_count(vim.api.nvim_win_get_buf(qfwinid)), 0 })
+        vim.api.nvim_win_set_cursor(
+          qfwinid,
+          { vim.api.nvim_buf_line_count(vim.api.nvim_win_get_buf(qfwinid)), 0 }
+        )
       end
       running_job = nil
     end)
@@ -118,7 +124,7 @@ M.openConsole = function()
   vim.api.nvim_set_option_value('bufhidden', 'hide', { buf = bufnr })
   vim.api.nvim_set_option_value('swapfile', false, { buf = bufnr })
   vim.api.nvim_set_option_value('filetype', 'console', { buf = bufnr })
-  -- vim.api.nvim_set_option_value('modifiable', false, { buf = bufnr })
+  vim.api.nvim_set_option_value('modifiable', false, { buf = bufnr })
 
   local current_win = vim.api.nvim_get_current_win()
   local new_win = vim.api.nvim_open_win(bufnr, false, {
@@ -135,7 +141,7 @@ end
 ---@field env? table<string, string>
 
 ---@param cmd string
----@param opt ConsoleRunOptions
+---@param opt ConsoleRunOptions?
 M.runInConsole = function(cmd, opt)
   local bufnr = require('genf.toggleshell').Console()
 
@@ -149,23 +155,26 @@ M.runInConsole = function(cmd, opt)
     end,
   })
 
+  local cmd_env = nil
+  if opt == nil then
+    cmd_env = nil
+  else
+    cmd_env = opt.env
+  end
+
+  local on_data = function(_, data, _)
+    vim.api.nvim_chan_send(chanid, vim.fn.join(data, '\n'))
+    local winid = vim.fn.bufwinid(bufnr)
+    if vim.fn.bufwinid(bufnr) ~= -1 then
+      vim.api.nvim_win_set_cursor(winid, { vim.api.nvim_buf_line_count(bufnr), 0 })
+    end
+  end
+
   jobid = vim.fn.jobstart(cmd, {
     pty = true,
-    env = opt.env,
-    on_stdout = function(_, data, _)
-      vim.api.nvim_chan_send(chanid, vim.fn.join(data, '\n'))
-      local winid = vim.fn.bufwinid(bufnr)
-      if vim.fn.bufwinid(bufnr) ~= -1 then
-        vim.api.nvim_win_set_cursor(winid, { vim.api.nvim_buf_line_count(bufnr), 0 })
-      end
-    end,
-    on_stderr = function(_, data, _)
-      vim.api.nvim_chan_send(chanid, vim.fn.join(data, '\n'))
-      local winid = vim.fn.bufwinid(bufnr)
-      if vim.fn.bufwinid(bufnr) ~= -1 then
-        vim.api.nvim_win_set_cursor(winid, { vim.api.nvim_buf_line_count(bufnr), 0 })
-      end
-    end,
+    env = cmd_env,
+    on_stdout = on_data,
+    on_stderr = on_data,
     on_exit = function(_, status, _)
       vim.api.nvim_chan_send(chanid, '<<< Exit with code ' .. status)
       jobid = -1
@@ -178,14 +187,6 @@ M.asyncstop = function()
   if running_job then
     running_job:kill(6)
     running_job = nil
-  end
-end
-
--- Send input to async job
----@param args string
-M.input = function(args)
-  if running_job then
-    running_job:write(args .. '\n')
   end
 end
 

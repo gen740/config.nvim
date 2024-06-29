@@ -32,7 +32,11 @@ function M.lsp_config()
   }
   require('lspconfig')['vtsls'].setup {
     capabilities = lsp_utils.capabilities,
-    root_dir = require('lspconfig/util').root_pattern('tsconfig.json', 'package.json', 'jsconfig.json'),
+    root_dir = require('lspconfig/util').root_pattern(
+      'tsconfig.json',
+      'package.json',
+      'jsconfig.json'
+    ),
     single_file_support = false,
   }
 end

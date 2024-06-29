@@ -128,7 +128,11 @@ for key, console in pairs(Consoles) do
       vim.api.nvim_set_option_value('scrolloff', 0, { win = winid })
       vim.api.nvim_set_option_value(
         'winbar',
-        ' %#WinBarFileIcon#' .. console.icon .. '%* %#WinBarFileName#' .. console.display_name .. '%*%=',
+        ' %#WinBarFileIcon#'
+          .. console.icon
+          .. '%* %#WinBarFileName#'
+          .. console.display_name
+          .. '%*%=',
         { win = winid }
       )
       vim.api.nvim_set_option_value('listchars', [[trail: ]], { win = winid })
@@ -160,7 +164,6 @@ M.Quickfix = function()
   local qfinfo = vim.fn.getqflist { qfbufnr = 1, winid = 1 }
   vim.fn.win_execute(qfinfo.winid, 'wincmd J')
   Consoles.Quickfix.bufnr = qfinfo.qfbufnr
-
   vim.api.nvim_set_current_win(current_win)
 end
 
@@ -179,7 +182,13 @@ M.Console = function()
 
   Consoles.Console.bufnr = vim.api.nvim_create_buf(false, true)
 
-  vim.api.nvim_buf_set_keymap(Consoles.Console.bufnr, 't', '<esc>', [[<c-\><c-n>]], { noremap = true, silent = true })
+  vim.api.nvim_buf_set_keymap(
+    Consoles.Console.bufnr,
+    't',
+    '<esc>',
+    [[<c-\><c-n>]],
+    { noremap = true, silent = true }
+  )
 
   vim.api.nvim_buf_set_name(Consoles.Console.bufnr, 'console://console')
   vim.api.nvim_set_option_value('buftype', 'nofile', { buf = Consoles.Console.bufnr })
@@ -194,7 +203,11 @@ M.Console = function()
 
   vim.api.nvim_set_option_value('number', false, { win = new_win })
   vim.api.nvim_set_option_value('relativenumber', false, { win = new_win })
-  vim.api.nvim_set_option_value('winbar', ' %#WinBarFileIcon#󰞷%* %#WinBarFileName#Console%*%=', { win = new_win })
+  vim.api.nvim_set_option_value(
+    'winbar',
+    ' %#WinBarFileIcon#󰞷%* %#WinBarFileName#Console%*%=',
+    { win = new_win }
+  )
 
   return Consoles.Console.bufnr
 end

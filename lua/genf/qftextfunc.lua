@@ -58,7 +58,10 @@ M.expr = function(info)
         if loc.bufnr == 0 and loc.lnum == 0 then
           table.insert(res, '  ' .. ' ⇒ ' .. loc.text)
         else
-          table.insert(res, string.format('  %s|%s| ⇒ %s', bufname(loc.bufnr), loc.lnum, loc.text))
+          table.insert(
+            res,
+            string.format('  %s|%s| ⇒ %s', bufname(loc.bufnr), loc.lnum, loc.text)
+          )
         end
       end
     end
