@@ -180,21 +180,23 @@ M.Console = function()
     _, exists_winid = M.get_exists_terminal()
   end
 
-  Consoles.Console.bufnr = vim.api.nvim_create_buf(false, true)
+  if Consoles.Console.bufnr == -1 then
+    Consoles.Console.bufnr = vim.api.nvim_create_buf(false, true)
 
-  vim.api.nvim_buf_set_keymap(
-    Consoles.Console.bufnr,
-    't',
-    '<esc>',
-    [[<c-\><c-n>]],
-    { noremap = true, silent = true }
-  )
+    vim.api.nvim_buf_set_keymap(
+      Consoles.Console.bufnr,
+      't',
+      '<esc>',
+      [[<c-\><c-n>]],
+      { noremap = true, silent = true }
+    )
 
-  vim.api.nvim_buf_set_name(Consoles.Console.bufnr, 'console://console')
-  vim.api.nvim_set_option_value('buftype', 'nofile', { buf = Consoles.Console.bufnr })
-  vim.api.nvim_set_option_value('bufhidden', 'hide', { buf = Consoles.Console.bufnr })
-  vim.api.nvim_set_option_value('swapfile', false, { buf = Consoles.Console.bufnr })
-  vim.api.nvim_set_option_value('filetype', 'console', { buf = Consoles.Console.bufnr })
+    vim.api.nvim_buf_set_name(Consoles.Console.bufnr, 'console://console')
+    vim.api.nvim_set_option_value('buftype', 'nofile', { buf = Consoles.Console.bufnr })
+    vim.api.nvim_set_option_value('bufhidden', 'hide', { buf = Consoles.Console.bufnr })
+    vim.api.nvim_set_option_value('swapfile', false, { buf = Consoles.Console.bufnr })
+    vim.api.nvim_set_option_value('filetype', 'console', { buf = Consoles.Console.bufnr })
+  end
 
   local new_win = vim.api.nvim_open_win(Consoles.Console.bufnr, false, {
     split = 'right',
