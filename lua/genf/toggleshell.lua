@@ -1,5 +1,5 @@
 local M = {}
-local WINSIZE = 18
+local WINSIZE = 25
 
 ---@class ConsoleOptions
 ---@field name string
@@ -16,7 +16,7 @@ local Consoles = {
     name = 'term://ipython',
     type = 'terminal',
     display_name = 'IPython',
-    cmd = [[ipython3]],
+    cmd = 'ipython3',
     icon = '',
     ft_name = 'terminal',
     bufnr = -1,
@@ -77,13 +77,13 @@ for key, console in pairs(Consoles) do
 
       if console.bufnr == -1 then
         console.bufnr = vim.api.nvim_create_buf(false, true)
-        vim.api.nvim_buf_set_keymap(
-          console.bufnr,
-          't',
-          '<esc><space>',
-          [[<c-\><c-n>]],
-          { noremap = true, silent = true }
-        )
+        -- vim.api.nvim_buf_set_keymap(
+        --   console.bufnr,
+        --   't',
+        --   '<esc><space>',
+        --   [[<c-\><c-n>]],
+        --   { noremap = true, silent = true }
+        -- )
 
         local jobid = -1
 
@@ -98,6 +98,7 @@ for key, console in pairs(Consoles) do
         jobid = vim.fn.jobstart(console.cmd, {
           pty = true,
           on_stdout = function(_, data, _)
+            vim.print(data)
             vim.api.nvim_chan_send(chanid, vim.fn.join(data, '\n'))
           end,
           on_stderr = function(_, data, _)

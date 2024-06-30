@@ -9,6 +9,7 @@ return {
     on_highlights = function(hl, colors)
       hl.Normal = { bg = nil, fg = colors.fg }
       hl.NormalNC = { bg = nil, fg = colors.fg }
+      hl.NormalSB = { bg = nil, fg = colors.fg }
       hl.TelescopeNormal = { bg = colors.bg, fg = colors.fg }
       hl.PreProc = { bg = nil, fg = colors.blue }
       hl.SignColumn = { bg = nil, fg = colors.fg }
