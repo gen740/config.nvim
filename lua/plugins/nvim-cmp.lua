@@ -44,6 +44,14 @@ return {
           vim.fn['vsnip#anonymous'](args.body)
         end,
       },
+      mapping = cmp.mapping.preset.insert {
+        -- ['<C-e>'] = cmp.mapping(function()
+        --   cmp.confirm {
+        --     behavior = cmp.ConfirmBehavior.Replace,
+        --     select = true,
+        --   }
+        -- end, { 'i', 's' }),
+      },
       sources = {
         { name = 'nvim_lsp' },
         { name = 'vsnip' },

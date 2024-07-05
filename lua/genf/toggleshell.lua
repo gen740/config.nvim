@@ -69,7 +69,7 @@ for key, console in pairs(Consoles) do
   if console.type == 'terminal' then
     M[key] = function()
       local current_win = vim.api.nvim_get_current_win()
-      local exists_name, exists_winid = vim.print(M.get_exists_terminal())
+      local exists_name, exists_winid = M.get_exists_terminal()
 
       if exists_name == key and exists_winid ~= -1 then
         return
@@ -77,13 +77,13 @@ for key, console in pairs(Consoles) do
 
       if console.bufnr == -1 then
         console.bufnr = vim.api.nvim_create_buf(false, true)
-        -- vim.api.nvim_buf_set_keymap(
-        --   console.bufnr,
-        --   't',
-        --   '<esc><space>',
-        --   [[<c-\><c-n>]],
-        --   { noremap = true, silent = true }
-        -- )
+        vim.api.nvim_buf_set_keymap(
+          console.bufnr,
+          't',
+          '<esc><space>',
+          [[<c-\><c-n>]],
+          { noremap = true, silent = true }
+        )
 
         local jobid = -1
 
@@ -98,7 +98,6 @@ for key, console in pairs(Consoles) do
         jobid = vim.fn.jobstart(console.cmd, {
           pty = true,
           on_stdout = function(_, data, _)
-            vim.print(data)
             vim.api.nvim_chan_send(chanid, vim.fn.join(data, '\n'))
           end,
           on_stderr = function(_, data, _)
