@@ -35,6 +35,10 @@ function M.lsp_config()
             fileMatch = { 'biome.json' },
             url = 'https://biomejs.dev/schemas/1.6.1/schema.json',
           },
+          {
+            fileMatch = { 'appsscript.json' },
+            url = 'https://raw.githubusercontent.com/SchemaStore/schemastore/master/src/schemas/json/appsscript.json',
+          },
         },
       },
     },

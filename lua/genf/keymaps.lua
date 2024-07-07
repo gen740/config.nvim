@@ -34,12 +34,18 @@ local global_keymap = {
 
     ['<space>co'] = require_wrap('genf.toggleshell', 'Quickfix'),
     ['<space>sh'] = require_wrap('genf.toggleshell', 'Zsh'),
-    ['<space>gr'] = ':silent grep ',
     ['<space>py'] = require_wrap('genf.toggleshell', 'Ipython'),
     ['<space>cc'] = require_wrap('genf.toggleshell', 'Console'),
     ['<space>rr'] = require_wrap('genf.run_manager', 'run'),
     ['<space>rc'] = require_wrap('genf.run_manager', 'register'),
     ['<space>rs'] = require_wrap('genf.run_manager', 'showCmd'),
+
+    ['<space>gr'] = require_wrap('genf.run_manager', 'run', true),
+    ['<space>gc'] = require_wrap('genf.run_manager', 'register', true),
+    ['<space>gs'] = require_wrap('genf.run_manager', 'showCmd', true),
+
+    ['<space>gg'] = ':silent grep ',
+
     ['<space>p'] = '"_dP',
     ['~'] = '<nop>',
 

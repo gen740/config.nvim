@@ -38,6 +38,11 @@ function M.lsp_config()
       'jsconfig.json'
     ),
     single_file_support = false,
+    settings = {
+      completions = {
+        completeFunctionCalls = true,
+      },
+    },
   }
 end
 

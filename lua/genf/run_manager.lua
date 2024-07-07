@@ -1,19 +1,32 @@
 local M = {}
 
 local ManagerPath = vim.fn.stdpath('data') .. '/run_manager/'
+local GitManagerPath = vim.fn.stdpath('data') .. '/run_manager_git/'
 
 if vim.fn.isdirectory(ManagerPath) == 0 then
   vim.fn.mkdir(ManagerPath, 'p')
 end
 
-local get_cmdfile = function()
-  local bufnr = vim.fn.bufnr()
-  local path = vim.api.nvim_buf_get_name(bufnr)
-  return ManagerPath .. vim.fn.substitute(vim.fn.substitute(path, '%', '%%', 'g'), '/', '%', 'g')
+if vim.fn.isdirectory(GitManagerPath) == 0 then
+  vim.fn.mkdir(GitManagerPath, 'p')
 end
 
-local get_cmd = function()
-  local file, err = io.open(get_cmdfile(), 'r')
+---@param git boolean
+local get_cmdfile = function(git)
+  if git then
+    local path = vim.fn.execute('!git rev-parse --show-toplevel')
+    return GitManagerPath
+      .. vim.fn.substitute(vim.fn.substitute(path, '%', '%%', 'g'), '/', '%', 'g')
+  else
+    local bufnr = vim.fn.bufnr()
+    local path = vim.api.nvim_buf_get_name(bufnr)
+    return ManagerPath .. vim.fn.substitute(vim.fn.substitute(path, '%', '%%', 'g'), '/', '%', 'g')
+  end
+end
+
+---@param git boolean
+local get_cmd = function(git)
+  local file, err = io.open(get_cmdfile(git), 'r')
   if err ~= nil then
     return ''
   end
@@ -25,28 +38,33 @@ local get_cmd = function()
   return ''
 end
 
-M.register = function()
+---@param git boolean?
+M.register = function(git)
+  git = git or false
   local user_cmd = vim.fn.input {
     prompt = 'Enter the cmd: ',
     completion = 'file',
-    default = get_cmd(),
+    default = get_cmd(git),
   }
   if user_cmd == '' then
     return
   end
 
-  local file, _ = io.open(get_cmdfile(), 'w')
+  local file, _ = io.open(get_cmdfile(git), 'w')
   if file ~= nil then
     file:write(user_cmd)
     file:close()
   end
 end
 
-M.run = function()
-  local file, err = io.open(get_cmdfile(), 'r')
+---@param git boolean?
+M.run = function(git)
+  git = git or false
+
+  local file, err = io.open(get_cmdfile(git), 'r')
   if err ~= nil then
-    M.register()
-    file, _ = io.open(get_cmdfile(), 'r')
+    M.register(git)
+    file, _ = io.open(get_cmdfile(git), 'r')
   end
   if file ~= nil then
     require('genf.asyncrun').runInConsole(file:read('*a'))
@@ -54,8 +72,11 @@ M.run = function()
   end
 end
 
-M.showCmd = function()
-  local cmd = get_cmd()
+---@param git boolean?
+M.showCmd = function(git)
+  git = git or false
+
+  local cmd = get_cmd(git)
   if cmd ~= '' then
     vim.api.nvim_err_writeln('No cmd registered')
     return
