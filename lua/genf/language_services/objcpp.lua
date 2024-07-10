@@ -12,7 +12,7 @@ function M.setup()
   end)
 
   lmap('n', '<m-s>', function()
-    require('genf.asyncrun').asyncstop()
+    require('genf.asyncrun').asyncBuildStop()
   end)
 
   lmap('n', '<m-e>', function()

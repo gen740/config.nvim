@@ -8,7 +8,8 @@ local WINSIZE = 25
 ---@field cmd string?
 ---@field icon string
 ---@field ft_name string?
----@field bufnr number
+---@field bufnr integer
+---@field jobid integer
 
 ---@type table<string, ConsoleOptions>
 local Consoles = {
@@ -18,8 +19,9 @@ local Consoles = {
     display_name = 'IPython',
     cmd = 'ipython3',
     icon = '',
-    ft_name = 'terminal',
+    ft_name = 'toggleTerm',
     bufnr = -1,
+    jobid = -1,
   },
   Zsh = {
     name = 'term://zsh',
@@ -27,8 +29,9 @@ local Consoles = {
     display_name = 'Zsh',
     cmd = '/bin/zsh',
     icon = '',
-    ft_name = 'terminal',
+    ft_name = 'toggleTerm',
     bufnr = -1,
+    jobid = -1,
   },
   Quickfix = {
     name = '[Quickfix List]',
@@ -38,6 +41,7 @@ local Consoles = {
     icon = '󰞷',
     ft_name = nil,
     bufnr = -1,
+    jobid = -1,
   },
   Console = {
     name = 'console://console',
@@ -47,6 +51,7 @@ local Consoles = {
     icon = '󰞷',
     ft_name = 'console',
     bufnr = -1,
+    jobid = -1,
   },
 }
 
@@ -75,7 +80,7 @@ for key, console in pairs(Consoles) do
         return
       end
 
-      if console.bufnr == -1 then
+      if console.bufnr == -1 or console.jobid == -1 then
         console.bufnr = vim.api.nvim_create_buf(false, true)
         vim.api.nvim_buf_set_keymap(
           console.bufnr,
@@ -84,29 +89,6 @@ for key, console in pairs(Consoles) do
           [[<c-\><c-n>]],
           { noremap = true, silent = true }
         )
-
-        local jobid = -1
-
-        local chanid = vim.api.nvim_open_term(console.bufnr, {
-          on_input = function(_, _, _, data)
-            if jobid ~= -1 then
-              vim.fn.chansend(jobid, data)
-            end
-          end,
-        })
-
-        jobid = vim.fn.jobstart(console.cmd, {
-          pty = true,
-          on_stdout = function(_, data, _)
-            vim.api.nvim_chan_send(chanid, vim.fn.join(data, '\n'))
-          end,
-          on_stderr = function(_, data, _)
-            vim.api.nvim_chan_send(chanid, vim.fn.join(data, '\n'))
-          end,
-          on_exit = function(_)
-            vim.api.nvim_buf_delete(console.bufnr, { force = true })
-          end,
-        })
       end
 
       local winid = -1
@@ -123,6 +105,8 @@ for key, console in pairs(Consoles) do
         winid = vim.fn.bufwinid(console.bufnr)
       end
 
+      vim.api.nvim_set_option_value('signcolumn', 'no', { win = winid })
+      vim.api.nvim_set_option_value('wrap', false, { win = winid })
       vim.api.nvim_set_option_value('number', false, { win = winid })
       vim.api.nvim_set_option_value('relativenumber', false, { win = winid })
       vim.api.nvim_set_option_value('scrolloff', 0, { win = winid })
@@ -136,6 +120,31 @@ for key, console in pairs(Consoles) do
         { win = winid }
       )
       vim.api.nvim_set_option_value('listchars', [[trail: ]], { win = winid })
+
+      if console.jobid == -1 then
+        local chanid = vim.api.nvim_open_term(console.bufnr, {
+          force_crlf = true,
+          on_input = function(_, _, _, data)
+            if console.jobid ~= -1 then
+              vim.fn.chansend(console.jobid, data)
+            end
+          end,
+        })
+
+        console.jobid = vim.fn.jobstart(console.cmd, {
+          pty = true,
+          width = vim.api.nvim_win_get_width(winid) - vim.fn.getwininfo(winid)[1].textoff,
+          height = vim.api.nvim_win_get_height(winid) - 1,
+          on_stdout = function(_, data, _)
+            vim.api.nvim_chan_send(chanid, vim.fn.join(data, '\n'))
+          end,
+          on_exit = function(_)
+            vim.api.nvim_buf_delete(console.bufnr, { force = true })
+            console.bufnr = -1
+            console.jobid = -1
+          end,
+        })
+      end
     end
   end
 end
@@ -203,6 +212,7 @@ M.Console = function()
     win = exists_winid,
   })
 
+  vim.api.nvim_set_option_value('signcolumn', 'no', { win = new_win })
   vim.api.nvim_set_option_value('number', false, { win = new_win })
   vim.api.nvim_set_option_value('relativenumber', false, { win = new_win })
   vim.api.nvim_set_option_value(
@@ -213,5 +223,28 @@ M.Console = function()
 
   return Consoles.Console.bufnr
 end
+
+local termResize = function()
+  for _, value in pairs(Consoles) do
+    if value.jobid ~= -1 then
+      local winid = vim.fn.bufwinid(value.bufnr)
+      if winid ~= -1 then
+        vim.fn.jobresize(
+          value.jobid,
+          vim.print(vim.api.nvim_win_get_width(winid) - vim.fn.getwininfo(winid)[1].textoff),
+          vim.api.nvim_win_get_height(winid) - 1
+        )
+      end
+    end
+  end
+end
+
+vim.api.nvim_create_augroup('ToggleShellResize', { clear = true })
+vim.api.nvim_create_autocmd({ 'WinResized', 'TermEnter', 'WinEnter' }, {
+  group = 'ToggleShellResize',
+  callback = function()
+    vim.defer_fn(termResize, 10)
+  end,
+})
 
 return M

@@ -109,33 +109,16 @@ M.asyncbuild = function(cmd, opt)
   )
 end
 
-M.openConsole = function()
-  local existing_bufnr = vim.fn.bufnr('Console')
-  if existing_bufnr ~= -1 then
-    return existing_bufnr
+-- Stop async job
+M.asyncBuildStop = function()
+  if running_job then
+    running_job:kill(6)
+    running_job = nil
   end
-
-  require('genf.toggleshell').ToggleQF(true)
-
-  local bufnr = vim.api.nvim_create_buf(false, true)
-
-  vim.api.nvim_buf_set_name(bufnr, 'Console')
-  vim.api.nvim_set_option_value('buftype', 'nofile', { buf = bufnr })
-  vim.api.nvim_set_option_value('bufhidden', 'hide', { buf = bufnr })
-  vim.api.nvim_set_option_value('swapfile', false, { buf = bufnr })
-  vim.api.nvim_set_option_value('filetype', 'console', { buf = bufnr })
-  vim.api.nvim_set_option_value('modifiable', false, { buf = bufnr })
-
-  local current_win = vim.api.nvim_get_current_win()
-  local new_win = vim.api.nvim_open_win(bufnr, false, {
-    split = 'right',
-    win = current_win,
-  })
-
-  vim.api.nvim_set_option_value('number', false, { win = new_win })
-  vim.api.nvim_set_option_value('relativenumber', false, { win = new_win })
-  return bufnr
 end
+
+---@type integer
+local console_running_jobid = -1
 
 ---@class ConsoleRunOptions
 ---@field env? table<string, string>
@@ -145,12 +128,15 @@ end
 M.runInConsole = function(cmd, opt)
   local bufnr = require('genf.toggleshell').Console()
 
-  local jobid = -1
+  if console_running_jobid ~= -1 then
+    vim.notify('Console is running', vim.log.levels.ERROR)
+    return
+  end
 
   local chanid = vim.api.nvim_open_term(bufnr, {
     on_input = function(_, _, _, data)
-      if jobid ~= -1 then
-        vim.fn.chansend(jobid, data)
+      if console_running_jobid ~= -1 then
+        vim.fn.chansend(console_running_jobid, data)
       end
     end,
   })
@@ -170,24 +156,15 @@ M.runInConsole = function(cmd, opt)
     end
   end
 
-  jobid = vim.fn.jobstart(cmd, {
+  console_running_jobid = vim.fn.jobstart(cmd, {
     pty = true,
     env = cmd_env,
     on_stdout = on_data,
-    on_stderr = on_data,
     on_exit = function(_, status, _)
       vim.api.nvim_chan_send(chanid, '<<< Exit with code ' .. status)
-      jobid = -1
+      console_running_jobid = -1
     end,
   })
-end
-
--- Stop async job
-M.asyncstop = function()
-  if running_job then
-    running_job:kill(6)
-    running_job = nil
-  end
 end
 
 return M

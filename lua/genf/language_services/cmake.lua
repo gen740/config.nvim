@@ -21,7 +21,7 @@ function M.setup()
   end)
 
   lmap('n', '<m-s>', function()
-    require('genf.asyncrun').asyncstop()
+    require('genf.asyncrun').asyncBuildStop()
   end)
 
   vim.cmd('compiler cmake')

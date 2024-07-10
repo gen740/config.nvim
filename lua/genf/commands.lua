@@ -3,7 +3,7 @@ vim.api.nvim_create_user_command('Run', function(args)
 end, { nargs = 1, complete = 'file' })
 
 vim.api.nvim_create_user_command('Stop', function()
-  require('genf.asyncrun').asyncstop()
+  require('genf.asyncrun').asyncBuildStop()
 end, {})
 
 vim.api.nvim_create_user_command('GitOpenPathInBrowser', function(opts)

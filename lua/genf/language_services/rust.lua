@@ -28,7 +28,7 @@ function M.setup()
   end)
 
   lmap('n', '<m-s>', function()
-    require('genf.asyncrun').asyncstop()
+    require('genf.asyncrun').asyncBuildStop()
   end)
 
   vim.opt_local.tabstop = 4
