@@ -39,6 +39,10 @@ function M.lsp_config()
             fileMatch = { 'appsscript.json' },
             url = 'https://raw.githubusercontent.com/SchemaStore/schemastore/master/src/schemas/json/appsscript.json',
           },
+          {
+            fileMatch = { 'deno.json' },
+            url = 'https://raw.githubusercontent.com/denoland/deno/v1.41.0/cli/schemas/config-file.v1.json',
+          }
         },
       },
     },
