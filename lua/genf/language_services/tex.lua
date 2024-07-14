@@ -4,22 +4,17 @@ local lmap = require('genf.language_services.utils').set_local_map
 
 function M.setup()
   local skim_started = false
-  lmap('n', '<m-c>', function()
-    require('genf.asyncrun').asyncbuild('task build', {
-      efm = '%f:%l:%m',
-    })
-  end)
 
-  vim.api.nvim_create_augroup('LatexAutoCompile', { clear = true })
-  vim.api.nvim_create_autocmd({ 'BufWritePost' }, {
-    group = 'LatexAutoCompile',
-    pattern = '*.tex',
-    callback = function()
-      require('genf.asyncrun').asyncbuild('task build', {
-        efm = '%f:%l:%m',
-      })
-    end,
-  })
+  -- vim.api.nvim_create_augroup('LatexAutoCompile', { clear = true })
+  -- vim.api.nvim_create_autocmd({ 'BufWritePost' }, {
+  --   group = 'LatexAutoCompile',
+  --   pattern = '*.tex',
+  --   callback = function()
+  --     require('genf.asyncrun').asyncbuild('task build', {
+  --       efm = '%f:%l:%m',
+  --     })
+  --   end,
+  -- })
   -- nvim --server ~/.cache/nvim/synctex-server.pipe --remote-send  "<cmd>%line<cr>"
   lmap('n', '<space>ll', function()
     if not skim_started then

@@ -13,6 +13,7 @@ local running_job = nil
 ---@param opt? AsyncRunOptions
 M.asyncbuild = function(cmd, opt)
   opt = opt or {}
+
   local on_exit = opt.on_exit or function() end
   local efm = opt.efm or '%-G'
   local tail_text = ''

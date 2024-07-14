@@ -82,12 +82,16 @@ local global_keymap = {
     ['<space>rn'] = vim.lsp.buf.rename,
     ['<space>ca'] = wrap(vim.lsp.buf.code_action, { apply = true }),
 
+    --- n
+    ['<m-n>'] = "<cmd>cn<cr>",
+    ['<m-p>'] = "<cmd>cp<cr>",
+
     --- VSnip
     ['<space>sp'] = '<cmd>VsnipOpen -format snipmate<cr>',
 
     --- Dap
     ['<m-b>'] = require_wrap('dap', 'toggle_breakpoint'),
-    ['<m-n>'] = require_wrap('dap', 'continue'),
+    ['<m-c>'] = require_wrap('dap', 'continue'),
     ['<m-i>'] = require_wrap('dap', 'step_into'),
     ['<m-o>'] = require_wrap('dap', 'step_out'),
     ['<m-s>'] = require_wrap('dap', 'step_over'),

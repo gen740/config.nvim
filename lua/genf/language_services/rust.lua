@@ -1,35 +1,11 @@
 local M = {}
 
-local lmap = require('genf.language_services.utils').set_local_map
-
 function M.setup()
   local efm = ''
   efm = efm .. '%E%trror: %m,%C --> %f:%l:%c,%Z,'
   efm = efm .. '%E%trror[E%n]: %m,%C --> %f:%l:%c,%Z,'
   efm = efm .. '%W%tarning: %m,%C  --> %f:%l:%c,%Z,'
   efm = efm .. "thread 'main' %m at %f:%l:%c:,"
-
-  lmap('n', '<m-r>', function()
-    require('genf.asyncrun').asyncbuild('cargo run', {
-      efm = efm,
-    })
-  end)
-
-  lmap('n', '<m-c>', function()
-    require('genf.asyncrun').asyncbuild('cargo build', {
-      efm = efm,
-    })
-  end)
-
-  lmap('n', '<m-t>', function()
-    vim.cmd('copen')
-    vim.cmd('wincmd k')
-    require('genf.asyncrun').asyncbuild('cargo test')
-  end)
-
-  lmap('n', '<m-s>', function()
-    require('genf.asyncrun').asyncBuildStop()
-  end)
 
   vim.opt_local.tabstop = 4
   vim.opt_local.softtabstop = 4

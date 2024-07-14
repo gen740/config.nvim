@@ -231,7 +231,7 @@ local termResize = function()
       if winid ~= -1 then
         vim.fn.jobresize(
           value.jobid,
-          vim.print(vim.api.nvim_win_get_width(winid) - vim.fn.getwininfo(winid)[1].textoff),
+          vim.api.nvim_win_get_width(winid) - vim.fn.getwininfo(winid)[1].textoff,
           vim.api.nvim_win_get_height(winid) - 1
         )
       end

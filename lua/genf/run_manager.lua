@@ -69,7 +69,7 @@ M.run = function(git)
   if file ~= nil then
     local cmd = file:read('*a')
     if cmd ~= nil then
-      require('genf.asyncrun').runInConsole(file:read('*a'))
+      require('genf.asyncrun').runInConsole(cmd)
     else
       vim.notify('Invalid file name', vim.log.levels.WARN)
     end

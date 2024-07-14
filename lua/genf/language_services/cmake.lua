@@ -12,18 +12,6 @@ function M.setup()
     async_format({ 'cmake-format', '-i', vim.fn.expand('%:p') }, true)
   end)
 
-  lmap('n', '<m-c>', function()
-    require('genf.asyncrun').asyncbuild('task cmake')
-  end)
-
-  lmap('n', '<m-r>', function()
-    require('genf.asyncrun').asyncbuild('task build')
-  end)
-
-  lmap('n', '<m-s>', function()
-    require('genf.asyncrun').asyncBuildStop()
-  end)
-
   vim.cmd('compiler cmake')
 end
 

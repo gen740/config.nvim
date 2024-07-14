@@ -1,21 +1,8 @@
 local M = {}
 
-local lmap = require('genf.language_services.utils').set_local_map
-
 function M.setup()
   local efm = ''
   efm = efm .. '  File "%f"\\, line %l%.%#,'
-
-  lmap('n', '<m-r>', function()
-    require('genf.asyncrun').asyncbuild('task run', {
-      efm = efm,
-    })
-  end)
-
-  lmap('n', '<m-s>', function()
-    require('genf.asyncrun').asyncBuildStop()
-  end)
-
   local shiftwidth = 4
 
   vim.opt_local.tabstop = shiftwidth

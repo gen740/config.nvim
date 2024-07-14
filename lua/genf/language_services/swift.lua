@@ -9,28 +9,6 @@ function M.setup()
   vim.opt_local.shiftwidth = 2
   vim.opt.commentstring = '// %s'
 
-  -- lmap('n', '<m-r>', function()
-  --   require('genf.asyncrun').asyncrun('swift run')
-  -- end)
-
-  lmap('n', '<m-r>', function()
-    require('genf.asyncrun').asyncbuild('task run')
-  end)
-
-  lmap('n', '<m-t>', function()
-    require('genf.asyncrun').asyncbuild('task test')
-  end)
-
-  lmap('n', '<m-c>', function()
-    require('genf.asyncrun').asyncbuild('task build', {
-      efm = '%f:%l:%c: %trror: %m,%f:%l:%c: %tarning: %m',
-    })
-  end)
-
-  lmap('n', '<m-g>', function()
-    require('genf.asyncrun').asyncbuild('task cmake')
-  end)
-
   lmap('n', '<space>f', function()
     async_format({ 'swift-format', 'format', '-i', vim.fn.expand('%:p') }, true)
   end)

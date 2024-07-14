@@ -2,10 +2,6 @@ vim.api.nvim_create_user_command('Run', function(args)
   require('genf.asyncrun').runInConsole(args.fargs[1])
 end, { nargs = 1, complete = 'file' })
 
-vim.api.nvim_create_user_command('Stop', function()
-  require('genf.asyncrun').asyncBuildStop()
-end, {})
-
 vim.api.nvim_create_user_command('GitOpenPathInBrowser', function(opts)
   local git_url = vim.system({ 'git', 'remote', 'get-url', 'origin' }):wait().stdout:gsub('\n', '')
   if git_url == '' or git_url == nil then

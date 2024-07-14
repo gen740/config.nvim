@@ -1,28 +1,6 @@
-local lmap = require('genf.language_services.utils').set_local_map
+local M = {}
 
 function M.setup()
-  lmap('n', '<m-r>', function()
-    require('genf.asyncrun').asyncbuild('task run')
-  end)
-
-  lmap('n', '<m-t>', function()
-    require('genf.asyncrun').asyncbuild('task test')
-  end)
-
-  lmap('n', '<m-c>', function()
-    require('genf.asyncrun').asyncbuild('task build', {
-      efm = '%f:%l:%c: %trror: %m,%f:%l:%c: %tarning: %m',
-    })
-  end)
-
-  lmap('n', '<m-g>', function()
-    require('genf.asyncrun').asyncbuild('task cmake')
-  end)
-
-  lmap('n', '<m-e>', function()
-    require('genf.asyncrun').asyncbuild([[task ]] .. vim.fn.expand('%:t:r'))
-  end)
-
   vim.opt_local.tabstop = 2
   vim.opt_local.softtabstop = 2
   vim.opt_local.shiftwidth = 2
