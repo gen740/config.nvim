@@ -26,9 +26,8 @@ function M.setup()
         .. ' '
         .. vim.fn.line('.')
         .. ' '
-        .. './build/document.pdf'
-        .. ' '
-        .. vim.fn.expand('%:p')
+        .. vim.fn.expand('%:r')
+        .. '.pdf'
     )
     if not skim_started then
       vim.cmd(

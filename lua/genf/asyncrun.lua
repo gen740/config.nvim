@@ -7,9 +7,10 @@ local running_job = nil
 ---@field on_exit? function
 ---@field efm? string
 ---@field env? table<string, string>
+---@field cwd? string
 
 -- Run command in async mode
----@param cmd string | string[]
+---@param cmd string[]
 ---@param opt? AsyncRunOptions
 M.asyncbuild = function(cmd, opt)
   opt = opt or {}
@@ -17,17 +18,6 @@ M.asyncbuild = function(cmd, opt)
   local on_exit = opt.on_exit or function() end
   local efm = opt.efm or '%-G'
   local tail_text = ''
-  local cmd_list = {}
-
-  if type(cmd) == 'string' then
-    for i, v in ipairs(vim.split(cmd, ' ')) do
-      if v ~= '' then
-        cmd_list[i] = v
-      end
-    end
-  else
-    cmd_list = cmd
-  end
 
   if running_job then
     vim.notify('Command still runing', vim.log.levels.WARN)
@@ -70,7 +60,7 @@ M.asyncbuild = function(cmd, opt)
   end
 
   running_job = vim.system(
-    cmd_list,
+    cmd,
     {
       stdout = vim.schedule_wrap(function(_, data)
         on_event(data)
@@ -80,6 +70,7 @@ M.asyncbuild = function(cmd, opt)
       end),
       stdin = true,
       env = opt.env,
+      cwd = opt.cwd,
     },
     -- on_exit
     vim.schedule_wrap(function(status)
@@ -123,6 +114,7 @@ local console_running_jobid = -1
 
 ---@class ConsoleRunOptions
 ---@field env? table<string, string>
+---@field cwd string
 
 ---@param cmd string
 ---@param opt ConsoleRunOptions?
@@ -156,10 +148,15 @@ M.runInConsole = function(cmd, opt)
       vim.api.nvim_win_set_cursor(winid, { vim.api.nvim_buf_line_count(bufnr), 0 })
     end
   end
+  local cwd = nil
+  if opt ~= nil then
+    cwd = opt.cwd
+  end
 
   console_running_jobid = vim.fn.jobstart(cmd, {
     pty = true,
     env = cmd_env,
+    cwd = cwd,
     on_stdout = on_data,
     on_exit = function(_, status, _)
       vim.api.nvim_chan_send(chanid, '<<< Exit with code ' .. status)

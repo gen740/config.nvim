@@ -36,13 +36,16 @@ local global_keymap = {
     ['<space>sh'] = require_wrap('genf.toggleshell', 'Zsh'),
     ['<space>py'] = require_wrap('genf.toggleshell', 'Ipython'),
     ['<space>cc'] = require_wrap('genf.toggleshell', 'Console'),
-    ['<space>rr'] = require_wrap('genf.run_manager', 'run'),
-    ['<space>rc'] = require_wrap('genf.run_manager', 'register'),
-    ['<space>rs'] = require_wrap('genf.run_manager', 'showCmd'),
 
-    ['<space>gr'] = require_wrap('genf.run_manager', 'run', true),
-    ['<space>gc'] = require_wrap('genf.run_manager', 'register', true),
-    ['<space>gs'] = require_wrap('genf.run_manager', 'showCmd', true),
+    ['<space>rr'] = require_wrap('genf.run_manager', 'run', false, false),
+    ['<space>rc'] = require_wrap('genf.run_manager', 'register', false, false),
+    ['<space>gr'] = require_wrap('genf.run_manager', 'run', false, true),
+    ['<space>gc'] = require_wrap('genf.run_manager', 'register', false, true),
+
+    ['<space>br'] = require_wrap('genf.run_manager', 'run',true, false),
+    ['<space>bc'] = require_wrap('genf.run_manager', 'register',true,false),
+    ['<space>gbr'] = require_wrap('genf.run_manager', 'run', true, true),
+    ['<space>gbc'] = require_wrap('genf.run_manager', 'register', true, true),
 
     ['<space>gg'] = ':silent grep ',
 
