@@ -6,6 +6,7 @@ function M.setup()
   vim.opt_local.tabstop = 2
   vim.opt_local.softtabstop = 2
   vim.opt_local.shiftwidth = 2
+  vim.opt_local.commentstring = '// %s'
 
   lmap('n', '<space>to', function()
     vim.cmd('silent !yabai -m window --grid 1:7:0:0:4:1')
@@ -32,8 +33,8 @@ function M.setup()
 end
 
 function M.lsp_config()
-  -- local lsp_utils = require('genf.language_services.utils')
-  -- lsp_utils.lsp_setup('typst_lsp')
+  local lsp_utils = require('genf.language_services.utils')
+  lsp_utils.lsp_setup('typst_lsp')
 end
 
 return M

@@ -39,11 +39,13 @@ local global_keymap = {
 
     ['<space>rr'] = require_wrap('genf.run_manager', 'run', false, false),
     ['<space>rc'] = require_wrap('genf.run_manager', 'register', false, false),
+
     ['<space>gr'] = require_wrap('genf.run_manager', 'run', false, true),
     ['<space>gc'] = require_wrap('genf.run_manager', 'register', false, true),
 
     ['<space>br'] = require_wrap('genf.run_manager', 'run',true, false),
     ['<space>bc'] = require_wrap('genf.run_manager', 'register',true,false),
+
     ['<space>gbr'] = require_wrap('genf.run_manager', 'run', true, true),
     ['<space>gbc'] = require_wrap('genf.run_manager', 'register', true, true),
 
