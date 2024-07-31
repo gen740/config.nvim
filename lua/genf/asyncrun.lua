@@ -35,6 +35,8 @@ M.asyncbuild = function(cmd, opt)
     if data == nil then
       return
     end
+    -- remove ascii escape code
+    data = data:gsub('\027%[[%d;]+m', '')
     local data_current = tail_text .. data
     if data_current:sub(-1) == '\n' then
       tail_text = ''

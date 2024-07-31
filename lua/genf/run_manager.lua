@@ -9,7 +9,7 @@ if vim.fn.isdirectory(buildManagerPath) == 0 then
   vim.fn.mkdir(buildManagerPath, 'p')
 end
 
-if vim.fn.isdirectory(buildManagerPath) == 0 then
+if vim.fn.isdirectory(gitBuildManagerPath) == 0 then
   vim.fn.mkdir(gitBuildManagerPath, 'p')
 end
 
@@ -25,7 +25,7 @@ end
 ---@param git boolean?
 local get_cmdfile = function(build, git)
   if git then
-    local path = vim.fn.execute('!git rev-parse --show-toplevel')
+    local path = vim.fn.systemlist('git rev-parse --show-toplevel')[1]
 
     if build then
       return gitBuildManagerPath
@@ -115,6 +115,12 @@ M.register = function(build, git)
   end
 
   local ui_info = vim.api.nvim_list_uis()[1]
+  local window_title = ""
+  if build then
+    window_title = ' Build Manager '
+  else
+    window_title = ' Run Manager '
+  end
 
   local winid = vim.api.nvim_open_win(bufnr, true, {
     relative = 'editor',
@@ -122,7 +128,7 @@ M.register = function(build, git)
     col = math.floor(ui_info.width * 0.2),
     width = math.floor(ui_info.width * 0.6),
     height = math.floor(ui_info.height * 0.6),
-    title = ' Build Manager ',
+    title = window_title,
     title_pos = 'center',
     border = { '╔', '═', '╗', '║', '╝', '═', '╚', '║' },
   })

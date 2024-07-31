@@ -37,17 +37,21 @@ local global_keymap = {
     ['<space>py'] = require_wrap('genf.toggleshell', 'Ipython'),
     ['<space>cc'] = require_wrap('genf.toggleshell', 'Console'),
 
+    -- Run Manager
     ['<space>rr'] = require_wrap('genf.run_manager', 'run', false, false),
     ['<space>rc'] = require_wrap('genf.run_manager', 'register', false, false),
 
+    -- Run Manager for Git
     ['<space>gr'] = require_wrap('genf.run_manager', 'run', false, true),
-    ['<space>gc'] = require_wrap('genf.run_manager', 'register', false, true),
+    ['<space>gcr'] = require_wrap('genf.run_manager', 'register', false, true),
 
+    -- Build Manager
     ['<space>br'] = require_wrap('genf.run_manager', 'run',true, false),
     ['<space>bc'] = require_wrap('genf.run_manager', 'register',true,false),
 
-    ['<space>gbr'] = require_wrap('genf.run_manager', 'run', true, true),
-    ['<space>gbc'] = require_wrap('genf.run_manager', 'register', true, true),
+    -- Build Manager for Git
+    ['<space>gb'] = require_wrap('genf.run_manager', 'run', true, true),
+    ['<space>gcb'] = require_wrap('genf.run_manager', 'register', true, true),
 
     ['<space>gg'] = ':silent grep ',
 

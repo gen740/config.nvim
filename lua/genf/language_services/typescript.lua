@@ -10,7 +10,6 @@ end
 
 function M.lsp_config()
   local lsp_utils = require('genf.language_services.utils')
-  require('genf.language_services.utils').lsp_setup('biome')
   require('lspconfig')['denols'].setup {
     capabilities = lsp_utils.capabilities,
     root_dir = require('lspconfig/util').root_pattern('deno.json', 'deno.jsonc'),
@@ -30,6 +29,7 @@ function M.lsp_config()
       },
     },
   }
+  require('genf.language_services.utils').lsp_setup('biome')
 end
 
 return M
