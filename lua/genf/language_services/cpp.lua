@@ -11,28 +11,10 @@ function M.lsp_config()
   local lsp_util = require('genf.language_services.utils')
   local config = require('lspconfig')['clangd']
 
-  local clangd_path = 'clangd'
-
-  if vim.env.NEOVIM_CLANGD ~= nil then
-    clangd_path = vim.env.NEOVIM_CLANGD
-  else
-    if vim.fn.filereadable(vim.env.HOME .. '/.llvm/bin/clangd') == 1 then
-      clangd_path = vim.env.HOME .. '/.llvm/bin/clangd'
-    elseif vim.fn.filereadable(vim.env.HOME .. '/.local/bin/clangd') == 1 then
-      clangd_path = vim.env.HOME .. '/.local/bin/clangd'
-    elseif vim.fn.filereadable('/opt/homebrew/opt/llvm/bin/clangd') == 1 then
-      clangd_path = '/opt/homebrew/opt/llvm/bin/clangd'
-    elseif vim.fn.filereadable('/usr/local/opt/llvm/bin/clangd') == 1 then
-      clangd_path = '/usr/local/opt/llvm/bin/clangd'
-    elseif vim.fn.filereadable('/usr/bin/clangd-19') == 1 then
-      clangd_path = '/usr/bin/clangd-19'
-    end
-  end
-
   config.setup {
     capabilities = lsp_util.capabilities,
     cmd = {
-      clangd_path,
+      'clangd',
       '-j',
       '16',
       '--enable-config',
