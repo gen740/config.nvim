@@ -115,7 +115,7 @@ M.register = function(build, git)
   end
 
   local ui_info = vim.api.nvim_list_uis()[1]
-  local window_title = ""
+  local window_title = ''
   if build then
     window_title = ' Build Manager '
   else
@@ -134,7 +134,7 @@ M.register = function(build, git)
   })
 
   vim.api.nvim_create_augroup('BuildManagerAutoClose', { clear = true })
-  vim.api.nvim_create_autocmd({ 'BufWritePost' }, {
+  vim.api.nvim_create_autocmd({ 'BufWritePost', 'BufLeave' }, {
     group = 'BuildManagerAutoClose',
     callback = function(arg)
       if arg.buf == bufnr then
