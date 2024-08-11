@@ -55,7 +55,7 @@ local Consoles = {
   },
 }
 
----@return string?, number
+---@return "Ipython" | "Zsh" | "Quickfix" | nil, number
 M.get_exists_terminal = function()
   for key, val in pairs(Consoles) do
     if val.bufnr == -1 or key == 'Console' then
@@ -152,9 +152,7 @@ end
 M.Quickfix = function()
   local current_win = vim.api.nvim_get_current_win()
 
-  Consoles.Quickfix.bufnr = vim.fn.getqflist({ qfbufnr = 1 }).qfbufnr
   local exists_name, exists_winid = M.get_exists_terminal()
-
   if exists_name == 'Quickfix' and exists_winid ~= -1 then
     return
   end
@@ -167,12 +165,20 @@ M.Quickfix = function()
       vim.api.nvim_win_close(qfinfo.winid, true)
     end
     vim.api.nvim_win_set_buf(exists_winid, Consoles.Quickfix.bufnr)
+  else
+    if vim.fn.bufexists(Consoles.Quickfix.bufnr) == 0 then
+      vim.cmd('copen')
+      local qfinfo = vim.fn.getqflist { qfbufnr = 1, winid = 1 }
+      Consoles.Quickfix.bufnr = qfinfo.qfbufnr
+      vim.api.nvim_win_close(qfinfo.winid, true)
+    end
+    vim.api.nvim_open_win(Consoles.Quickfix.bufnr, false, {
+      split = 'below',
+      win = current_win,
+      height = WINSIZE,
+    })
   end
 
-  vim.cmd('copen ' .. WINSIZE)
-  local qfinfo = vim.fn.getqflist { qfbufnr = 1, winid = 1 }
-  vim.fn.win_execute(qfinfo.winid, 'wincmd J')
-  Consoles.Quickfix.bufnr = qfinfo.qfbufnr
   vim.api.nvim_set_current_win(current_win)
 end
 
