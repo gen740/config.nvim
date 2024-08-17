@@ -6,4 +6,8 @@ function M.setup()
   vim.opt_local.shiftwidth = 2
 end
 
+function M.lsp_config()
+  require('genf.language_services.utils').lsp_setup('bashls')
+end
+
 return M

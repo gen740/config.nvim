@@ -8,6 +8,7 @@ return {
       'cpp',
       'cmake',
       'dockerfile',
+      'sh',
       'go',
       'json',
       'julia',
