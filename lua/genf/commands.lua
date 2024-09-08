@@ -136,3 +136,9 @@ vim.api.nvim_create_user_command('AlignBy', function(opts)
   end, split_text)
   vim.api.nvim_buf_set_lines(0, start_line - 1, end_line, false, split_text)
 end, { range = true, nargs = 1 })
+
+vim.api.nvim_create_user_command(
+  'QMKAlign',
+  require('genf.qmk').align_keymap,
+  { range = true, nargs = 0 }
+)
