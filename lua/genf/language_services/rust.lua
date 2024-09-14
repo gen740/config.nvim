@@ -15,8 +15,4 @@ function M.setup()
   vim.cmd('compiler cargo')
 end
 
-function M.lsp_config()
-  require('genf.language_services.utils').lsp_setup('rust_analyzer')
-end
-
 return M

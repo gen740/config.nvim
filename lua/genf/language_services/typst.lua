@@ -32,9 +32,4 @@ function M.setup()
   end)
 end
 
-function M.lsp_config()
-  local lsp_utils = require('genf.language_services.utils')
-  lsp_utils.lsp_setup('typst_lsp')
-end
-
 return M

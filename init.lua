@@ -1,4 +1,3 @@
-require('genf.globals')
 require('genf.plugins')
 require('genf.autocmds')
 require('genf.options')
