@@ -1,6 +1,6 @@
 require('genf.disable_defaults')
 require('genf.globals')
-require('genf.lazy').init()
+require('genf.plugins')
 require('genf.autocmds')
 require('genf.options')
 require('genf.keymaps')

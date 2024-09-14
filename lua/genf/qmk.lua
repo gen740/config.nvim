@@ -41,51 +41,70 @@ M.align_keymap = function(opts)
   }
   key_rows = vim.tbl_map(function(line)
     return vim.tbl_map(function(word)
-      return word:gsub('┃', ''):gsub([[%*/]], ''):gsub([[/%*]], ''):gsub('//', ''):gsub('^%s*(.-)%s*$', '%1')
+      return word:gsub([[%*/]], ''):gsub([[/%*]], ''):gsub('//', ''):gsub('^%s*(.-)%s*$', '%1')
     end, vim.split(line, ','))
   end, key_rows)
 
-  local key_width = create_identity(10, 14)
+  local key_width = create_identity(9, 14)
 
   local aligned_txt = {}
 
   local line = ''
+
+  local pack_key = function(key, i)
+    local half = math.ceil((i - #key) / 2)
+    if half < 0 then
+      return key
+    end
+    return string.rep(' ', (i - #key) - half) .. key .. string.rep(' ', half)
+  end
   --- First row
-  line = '|'
-    .. string.rep('-', sum(key_width, 1, 7) + 7)
-    .. '| |-'
-    .. string.rep('-', sum(key_width, 8, 14) + 7)
-    .. '|'
+  line = '┏'
+  for i = 1, 7 do
+    if i == 7 then
+      line = line .. string.rep('━', key_width[i]) .. '┓'
+    else
+      line = line .. string.rep('━', key_width[i]) .. '┳'
+    end
+  end
+  line = line .. ' ┏'
+  for i = 8, 14 do
+    if i == 14 then
+      line = line .. string.rep('━', key_width[i]) .. '┓'
+    else
+      line = line .. string.rep('━', key_width[i]) .. '┳'
+    end
+  end
   table.insert(aligned_txt, line)
 
   --- 2nd row (Keys)
   line = ' '
   for i = 1, 7 do
     local key = key_rows[1][i]
-    line = line .. string.rep(' ', key_width[i] - #key) .. key .. ','
+    line = line .. pack_key(key, key_width[i]) .. ','
   end
-  line = line .. '    '
+  line = line .. '  '
   for i = 8, 14 do
     local key = key_rows[1][i]
-    line = line .. string.rep(' ', key_width[i] - #key) .. key .. ','
+    line = line .. pack_key(key, key_width[i]) .. ','
   end
   table.insert(aligned_txt, line)
 
   --- 3rd row
-  line = '|'
+  line = '┣'
   for i = 1, 7 do
     if i == 7 then
-      line = line .. string.rep('-', key_width[i]) .. '-|'
+      line = line .. string.rep('━', key_width[i]) .. '┫'
     else
-      line = line .. string.rep('-', key_width[i]) .. '+'
+      line = line .. string.rep('━', key_width[i]) .. '╋'
     end
   end
-  line = line .. ' |-'
+  line = line .. ' ┣'
   for i = 8, 14 do
     if i == 14 then
-      line = line .. string.rep('-', key_width[i]) .. '-|'
+      line = line .. string.rep('━', key_width[i]) .. '┫'
     else
-      line = line .. string.rep('-', key_width[i]) .. '+'
+      line = line .. string.rep('━', key_width[i]) .. '╋'
     end
   end
   table.insert(aligned_txt, line)
@@ -94,30 +113,30 @@ M.align_keymap = function(opts)
   line = ' '
   for i = 1, 7 do
     local key = key_rows[2][i]
-    line = line .. string.rep(' ', key_width[i] - #key) .. key .. ','
+    line = line .. pack_key(key, key_width[i]) .. ','
   end
-  line = line .. '    '
+  line = line .. '  '
   for i = 8, 14 do
     local key = key_rows[2][i]
-    line = line .. string.rep(' ', key_width[i] - #key) .. key .. ','
+    line = line .. pack_key(key, key_width[i]) .. ','
   end
   table.insert(aligned_txt, line)
 
   --- 5th row
-  line = '|'
+  line = '┣'
   for i = 1, 7 do
     if i == 7 then
-      line = line .. string.rep('-', key_width[i]) .. '-|'
+      line = line .. string.rep('━', key_width[i]) .. '┛'
     else
-      line = line .. string.rep('-', key_width[i]) .. '+'
+      line = line .. string.rep('━', key_width[i]) .. '╋'
     end
   end
-  line = line .. ' |-'
+  line = line .. ' ┗'
   for i = 8, 14 do
     if i == 14 then
-      line = line .. string.rep('-', key_width[i]) .. '-|'
+      line = line .. string.rep('━', key_width[i]) .. '┫'
     else
-      line = line .. string.rep('-', key_width[i]) .. '+'
+      line = line .. string.rep('━', key_width[i]) .. '╋'
     end
   end
   table.insert(aligned_txt, line)
@@ -127,37 +146,41 @@ M.align_keymap = function(opts)
   for i = 1, 7 do
     if i ~= 7 then
       local key = key_rows[3][i]
-      line = line .. string.rep(' ', key_width[i] - #key) .. key .. ','
+      line = line .. pack_key(key, key_width[i]) .. ','
     else
       line = line .. string.rep(' ', key_width[i] + 1)
     end
   end
-  line = line .. '    '
+  line = line .. '  '
   for i = 8, 14 do
     if i == 8 then
       line = line .. string.rep(' ', key_width[i] + 1)
     else
       local key = key_rows[3][i - 2]
-      line = line .. string.rep(' ', key_width[i] - #key) .. key .. ','
+      line = line .. pack_key(key, key_width[i]) .. ','
     end
   end
   table.insert(aligned_txt, line)
 
   --- 7th row
-  line = '|'
+  line = '┗'
   for i = 1, 7 do
     if i == 7 then
-      line = line .. string.rep('-', key_width[i]) .. '-|'
+      line = line .. string.rep('━', key_width[i]) .. '┓'
+    elseif i > 3 then
+      line = line .. string.rep('━', key_width[i]) .. '╋'
     else
-      line = line .. string.rep('-', key_width[i]) .. '+'
+      line = line .. string.rep('━', key_width[i]) .. '┻'
     end
   end
-  line = line .. ' |-'
+  line = line .. ' ┏'
   for i = 8, 14 do
     if i == 14 then
-      line = line .. string.rep('-', key_width[i]) .. '-|'
+      line = line .. string.rep('━', key_width[i]) .. '┛'
+    elseif i < 11 then
+      line = line .. string.rep('━', key_width[i]) .. '╋'
     else
-      line = line .. string.rep('-', key_width[i]) .. '+'
+      line = line .. string.rep('━', key_width[i]) .. '┻'
     end
   end
   table.insert(aligned_txt, line)
@@ -169,17 +192,17 @@ M.align_keymap = function(opts)
       line = line .. string.rep(' ', key_width[i] + 1)
     else
       local key = key_rows[4][i - 4]
-      line = line .. string.rep(' ', key_width[i] - #key) .. key .. ','
+      line = line .. pack_key(key, key_width[i]) .. ','
     end
   end
-  line = line .. '    '
+  line = line .. '  '
   for i = 8, 14 do
     if i < 11 then
       local key = key_rows[4][i - 4]
       if i == 10 then
-        line = line .. string.rep(' ', key_width[i] - #key) .. key
+        line = line .. pack_key(key, key_width[i])
       else
-        line = line .. string.rep(' ', key_width[i] - #key) .. key .. ','
+        line = line .. pack_key(key, key_width[i]) .. ','
       end
     else
       line = line .. string.rep(' ', key_width[i] + 1)
@@ -187,31 +210,31 @@ M.align_keymap = function(opts)
   end
   table.insert(aligned_txt, line)
 
-  --- 9th row (Keys)
+  --- 9th row
   line = string.rep(' ', sum(key_width, 1, 4) + 4)
-    .. '|'
-    .. string.rep('-', key_width[5])
-    .. '+'
-    .. string.rep('-', key_width[6])
-    .. '+'
-    .. string.rep('-', key_width[7])
-    .. '-| |-'
-    .. string.rep('-', key_width[8])
-    .. '+'
-    .. string.rep('-', key_width[9])
-    .. '+'
-    .. string.rep('-', key_width[10])
-    .. '-|'
+    .. '┗'
+    .. string.rep('━', key_width[5])
+    .. '┻'
+    .. string.rep('━', key_width[6])
+    .. '┻'
+    .. string.rep('━', key_width[7])
+    .. '┛ ┗'
+    .. string.rep('━', key_width[8])
+    .. '┻'
+    .. string.rep('━', key_width[9])
+    .. '┻'
+    .. string.rep('━', key_width[10])
+    .. '┛'
     .. string.rep(' ', sum(key_width, 11, 14) + 4)
   table.insert(aligned_txt, line)
 
   for i, l in ipairs(aligned_txt) do
     if i == 8 then
-      aligned_txt[i] = '    ' .. l .. '          /*'
+      aligned_txt[i] = '    ' .. l .. '   /*'
     elseif i % 2 == 0 then
-      aligned_txt[i] = '    ' .. l .. '         /*'
+      aligned_txt[i] = '    ' .. l .. '  /*'
     else
-      aligned_txt[i] = '    ' .. l .. '        */'
+      aligned_txt[i] = '    ' .. l .. '  */'
     end
     if i == 9 then
       aligned_txt[i] = aligned_txt[i] .. ' ),'

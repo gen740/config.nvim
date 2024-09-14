@@ -85,7 +85,7 @@ for key, console in pairs(Consoles) do
         vim.api.nvim_buf_set_keymap(
           console.bufnr,
           't',
-          '<esc><space>',
+          '<esc>',
           [[<c-\><c-n>]],
           { noremap = true, silent = true }
         )
