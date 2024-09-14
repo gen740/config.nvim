@@ -26,7 +26,6 @@ do
   local runtimes = vim.opt.runtimepath:get()
   for _, r in pairs(runtimes) do
     if vim.endswith(r, 'share/nvim/runtime') then
-      vim.print(r)
       table.insert(libraries, r)
     end
   end
