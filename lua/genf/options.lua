@@ -1,3 +1,6 @@
+vim.g.netrw_silent = true
+vim.g.vimsyn_embed = 'lPr'
+
 local vim_options = {
   backspace = [[indent,eol,start]],
   breakindent = true,

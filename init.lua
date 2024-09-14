@@ -1,4 +1,3 @@
-require('genf.disable_defaults')
 require('genf.globals')
 require('genf.plugins')
 require('genf.autocmds')
