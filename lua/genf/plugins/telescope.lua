@@ -48,11 +48,6 @@ require('telescope').setup {
         end
       end)
     end,
-    path_display = {
-      filename_first = { -- ファイル名を先頭に表示し、パスはグレーで目立たない表示になる
-        reverse_directories = true, -- パスが深いところから順の表示になる
-      },
-    },
   },
   pickers = {
     find_files = {
