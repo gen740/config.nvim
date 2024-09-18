@@ -44,6 +44,7 @@ config.setup {
       workspace = {
         library = libraries,
         checkThirdParty = 'Disabled',
+        ignoreDir = { '.direnv' },
       },
       telemetry = {
         enable = false,
