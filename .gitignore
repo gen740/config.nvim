@@ -1,26 +1,5 @@
 # Mac
 .DS_Store
-# /plugin
 
-# Executables
-*.a
-*.o
-
-# Build_directories
-cmake_build
-build*
-.build
-
-# python
-typings
-__pycache__
-.python-version
-
-# nodejs
-node_modules
-
-# Rust
-target
-
-# lazy.nvim
-lazy-lock.json
+# caches
+.direnv
