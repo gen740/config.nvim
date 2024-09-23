@@ -106,9 +106,6 @@ local global_keymap = {
     ['<m-s>'] = require_wrap('dap', 'step_over'),
     ['<space>dl'] = require_wrap('dap', 'run_last'),
   },
-  [{ 'n', 'v' }] = {
-    ['go'] = '<cmd>GitOpenPathInBrowser<cr>',
-  },
   [{ 'i', 's' }] = {
     ['<c-f>'] = {
       function()
