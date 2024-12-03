@@ -51,6 +51,7 @@ local vim_options = {
   undodir = os.getenv('HOME') .. '/.vim/undo',
   undolevels = 10000,
   undoreload = 10000,
+  undofile = true,
   updatetime = 250,
   viewoptions = 'folds,cursor',
   whichwrap = 'b,s,<,>,[,]',

@@ -121,7 +121,7 @@ local console_running_jobid = -1
 ---@param cmd string
 ---@param opt ConsoleRunOptions?
 M.runInConsole = function(cmd, opt)
-  local bufnr = require('genf.toggleshell').Console()
+  local bufnr, winnr = require('genf.toggleshell').Console()
 
   if console_running_jobid ~= -1 then
     vim.notify('Console is running', vim.log.levels.ERROR)
@@ -159,12 +159,36 @@ M.runInConsole = function(cmd, opt)
     pty = true,
     env = cmd_env,
     cwd = cwd,
+    height = vim.api.nvim_win_get_height(winnr) - 1,
+    width = vim.print(vim.api.nvim_win_get_width(winnr)),
     on_stdout = on_data,
     on_exit = function(_, status, _)
       vim.api.nvim_chan_send(chanid, '<<< Exit with code ' .. status)
       console_running_jobid = -1
     end,
   })
+
+  local group_name = 'AsyncrunWindowResizedAutocmd'
+  vim.api.nvim_create_augroup(group_name, { clear = true })
+
+  -- ウィンドウサイズ変更のイベントに応じた autocmd を設定
+  vim.api.nvim_create_autocmd('WinResized', {
+    group = group_name,
+    callback = function()
+      if console_running_jobid ~= -1 then
+        local height = vim.api.nvim_win_get_height(winnr) - 1
+        local width = vim.api.nvim_win_get_width(winnr)
+        vim.fn.jobresize(console_running_jobid, width, height)
+      end
+    end,
+  })
+end
+
+M.killConsoleJob = function()
+  if console_running_jobid ~= -1 then
+    vim.fn.jobstop(console_running_jobid)
+    console_running_jobid = -1
+  end
 end
 
 return M

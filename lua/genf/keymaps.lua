@@ -38,6 +38,8 @@ local global_keymap = {
     ['<space>cc'] = require_wrap('genf.toggleshell', 'Console'),
 
     -- Run Manager
+    ['<space>rk'] = require_wrap('genf.asyncrun', 'killConsoleJob', false, false),
+
     ['<space>rr'] = require_wrap('genf.run_manager', 'run', false, false),
     ['<space>rc'] = require_wrap('genf.run_manager', 'register', false, false),
 

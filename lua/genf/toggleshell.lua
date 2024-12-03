@@ -182,10 +182,11 @@ M.Quickfix = function()
   vim.api.nvim_set_current_win(current_win)
 end
 
+---@return integer, integer
 M.Console = function()
   local console_winid = vim.fn.bufwinid(Consoles.Console.bufnr)
   if console_winid ~= -1 then
-    return Consoles.Console.bufnr
+    return Consoles.Console.bufnr, console_winid
   end
 
   local _, exists_winid = M.get_exists_terminal()
@@ -227,7 +228,7 @@ M.Console = function()
     { win = new_win }
   )
 
-  return Consoles.Console.bufnr
+  return Consoles.Console.bufnr, new_win
 end
 
 local termResize = function()
