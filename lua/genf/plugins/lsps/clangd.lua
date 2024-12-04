@@ -2,11 +2,8 @@ if vim.fn.executable('clangd') == 0 then
   return
 end
 
-local lsp_util = require('genf.language_services.utils')
-local config = require('lspconfig')['clangd']
-
-config.setup {
-  capabilities = lsp_util.capabilities,
+require('lspconfig')['clangd'].setup {
+  capabilities = require('genf.plugins.lsps.utils').capabilities,
   cmd = {
     'clangd',
     '-j',

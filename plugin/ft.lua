@@ -7,7 +7,7 @@ autocmd('FileType', {
   pattern = '*',
   callback = function(args)
     pcall(function(name)
-      require('genf.language_services.' .. name).setup()
+      require('genf.ftautocmd.ft-' .. name).setup()
     end, args.match)
   end,
 })

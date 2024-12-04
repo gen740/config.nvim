@@ -1,14 +1,12 @@
 local M = {}
 
-local lmap = require('genf.language_services.utils').set_local_map
-
 function M.setup()
   vim.opt_local.cursorline = false
   vim.opt_local.number = false
   vim.opt_local.relativenumber = false
   vim.opt_local.buflisted = false
 
-  lmap('n', 'd', function()
+  require('genf.ftautocmd.utils').lmap('n', 'd', function()
     local qflist = vim.fn.getqflist()
     local qf_len = #qflist
     local new_qflist = {}

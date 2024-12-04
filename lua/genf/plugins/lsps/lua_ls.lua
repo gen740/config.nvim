@@ -2,9 +2,6 @@ if vim.fn.executable('lua-language-server') == 0 then
   return
 end
 
-local lsp_utils = require('genf.language_services.utils')
-local config = require('lspconfig')['lua_ls']
-
 local libraries = {
   '${3rd}/luv/library',
   '${3rd}/luassert/library',
@@ -31,8 +28,8 @@ do
   end
 end
 
-config.setup {
-  capabilities = lsp_utils.capabilities,
+require('lspconfig')['lua_ls'].setup {
+  capabilities = require('genf.plugins.lsps.utils').capabilities,
   settings = {
     Lua = {
       runtime = {

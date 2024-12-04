@@ -3,7 +3,7 @@ if vim.fn.executable('deno') == 0 then
 end
 
 require('lspconfig')['denols'].setup {
-  capabilities = require('genf.language_services.utils').capabilities,
+  capabilities = require('genf.plugins.lsps.utils').capabilities,
   root_dir = require('lspconfig/util').root_pattern('deno.json', 'deno.jsonc'),
   single_file_support = false,
 }

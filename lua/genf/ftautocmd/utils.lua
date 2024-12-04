@@ -1,23 +1,9 @@
 local M = {}
 
-M.capabilities = vim.tbl_extend('keep', require('cmp_nvim_lsp').default_capabilities(), {
-  window = {
-    workDoneProgress = true,
-  },
-})
-
----@param name string
-function M.lsp_setup(name)
-  local config = require('lspconfig')[name]
-  config.setup {
-    capabilities = M.capabilities,
-  }
-end
-
 ---@param mode string
 ---@param map string
 ---@param callback string|function
-function M.set_local_map(mode, map, callback)
+function M.lmap(mode, map, callback)
   vim.keymap.set(mode, map, callback, { buffer = true })
 end
 

@@ -2,9 +2,8 @@ if vim.fn.executable('nixd') == 0 then
   return
 end
 
-local lsp_utils = require('genf.language_services.utils')
 require('lspconfig')['nixd'].setup {
-  capabilities = lsp_utils.capabilities,
+  capabilities = require('genf.plugins.lsps.utils').capabilities,
   cmd = { 'nixd' },
   settings = {
     nixd = {

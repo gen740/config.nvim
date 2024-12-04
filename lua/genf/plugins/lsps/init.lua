@@ -18,7 +18,7 @@ while handle do
   if not name then
     break
   end
-  if name:match('%.lua$') and name ~= 'init.lua' then
+  if name:match('%.lua$') and name ~= 'init.lua' and name ~= 'utils.lua' then
     require(pdir_name .. '.' .. name:gsub('%.lua$', ''))
   end
 end

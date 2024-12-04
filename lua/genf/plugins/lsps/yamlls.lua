@@ -3,7 +3,7 @@ if vim.fn.executable('yaml-language-server') == 0 then
 end
 
 require('lspconfig')['yamlls'].setup {
-  capabilities = require('genf.language_services.utils').capabilities,
+  capabilities = require('genf.plugins.lsps.utils').capabilities,
   settings = {
     yaml = {
       schemas = {

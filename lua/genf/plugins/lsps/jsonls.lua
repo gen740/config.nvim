@@ -2,10 +2,8 @@ if vim.fn.executable('vscode-json-language-server') == 0 then
   return
 end
 
-local lsp_utils = require('genf.language_services.utils')
-local config = require('lspconfig')['jsonls']
-config.setup {
-  capabilities = lsp_utils.capabilities,
+require('lspconfig')['jsonls'].setup {
+  capabilities = require('genf.plugins.lsps.utils').capabilities,
   filetypes = { 'json', 'jsonc' },
   settings = {
     json = {
