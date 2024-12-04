@@ -4,7 +4,6 @@ vim.g.vimsyn_embed = 'lPr'
 _G.genf = {
   qftf = require('genf.qftextfunc').expr,
   tabline = require('genf.tabline').expr,
-  foldingtxt = require('genf.foldingtxt').expr,
   winbar = require('genf.winbar').expr,
 }
 
@@ -18,7 +17,6 @@ local vim_options = {
   foldenable = true,
   foldlevel = 99,
   foldmethod = 'expr',
-  foldtext = 'v:lua.genf.foldingtxt()',
   grepprg = 'rg --vimgrep',
   ignorecase = true,
   inccommand = 'nosplit',
