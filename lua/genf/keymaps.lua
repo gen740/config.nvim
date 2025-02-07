@@ -1,5 +1,3 @@
-local dapui_started = false
-
 local function wrap(func, ...)
   local args = { ... } -- Capture the variable arguments in a local variable
   return function()
@@ -63,12 +61,10 @@ local global_keymap = {
     ['~'] = '<nop>',
 
     --- Telescope
-    ['<space>tcb'] = require_wrap('telescope.builtin', 'current_buffer_fuzzy_find'),
-    ['<space>tg'] = require_wrap('telescope.builtin', 'git_files'),
-    ['<space>tf'] = require_wrap('telescope.builtin', 'find_files'),
-    ['<space>tb'] = require_wrap('telescope.builtin', 'buffers'),
-    ['<space>tl'] = require_wrap('telescope.builtin', 'live_grep'),
-    ['<space>ts'] = require_wrap('telescope.builtin', 'builtin'),
+    ['<m-t>'] = require_wrap('telescope.builtin', 'builtin'),
+    ['<m-g>'] = require_wrap('telescope.builtin', 'git_files'),
+    ['<m-f>'] = require_wrap('telescope.builtin', 'find_files'),
+
     ['<space>lg'] = require('genf.lazygit').lazygit_open,
 
     ['<space>f'] = wrap(vim.lsp.buf.format, {
@@ -104,66 +100,30 @@ local global_keymap = {
 
     --- Dap
     ['<space>ds'] = function()
-      -- require('dapui').setup()
+      -- require('dapui').setup{
+      --   controls = {
+      --     element = "repl",
+      --     enabled = true,
+      --     icons = nil,
+      --   }
+      -- }
       -- require('dapui').open()
       require('dap').continue()
-      dapui_started = true
     end,
     ['<space>dc'] = function()
       require('dap').close()
       -- require('dapui').close()
-      dapui_started = false
     end,
 
-    ['<space>db'] = function()
-      require('dap').toggle_breakpoint()
-    end,
+    ['<space>db'] = require_wrap('dap', 'toggle_breakpoint'),
+    ['<m-c>'] = require_wrap('dap', 'continue'),
+    ['<m-r>'] = require_wrap('dap', 'run_to_cursor'),
+    ['<m-l>'] = require_wrap('dap', 'run_last'),
+    ['<m-s>'] = require_wrap('dap', 'step_over'),
+    ['<m-i>'] = require_wrap('dap', 'step_into'),
+    ['<m-o>'] = require_wrap('dap', 'step_out'),
+    ['<leader>dh'] = require_wrap('dap.ui.widgets', 'hover'),
 
-    ['c'] = function()
-      if dapui_started then
-        require('dap').continue()
-      else
-        return vim.api.nvim_feedkeys('c', 'n', false)
-      end
-    end,
-    ['C'] = function()
-      if dapui_started then
-        require('dap').run_to_cursor()
-      else
-        return vim.api.nvim_feedkeys('C', 'n', false)
-      end
-    end,
-    ['O'] = function()
-      if dapui_started then
-        require('dap').run_last()
-      else
-        return vim.api.nvim_feedkeys('O', 'n', false)
-      end
-    end,
-    ['s'] = function()
-      if dapui_started then
-        require('dap').step_over()
-      else
-        return vim.api.nvim_feedkeys('s', 'n', false)
-      end
-    end,
-    ['i'] = function()
-      if dapui_started then
-        require('dap').step_into()
-      else
-        return vim.api.nvim_feedkeys('i', 'n', false)
-      end
-    end,
-    ['o'] = function()
-      if dapui_started then
-        require('dap').step_out()
-      else
-        return vim.api.nvim_feedkeys('o', 'n', false)
-      end
-    end,
-    ['<leader>dh'] = function()
-        require('dap.ui.widgets').hover()
-    end,
   },
   [{ 'i', 's' }] = {
     ['<c-f>'] = {
