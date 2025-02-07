@@ -1,7 +1,3 @@
-if vim.fn.executable('lldb') == 0 then
-  return
-end
-
 local dap = require('dap')
 dap.adapters.lldb = {
   type = 'executable',

@@ -1,7 +1,3 @@
-if vim.fn.executable('python3') == 0 then
-  return
-end
-
 local dap = require('dap')
 dap.adapters.python = {
   type = 'executable',
@@ -20,6 +16,6 @@ dap.configurations.python = {
       end
       return vim.fn.input('Path to executable: ', vim.fn.getcwd() .. '/', 'file')
     end,
-    pythonPath = '/Users/gen/.rye/shims/python3',
+    pythonPath = 'python',
   },
 }

@@ -7,7 +7,7 @@ require('lspconfig')['clangd'].setup {
   cmd = {
     'clangd',
     '-j',
-    '16',
+    '14',
     '--enable-config',
     '--offset-encoding=utf-16',
     '-hidden-features',

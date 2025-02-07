@@ -1,3 +1,5 @@
+local dapui_started = false
+
 local function wrap(func, ...)
   local args = { ... } -- Capture the variable arguments in a local variable
   return function()
@@ -24,9 +26,9 @@ end
 local global_keymap = {
   i = {
   -- ['<m-c>'] = '<cmd>Copilot suggestion toggle_auto_trigger<cr>',
-    ['<m-]>'] = '<cmd>Copilot suggestion next<cr>',
-    ['<m-[>'] = '<cmd>Copilot suggestion prev<cr>',
-    ['<m-f>'] = '<cmd>Copilot suggestion accept<cr>',
+    ['<c-h>'] = '<cmd>Copilot suggestion next<cr>',
+    ['<c-l>'] = '<cmd>Copilot suggestion prev<cr>',
+    ['<c-t>'] = '<cmd>Copilot suggestion accept<cr>',
     -- ['<m-p>'] = '<cmd>Copilot panel open<cr>',
   },
   n = {
@@ -101,12 +103,67 @@ local global_keymap = {
     ['<space>sp'] = '<cmd>VsnipOpen -format snipmate<cr>',
 
     --- Dap
-    ['<m-b>'] = require_wrap('dap', 'toggle_breakpoint'),
-    ['<m-c>'] = require_wrap('dap', 'continue'),
-    ['<m-i>'] = require_wrap('dap', 'step_into'),
-    ['<m-o>'] = require_wrap('dap', 'step_out'),
-    ['<m-s>'] = require_wrap('dap', 'step_over'),
-    ['<space>dl'] = require_wrap('dap', 'run_last'),
+    ['<space>ds'] = function()
+      -- require('dapui').setup()
+      -- require('dapui').open()
+      require('dap').continue()
+      dapui_started = true
+    end,
+    ['<space>dc'] = function()
+      require('dap').close()
+      -- require('dapui').close()
+      dapui_started = false
+    end,
+
+    ['<space>db'] = function()
+      require('dap').toggle_breakpoint()
+    end,
+
+    ['c'] = function()
+      if dapui_started then
+        require('dap').continue()
+      else
+        return vim.api.nvim_feedkeys('c', 'n', false)
+      end
+    end,
+    ['C'] = function()
+      if dapui_started then
+        require('dap').run_to_cursor()
+      else
+        return vim.api.nvim_feedkeys('C', 'n', false)
+      end
+    end,
+    ['O'] = function()
+      if dapui_started then
+        require('dap').run_last()
+      else
+        return vim.api.nvim_feedkeys('O', 'n', false)
+      end
+    end,
+    ['s'] = function()
+      if dapui_started then
+        require('dap').step_over()
+      else
+        return vim.api.nvim_feedkeys('s', 'n', false)
+      end
+    end,
+    ['i'] = function()
+      if dapui_started then
+        require('dap').step_into()
+      else
+        return vim.api.nvim_feedkeys('i', 'n', false)
+      end
+    end,
+    ['o'] = function()
+      if dapui_started then
+        require('dap').step_out()
+      else
+        return vim.api.nvim_feedkeys('o', 'n', false)
+      end
+    end,
+    ['<leader>dh'] = function()
+        require('dap.ui.widgets').hover()
+    end,
   },
   [{ 'i', 's' }] = {
     ['<c-f>'] = {

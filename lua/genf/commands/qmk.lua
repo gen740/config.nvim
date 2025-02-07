@@ -45,7 +45,7 @@ M.align_keymap = function(opts)
     end, vim.split(line, ','))
   end, key_rows)
 
-  local key_width = create_identity(9, 14)
+  local key_width = create_identity(10, 14)
 
   local aligned_txt = {}
 
