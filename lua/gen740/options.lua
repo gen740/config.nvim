@@ -2,9 +2,8 @@ vim.g.netrw_silent = true
 vim.g.vimsyn_embed = 'lPr'
 
 _G.gen740 = {
-  qftf = require('gen740.qftextfunc').expr,
-  tabline = require('gen740.tabline').expr,
-  winbar = require('gen740.winbar').expr,
+  -- tabline = require('gen740.tabline').expr,
+  -- winbar = require('gen740.winbar').expr,
 }
 
 local vim_options = {
@@ -20,7 +19,6 @@ local vim_options = {
   signcolumn = 'yes',
   number = true,
   pumheight = 25,
-  qftf = 'v:lua.gen740.qftf',
   relativenumber = true,
   scrolloff = 8,
   showtabline = 1,
@@ -28,9 +26,9 @@ local vim_options = {
   shiftwidth = 2,
   tabstop = 2,
   expandtab = true,
-  tabline = '%!v:lua.gen740.tabline()',
+  -- tabline = '%!v:lua.gen740.tabline()',
   statusline = [[%{''}]],
-  winbar = [[%!v:lua.gen740.winbar()]],
+  -- winbar = [[%!v:lua.gen740.winbar()]],
   wrap = false,
 }
 
