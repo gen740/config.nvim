@@ -1,7 +1,3 @@
-vim.api.nvim_create_user_command('Run', function(args)
-  require('genf.asyncrun').runInConsole(args.fargs[1])
-end, { nargs = 1, complete = 'file' })
-
 vim.api.nvim_create_user_command('GitOpenPathInBrowser', function(opts)
   require('genf.commands.git_open_in_browser').git_open_in_browser(opts)
 end, { range = true })

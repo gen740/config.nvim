@@ -40,8 +40,6 @@ local global_keymap = {
     ['<m-g>'] = require_wrap('telescope.builtin', 'git_files'),
     ['<m-f>'] = require_wrap('telescope.builtin', 'find_files'),
 
-    ['<space>lg'] = require('genf.lazygit').lazygit_open,
-
     ['<space>f'] = wrap(vim.lsp.buf.format, {
       async = false,
       filter = function(client)
@@ -76,6 +74,7 @@ local global_keymap = {
     --- Dap
     ['<space>ds'] = function()
       require('dap').continue()
+      require('dapui').open()
     end,
     ['<space>dc'] = function()
       require('dap').close()
@@ -125,6 +124,9 @@ local global_keymap = {
   },
   x = {
     ['<space>p'] = '"_dP',
+  },
+  t = {
+    ['<esc>'] = '<C-\\><C-n>',
   },
 }
 
