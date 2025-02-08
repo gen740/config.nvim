@@ -2,18 +2,15 @@ vim.g.netrw_silent = true
 vim.g.vimsyn_embed = 'lPr'
 
 _G.gen740 = {
-  -- tabline = require('gen740.tabline').expr,
-  -- winbar = require('gen740.winbar').expr,
+  statusline = require('gen740.statusline').expr,
 }
 
 local vim_options = {
   clipboard = 'unnamed',
-  cmdheight = 0,
   fillchars = { eob = ' ', stl = '▓', stlnc = '▓', vert = '▓', diff = ' ', fold = '┈' },
   foldlevel = 99,
   foldmethod = 'expr',
   ignorecase = true,
-  laststatus = 0,
   list = true,
   listchars = [[tab:»─,trail:␣,extends:»,precedes:«,nbsp:%]],
   signcolumn = 'yes',
@@ -26,9 +23,7 @@ local vim_options = {
   shiftwidth = 2,
   tabstop = 2,
   expandtab = true,
-  -- tabline = '%!v:lua.gen740.tabline()',
-  statusline = [[%{''}]],
-  -- winbar = [[%!v:lua.gen740.winbar()]],
+  -- statusline = [[%!v:lua.gen740.statusline()]],
   wrap = false,
 }
 
@@ -54,4 +49,4 @@ vim.api.nvim_create_autocmd("TermOpen", {
   end,
 })
 
-vim.cmd([[colo tokyonight-moon]])
+vim.cmd([[colo tokyonight-night]])
