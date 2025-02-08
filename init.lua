@@ -1,4 +1,4 @@
-require('genf.plugins')
-require('genf.options')
-require('genf.keymaps')
-require('genf.commands')
+require('gen740.plugins')
+require('gen740.options')
+require('gen740.keymaps')
+require('gen740.commands')

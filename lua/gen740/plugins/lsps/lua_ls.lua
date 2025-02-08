@@ -29,7 +29,7 @@ do
 end
 
 require('lspconfig')['lua_ls'].setup {
-  capabilities = require('genf.plugins.lsps.utils').capabilities,
+  capabilities = require('gen740.plugins.lsps.utils').capabilities,
   settings = {
     Lua = {
       runtime = {

@@ -3,7 +3,7 @@ if vim.fn.executable('nixd') == 0 then
 end
 
 require('lspconfig')['nixd'].setup {
-  capabilities = require('genf.plugins.lsps.utils').capabilities,
+  capabilities = require('gen740.plugins.lsps.utils').capabilities,
   cmd = { 'nixd' },
   settings = {
     nixd = {

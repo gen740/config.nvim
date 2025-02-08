@@ -3,7 +3,7 @@ if vim.fn.executable('clangd') == 0 then
 end
 
 require('lspconfig')['clangd'].setup {
-  capabilities = require('genf.plugins.lsps.utils').capabilities,
+  capabilities = require('gen740.plugins.lsps.utils').capabilities,
   cmd = {
     'clangd',
     '-j',

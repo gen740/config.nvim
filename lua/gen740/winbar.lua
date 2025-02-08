@@ -65,7 +65,7 @@ vim.api.nvim_create_autocmd({ 'LspProgress' }, {
     if kind == 'begin' then
       ---@type lsp.WorkDoneProgressBegin
       local mes = event.data.params.value
-      require('genf.winbar').set_current_progress {
+      require('gen740.winbar').set_current_progress {
         in_progress = true,
         value = {
           message = mes.message,
@@ -76,7 +76,7 @@ vim.api.nvim_create_autocmd({ 'LspProgress' }, {
     elseif kind == 'report' then
       ---@type lsp.WorkDoneProgressReport
       local mes = event.data.params.value
-      require('genf.winbar').set_current_progress {
+      require('gen740.winbar').set_current_progress {
         in_progress = true,
         value = {
           message = mes.message,
@@ -85,7 +85,7 @@ vim.api.nvim_create_autocmd({ 'LspProgress' }, {
       }
     elseif kind == 'end' then
       ---@type lsp.WorkDoneProgressEnd
-      require('genf.winbar').set_current_progress {
+      require('gen740.winbar').set_current_progress {
         in_progress = false,
       }
     end
@@ -184,7 +184,7 @@ M.expr = function()
   return string.format(
     [[  %%#WinBarFileName#%%f%%* %%M%s%s]]
       .. [[%%= ]]
-      .. [[%%{%%luaeval("require('genf.winbar').lsp_status()")%%}]],
+      .. [[%%{%%luaeval("require('gen740.winbar').lsp_status()")%%}]],
     search_count(),
     macro()
   )

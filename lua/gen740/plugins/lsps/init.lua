@@ -8,7 +8,7 @@ if lsp_log_size > 100 * 1000 * 1000 then
   vim.fn.rename(lsp_log_file, lsp_log_file .. '.old')
 end
 
-local pdir_name = 'genf/plugins/lsps'
+local pdir_name = 'gen740/plugins/lsps'
 local base_path = vim.fn.stdpath('config') .. '/lua/' .. pdir_name
 
 local handle = vim.loop.fs_scandir(base_path)

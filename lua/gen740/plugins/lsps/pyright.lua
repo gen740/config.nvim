@@ -3,7 +3,7 @@ if vim.fn.executable('pyright') == 0 then
 end
 
 require('lspconfig')['pyright'].setup {
-  capabilities = require('genf.plugins.lsps.utils').capabilities,
+  capabilities = require('gen740.plugins.lsps.utils').capabilities,
   settings = {
     python = {
       format = {
