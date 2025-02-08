@@ -23,7 +23,7 @@ local vim_options = {
   shiftwidth = 2,
   tabstop = 2,
   expandtab = true,
-  -- statusline = [[%!v:lua.gen740.statusline()]],
+  statusline = [[%!v:lua.gen740.statusline()]],
   wrap = false,
 }
 
@@ -49,4 +49,4 @@ vim.api.nvim_create_autocmd("TermOpen", {
   end,
 })
 
-vim.cmd([[colo tokyonight-night]])
+vim.cmd([[colo nightfox]])
