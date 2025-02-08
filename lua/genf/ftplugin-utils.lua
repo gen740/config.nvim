@@ -1,13 +1,7 @@
 local M = {}
 
----@param mode string
----@param map string
----@param callback string|function
-function M.lmap(mode, map, callback)
-  vim.keymap.set(mode, map, callback, { buffer = true })
-end
-
 ---@param cmd string[]
+---@param await boolean | nil
 function M.async_format(cmd, await)
   vim.cmd('w')
   local handle = vim.system(

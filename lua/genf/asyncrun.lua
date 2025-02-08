@@ -1,7 +1,65 @@
 local M = {}
 
----@type vim.SystemObj | nil
+---@class RunningJobs
+---@field qflist vim.SystemObj | nil
+---@field loclist vim.SystemObj[] | nil
+---@field headless vim.SystemObj[] | nil
+
+---@type RunningJobs
 local running_job = nil
+
+---@param run_type "qflist" | "loclist" | "headless"
+local checkRunning = function(run_type)
+  if running_job == nil then
+    return false
+  end
+  if run_type == 'qflist' then
+    return running_job.qflist ~= nil
+  elseif run_type == 'loclist' then
+    return running_job.loclist[vim.api.nvim_get_current_win()] ~= nil
+  elseif run_type == 'headless' then
+    return running_job.headless ~= nil
+  end
+  return false
+end
+
+---@param run_type "qflist" | "loclist" | "headless"
+---@param job vim.SystemObj | nil
+local assignJob = function(run_type, job)
+  if running_job == nil then
+    running_job = {}
+  end
+  if run_type == 'qflist' then
+    running_job.qflist = job
+  elseif run_type == 'loclist' then
+    if running_job.loclist == nil then
+      running_job.loclist = {}
+    end
+    running_job.loclist[vim.api.nvim_get_current_win()] = job
+  elseif run_type == 'headless' then
+    if running_job.headless == nil then
+      running_job.headless = {}
+    end
+    -- Headless job is not assigned to any global variable
+    -- table.insert(running_job.headless, job)
+  end
+end
+
+---@param run_type "qflist" | "loclist" | "headless"
+---@param winid integer
+---@param list string[]
+---@param action string
+---@param what table
+local setQflist = function(run_type, winid, list, action, what)
+  if running_job == nil then
+    return
+  end
+  if run_type == 'qflist' then
+    vim.fn.setqflist(list, action, what)
+  elseif run_type == 'loclist' then
+    vim.fn.setloclist(winid, list, action, what)
+  end
+end
 
 ---@class AsyncRunOptions
 ---@field on_exit? function
@@ -11,27 +69,29 @@ local running_job = nil
 
 -- Run command in async mode
 ---@param cmd string[]
----@param opt? AsyncRunOptions
-M.asyncbuild = function(cmd, opt)
-  opt = opt or {}
+---@param run_type "qflist" | "loclist" | "headless"
+---@param opts? AsyncRunOptions
+M.asyncRun = function(cmd, run_type, opts)
+  opts = opts or {}
 
-  local on_exit = opt.on_exit or function() end
-  local efm = opt.efm or '%-G'
-  local tail_text = ''
+  opts.efm = opts.efm or '%-G'
 
-  if running_job then
+  if checkRunning(run_type) then
     vim.notify('Command still runing', vim.log.levels.WARN)
     return
   end
 
-  vim.fn.setqflist({}, 'r', {
-    title = cmd,
-    lines = {},
-    efm = efm,
-  }) -- Reset qflist
+  if run_type == 'qflist' then
+    vim.fn.setqflist({}, 'r', {
+      title = cmd,
+      lines = {},
+      efm = opts.efm,
+    })
+  end
 
+  local tail_text = ''
+  local current_win = vim.api.nvim_get_current_win()
   local on_event = function(data)
-    local qfwinid = vim.fn.getqflist({ winid = 0 }).winid
     if data == nil then
       return
     end
@@ -46,149 +106,47 @@ M.asyncbuild = function(cmd, opt)
       table.remove(last_line, #last_line)
       data_current = table.concat(last_line, '\n')
     end
-
-    vim.fn.setqflist({}, 'a', {
+    setQflist(run_type, current_win, {}, 'a', {
       lines = vim.split(vim.fn.substitute(data_current, '\n*$', '', 'g'), '\n'),
       efm = nil,
     })
-
     vim.cmd('redraw!')
-    if qfwinid ~= 0 and qfwinid ~= nil then
-      vim.api.nvim_win_set_cursor(
-        qfwinid,
-        { vim.api.nvim_buf_line_count(vim.api.nvim_win_get_buf(qfwinid)), 0 }
-      )
-    end
   end
 
-  running_job = vim.system(
-    cmd,
-    {
-      stdout = vim.schedule_wrap(function(_, data)
-        on_event(data)
-      end),
-      stderr = vim.schedule_wrap(function(_, data)
-        on_event(data)
-      end),
-      stdin = true,
-      env = opt.env,
-      cwd = opt.cwd,
-    },
-    -- on_exit
-    vim.schedule_wrap(function(status)
-      local qfwinid = vim.fn.getqflist({ winid = 0 }).winid
-      on_exit()
-      local end_msg = ''
-      if status.signal == 0 then
-        end_msg = '<<< successfully exited with code ' .. status.code
-      else
-        end_msg = '<<< exit with signal ' .. status.signal
-      end
-      vim.fn.setqflist({}, 'a', {
-        title = cmd,
-        lines = {
-          end_msg,
-        },
-        efm = efm,
-      })
-      vim.api.nvim_command('doautocmd QuickFixCmdPost')
-      if qfwinid ~= 0 and qfwinid ~= nil then
-        vim.api.nvim_win_set_cursor(
-          qfwinid,
-          { vim.api.nvim_buf_line_count(vim.api.nvim_win_get_buf(qfwinid)), 0 }
-        )
-      end
-      running_job = nil
-    end)
+  assignJob(
+    run_type,
+    vim.system(
+      cmd,
+      {
+        stdout = vim.schedule_wrap(function(_, data)
+          on_event(data)
+        end),
+        stderr = vim.schedule_wrap(function(_, data)
+          on_event(data)
+        end),
+        stdin = true,
+        env = opts.env,
+        cwd = opts.cwd,
+      },
+      vim.schedule_wrap(function(status)
+        local end_msg = ''
+        if status.signal == 0 then
+          end_msg = '<<< successfully exited with code ' .. status.code
+        else
+          end_msg = '<<< exit with signal ' .. status.signal
+        end
+        setQflist(run_type, current_win, {}, 'a', {
+          title = cmd,
+          lines = {
+            end_msg,
+          },
+          efm = opts.efm,
+        })
+        vim.api.nvim_command('doautocmd QuickFixCmdPost')
+        assignJob(run_type, nil)
+      end)
+    )
   )
-end
-
--- Stop async job
-M.asyncBuildStop = function()
-  if running_job then
-    running_job:kill(6)
-    running_job = nil
-  end
-end
-
----@type integer
-local console_running_jobid = -1
-
----@class ConsoleRunOptions
----@field env? table<string, string>
----@field cwd string
-
----@param cmd string
----@param opt ConsoleRunOptions?
-M.runInConsole = function(cmd, opt)
-  local bufnr, winnr = require('genf.toggleshell').Console()
-
-  if console_running_jobid ~= -1 then
-    vim.notify('Console is running', vim.log.levels.ERROR)
-    return
-  end
-
-  local chanid = vim.api.nvim_open_term(bufnr, {
-    on_input = function(_, _, _, data)
-      if console_running_jobid ~= -1 then
-        vim.fn.chansend(console_running_jobid, data)
-      end
-    end,
-  })
-
-  local cmd_env = nil
-  if opt == nil then
-    cmd_env = nil
-  else
-    cmd_env = opt.env
-  end
-
-  local on_data = function(_, data, _)
-    vim.api.nvim_chan_send(chanid, vim.fn.join(data, '\n'))
-    local winid = vim.fn.bufwinid(bufnr)
-    if vim.fn.bufwinid(bufnr) ~= -1 then
-      vim.api.nvim_win_set_cursor(winid, { vim.api.nvim_buf_line_count(bufnr), 0 })
-    end
-  end
-  local cwd = nil
-  if opt ~= nil then
-    cwd = opt.cwd
-  end
-
-  console_running_jobid = vim.fn.jobstart(cmd, {
-    pty = true,
-    env = cmd_env,
-    cwd = cwd,
-    height = vim.api.nvim_win_get_height(winnr) - 1,
-    width = vim.print(vim.api.nvim_win_get_width(winnr)),
-    on_stdout = on_data,
-    on_exit = function(_, status, _)
-      vim.api.nvim_chan_send(chanid, '<<< Exit with code ' .. status)
-      console_running_jobid = -1
-    end,
-  })
-
-  local group_name = 'AsyncrunWindowResizedAutocmd'
-  vim.api.nvim_create_augroup(group_name, { clear = true })
-
-  -- ウィンドウサイズ変更のイベントに応じた autocmd を設定
-  vim.api.nvim_create_autocmd('WinResized', {
-    group = group_name,
-    callback = function()
-      if console_running_jobid ~= -1 then
-        local height = vim.api.nvim_win_get_height(winnr) - 1
-        local width = vim.api.nvim_win_get_width(winnr)
-        vim.fn.jobresize(console_running_jobid, width, height)
-      end
-    end,
-  })
-end
-
-M.killConsoleJob = function()
-  if console_running_jobid ~= -1 then
-    vim.fn.jobstop(console_running_jobid)
-    console_running_jobid = -1
-  end
 end
 
 return M

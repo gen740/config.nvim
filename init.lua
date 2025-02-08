@@ -1,5 +1,4 @@
 require('genf.plugins')
-require('genf.autocmds')
 require('genf.options')
 require('genf.keymaps')
 require('genf.commands')

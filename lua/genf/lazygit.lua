@@ -27,6 +27,19 @@ local search_lazygit_bufnr = function()
 end
 
 M.lazygit_open = function()
+  vim.api.nvim_create_augroup('LazyGitTabClose', { clear = true })
+  vim.api.nvim_create_autocmd({ 'TermClose' }, {
+    group = 'LazyGitTabClose',
+    callback = function(arg)
+      pcall(function()
+        if vim.api.nvim_get_option_value('filetype', { buf = arg.buf }) == 'lazygit' then
+          require('genf.lazygit').lazygit_server_stop()
+          vim.cmd('bd!')
+        end
+      end)
+    end,
+  })
+
   if vim.api.nvim_get_option_value('filetype', { buf = 0 }) == 'lazygit' then
     return
   end

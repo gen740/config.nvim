@@ -3,7 +3,7 @@ vim.opt_local.number = false
 vim.opt_local.relativenumber = false
 vim.opt_local.buflisted = false
 
-require('genf.ftplugin-utils').lmap('n', 'd', function()
+vim.keymap.set('n', 'd', function()
   local qflist = vim.fn.getqflist()
   local qf_len = #qflist
   local new_qflist = {}
@@ -15,4 +15,4 @@ require('genf.ftplugin-utils').lmap('n', 'd', function()
   end
   vim.fn.setqflist(new_qflist, 'r')
   vim.api.nvim_win_set_cursor(0, { math.max(math.min(current_line, qf_len - 1), 1), 0 })
-end)
+end, { buffer = true })

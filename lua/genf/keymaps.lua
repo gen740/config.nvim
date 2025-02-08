@@ -23,41 +23,16 @@ end
 --stylua: ignore start
 local global_keymap = {
   i = {
-  -- ['<m-c>'] = '<cmd>Copilot suggestion toggle_auto_trigger<cr>',
     ['<c-h>'] = '<cmd>Copilot suggestion next<cr>',
     ['<c-l>'] = '<cmd>Copilot suggestion prev<cr>',
     ['<c-t>'] = '<cmd>Copilot suggestion accept<cr>',
-    -- ['<m-p>'] = '<cmd>Copilot panel open<cr>',
+    ['<m-w>'] = '<cmd>Copilot suggestion accept_word<cr>',
+    ['<m-l>'] = '<cmd>Copilot suggestion accept_line<cr>',
   },
   n = {
     ['-'] = '<cmd>Oil<cr>',
 
-    ['<space>co'] = require_wrap('genf.toggleshell', 'Quickfix'),
-    ['<space>sh'] = require_wrap('genf.toggleshell', 'Zsh'),
-    ['<space>py'] = require_wrap('genf.toggleshell', 'Ipython'),
-    ['<space>cc'] = require_wrap('genf.toggleshell', 'Console'),
-
-    -- Run Manager
-    ['<space>rk'] = require_wrap('genf.asyncrun', 'killConsoleJob', false, false),
-
-    ['<space>rr'] = require_wrap('genf.run_manager', 'run', false, false),
-    ['<space>rc'] = require_wrap('genf.run_manager', 'register', false, false),
-
-    -- Run Manager for Git
-    ['<space>gr'] = require_wrap('genf.run_manager', 'run', false, true),
-    ['<space>gcr'] = require_wrap('genf.run_manager', 'register', false, true),
-
-    -- Build Manager
-    ['<space>br'] = require_wrap('genf.run_manager', 'run',true, false),
-    ['<space>bc'] = require_wrap('genf.run_manager', 'register',true,false),
-
-    -- Build Manager for Git
-    ['<space>gb'] = require_wrap('genf.run_manager', 'run', true, true),
-    ['<space>gcb'] = require_wrap('genf.run_manager', 'register', true, true),
-
     ['<space>gg'] = ':silent grep ',
-
-    ['<space>p'] = '"_dP',
     ['~'] = '<nop>',
 
     --- Telescope
@@ -100,19 +75,10 @@ local global_keymap = {
 
     --- Dap
     ['<space>ds'] = function()
-      -- require('dapui').setup{
-      --   controls = {
-      --     element = "repl",
-      --     enabled = true,
-      --     icons = nil,
-      --   }
-      -- }
-      -- require('dapui').open()
       require('dap').continue()
     end,
     ['<space>dc'] = function()
       require('dap').close()
-      -- require('dapui').close()
     end,
 
     ['<space>db'] = require_wrap('dap', 'toggle_breakpoint'),

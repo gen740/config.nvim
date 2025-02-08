@@ -2,18 +2,14 @@ local M = {}
 
 local search_count = function()
   local status, stats = pcall(vim.fn.searchcount, { maxcount = 999 })
-  if status == 0 then
-    return ''
-  end
   if
-    stats == nil
+    status == 0
+    or stats == nil
     or stats.total == nil
     or stats.maxcount == nil
     or stats.current == nil
-    or (
-      (stats.current == 0 or stats.exact_match ~= 1)
-      and not (vim.fn.getcmdtype() == '/' or vim.fn.getcmdtype() == '?')
-    )
+    or ((stats.current == 0 or stats.exact_match ~= 1) and not (vim.fn.getcmdtype() == '/' or vim.fn.getcmdtype() == '?'))
+    or stats.incomplete == 1
   then
     return ''
   end
@@ -23,9 +19,7 @@ local search_count = function()
     search_char = '/'
   end
 
-  if stats.incomplete == 1 then
-    return ''
-  elseif stats.incomplete == 2 then -- maxcount exceed
+  if stats.incomplete == 2 then -- maxcount exceed
     if stats.total > stats.maxcount and stats.current > stats.maxcount then
       return string.format(
         ' %s%s [>%d/>%d]',
@@ -47,16 +41,6 @@ local search_count = function()
   return string.format(' %s%s [%d/%d]', search_char, vim.fn.getreg('/'), stats.current, stats.total)
 end
 
-local git_branch = function()
-  local handle = io.popen('zsh_status git_branch_nvim 2> /dev/null', 'r')
-  if handle ~= nil then
-    local branch = handle:read()
-    handle:close()
-    return branch or ''
-  end
-  return ''
-end
-
 ---@class ProgressValue
 ---@field percentage? uinteger
 ---@field message? string
@@ -73,6 +57,42 @@ local current_progress = {
     title = '',
   },
 }
+
+vim.api.nvim_create_augroup('WinBarLspProgress', { clear = true })
+vim.api.nvim_create_autocmd({ 'LspProgress' }, {
+  callback = function(event)
+    local kind = event.data.params.value.kind
+    if kind == 'begin' then
+      ---@type lsp.WorkDoneProgressBegin
+      local mes = event.data.params.value
+      require('genf.winbar').set_current_progress {
+        in_progress = true,
+        value = {
+          message = mes.message,
+          percentage = mes.percentage,
+          title = mes.title,
+        },
+      }
+    elseif kind == 'report' then
+      ---@type lsp.WorkDoneProgressReport
+      local mes = event.data.params.value
+      require('genf.winbar').set_current_progress {
+        in_progress = true,
+        value = {
+          message = mes.message,
+          percentage = mes.percentage,
+        },
+      }
+    elseif kind == 'end' then
+      ---@type lsp.WorkDoneProgressEnd
+      require('genf.winbar').set_current_progress {
+        in_progress = false,
+      }
+    end
+    vim.cmd('redrawstatus')
+  end,
+  group = 'WinBarLspProgress',
+})
 
 ---@param val LspProgress
 M.set_current_progress = function(val)
@@ -164,10 +184,9 @@ M.expr = function()
   return string.format(
     [[  %%#WinBarFileName#%%f%%* %%M%s%s]]
       .. [[%%= ]]
-      .. [[%%{%%luaeval("require('genf.winbar').lsp_status()")%%} %s]],
+      .. [[%%{%%luaeval("require('genf.winbar').lsp_status()")%%}]],
     search_count(),
-    macro(),
-    git_branch()
+    macro()
   )
 end
 

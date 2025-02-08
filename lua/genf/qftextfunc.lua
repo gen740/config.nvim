@@ -2,6 +2,23 @@ local M = {}
 
 local bufname = vim.fn.bufname
 
+vim.api.nvim_create_augroup('QfSyntax', { clear = true })
+vim.api.nvim_create_autocmd({ 'QuickFixCmdPost', 'BufRead' }, {
+  callback = function(ft)
+    if ft.file == 'quickfix' or ft.event == 'QuickFixCmdPost' then
+      local qfwinid = vim.fn.getqflist({ winid = 0 }).winid
+      vim.fn.win_execute(qfwinid, 'syntax clear')
+      vim.fn.win_execute(qfwinid, 'syntax match ErrorMsg //')
+      vim.fn.win_execute(qfwinid, 'syntax match WarningMsg //')
+      vim.fn.win_execute(qfwinid, 'syntax match MoreMsg //')
+
+      vim.fn.win_execute(qfwinid, [[syntax match QfFileName /▏\zs.*\ze|[0-9:]*|/]])
+      vim.fn.win_execute(qfwinid, [[syntax match QfLineNr /|\zs[0-9:]*\ze|/]])
+    end
+  end,
+  group = 'QfSyntax',
+})
+
 M.expr = function(info)
   local res = {}
   if info.quickfix == 1 then
