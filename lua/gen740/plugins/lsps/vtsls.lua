@@ -1,7 +1,3 @@
-if vim.fn.executable('vtsls') == 0 then
-  return
-end
-
 require('lspconfig')['vtsls'].setup {
   capabilities = require('gen740.plugins.lsps.utils').capabilities,
   root_dir = require('lspconfig/util').root_pattern(

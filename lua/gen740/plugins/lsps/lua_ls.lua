@@ -1,7 +1,3 @@
-if vim.fn.executable('lua-language-server') == 0 then
-  return
-end
-
 local libraries = {
   '${3rd}/luv/library',
   '${3rd}/luassert/library',

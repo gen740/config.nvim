@@ -182,7 +182,7 @@ end
 
 M.expr = function()
   return string.format(
-    [[  %%#WinBarFileName#%%f%%* %%M%s%s]]
+    [[ %%#WinBarFileName#%%f%%* %%M%s%s ]]
       .. [[%%=]]
       .. [[%%{%%luaeval("require('gen740.statusline').lsp_status()")%%}]],
     search_count(),

@@ -2,16 +2,32 @@ snippet flake_template
 	{
 	  description = "Flake shell";
 	  inputs.nixpkgs.url = "github:NixOS/nixpkgs/nixpkgs-unstable";
-	  inputs.flake-utils.url = "github:numtide/flake-utils";
-
-	  outputs = { nixpkgs, flake-utils, ... }:
-	    flake-utils.lib.eachDefaultSystem (system:
-	      let pkgs = nixpkgs.legacyPackages.\${system};
-	      in {
-	        devShells.default = pkgs.mkShellNoCC {
-	          packages = [
-	            # package here
-	          ];
-	        };
-	      });
+	  inputs.mynixpkgs.url = "git+ssh://git/gen740/mynixpkgs";
+	
+	  outputs =
+	    {
+	      nixpkgs,
+	      mynixpkgs,
+	      ...
+	    }:
+	    let
+	      forSystems =
+	        attrs: systems:
+	        builtins.foldl' (
+	          result: system:
+	          nixpkgs.lib.attrsets.recursiveUpdate result (
+	            builtins.mapAttrs (_: v: { ${system} = v; }) (attrs system)
+	          )
+	        ) { } systems;
+	    in
+	    forSystems (
+	      system:
+	      let
+	        pkgs = nixpkgs.legacyPackages.\${system};
+	      in
+	      {
+	        devShells.default = pkgs.mkShell { packages = [ ]; };
+	        packages.default = pkgs.mkShell { packages = [ ]; };
+	      }
+	    ) nixpkgs.lib.platforms.all;
 	}
