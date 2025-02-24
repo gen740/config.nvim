@@ -1,7 +1,8 @@
 local dap = require('dap')
+
 dap.adapters.lldb = {
   type = 'executable',
-  command = 'lldb', -- adjust as needed
+  command = 'lldb-dap',
   name = 'lldb',
 }
 dap.configurations.cpp = {
@@ -17,8 +18,6 @@ dap.configurations.cpp = {
       return vim.fn.input('Path to executable: ', vim.fn.getcwd() .. '/', 'file')
     end,
     cwd = [[${workspaceFolder}]],
-    stopOnEntry = false,
-    runInTerminal = false,
   },
 }
 dap.configurations.c = dap.configurations.cpp

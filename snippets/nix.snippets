@@ -2,7 +2,10 @@ snippet flake_template
 	{
 	  description = "Flake shell";
 	  inputs.nixpkgs.url = "github:NixOS/nixpkgs/nixpkgs-unstable";
-	  inputs.mynixpkgs.url = "git+ssh://git/gen740/mynixpkgs";
+	  inputs.mynixpkgs = {
+	    url = "git+ssh://github.com/gen740/mynixpkgs";
+	    inputs.nixpkgs.follows = "nixpkgs";
+	  };
 	
 	  outputs =
 	    {
@@ -14,9 +17,14 @@ snippet flake_template
 	      forSystems =
 	        attrs: systems:
 	        builtins.foldl' (
-	          result: system:
-	          nixpkgs.lib.attrsets.recursiveUpdate result (
-	            builtins.mapAttrs (_: v: { ${system} = v; }) (attrs system)
+	          r: s:
+	          nixpkgs.lib.attrsets.recursiveUpdate r (
+	            builtins.listToAttrs (
+	              map (p: {
+	                name = p;
+	                value.\${s} = builtins.getAttr p (attrs s);
+	              }) (builtins.attrNames (attrs s))
+	            )
 	          )
 	        ) { } systems;
 	    in
