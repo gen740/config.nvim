@@ -14,7 +14,6 @@ local vim_options = {
   pumheight = 25,
   relativenumber = true,
   scrolloff = 8,
-  showtabline = 1,
   smartcase = true,
   shiftwidth = 2,
   tabstop = 2,
