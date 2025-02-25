@@ -154,19 +154,19 @@ M.lsp_status = function()
     return '%#' .. hl .. '#' .. str .. '%*'
   end
   if diag_nr[ERROR] ~= 0 then
-    msg = highlight_wrap('WinBarLspError', msg .. ' ' .. diag_nr[ERROR])
+    msg = highlight_wrap('WinBarLspError', msg .. '!' .. diag_nr[ERROR])
   end
   msg = msg .. ' '
   if diag_nr[WARN] ~= 0 then
-    msg = highlight_wrap('WinBarLspWarn', msg .. ' ' .. diag_nr[WARN])
+    msg = highlight_wrap('WinBarLspWarn', msg .. '!' .. diag_nr[WARN])
   end
   msg = msg .. ' '
   if diag_nr[INFO] ~= 0 then
-    msg = highlight_wrap('WinBarLspInfo', msg .. ' ' .. diag_nr[INFO])
+    msg = highlight_wrap('WinBarLspInfo', msg .. '?' .. diag_nr[INFO])
   end
   msg = msg .. ' '
   if diag_nr[HINT] ~= 0 then
-    msg = highlight_wrap('WinBarLspHint', msg .. ' ' .. diag_nr[HINT])
+    msg = highlight_wrap('WinBarLspHint', msg .. '?' .. diag_nr[HINT])
   end
 
   return msg

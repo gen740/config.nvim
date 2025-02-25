@@ -35,11 +35,6 @@ local global_keymap = {
     ['<space>gg'] = ':silent grep ',
     ['~'] = '<nop>',
 
-    --- Telescope
-    ['<m-t>'] = require_wrap('telescope.builtin', 'builtin'),
-    ['<m-g>'] = require_wrap('telescope.builtin', 'git_files'),
-    ['<m-f>'] = require_wrap('telescope.builtin', 'find_files'),
-
     ['<space>f'] = wrap(vim.lsp.buf.format, {
       async = false,
       filter = function(client)
