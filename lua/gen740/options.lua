@@ -1,10 +1,6 @@
 vim.g.netrw_silent = true
 vim.g.vimsyn_embed = 'lPr'
 
-_G.gen740 = {
-  statusline = require('gen740.statusline').expr,
-}
-
 local vim_options = {
   clipboard = 'unnamed',
   fillchars = { eob = ' ', stl = '▓', stlnc = '▓', vert = '▓', diff = ' ', fold = '┈' },
@@ -23,7 +19,6 @@ local vim_options = {
   shiftwidth = 2,
   tabstop = 2,
   expandtab = true,
-  statusline = [[%!v:lua.gen740.statusline()]],
   wrap = false,
 }
 
@@ -41,8 +36,8 @@ vim.api.nvim_create_autocmd({ 'BufRead' }, {
   end,
 })
 
-vim.api.nvim_create_autocmd("TermOpen", {
-  pattern = "*",
+vim.api.nvim_create_autocmd('TermOpen', {
+  pattern = '*',
   callback = function()
     vim.opt_local.number = false
     vim.opt_local.relativenumber = false
