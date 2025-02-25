@@ -21,7 +21,7 @@ local global_keymap = {
     ['-'] = '<cmd>Oil<cr>',
     ['~'] = '<nop>',
 
-    ['<space>f'] = wrap(vim.lsp.buf.format, {
+    ['<m-f>'] = wrap(vim.lsp.buf.format, {
       async = false,
       filter = function(client)
         return (client.name ~= 'tsserver' and client.name ~= 'vtsls' and client.name ~= 'texlab')

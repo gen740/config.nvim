@@ -1,11 +1,14 @@
 require('blink.cmp').setup {
-  keymap = {
-    preset = 'default',
-  },
   completion = {
     menu = {
       draw = {
         columns = { { 'label', 'label_description', gap = 1 } },
+      },
+    },
+    list = {
+      selection = {
+        preselect = false,
+        auto_insert = false,
       },
     },
   },
