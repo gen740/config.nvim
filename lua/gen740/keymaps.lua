@@ -9,18 +9,6 @@ local function wrap(func, ...)
   end
 end
 
-local function require_wrap(module_name, func, ...)
-  local args = { ... }
-  return function()
-    if args ~= nil then
-      return require(module_name)[func](unpack(args))
-    else
-      return require(module_name)[func]()
-    end
-  end
-end
-
---stylua: ignore start
 local global_keymap = {
   i = {
     ['<c-h>'] = '<cmd>Copilot suggestion next<cr>',
@@ -31,8 +19,6 @@ local global_keymap = {
   },
   n = {
     ['-'] = '<cmd>Oil<cr>',
-
-    ['<space>gg'] = ':silent grep ',
     ['~'] = '<nop>',
 
     ['<space>f'] = wrap(vim.lsp.buf.format, {
@@ -58,70 +44,12 @@ local global_keymap = {
     ['<space>D'] = vim.lsp.buf.type_definition,
     ['<space>rn'] = vim.lsp.buf.rename,
     ['<space>ca'] = wrap(vim.lsp.buf.code_action, { apply = true }),
-
-    --- n
-    ['<m-n>'] = "<cmd>cn<cr>",
-    ['<m-p>'] = "<cmd>cp<cr>",
-
-    --- VSnip
-    ['<space>sp'] = '<cmd>VsnipOpen -format snipmate<cr>',
-
-    --- Dap
-    ['<space>ds'] = function()
-      require('dap').continue()
-      require('dapui').open()
-    end,
-    ['<space>dc'] = function()
-      require('dap').close()
-    end,
-
-    ['<space>db'] = require_wrap('dap', 'toggle_breakpoint'),
-    ['<m-c>'] = require_wrap('dap', 'continue'),
-    ['<m-r>'] = require_wrap('dap', 'run_to_cursor'),
-    ['<m-l>'] = require_wrap('dap', 'run_last'),
-    ['<m-s>'] = require_wrap('dap', 'step_over'),
-    ['<m-i>'] = require_wrap('dap', 'step_into'),
-    ['<m-o>'] = require_wrap('dap', 'step_out'),
-    ['<leader>dh'] = require_wrap('dap.ui.widgets', 'hover'),
-
-  },
-  [{ 'i', 's' }] = {
-    ['<c-f>'] = {
-      function()
-        if vim.fn['vsnip#jumpable'](1) == 1 then
-          return '<Plug>(vsnip-jump-next)'
-        else
-          return '<c-f>'
-        end
-      end,
-      { noremap = true, silent = true, expr = true },
-    },
-    ['<c-b>'] = {
-      function()
-        if vim.fn['vsnip#jumpable'](-1) == 1 then
-          return '<Plug>(vsnip-jump-prev)'
-        else
-          return '<c-b>'
-        end
-      end,
-      { noremap = true, silent = true, expr = true },
-    },
-    ['<tab>'] = {
-      function()
-        if vim.fn['vsnip#available']() == 1 then
-          return '<Plug>(vsnip-expand)'
-        else
-          return '<tab>'
-        end
-      end,
-      { noremap = true, silent = true, expr = true },
-    },
   },
   x = {
     ['<space>p'] = '"_dP',
   },
   t = {
-    ['<esc>'] = '<C-\\><C-n>',
+    ['<esc><esc>'] = '<C-\\><C-n>',
   },
 }
 

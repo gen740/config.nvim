@@ -1,8 +1,13 @@
-local capabilities = vim.tbl_extend('keep', require('cmp_nvim_lsp').default_capabilities(), {
-  window = {
-    workDoneProgress = true,
-  },
-})
+local capabilities = vim.tbl_extend(
+  'keep',
+  -- require('cmp_nvim_lsp').default_capabilities()
+  require('blink.cmp').get_lsp_capabilities(),
+  {
+    window = {
+      workDoneProgress = true,
+    },
+  }
+)
 
 return {
   capabilities = capabilities,
