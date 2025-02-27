@@ -42,5 +42,3 @@ vim.api.nvim_create_autocmd('TermOpen', {
     vim.opt_local.relativenumber = false
   end,
 })
-
-vim.cmd([[colo nightfox]])
