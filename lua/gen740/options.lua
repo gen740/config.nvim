@@ -42,3 +42,8 @@ vim.api.nvim_create_autocmd('TermOpen', {
     vim.opt_local.relativenumber = false
   end,
 })
+
+require('onedark').setup {
+    style = 'deep'
+}
+require('onedark').load()
