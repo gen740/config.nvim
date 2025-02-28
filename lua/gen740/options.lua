@@ -44,6 +44,9 @@ vim.api.nvim_create_autocmd('TermOpen', {
 })
 
 require('onedark').setup {
-    style = 'deep'
+  style = 'deep',
 }
 require('onedark').load()
+
+vim.api.nvim_set_hl(0, 'DiagnosticVirtualTextHint', { fg = require('onedark.palette').deep.blue })
+vim.api.nvim_set_hl(0, 'DiagnosticVirtualTextError', { fg = require('onedark.palette').deep.red })

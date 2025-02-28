@@ -8,4 +8,5 @@ require('lspconfig')['clangd'].setup {
     '--offset-encoding=utf-16',
     '-hidden-features',
   },
+  filetypes = { 'c', 'cpp', 'objc', 'objcpp' },
 }
