@@ -1,14 +1,3 @@
-local function wrap(func, ...)
-  local args = { ... } -- Capture the variable arguments in a local variable
-  return function()
-    if args ~= nil then
-      return func(unpack(args)) -- Call the original function with the captured arguments
-    else
-      return func()
-    end
-  end
-end
-
 local global_keymap = {
   i = {
     ['<c-h>'] = '<cmd>Copilot suggestion next<cr>',
@@ -19,19 +8,23 @@ local global_keymap = {
   },
   n = {
     ['-'] = '<cmd>Oil<cr>',
-    ['~'] = '<nop>',
-
-    ['<m-f>'] = wrap(vim.lsp.buf.format, {
-      async = false,
-      filter = function(client)
-        return (client.name ~= 'tsserver' and client.name ~= 'vtsls' and client.name ~= 'texlab')
-      end,
-    }),
+    ['<m-f>'] = function()
+      vim.lsp.buf.format {
+        async = false,
+        filter = function(client)
+          return (client.name ~= 'tsserver' and client.name ~= 'vtsls' and client.name ~= 'texlab')
+        end,
+      }
+    end,
 
     --- LSP
     ['<space>e'] = vim.diagnostic.open_float,
-    ['[d'] = vim.diagnostic.goto_prev,
-    [']d'] = vim.diagnostic.goto_next,
+    ['[d'] = function()
+      vim.diagnostic.jump { count = -1, float = true }
+    end,
+    [']d'] = function()
+      vim.diagnostic.jump { count = 1, float = true }
+    end,
     ['<space>lc'] = vim.diagnostic.setloclist,
     ['<space>lo'] = vim.lsp.buf.outgoing_calls,
     ['<space>li'] = vim.lsp.buf.incoming_calls,
@@ -43,7 +36,9 @@ local global_keymap = {
     ['<C-k>'] = vim.lsp.buf.signature_help,
     ['<space>D'] = vim.lsp.buf.type_definition,
     ['<space>rn'] = vim.lsp.buf.rename,
-    ['<space>ca'] = wrap(vim.lsp.buf.code_action, { apply = true }),
+    ['<space>ca'] = function()
+      vim.lsp.buf.code_action { apply = true }
+    end,
   },
   x = {
     ['<space>p'] = '"_dP',

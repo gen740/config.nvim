@@ -1,28 +1,13 @@
-vim.g.netrw_silent = true
-vim.g.vimsyn_embed = 'lPr'
-
-local vim_options = {
-  clipboard = 'unnamed',
-  fillchars = { eob = ' ', stl = '▓', stlnc = '▓', vert = '▓', diff = ' ', fold = '┈' },
-  foldlevel = 99,
-  ignorecase = true,
-  list = true,
-  listchars = [[tab:»─,trail:␣,extends:»,precedes:«,nbsp:%]],
-  signcolumn = 'yes',
-  number = true,
-  pumheight = 25,
-  relativenumber = true,
-  scrolloff = 8,
-  smartcase = true,
-  shiftwidth = 2,
-  tabstop = 2,
-  expandtab = true,
-  wrap = false,
-}
-
-for name, val in pairs(vim_options) do
-  vim.opt[name] = val
-end
+vim.opt.clipboard = 'unnamed'
+vim.opt.number = true
+vim.opt.relativenumber = true
+vim.opt.shiftwidth = 2
+vim.opt.tabstop = 2
+vim.opt.expandtab = true
+vim.opt.wrap = false
+vim.opt.signcolumn = 'yes'
+vim.opt.list = true
+vim.opt.listchars = { tab = '»─', trail = '␣', extends = '»', precedes = '«', nbsp = '%' }
 
 vim.api.nvim_create_autocmd('TermOpen', {
   pattern = '*',
@@ -33,5 +18,6 @@ vim.api.nvim_create_autocmd('TermOpen', {
   end,
 })
 
-vim.api.nvim_set_hl(0, 'StatusLineNC', { bg = '#30363d', fg = '#0d1117' })
 vim.cmd('colorscheme github_dark_colorblind')
+vim.api.nvim_set_hl(0, 'StatusLineNC', { bg = '#30363d', fg = '#0d1117' })
+vim.api.nvim_set_hl(0, 'Whitespace', { fg = '#30363d' })
