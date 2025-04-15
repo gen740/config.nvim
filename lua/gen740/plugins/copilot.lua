@@ -18,7 +18,7 @@ require('copilot').setup {
     enabled = true,
     auto_trigger = true,
     debounce = 75,
-    keymap = false,
+    -- keymap = false,
   },
   filetypes = {
     yaml = false,

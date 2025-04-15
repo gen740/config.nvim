@@ -5,7 +5,6 @@ local vim_options = {
   clipboard = 'unnamed',
   fillchars = { eob = ' ', stl = '▓', stlnc = '▓', vert = '▓', diff = ' ', fold = '┈' },
   foldlevel = 99,
-  foldmethod = 'expr',
   ignorecase = true,
   list = true,
   listchars = [[tab:»─,trail:␣,extends:»,precedes:«,nbsp:%]],
@@ -25,16 +24,6 @@ for name, val in pairs(vim_options) do
   vim.opt[name] = val
 end
 
-vim.api.nvim_create_augroup('LazyFoldExpr', { clear = true })
-vim.api.nvim_create_autocmd({ 'BufRead' }, {
-  group = 'LazyFoldExpr',
-  callback = function()
-    if vim.fn.line('$') < 10000 then -- Larger than 10000 lines will be slow startup
-      vim.opt_local.foldexpr = 'v:lua.vim.treesitter.foldexpr()'
-    end
-  end,
-})
-
 vim.api.nvim_create_autocmd('TermOpen', {
   pattern = '*',
   callback = function()
@@ -44,6 +33,5 @@ vim.api.nvim_create_autocmd('TermOpen', {
   end,
 })
 
-vim.cmd('colorscheme github_dark_colorblind')
-
 vim.api.nvim_set_hl(0, 'StatusLineNC', { bg = '#30363d', fg = '#0d1117' })
+vim.cmd('colorscheme github_dark_colorblind')
